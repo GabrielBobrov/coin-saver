@@ -1,9 +1,10 @@
 {
   "version": 2,
-  "dgSpecHash": "5Uf7nyMZZzyORn1wwUap9AvJz5ytBsqtoYeBhHcIVresAC5qqbJDH1zSUpFTHCJJPit+7DGNPuTItkTVa3SviQ==",
+  "dgSpecHash": "yBkJiuYF27q2fllWbCdjMwrEWW32qfboi/sA+02UKe/jZF74XbxmL4ZYzNieBxGTBkVflBSSjyUEnqUY7pzXpg==",
   "success": true,
-  "projectFilePath": "/Users/gabrielgomesbobrovlopes/Desktop/dev/CoinSaverAPI/src/CoinSaver.Tests/CoinSaver.Tests.csproj",
+  "projectFilePath": "/Users/gabrielgomesbobrovlopes/Desktop/dev/CoinSaver/CoinSaverAPI/src/CoinSaver.Tests/CoinSaver.Tests.csproj",
   "expectedPackageFiles": [
+    "/Users/gabrielgomesbobrovlopes/.nuget/packages/fluentvalidation/11.1.0/fluentvalidation.11.1.0.nupkg.sha512",
     "/Users/gabrielgomesbobrovlopes/.nuget/packages/microsoft.extensions.apidescription.server/3.0.0/microsoft.extensions.apidescription.server.3.0.0.nupkg.sha512",
     "/Users/gabrielgomesbobrovlopes/.nuget/packages/microsoft.openapi/1.2.3/microsoft.openapi.1.2.3.nupkg.sha512",
     "/Users/gabrielgomesbobrovlopes/.nuget/packages/swashbuckle.aspnetcore/6.2.3/swashbuckle.aspnetcore.6.2.3.nupkg.sha512",

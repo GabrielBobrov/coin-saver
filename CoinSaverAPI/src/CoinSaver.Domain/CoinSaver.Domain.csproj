@@ -9,4 +9,16 @@
   <ItemGroup>
     <ProjectReference Include="..\CoinSaver.Core\CoinSaver.Core.csproj" />
   </ItemGroup>
+  <ItemGroup>
+    <None Remove="Entities\" />
+    <None Remove="FluentValidation" />
+    <None Remove="Validators\" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Entities\" />
+    <Folder Include="Validators\" />
+  </ItemGroup>
+  <ItemGroup>
+    <PackageReference Include="FluentValidation" Version="11.1.0" />
+  </ItemGroup>
 </Project>

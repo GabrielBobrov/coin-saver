@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "/Users/gabrielgomesbobrovlopes/Desktop/dev/CoinSaverAPI/src/CoinSaver.API/CoinSaver.API.csproj": {}
+    "/Users/gabrielgomesbobrovlopes/Desktop/dev/CoinSaver/CoinSaverAPI/src/CoinSaver.API/CoinSaver.API.csproj": {}
   },
   "projects": {
-    "/Users/gabrielgomesbobrovlopes/Desktop/dev/CoinSaverAPI/src/CoinSaver.API/CoinSaver.API.csproj": {
+    "/Users/gabrielgomesbobrovlopes/Desktop/dev/CoinSaver/CoinSaverAPI/src/CoinSaver.API/CoinSaver.API.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "/Users/gabrielgomesbobrovlopes/Desktop/dev/CoinSaverAPI/src/CoinSaver.API/CoinSaver.API.csproj",
+        "projectUniqueName": "/Users/gabrielgomesbobrovlopes/Desktop/dev/CoinSaver/CoinSaverAPI/src/CoinSaver.API/CoinSaver.API.csproj",
         "projectName": "CoinSaver.API",
-        "projectPath": "/Users/gabrielgomesbobrovlopes/Desktop/dev/CoinSaverAPI/src/CoinSaver.API/CoinSaver.API.csproj",
+        "projectPath": "/Users/gabrielgomesbobrovlopes/Desktop/dev/CoinSaver/CoinSaverAPI/src/CoinSaver.API/CoinSaver.API.csproj",
         "packagesPath": "/Users/gabrielgomesbobrovlopes/.nuget/packages/",
-        "outputPath": "/Users/gabrielgomesbobrovlopes/Desktop/dev/CoinSaverAPI/src/CoinSaver.API/obj/",
+        "outputPath": "/Users/gabrielgomesbobrovlopes/Desktop/dev/CoinSaver/CoinSaverAPI/src/CoinSaver.API/obj/",
         "projectStyle": "PackageReference",
         "configFilePaths": [
           "/Users/gabrielgomesbobrovlopes/.nuget/NuGet/NuGet.Config"
@@ -26,17 +26,17 @@
           "net6.0": {
             "targetAlias": "net6.0",
             "projectReferences": {
-              "/Users/gabrielgomesbobrovlopes/Desktop/dev/CoinSaverAPI/src/CoinSaver.Core/CoinSaver.Core.csproj": {
-                "projectPath": "/Users/gabrielgomesbobrovlopes/Desktop/dev/CoinSaverAPI/src/CoinSaver.Core/CoinSaver.Core.csproj"
+              "/Users/gabrielgomesbobrovlopes/Desktop/dev/CoinSaver/CoinSaverAPI/src/CoinSaver.Core/CoinSaver.Core.csproj": {
+                "projectPath": "/Users/gabrielgomesbobrovlopes/Desktop/dev/CoinSaver/CoinSaverAPI/src/CoinSaver.Core/CoinSaver.Core.csproj"
               },
-              "/Users/gabrielgomesbobrovlopes/Desktop/dev/CoinSaverAPI/src/CoinSaver.Domain/CoinSaver.Domain.csproj": {
-                "projectPath": "/Users/gabrielgomesbobrovlopes/Desktop/dev/CoinSaverAPI/src/CoinSaver.Domain/CoinSaver.Domain.csproj"
+              "/Users/gabrielgomesbobrovlopes/Desktop/dev/CoinSaver/CoinSaverAPI/src/CoinSaver.Domain/CoinSaver.Domain.csproj": {
+                "projectPath": "/Users/gabrielgomesbobrovlopes/Desktop/dev/CoinSaver/CoinSaverAPI/src/CoinSaver.Domain/CoinSaver.Domain.csproj"
               },
-              "/Users/gabrielgomesbobrovlopes/Desktop/dev/CoinSaverAPI/src/CoinSaver.Infra/CoinSaver.Infra.csproj": {
-                "projectPath": "/Users/gabrielgomesbobrovlopes/Desktop/dev/CoinSaverAPI/src/CoinSaver.Infra/CoinSaver.Infra.csproj"
+              "/Users/gabrielgomesbobrovlopes/Desktop/dev/CoinSaver/CoinSaverAPI/src/CoinSaver.Infra/CoinSaver.Infra.csproj": {
+                "projectPath": "/Users/gabrielgomesbobrovlopes/Desktop/dev/CoinSaver/CoinSaverAPI/src/CoinSaver.Infra/CoinSaver.Infra.csproj"
               },
-              "/Users/gabrielgomesbobrovlopes/Desktop/dev/CoinSaverAPI/src/CoinSaver.Services/CoinSaver.Services.csproj": {
-                "projectPath": "/Users/gabrielgomesbobrovlopes/Desktop/dev/CoinSaverAPI/src/CoinSaver.Services/CoinSaver.Services.csproj"
+              "/Users/gabrielgomesbobrovlopes/Desktop/dev/CoinSaver/CoinSaverAPI/src/CoinSaver.Services/CoinSaver.Services.csproj": {
+                "projectPath": "/Users/gabrielgomesbobrovlopes/Desktop/dev/CoinSaver/CoinSaverAPI/src/CoinSaver.Services/CoinSaver.Services.csproj"
               }
             }
           }
@@ -78,14 +78,14 @@
         }
       }
     },
-    "/Users/gabrielgomesbobrovlopes/Desktop/dev/CoinSaverAPI/src/CoinSaver.Core/CoinSaver.Core.csproj": {
+    "/Users/gabrielgomesbobrovlopes/Desktop/dev/CoinSaver/CoinSaverAPI/src/CoinSaver.Core/CoinSaver.Core.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "/Users/gabrielgomesbobrovlopes/Desktop/dev/CoinSaverAPI/src/CoinSaver.Core/CoinSaver.Core.csproj",
+        "projectUniqueName": "/Users/gabrielgomesbobrovlopes/Desktop/dev/CoinSaver/CoinSaverAPI/src/CoinSaver.Core/CoinSaver.Core.csproj",
         "projectName": "CoinSaver.Core",
-        "projectPath": "/Users/gabrielgomesbobrovlopes/Desktop/dev/CoinSaverAPI/src/CoinSaver.Core/CoinSaver.Core.csproj",
+        "projectPath": "/Users/gabrielgomesbobrovlopes/Desktop/dev/CoinSaver/CoinSaverAPI/src/CoinSaver.Core/CoinSaver.Core.csproj",
         "packagesPath": "/Users/gabrielgomesbobrovlopes/.nuget/packages/",
-        "outputPath": "/Users/gabrielgomesbobrovlopes/Desktop/dev/CoinSaverAPI/src/CoinSaver.Core/obj/",
+        "outputPath": "/Users/gabrielgomesbobrovlopes/Desktop/dev/CoinSaver/CoinSaverAPI/src/CoinSaver.Core/obj/",
         "projectStyle": "PackageReference",
         "configFilePaths": [
           "/Users/gabrielgomesbobrovlopes/.nuget/NuGet/NuGet.Config"
@@ -130,14 +130,14 @@
         }
       }
     },
-    "/Users/gabrielgomesbobrovlopes/Desktop/dev/CoinSaverAPI/src/CoinSaver.Domain/CoinSaver.Domain.csproj": {
+    "/Users/gabrielgomesbobrovlopes/Desktop/dev/CoinSaver/CoinSaverAPI/src/CoinSaver.Domain/CoinSaver.Domain.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "/Users/gabrielgomesbobrovlopes/Desktop/dev/CoinSaverAPI/src/CoinSaver.Domain/CoinSaver.Domain.csproj",
+        "projectUniqueName": "/Users/gabrielgomesbobrovlopes/Desktop/dev/CoinSaver/CoinSaverAPI/src/CoinSaver.Domain/CoinSaver.Domain.csproj",
         "projectName": "CoinSaver.Domain",
-        "projectPath": "/Users/gabrielgomesbobrovlopes/Desktop/dev/CoinSaverAPI/src/CoinSaver.Domain/CoinSaver.Domain.csproj",
+        "projectPath": "/Users/gabrielgomesbobrovlopes/Desktop/dev/CoinSaver/CoinSaverAPI/src/CoinSaver.Domain/CoinSaver.Domain.csproj",
         "packagesPath": "/Users/gabrielgomesbobrovlopes/.nuget/packages/",
-        "outputPath": "/Users/gabrielgomesbobrovlopes/Desktop/dev/CoinSaverAPI/src/CoinSaver.Domain/obj/",
+        "outputPath": "/Users/gabrielgomesbobrovlopes/Desktop/dev/CoinSaver/CoinSaverAPI/src/CoinSaver.Domain/obj/",
         "projectStyle": "PackageReference",
         "configFilePaths": [
           "/Users/gabrielgomesbobrovlopes/.nuget/NuGet/NuGet.Config"
@@ -152,8 +152,8 @@
           "net6.0": {
             "targetAlias": "net6.0",
             "projectReferences": {
-              "/Users/gabrielgomesbobrovlopes/Desktop/dev/CoinSaverAPI/src/CoinSaver.Core/CoinSaver.Core.csproj": {
-                "projectPath": "/Users/gabrielgomesbobrovlopes/Desktop/dev/CoinSaverAPI/src/CoinSaver.Core/CoinSaver.Core.csproj"
+              "/Users/gabrielgomesbobrovlopes/Desktop/dev/CoinSaver/CoinSaverAPI/src/CoinSaver.Core/CoinSaver.Core.csproj": {
+                "projectPath": "/Users/gabrielgomesbobrovlopes/Desktop/dev/CoinSaver/CoinSaverAPI/src/CoinSaver.Core/CoinSaver.Core.csproj"
               }
             }
           }
@@ -167,6 +167,12 @@
       "frameworks": {
         "net6.0": {
           "targetAlias": "net6.0",
+          "dependencies": {
+            "FluentValidation": {
+              "target": "Package",
+              "version": "[11.1.0, )"
+            }
+          },
           "imports": [
             "net461",
             "net462",
@@ -186,14 +192,14 @@
         }
       }
     },
-    "/Users/gabrielgomesbobrovlopes/Desktop/dev/CoinSaverAPI/src/CoinSaver.Infra/CoinSaver.Infra.csproj": {
+    "/Users/gabrielgomesbobrovlopes/Desktop/dev/CoinSaver/CoinSaverAPI/src/CoinSaver.Infra/CoinSaver.Infra.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "/Users/gabrielgomesbobrovlopes/Desktop/dev/CoinSaverAPI/src/CoinSaver.Infra/CoinSaver.Infra.csproj",
+        "projectUniqueName": "/Users/gabrielgomesbobrovlopes/Desktop/dev/CoinSaver/CoinSaverAPI/src/CoinSaver.Infra/CoinSaver.Infra.csproj",
         "projectName": "CoinSaver.Infra",
-        "projectPath": "/Users/gabrielgomesbobrovlopes/Desktop/dev/CoinSaverAPI/src/CoinSaver.Infra/CoinSaver.Infra.csproj",
+        "projectPath": "/Users/gabrielgomesbobrovlopes/Desktop/dev/CoinSaver/CoinSaverAPI/src/CoinSaver.Infra/CoinSaver.Infra.csproj",
         "packagesPath": "/Users/gabrielgomesbobrovlopes/.nuget/packages/",
-        "outputPath": "/Users/gabrielgomesbobrovlopes/Desktop/dev/CoinSaverAPI/src/CoinSaver.Infra/obj/",
+        "outputPath": "/Users/gabrielgomesbobrovlopes/Desktop/dev/CoinSaver/CoinSaverAPI/src/CoinSaver.Infra/obj/",
         "projectStyle": "PackageReference",
         "configFilePaths": [
           "/Users/gabrielgomesbobrovlopes/.nuget/NuGet/NuGet.Config"
@@ -208,11 +214,11 @@
           "net6.0": {
             "targetAlias": "net6.0",
             "projectReferences": {
-              "/Users/gabrielgomesbobrovlopes/Desktop/dev/CoinSaverAPI/src/CoinSaver.Core/CoinSaver.Core.csproj": {
-                "projectPath": "/Users/gabrielgomesbobrovlopes/Desktop/dev/CoinSaverAPI/src/CoinSaver.Core/CoinSaver.Core.csproj"
+              "/Users/gabrielgomesbobrovlopes/Desktop/dev/CoinSaver/CoinSaverAPI/src/CoinSaver.Core/CoinSaver.Core.csproj": {
+                "projectPath": "/Users/gabrielgomesbobrovlopes/Desktop/dev/CoinSaver/CoinSaverAPI/src/CoinSaver.Core/CoinSaver.Core.csproj"
               },
-              "/Users/gabrielgomesbobrovlopes/Desktop/dev/CoinSaverAPI/src/CoinSaver.Domain/CoinSaver.Domain.csproj": {
-                "projectPath": "/Users/gabrielgomesbobrovlopes/Desktop/dev/CoinSaverAPI/src/CoinSaver.Domain/CoinSaver.Domain.csproj"
+              "/Users/gabrielgomesbobrovlopes/Desktop/dev/CoinSaver/CoinSaverAPI/src/CoinSaver.Domain/CoinSaver.Domain.csproj": {
+                "projectPath": "/Users/gabrielgomesbobrovlopes/Desktop/dev/CoinSaver/CoinSaverAPI/src/CoinSaver.Domain/CoinSaver.Domain.csproj"
               }
             }
           }
@@ -245,14 +251,14 @@
         }
       }
     },
-    "/Users/gabrielgomesbobrovlopes/Desktop/dev/CoinSaverAPI/src/CoinSaver.Services/CoinSaver.Services.csproj": {
+    "/Users/gabrielgomesbobrovlopes/Desktop/dev/CoinSaver/CoinSaverAPI/src/CoinSaver.Services/CoinSaver.Services.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "/Users/gabrielgomesbobrovlopes/Desktop/dev/CoinSaverAPI/src/CoinSaver.Services/CoinSaver.Services.csproj",
+        "projectUniqueName": "/Users/gabrielgomesbobrovlopes/Desktop/dev/CoinSaver/CoinSaverAPI/src/CoinSaver.Services/CoinSaver.Services.csproj",
         "projectName": "CoinSaver.Services",
-        "projectPath": "/Users/gabrielgomesbobrovlopes/Desktop/dev/CoinSaverAPI/src/CoinSaver.Services/CoinSaver.Services.csproj",
+        "projectPath": "/Users/gabrielgomesbobrovlopes/Desktop/dev/CoinSaver/CoinSaverAPI/src/CoinSaver.Services/CoinSaver.Services.csproj",
         "packagesPath": "/Users/gabrielgomesbobrovlopes/.nuget/packages/",
-        "outputPath": "/Users/gabrielgomesbobrovlopes/Desktop/dev/CoinSaverAPI/src/CoinSaver.Services/obj/",
+        "outputPath": "/Users/gabrielgomesbobrovlopes/Desktop/dev/CoinSaver/CoinSaverAPI/src/CoinSaver.Services/obj/",
         "projectStyle": "PackageReference",
         "configFilePaths": [
           "/Users/gabrielgomesbobrovlopes/.nuget/NuGet/NuGet.Config"
@@ -267,14 +273,14 @@
           "net6.0": {
             "targetAlias": "net6.0",
             "projectReferences": {
-              "/Users/gabrielgomesbobrovlopes/Desktop/dev/CoinSaverAPI/src/CoinSaver.Core/CoinSaver.Core.csproj": {
-                "projectPath": "/Users/gabrielgomesbobrovlopes/Desktop/dev/CoinSaverAPI/src/CoinSaver.Core/CoinSaver.Core.csproj"
+              "/Users/gabrielgomesbobrovlopes/Desktop/dev/CoinSaver/CoinSaverAPI/src/CoinSaver.Core/CoinSaver.Core.csproj": {
+                "projectPath": "/Users/gabrielgomesbobrovlopes/Desktop/dev/CoinSaver/CoinSaverAPI/src/CoinSaver.Core/CoinSaver.Core.csproj"
               },
-              "/Users/gabrielgomesbobrovlopes/Desktop/dev/CoinSaverAPI/src/CoinSaver.Domain/CoinSaver.Domain.csproj": {
-                "projectPath": "/Users/gabrielgomesbobrovlopes/Desktop/dev/CoinSaverAPI/src/CoinSaver.Domain/CoinSaver.Domain.csproj"
+              "/Users/gabrielgomesbobrovlopes/Desktop/dev/CoinSaver/CoinSaverAPI/src/CoinSaver.Domain/CoinSaver.Domain.csproj": {
+                "projectPath": "/Users/gabrielgomesbobrovlopes/Desktop/dev/CoinSaver/CoinSaverAPI/src/CoinSaver.Domain/CoinSaver.Domain.csproj"
               },
-              "/Users/gabrielgomesbobrovlopes/Desktop/dev/CoinSaverAPI/src/CoinSaver.Infra/CoinSaver.Infra.csproj": {
-                "projectPath": "/Users/gabrielgomesbobrovlopes/Desktop/dev/CoinSaverAPI/src/CoinSaver.Infra/CoinSaver.Infra.csproj"
+              "/Users/gabrielgomesbobrovlopes/Desktop/dev/CoinSaver/CoinSaverAPI/src/CoinSaver.Infra/CoinSaver.Infra.csproj": {
+                "projectPath": "/Users/gabrielgomesbobrovlopes/Desktop/dev/CoinSaver/CoinSaverAPI/src/CoinSaver.Infra/CoinSaver.Infra.csproj"
               }
             }
           }

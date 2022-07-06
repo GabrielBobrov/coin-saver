@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "/Users/gabrielgomesbobrovlopes/Desktop/dev/CoinSaverAPI/src/CoinSaver.Core/CoinSaver.Core.csproj": {}
+    "/Users/gabrielgomesbobrovlopes/Desktop/dev/CoinSaver/CoinSaverAPI/src/CoinSaver.Core/CoinSaver.Core.csproj": {}
   },
   "projects": {
-    "/Users/gabrielgomesbobrovlopes/Desktop/dev/CoinSaverAPI/src/CoinSaver.Core/CoinSaver.Core.csproj": {
+    "/Users/gabrielgomesbobrovlopes/Desktop/dev/CoinSaver/CoinSaverAPI/src/CoinSaver.Core/CoinSaver.Core.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "/Users/gabrielgomesbobrovlopes/Desktop/dev/CoinSaverAPI/src/CoinSaver.Core/CoinSaver.Core.csproj",
+        "projectUniqueName": "/Users/gabrielgomesbobrovlopes/Desktop/dev/CoinSaver/CoinSaverAPI/src/CoinSaver.Core/CoinSaver.Core.csproj",
         "projectName": "CoinSaver.Core",
-        "projectPath": "/Users/gabrielgomesbobrovlopes/Desktop/dev/CoinSaverAPI/src/CoinSaver.Core/CoinSaver.Core.csproj",
+        "projectPath": "/Users/gabrielgomesbobrovlopes/Desktop/dev/CoinSaver/CoinSaverAPI/src/CoinSaver.Core/CoinSaver.Core.csproj",
         "packagesPath": "/Users/gabrielgomesbobrovlopes/.nuget/packages/",
-        "outputPath": "/Users/gabrielgomesbobrovlopes/Desktop/dev/CoinSaverAPI/src/CoinSaver.Core/obj/",
+        "outputPath": "/Users/gabrielgomesbobrovlopes/Desktop/dev/CoinSaver/CoinSaverAPI/src/CoinSaver.Core/obj/",
         "projectStyle": "PackageReference",
         "configFilePaths": [
           "/Users/gabrielgomesbobrovlopes/.nuget/NuGet/NuGet.Config"

@@ -1,8 +1,10 @@
 {
   "version": 2,
-  "dgSpecHash": "0L4p2UAUeJyNNJgUw84aktDyzeFk9I8P+44q5L582+kpJU7rXCPHYJFvG1MITMOLYElzcxIvGQewDLYaxRjY9w==",
+  "dgSpecHash": "yGMsPJ1cH20ysVkBFFzltYjbzMJWmmnk9SJskyOMe75xnM4ZqSisJyVelivYV1cKjfcXXA+NLXLZ4nLxYkZjnw==",
   "success": true,
-  "projectFilePath": "/Users/gabrielgomesbobrovlopes/Desktop/dev/CoinSaverAPI/src/CoinSaver.Services/CoinSaver.Services.csproj",
-  "expectedPackageFiles": [],
+  "projectFilePath": "/Users/gabrielgomesbobrovlopes/Desktop/dev/CoinSaver/CoinSaverAPI/src/CoinSaver.Services/CoinSaver.Services.csproj",
+  "expectedPackageFiles": [
+    "/Users/gabrielgomesbobrovlopes/.nuget/packages/fluentvalidation/11.1.0/fluentvalidation.11.1.0.nupkg.sha512"
+  ],
   "logs": []
 }
