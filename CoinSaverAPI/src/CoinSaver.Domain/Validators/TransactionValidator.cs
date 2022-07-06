@@ -1,11 +1,11 @@
 ﻿using FluentValidation;
 using CoinSaver.Domain.Entities;
 
-namespace R6.Domain.Validators
+namespace CoinSaver.Domain.Validators
 {
-    public class GunValidator : AbstractValidator<Transaction>
+    public class TransactionValidator : AbstractValidator<Transaction>
     {
-        public GunValidator()
+        public TransactionValidator()
         {
             RuleFor(x => x)
                 .NotEmpty()
