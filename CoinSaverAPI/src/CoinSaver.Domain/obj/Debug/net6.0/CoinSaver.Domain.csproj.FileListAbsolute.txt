@@ -1,0 +1,15 @@
+/Users/gabrielgomesbobrovlopes/Desktop/dev/CoinSaverAPI/src/CoinSaver.Domain/bin/Debug/net6.0/CoinSaver.Domain.deps.json
+/Users/gabrielgomesbobrovlopes/Desktop/dev/CoinSaverAPI/src/CoinSaver.Domain/bin/Debug/net6.0/CoinSaver.Domain.dll
+/Users/gabrielgomesbobrovlopes/Desktop/dev/CoinSaverAPI/src/CoinSaver.Domain/bin/Debug/net6.0/CoinSaver.Domain.pdb
+/Users/gabrielgomesbobrovlopes/Desktop/dev/CoinSaverAPI/src/CoinSaver.Domain/bin/Debug/net6.0/CoinSaver.Core.dll
+/Users/gabrielgomesbobrovlopes/Desktop/dev/CoinSaverAPI/src/CoinSaver.Domain/bin/Debug/net6.0/CoinSaver.Core.pdb
+/Users/gabrielgomesbobrovlopes/Desktop/dev/CoinSaverAPI/src/CoinSaver.Domain/obj/Debug/net6.0/CoinSaver.Domain.csproj.AssemblyReference.cache
+/Users/gabrielgomesbobrovlopes/Desktop/dev/CoinSaverAPI/src/CoinSaver.Domain/obj/Debug/net6.0/CoinSaver.Domain.GeneratedMSBuildEditorConfig.editorconfig
+/Users/gabrielgomesbobrovlopes/Desktop/dev/CoinSaverAPI/src/CoinSaver.Domain/obj/Debug/net6.0/CoinSaver.Domain.AssemblyInfoInputs.cache
+/Users/gabrielgomesbobrovlopes/Desktop/dev/CoinSaverAPI/src/CoinSaver.Domain/obj/Debug/net6.0/CoinSaver.Domain.AssemblyInfo.cs
+/Users/gabrielgomesbobrovlopes/Desktop/dev/CoinSaverAPI/src/CoinSaver.Domain/obj/Debug/net6.0/CoinSaver.Domain.csproj.CoreCompileInputs.cache
+/Users/gabrielgomesbobrovlopes/Desktop/dev/CoinSaverAPI/src/CoinSaver.Domain/obj/Debug/net6.0/CoinSaver.Domain.csproj.CopyComplete
+/Users/gabrielgomesbobrovlopes/Desktop/dev/CoinSaverAPI/src/CoinSaver.Domain/obj/Debug/net6.0/CoinSaver.Domain.dll
+/Users/gabrielgomesbobrovlopes/Desktop/dev/CoinSaverAPI/src/CoinSaver.Domain/obj/Debug/net6.0/refint/CoinSaver.Domain.dll
+/Users/gabrielgomesbobrovlopes/Desktop/dev/CoinSaverAPI/src/CoinSaver.Domain/obj/Debug/net6.0/CoinSaver.Domain.pdb
+/Users/gabrielgomesbobrovlopes/Desktop/dev/CoinSaverAPI/src/CoinSaver.Domain/obj/Debug/net6.0/ref/CoinSaver.Domain.dll

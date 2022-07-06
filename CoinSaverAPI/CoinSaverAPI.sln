@@ -1,0 +1,52 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.30114.105
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CoinSaver.API", "src\CoinSaver.API\CoinSaver.API.csproj", "{6209DB3F-B0F7-423B-AE6A-283EAB23722F}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CoinSaver.Tests", "src\CoinSaver.Tests\CoinSaver.Tests.csproj", "{0C000BD8-6481-40E1-9727-097F5CF1A954}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CoinSaver.Services", "src\CoinSaver.Services\CoinSaver.Services.csproj", "{37A8B252-07E3-40B1-A5F8-1A7C6235F9D3}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CoinSaver.Infra", "src\CoinSaver.Infra\CoinSaver.Infra.csproj", "{AA67330D-DAD6-47FC-BEC0-AE6AC914FB06}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CoinSaver.Domain", "src\CoinSaver.Domain\CoinSaver.Domain.csproj", "{3E3AF8EB-F94C-46AE-9B1C-E9245EECAE15}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CoinSaver.Core", "src\CoinSaver.Core\CoinSaver.Core.csproj", "{36DA3FFA-64E1-4070-A5AC-F2BE243CE7E3}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{6209DB3F-B0F7-423B-AE6A-283EAB23722F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{6209DB3F-B0F7-423B-AE6A-283EAB23722F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{6209DB3F-B0F7-423B-AE6A-283EAB23722F}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{6209DB3F-B0F7-423B-AE6A-283EAB23722F}.Release|Any CPU.Build.0 = Release|Any CPU
+		{0C000BD8-6481-40E1-9727-097F5CF1A954}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{0C000BD8-6481-40E1-9727-097F5CF1A954}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{0C000BD8-6481-40E1-9727-097F5CF1A954}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{0C000BD8-6481-40E1-9727-097F5CF1A954}.Release|Any CPU.Build.0 = Release|Any CPU
+		{37A8B252-07E3-40B1-A5F8-1A7C6235F9D3}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{37A8B252-07E3-40B1-A5F8-1A7C6235F9D3}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{37A8B252-07E3-40B1-A5F8-1A7C6235F9D3}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{37A8B252-07E3-40B1-A5F8-1A7C6235F9D3}.Release|Any CPU.Build.0 = Release|Any CPU
+		{AA67330D-DAD6-47FC-BEC0-AE6AC914FB06}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{AA67330D-DAD6-47FC-BEC0-AE6AC914FB06}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{AA67330D-DAD6-47FC-BEC0-AE6AC914FB06}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{AA67330D-DAD6-47FC-BEC0-AE6AC914FB06}.Release|Any CPU.Build.0 = Release|Any CPU
+		{3E3AF8EB-F94C-46AE-9B1C-E9245EECAE15}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{3E3AF8EB-F94C-46AE-9B1C-E9245EECAE15}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{3E3AF8EB-F94C-46AE-9B1C-E9245EECAE15}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{3E3AF8EB-F94C-46AE-9B1C-E9245EECAE15}.Release|Any CPU.Build.0 = Release|Any CPU
+		{36DA3FFA-64E1-4070-A5AC-F2BE243CE7E3}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{36DA3FFA-64E1-4070-A5AC-F2BE243CE7E3}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{36DA3FFA-64E1-4070-A5AC-F2BE243CE7E3}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{36DA3FFA-64E1-4070-A5AC-F2BE243CE7E3}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+EndGlobal

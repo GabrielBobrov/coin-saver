@@ -1,0 +1,133 @@
+{
+  "version": 3,
+  "targets": {
+    "net6.0": {
+      "CoinSaver.Core/1.0.0": {
+        "type": "project",
+        "framework": ".NETCoreApp,Version=v6.0",
+        "compile": {
+          "bin/placeholder/CoinSaver.Core.dll": {}
+        },
+        "runtime": {
+          "bin/placeholder/CoinSaver.Core.dll": {}
+        }
+      },
+      "CoinSaver.Domain/1.0.0": {
+        "type": "project",
+        "framework": ".NETCoreApp,Version=v6.0",
+        "dependencies": {
+          "CoinSaver.Core": "1.0.0"
+        },
+        "compile": {
+          "bin/placeholder/CoinSaver.Domain.dll": {}
+        },
+        "runtime": {
+          "bin/placeholder/CoinSaver.Domain.dll": {}
+        }
+      },
+      "CoinSaver.Infra/1.0.0": {
+        "type": "project",
+        "framework": ".NETCoreApp,Version=v6.0",
+        "dependencies": {
+          "CoinSaver.Core": "1.0.0",
+          "CoinSaver.Domain": "1.0.0"
+        },
+        "compile": {
+          "bin/placeholder/CoinSaver.Infra.dll": {}
+        },
+        "runtime": {
+          "bin/placeholder/CoinSaver.Infra.dll": {}
+        }
+      }
+    }
+  },
+  "libraries": {
+    "CoinSaver.Core/1.0.0": {
+      "type": "project",
+      "path": "../CoinSaver.Core/CoinSaver.Core.csproj",
+      "msbuildProject": "../CoinSaver.Core/CoinSaver.Core.csproj"
+    },
+    "CoinSaver.Domain/1.0.0": {
+      "type": "project",
+      "path": "../CoinSaver.Domain/CoinSaver.Domain.csproj",
+      "msbuildProject": "../CoinSaver.Domain/CoinSaver.Domain.csproj"
+    },
+    "CoinSaver.Infra/1.0.0": {
+      "type": "project",
+      "path": "../CoinSaver.Infra/CoinSaver.Infra.csproj",
+      "msbuildProject": "../CoinSaver.Infra/CoinSaver.Infra.csproj"
+    }
+  },
+  "projectFileDependencyGroups": {
+    "net6.0": [
+      "CoinSaver.Core >= 1.0.0",
+      "CoinSaver.Domain >= 1.0.0",
+      "CoinSaver.Infra >= 1.0.0"
+    ]
+  },
+  "packageFolders": {
+    "/Users/gabrielgomesbobrovlopes/.nuget/packages/": {}
+  },
+  "project": {
+    "version": "1.0.0",
+    "restore": {
+      "projectUniqueName": "/Users/gabrielgomesbobrovlopes/Desktop/dev/CoinSaverAPI/src/CoinSaver.Services/CoinSaver.Services.csproj",
+      "projectName": "CoinSaver.Services",
+      "projectPath": "/Users/gabrielgomesbobrovlopes/Desktop/dev/CoinSaverAPI/src/CoinSaver.Services/CoinSaver.Services.csproj",
+      "packagesPath": "/Users/gabrielgomesbobrovlopes/.nuget/packages/",
+      "outputPath": "/Users/gabrielgomesbobrovlopes/Desktop/dev/CoinSaverAPI/src/CoinSaver.Services/obj/",
+      "projectStyle": "PackageReference",
+      "configFilePaths": [
+        "/Users/gabrielgomesbobrovlopes/.nuget/NuGet/NuGet.Config"
+      ],
+      "originalTargetFrameworks": [
+        "net6.0"
+      ],
+      "sources": {
+        "https://api.nuget.org/v3/index.json": {}
+      },
+      "frameworks": {
+        "net6.0": {
+          "targetAlias": "net6.0",
+          "projectReferences": {
+            "/Users/gabrielgomesbobrovlopes/Desktop/dev/CoinSaverAPI/src/CoinSaver.Core/CoinSaver.Core.csproj": {
+              "projectPath": "/Users/gabrielgomesbobrovlopes/Desktop/dev/CoinSaverAPI/src/CoinSaver.Core/CoinSaver.Core.csproj"
+            },
+            "/Users/gabrielgomesbobrovlopes/Desktop/dev/CoinSaverAPI/src/CoinSaver.Domain/CoinSaver.Domain.csproj": {
+              "projectPath": "/Users/gabrielgomesbobrovlopes/Desktop/dev/CoinSaverAPI/src/CoinSaver.Domain/CoinSaver.Domain.csproj"
+            },
+            "/Users/gabrielgomesbobrovlopes/Desktop/dev/CoinSaverAPI/src/CoinSaver.Infra/CoinSaver.Infra.csproj": {
+              "projectPath": "/Users/gabrielgomesbobrovlopes/Desktop/dev/CoinSaverAPI/src/CoinSaver.Infra/CoinSaver.Infra.csproj"
+            }
+          }
+        }
+      },
+      "warningProperties": {
+        "warnAsError": [
+          "NU1605"
+        ]
+      }
+    },
+    "frameworks": {
+      "net6.0": {
+        "targetAlias": "net6.0",
+        "imports": [
+          "net461",
+          "net462",
+          "net47",
+          "net471",
+          "net472",
+          "net48"
+        ],
+        "assetTargetFallback": true,
+        "warn": true,
+        "frameworkReferences": {
+          "Microsoft.NETCore.App": {
+            "privateAssets": "all"
+          }
+        },
+        "runtimeIdentifierGraphPath": "/usr/local/share/dotnet/sdk/6.0.300/RuntimeIdentifierGraph.json"
+      }
+    }
+  }
+}

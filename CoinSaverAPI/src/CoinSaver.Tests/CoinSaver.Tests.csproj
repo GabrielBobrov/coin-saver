@@ -1,0 +1,16 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net6.0</TargetFramework>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <Nullable>enable</Nullable>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\CoinSaver.API\CoinSaver.API.csproj" />
+    <ProjectReference Include="..\CoinSaver.Core\CoinSaver.Core.csproj" />
+    <ProjectReference Include="..\CoinSaver.Domain\CoinSaver.Domain.csproj" />
+    <ProjectReference Include="..\CoinSaver.Infra\CoinSaver.Infra.csproj" />
+    <ProjectReference Include="..\CoinSaver.Services\CoinSaver.Services.csproj" />
+  </ItemGroup>
+</Project>
