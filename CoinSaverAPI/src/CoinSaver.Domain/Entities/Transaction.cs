@@ -1,6 +1,6 @@
 ﻿using System;
 using System.ComponentModel.DataAnnotations;
-using R6.Domain.Validators;
+using CoinSaver.Domain.Validators;
 
 namespace CoinSaver.Domain.Entities
 {
