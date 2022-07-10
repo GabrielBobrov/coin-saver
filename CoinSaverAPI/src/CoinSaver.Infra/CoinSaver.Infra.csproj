@@ -10,4 +10,10 @@
     <ProjectReference Include="..\CoinSaver.Domain\CoinSaver.Domain.csproj" />
     <ProjectReference Include="..\CoinSaver.Core\CoinSaver.Core.csproj" />
   </ItemGroup>
+  <ItemGroup>
+    <None Remove="Repositories\" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Repositories\" />
+  </ItemGroup>
 </Project>
