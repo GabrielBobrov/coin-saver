@@ -4,11 +4,10 @@ using CoinSaver.Infra.Mappings;
 using Microsoft.EntityFrameworkCore;
 using CoinSaver.Infra.Configuration;
 using Npgsql;
-using System.Data.Entity;
 
 namespace CoinSaver.Infra.Context
 {
-    public class CoinSaverContext : System.Data.Entity.DbContext
+    public class CoinSaverContext : DbContext
     {
 
         static CoinSaverContext()

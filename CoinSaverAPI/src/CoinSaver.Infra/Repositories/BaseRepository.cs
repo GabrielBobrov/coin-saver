@@ -64,7 +64,7 @@ namespace CoinSaver.Infra.Repositories
                                  .ToListAsync();
         }
 
-        public virtual async Task<T> GetAsync(
+        public virtual async Task<T>? GetAsync(
             Expression<Func<T, bool>> expression,
             bool asNoTracking = true)
                 => asNoTracking

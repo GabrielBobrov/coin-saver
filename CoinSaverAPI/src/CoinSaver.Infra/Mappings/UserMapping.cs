@@ -20,19 +20,6 @@ namespace CoinSaver.Infra.Mappings
                 .HasMaxLength(80)
                 .HasColumnName("Name")
                 .HasColumnType("VARCHAR(80)");
-
-            builder.HasOne(c => c.Operator)
-                .WithOne(o => o.Gun)
-                .HasForeignKey<Gun>(f => f.operatorId);
-
-            builder.Property(x => x.PrimaryGunType)
-                .HasColumnName("PrimaryGunType")
-                .IsRequired(false);
-
-            builder.Property(x => x.SecondaryGunType)
-                .HasColumnName("SecondaryGunType")
-                .IsRequired(false);
-
         }
     }
 }
