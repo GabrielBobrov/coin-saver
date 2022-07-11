@@ -15,7 +15,6 @@
     <None Remove="Validators\" />
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="Entities\" />
     <Folder Include="Validators\" />
   </ItemGroup>
   <ItemGroup>
