@@ -8,7 +8,9 @@ namespace CoinSaver.Infra.Configuration
     {
         public static ModelBuilder AddMappings(this ModelBuilder modelBuilder)
         {
-            modelBuilder.ApplyConfiguration(new OperatorMapping());
+            modelBuilder.ApplyConfiguration(new UserMapping());
+            modelBuilder.ApplyConfiguration(new BankAccountMapping());
+            modelBuilder.ApplyConfiguration(new TransactionMapping());
 
             return modelBuilder;
         }

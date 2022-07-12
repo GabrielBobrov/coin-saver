@@ -4,21 +4,21 @@ using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
 namespace CoinSaver.Infra.Mappings
 {
-    public class UserMapping : IEntityTypeConfiguration<User>
+    public class BankAccountMapping : IEntityTypeConfiguration<BankAccount>
     {
-        public void Configure(EntityTypeBuilder<User> builder)
+        public void Configure(EntityTypeBuilder<BankAccount> builder)
         {
-            builder.ToTable("User");
+            builder.ToTable("BankAccount");
 
             builder.HasKey(x => x.Id);
 
             builder.Property(x => x.Id)
                 .HasColumnType("BIGINT");
 
-            builder.Property(x => x.Name)
+            builder.Property(x => x.AccountDigit)
                 .IsRequired()
                 .HasMaxLength(80)
-                .HasColumnName("Name")
+                .HasColumnName("AccountDigit")
                 .HasColumnType("VARCHAR(80)");
         }
     }

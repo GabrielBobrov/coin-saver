@@ -4,22 +4,20 @@ using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
 namespace CoinSaver.Infra.Mappings
 {
-    public class UserMapping : IEntityTypeConfiguration<User>
+    public class TransactionMapping : IEntityTypeConfiguration<Transaction>
     {
-        public void Configure(EntityTypeBuilder<User> builder)
+        public void Configure(EntityTypeBuilder<Transaction> builder)
         {
-            builder.ToTable("User");
+            builder.ToTable("Transaction");
 
             builder.HasKey(x => x.Id);
 
             builder.Property(x => x.Id)
                 .HasColumnType("BIGINT");
 
-            builder.Property(x => x.Name)
+            builder.Property(x => x.Amount)
                 .IsRequired()
-                .HasMaxLength(80)
-                .HasColumnName("Name")
-                .HasColumnType("VARCHAR(80)");
+                .HasColumnName("Amount");
         }
     }
 }

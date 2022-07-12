@@ -22,10 +22,10 @@ namespace CoinSaver.Infra.Context
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuider)
         {
-            optionsBuider.UseNpgsql("Server=127.0.0.1;Port=5432;Database=r6db;User Id=postgres;Password=gabriel123;Timeout=15;");
+            optionsBuider.UseNpgsql("Server=127.0.0.1;Port=5432;Database=CoinSaverDB;User Id=postgres;Password=gabriel123;Timeout=15;");
         }
 
-        public virtual DbSet<User> Users { get; set; }
+        public virtual DbSet<BankAccount> Users { get; set; }
 
         protected override void OnModelCreating(ModelBuilder builder)
         {

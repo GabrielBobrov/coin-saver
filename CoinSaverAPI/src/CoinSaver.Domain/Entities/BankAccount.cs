@@ -1,6 +1,6 @@
 ﻿namespace CoinSaver.Domain.Entities
 {
-    public class BankAccount
+    public class BankAccount : Base
     {
         /// <summary>
         /// Id do usuário.
