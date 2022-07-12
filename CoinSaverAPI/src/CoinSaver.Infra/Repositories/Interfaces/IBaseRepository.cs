@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using System.Linq.Expressions;
 using System;
 
-namespace CoinSaver.Infra.Interfaces
+namespace CoinSaver.Infra.Repositories.Interfaces
 {
     public interface IBaseRepository<T> where T : Base
     {

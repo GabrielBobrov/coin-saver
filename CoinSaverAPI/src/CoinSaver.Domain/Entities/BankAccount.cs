@@ -28,7 +28,6 @@
         public string AccountDigit { get; set; }
 
         // EF Relations
-
-        public BankAccount User { get; set; }
+        public User User { get; set; }
     }
 }

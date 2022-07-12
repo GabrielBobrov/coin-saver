@@ -1,4 +1,5 @@
-﻿using CoinSaver.Domain.Validators;
+﻿using System.ComponentModel.DataAnnotations.Schema;
+using CoinSaver.Domain.Validators;
 
 namespace CoinSaver.Domain.Entities
 {
@@ -25,7 +26,6 @@ namespace CoinSaver.Domain.Entities
         public DateTime? BlockedAt { get; set; }
 
         // EF Relations
-
         public List<BankAccount> BankAccounts { get; set; }
 
         public bool Validate()
