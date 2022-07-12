@@ -11,4 +11,18 @@
     <ProjectReference Include="..\CoinSaver.Domain\CoinSaver.Domain.csproj" />
     <ProjectReference Include="..\CoinSaver.Infra\CoinSaver.Infra.csproj" />
   </ItemGroup>
+  <ItemGroup>
+    <None Remove="Services\" />
+    <None Remove="Services\Interfaces\" />
+    <None Remove="Dtos\" />
+    <None Remove="AutoMapper" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Services\" />
+    <Folder Include="Services\Interfaces\" />
+    <Folder Include="Dtos\" />
+  </ItemGroup>
+  <ItemGroup>
+    <PackageReference Include="AutoMapper" Version="11.0.1" />
+  </ItemGroup>
 </Project>

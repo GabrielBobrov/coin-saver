@@ -1,13 +1,8 @@
-﻿using System.Linq;
-using CoinSaver.Infra.Context;
-using System.Threading.Tasks;
+﻿using CoinSaver.Infra.Context;
 using CoinSaver.Domain.Entities;
-using CoinSaver.Infra.Interfaces;
 using Microsoft.EntityFrameworkCore;
-using System.Collections.Generic;
 using System.Linq.Expressions;
-using System;
-using CoinSaver.Infra.Interfaces;
+using CoinSaver.Infra.Repositories.Interfaces;
 
 namespace CoinSaver.Infra.Repositories
 {

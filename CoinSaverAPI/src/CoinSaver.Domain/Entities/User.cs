@@ -1,4 +1,6 @@
-﻿namespace CoinSaver.Domain.Entities
+﻿using CoinSaver.Domain.Validators;
+
+namespace CoinSaver.Domain.Entities
 {
     public class User : Base
     {
@@ -25,5 +27,8 @@
         // EF Relations
 
         public List<BankAccount> BankAccounts { get; set; }
+
+        public bool Validate()
+            => base.Validate(new UserValidator(), this);
     }
 }

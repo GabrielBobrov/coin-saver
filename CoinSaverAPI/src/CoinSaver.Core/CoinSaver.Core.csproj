@@ -9,12 +9,28 @@
   <ItemGroup>
     <None Remove="Enums\" />
     <None Remove="Structs\" />
+    <None Remove="Mediator\" />
+    <None Remove="Mediator\Interface\" />
+    <None Remove="MediatR" />
+    <None Remove="Messages\" />
+    <None Remove="Messages\Notifications\" />
+    <None Remove="Validation\" />
+    <None Remove="Validation\Messages\" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Enums\" />
     <Folder Include="Structs\" />
+    <Folder Include="Mediator\" />
+    <Folder Include="Mediator\Interface\" />
+    <Folder Include="Messages\" />
+    <Folder Include="Messages\Notification\" />
+    <Folder Include="Validation\" />
+    <Folder Include="Validation\Messages\" />
   </ItemGroup>
   <ItemGroup>
     <None Include="..\..\.editorconfig" />
+  </ItemGroup>
+  <ItemGroup>
+    <PackageReference Include="MediatR" Version="10.0.1" />
   </ItemGroup>
 </Project>

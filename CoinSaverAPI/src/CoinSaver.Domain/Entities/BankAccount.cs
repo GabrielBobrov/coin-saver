@@ -29,6 +29,6 @@
 
         // EF Relations
 
-        public User User { get; set; }
+        public BankAccount User { get; set; }
     }
 }
