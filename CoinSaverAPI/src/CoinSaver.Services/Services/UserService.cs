@@ -38,7 +38,7 @@ namespace CoinSaver.Services.Services
 
             var userExists = await _operatorRepository.GetAsync(filter);
 
-            if (userExists != null)
+            if (userExists is not null)
             {
                 await _mediator.PublishDomainNotificationAsync(new DomainNotification(
                     ErrorMessages.UserAlreadyExists,

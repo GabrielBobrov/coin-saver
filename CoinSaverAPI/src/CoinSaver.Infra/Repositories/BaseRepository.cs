@@ -35,7 +35,7 @@ namespace CoinSaver.Infra.Repositories
         {
             var obj = await GetAsync(id);
 
-            if (obj != null)
+            if (obj is not null)
             {
                 _context.Remove(obj);
                 await _context.SaveChangesAsync();
