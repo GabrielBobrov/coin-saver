@@ -9,10 +9,10 @@ namespace CoinSaver.Domain.Validators
         {
             RuleFor(x => x)
                 .NotEmpty()
-                .WithMessage("A entidade não pode ser vazia.")
+                .WithMessage("A entidade não pode ser vazia")
 
                 .NotNull()
-                .WithMessage("A entidade não pode ser nula.");
+                .WithMessage("A entidade não pode ser nula");
         }
     }
 }
