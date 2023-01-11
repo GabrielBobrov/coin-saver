@@ -1,4 +1,4 @@
-package com.coinsaver.validation.messages;
+package com.coinsaver.core.validation.messages;
 
 public class ErrorMesssages {
 	
