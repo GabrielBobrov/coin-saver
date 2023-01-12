@@ -23,14 +23,14 @@ import lombok.EqualsAndHashCode;
 @Data
 @EqualsAndHashCode(onlyExplicitlyIncluded = true)
 @Entity
-public class Transaction {
+public class TransactionMade {
 	
 	@EqualsAndHashCode.Include
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
 	
-	@Column
+	@Column(nullable = false)
 	private BigDecimal amount;
 	
 	@CreationTimestamp
@@ -49,12 +49,6 @@ public class Transaction {
 	@Enumerated(EnumType.ORDINAL)
 	@Column(nullable = false)
 	private TransactionCategoryType category;
-	
-	@Column
-	private Boolean fixedExpense;
-	
-	@Column
-	private Integer repeat;
 	
 	@ManyToOne
 	@JoinColumn(name = "user_id")

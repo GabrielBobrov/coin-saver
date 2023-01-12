@@ -1,5 +1,6 @@
 package com.coinsaver.domain.entities;
 
+import java.math.BigDecimal;
 import java.time.LocalDateTime;
 
 import org.hibernate.annotations.CreationTimestamp;
@@ -15,7 +16,7 @@ import lombok.EqualsAndHashCode;
 @Data
 @EqualsAndHashCode(onlyExplicitlyIncluded = true)
 @Entity
-public class User {
+public class Client {
 	
 	@EqualsAndHashCode.Include
 	@Id
@@ -29,8 +30,10 @@ public class User {
 	private String email;
 	
 	@CreationTimestamp
+	@Column(nullable = false)
 	private LocalDateTime createdAt;
 	
-	//TODO: relação com bank accounts
-	
+	@Column(nullable = false)
+	private BigDecimal balance;
+		
 }
