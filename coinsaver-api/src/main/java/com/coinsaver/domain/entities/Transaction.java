@@ -45,7 +45,7 @@ public class Transaction {
 	@Column(nullable = false)
 	private TransactionCategoryType category;
 	
-	@ManyToOne()
+	@ManyToOne
 	private User user;
 
 }
