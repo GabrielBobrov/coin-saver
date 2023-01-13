@@ -41,6 +41,9 @@ local.properties
 # Tern plugin
 .tern-project
 
+#intelij
+.idea/
+
 # TeXlipse plugin
 .texlipse
 
