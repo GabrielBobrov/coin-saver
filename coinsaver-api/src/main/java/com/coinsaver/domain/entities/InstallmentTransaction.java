@@ -55,7 +55,7 @@ public class InstallmentTransaction {
 	private Transaction transaction;
 	
 	@ManyToOne
-	@JoinColumn(name = "user_id")
-	private Client user;
+	@JoinColumn(name = "client_id")
+	private Client client;
 
 }
