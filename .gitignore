@@ -41,8 +41,11 @@ local.properties
 # Tern plugin
 .tern-project
 
-#intelij
-.idea/
+### IntelliJ IDEA ###
+.idea
+*.iws
+*.iml
+*.ipr
 
 # TeXlipse plugin
 .texlipse
