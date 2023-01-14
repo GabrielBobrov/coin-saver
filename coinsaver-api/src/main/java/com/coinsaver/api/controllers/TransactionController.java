@@ -1,7 +1,7 @@
 package com.coinsaver.api.controllers;
 
 import com.coinsaver.domain.entities.Transaction;
-import com.coinsaver.services.TransactionService;
+import com.coinsaver.services.interfaces.TransactionService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
