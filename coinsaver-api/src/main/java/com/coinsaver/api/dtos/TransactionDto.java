@@ -3,14 +3,14 @@ package com.coinsaver.api.dtos;
 import com.coinsaver.core.enums.StatusType;
 import com.coinsaver.core.enums.TransactionCategoryType;
 import com.coinsaver.domain.entities.Transaction;
-import jakarta.validation.constraints.NotBlank;
-import jakarta.validation.constraints.NotNull;
+
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 import org.modelmapper.ModelMapper;
 
+import javax.validation.constraints.NotNull;
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
 
@@ -25,7 +25,6 @@ public class TransactionDto {
     @NotNull(message = "Informe o valor")
     private BigDecimal amount;
 
-    @NotBlank
     private LocalDateTime payDay;
 
     private String description;
