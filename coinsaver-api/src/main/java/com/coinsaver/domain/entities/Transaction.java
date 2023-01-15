@@ -1,11 +1,13 @@
 package com.coinsaver.domain.entities;
 
+import com.coinsaver.api.dtos.TransactionDto;
 import com.coinsaver.core.enums.StatusType;
 import com.coinsaver.core.enums.TransactionCategoryType;
 import jakarta.persistence.*;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import org.hibernate.annotations.CreationTimestamp;
+import org.modelmapper.ModelMapper;
 
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
@@ -49,5 +51,9 @@ public class Transaction {
 	@ManyToOne
 	@JoinColumn(name = "client_id")
 	private Client client;
+
+	public TransactionDto convertEntityToDto() {
+		return new ModelMapper().map(this, TransactionDto.class);
+	}
 
 }

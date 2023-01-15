@@ -1,12 +1,10 @@
 package com.coinsaver.services;
 
-import com.coinsaver.domain.entities.Transaction;
+import com.coinsaver.api.dtos.TransactionDto;
 import com.coinsaver.infra.repositories.TransactionRepository;
 import com.coinsaver.services.interfaces.TransactionService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-
-import java.util.Optional;
 
 @Service
 public class TransactionServiceImpl implements TransactionService {
@@ -15,8 +13,16 @@ public class TransactionServiceImpl implements TransactionService {
     private TransactionRepository transactionRepository;
 
     @Override
-    public Optional<Transaction> getTransaction(Long transactionId) {
+    public TransactionDto getTransaction(Long transactionId) {
+        var transaction = transactionRepository.findById(transactionId).orElseThrow();
 
-        return transactionRepository.findById(transactionId);
+        return transaction.convertEntityToDto();
+    }
+
+    @Override
+    public TransactionDto createTransaction(TransactionDto transactionDto) {
+        var transaction = transactionRepository.save(transactionDto.convertDtoToEntity());
+
+        return transaction.convertEntityToDto();
     }
 }

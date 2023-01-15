@@ -1,9 +1,9 @@
 package com.coinsaver.services.interfaces;
 
-import com.coinsaver.domain.entities.Transaction;
-
-import java.util.Optional;
+import com.coinsaver.api.dtos.TransactionDto;
 
 public interface TransactionService {
-    Optional<Transaction> getTransaction(Long transactionId);
+    TransactionDto getTransaction(Long transactionId);
+
+    TransactionDto createTransaction(TransactionDto transactionDto);
 }

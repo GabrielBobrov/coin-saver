@@ -1,14 +1,10 @@
 package com.coinsaver.api.controllers;
 
-import com.coinsaver.domain.entities.Transaction;
+import com.coinsaver.api.dtos.TransactionDto;
 import com.coinsaver.services.interfaces.TransactionService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
-
-import java.util.Optional;
+import org.springframework.http.HttpStatus;
+import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping(value = "/transactions")
@@ -18,8 +14,15 @@ public class TransactionController {
     private TransactionService transactionService;
 
     @GetMapping("/{transactionId}")
-    public Optional<Transaction> getTransaction ( @PathVariable Long transactionId) {
+    public TransactionDto getTransaction(@PathVariable Long transactionId) {
 
         return transactionService.getTransaction(transactionId);
+    }
+
+    @PostMapping
+    @ResponseStatus(HttpStatus.CREATED)
+    public TransactionDto createTransaction(@RequestBody TransactionDto transactionDto) {
+
+        return transactionService.createTransaction(transactionDto);
     }
 }
