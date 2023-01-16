@@ -2,6 +2,7 @@ package com.coinsaver.api.dtos;
 
 import com.coinsaver.core.enums.StatusType;
 import com.coinsaver.core.enums.TransactionCategoryType;
+import com.coinsaver.domain.entities.InstallmentTransaction;
 import com.coinsaver.domain.entities.Transaction;
 
 import lombok.AllArgsConstructor;
@@ -22,7 +23,7 @@ public class TransactionDto {
 
     private Long id;
 
-    @NotNull(message = "Informe o valor")
+    @NotNull
     private BigDecimal amount;
 
     private LocalDateTime payDay;
@@ -37,7 +38,11 @@ public class TransactionDto {
 
     private Integer repeat;
 
-    public Transaction convertDtoToEntity() {
+    public Transaction convertDtoToTransactionEntity() {
         return new ModelMapper().map(this, Transaction.class);
+    }
+
+    public InstallmentTransaction convertDtoToInstallmentTransactionEntity() {
+        return new ModelMapper().map(this, InstallmentTransaction.class);
     }
 }

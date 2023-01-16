@@ -62,8 +62,7 @@ public class ApiExceptionHandler extends ResponseEntityExceptionHandler {
                             .name(name)
                             .userMessage(message)
                             .build();
-                })
-                .collect(Collectors.toList());
+                }).toList();
 
         Problem problem = createProblemBuilder(status, problemType, detail)
                 .userMessage(detail)
