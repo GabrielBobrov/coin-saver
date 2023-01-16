@@ -1,6 +1,7 @@
 package com.coinsaver.services;
 
 import com.coinsaver.api.dtos.TransactionDto;
+import com.coinsaver.domain.entities.InstallmentTransaction;
 import com.coinsaver.domain.entities.Transaction;
 import com.coinsaver.infra.repositories.InstallmentTransactionRepository;
 import com.coinsaver.infra.repositories.TransactionRepository;
@@ -9,6 +10,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
+import java.time.LocalDateTime;
 
 @Service
 public class TransactionServiceImpl implements TransactionService {
@@ -40,11 +42,15 @@ public class TransactionServiceImpl implements TransactionService {
     }
 
     private void createInstallmentTransaction(TransactionDto transactionDto, Transaction transaction) {
-
-        var installmentTransaction = transactionDto.convertDtoToInstallmentTransactionEntity();
-        installmentTransaction.setTransaction(transaction);
+        int repeat = transactionDto.getRepeat();
+        LocalDateTime payDay = transactionDto.getPayDay();
         
-        installmentTransactionRepository.save(installmentTransaction);
-        //TODO: alterar logica de insert para inserir varios registros em cada mes do parcelamento
+        for (int i = 0; i < repeat; i++) {
+            var installmentTransaction = transactionDto.convertDtoToInstallmentTransactionEntity();
+            installmentTransaction.setTransaction(transaction);
+            installmentTransaction.setPayDay(payDay.plusMonths(i));
+
+            installmentTransactionRepository.save(installmentTransaction);
+        }
     }
 }
