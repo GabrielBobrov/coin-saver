@@ -2,11 +2,11 @@ package com.coinsaver.api.controllers;
 
 import com.coinsaver.api.dtos.TransactionDto;
 import com.coinsaver.services.interfaces.TransactionService;
+import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
-import javax.validation.Valid;
 
 @RestController
 @RequestMapping(value = "/transactions")
