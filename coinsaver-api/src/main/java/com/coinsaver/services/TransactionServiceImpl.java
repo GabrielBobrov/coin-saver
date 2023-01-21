@@ -12,8 +12,10 @@ import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
 import java.time.temporal.TemporalAdjusters;
+import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
 public class TransactionServiceImpl implements TransactionService {
@@ -40,13 +42,13 @@ public class TransactionServiceImpl implements TransactionService {
         var transactions = transactionRepository.findByCategoryAndPayDayBetweenAndRepeatIsNull(categoryType, startOfMonth, endOfMonth);
         var installmentTransactions = installmentTransactionRepository.findByCategoryAndPayDayBetween(categoryType, startOfMonth, endOfMonth);
 
-        List<TransactionDto> transactionsResult = Collections.emptyList();
+        List<TransactionDto> transactionsResult = new ArrayList<>();
 
         if (!transactions.isEmpty()) {
-            transactionsResult = transactions
+            transactionsResult.addAll(transactions
                     .stream()
                     .map(Transaction::convertEntityToDto)
-                    .toList();
+                    .collect(Collectors.toList()));
         }
 
         if (!installmentTransactions.isEmpty()) {
