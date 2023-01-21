@@ -12,6 +12,7 @@ import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
 import java.time.temporal.TemporalAdjusters;
+import java.util.Collections;
 import java.util.List;
 
 @Service
@@ -36,12 +37,26 @@ public class TransactionServiceImpl implements TransactionService {
         LocalDateTime startOfMonth = date.with(TemporalAdjusters.firstDayOfMonth());
         LocalDateTime endOfMonth = date.with(TemporalAdjusters.lastDayOfMonth());
 
-        var transactions = transactionRepository.findByCategoryAndPayDayBetween(categoryType, startOfMonth, endOfMonth);
+        var transactions = transactionRepository.findByCategoryAndPayDayBetweenAndRepeatIsNull(categoryType, startOfMonth, endOfMonth);
+        var installmentTransactions = installmentTransactionRepository.findByCategoryAndPayDayBetween(categoryType, startOfMonth, endOfMonth);
 
-        return transactions
-                .stream()
-                .map(Transaction::convertEntityToDto)
-                .toList();
+        List<TransactionDto> transactionsResult = Collections.emptyList();
+
+        if (!transactions.isEmpty()) {
+            transactionsResult = transactions
+                    .stream()
+                    .map(Transaction::convertEntityToDto)
+                    .toList();
+        }
+
+        if (!installmentTransactions.isEmpty()) {
+            transactionsResult.addAll(installmentTransactions
+                    .stream()
+                    .map(it -> it.getTransaction().convertEntityToDto())
+                    .toList());
+        }
+
+        return transactionsResult;
     }
 
     @Transactional

@@ -10,6 +10,6 @@ import java.util.List;
 
 @Repository
 public interface TransactionRepository extends JpaRepository<Transaction, Long> {
-    List<Transaction> findByCategoryAndPayDayBetween(TransactionCategoryType categoryType, LocalDateTime startDate, LocalDateTime endDate);
+    List<Transaction> findByCategoryAndPayDayBetweenAndRepeatIsNull(TransactionCategoryType categoryType, LocalDateTime startDate, LocalDateTime endDate);
 }
 
