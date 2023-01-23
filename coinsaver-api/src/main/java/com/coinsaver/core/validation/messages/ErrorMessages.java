@@ -10,6 +10,7 @@ public class ErrorMessages {
     static {
         errorMessages.put("USER_ALREADY_EXISTS", "Já existe um usuário cadastrado com o email informado.");
         errorMessages.put("USER_NOT_FOUND", "Não existe nenhum usuário com o id informado.");
+        errorMessages.put("INVALID_FIX_EXPENSE", "Não é possível criar uma transação fixa com meses de repetição.");
     }
 
 

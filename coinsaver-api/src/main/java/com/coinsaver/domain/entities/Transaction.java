@@ -1,6 +1,7 @@
 package com.coinsaver.domain.entities;
 
-import com.coinsaver.api.dtos.TransactionDto;
+import com.coinsaver.api.dtos.request.TransactionRequestDto;
+import com.coinsaver.api.dtos.response.TransactionResponseDto;
 import com.coinsaver.core.enums.StatusType;
 import com.coinsaver.core.enums.TransactionCategoryType;
 import jakarta.persistence.*;
@@ -52,8 +53,12 @@ public class Transaction {
 	@JoinColumn(name = "client_id")
 	private Client client;
 
-	public TransactionDto convertEntityToDto() {
-		return new ModelMapper().map(this, TransactionDto.class);
+	public TransactionResponseDto convertEntityToResponseDto() {
+		return new ModelMapper().map(this, TransactionResponseDto.class);
+	}
+
+	public TransactionRequestDto convertEntityToRequestDto() {
+		return new ModelMapper().map(this, TransactionRequestDto.class);
 	}
 
 }

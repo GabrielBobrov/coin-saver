@@ -1,6 +1,7 @@
 package com.coinsaver.api.controllers;
 
-import com.coinsaver.api.dtos.TransactionDto;
+import com.coinsaver.api.dtos.request.TransactionRequestDto;
+import com.coinsaver.api.dtos.response.TransactionResponseDto;
 import com.coinsaver.core.enums.TransactionCategoryType;
 import com.coinsaver.services.interfaces.TransactionService;
 import jakarta.validation.Valid;
@@ -21,22 +22,22 @@ public class TransactionController {
 
     @GetMapping("/{transactionId}")
     @ResponseStatus(HttpStatus.OK)
-    public TransactionDto getTransaction(@PathVariable Long transactionId) {
+    public TransactionResponseDto getTransaction(@PathVariable Long transactionId) {
 
         return transactionService.getTransaction(transactionId);
     }
 
     @GetMapping("/category/{categoryType}")
     @ResponseStatus(HttpStatus.OK)
-    public List<TransactionDto> getTransactionByCategoryType(@PathVariable TransactionCategoryType categoryType, @RequestParam LocalDateTime date) {
+    public List<TransactionResponseDto> getTransactionByCategoryType(@PathVariable TransactionCategoryType categoryType, @RequestParam LocalDateTime date) {
 
         return transactionService.getTransactionByCategory(categoryType, date);
     }
 
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
-    public TransactionDto createTransaction(@RequestBody @Valid TransactionDto transactionDto) {
+    public TransactionResponseDto createTransaction(@RequestBody @Valid TransactionRequestDto transactionRequestDto) {
 
-        return transactionService.createTransaction(transactionDto);
+        return transactionService.createTransaction(transactionRequestDto);
     }
 }

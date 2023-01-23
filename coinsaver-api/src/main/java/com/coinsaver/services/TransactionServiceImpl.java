@@ -1,8 +1,11 @@
 package com.coinsaver.services;
 
-import com.coinsaver.api.dtos.TransactionDto;
+import com.coinsaver.api.dtos.request.TransactionRequestDto;
+import com.coinsaver.api.dtos.response.TransactionResponseDto;
 import com.coinsaver.core.enums.TransactionCategoryType;
+import com.coinsaver.core.validation.messages.ErrorMessages;
 import com.coinsaver.domain.entities.Transaction;
+import com.coinsaver.domain.exceptions.BusinessException;
 import com.coinsaver.infra.repositories.InstallmentTransactionRepository;
 import com.coinsaver.infra.repositories.TransactionRepository;
 import com.coinsaver.services.interfaces.TransactionService;
@@ -13,9 +16,7 @@ import org.springframework.stereotype.Service;
 import java.time.LocalDateTime;
 import java.time.temporal.TemporalAdjusters;
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.List;
-import java.util.stream.Collectors;
 
 @Service
 public class TransactionServiceImpl implements TransactionService {
@@ -27,14 +28,14 @@ public class TransactionServiceImpl implements TransactionService {
     private InstallmentTransactionRepository installmentTransactionRepository;
 
     @Override
-    public TransactionDto getTransaction(Long transactionId) {
+    public TransactionResponseDto getTransaction(Long transactionId) {
         var transaction = transactionRepository.findById(transactionId).orElseThrow();
 
-        return transaction.convertEntityToDto();
+        return transaction.convertEntityToResponseDto();
     }
 
     @Override
-    public List<TransactionDto> getTransactionByCategory(TransactionCategoryType categoryType, LocalDateTime date) {
+    public List<TransactionResponseDto> getTransactionByCategory(TransactionCategoryType categoryType, LocalDateTime date) {
 
         LocalDateTime startOfMonth = date.with(TemporalAdjusters.firstDayOfMonth());
         LocalDateTime endOfMonth = date.with(TemporalAdjusters.lastDayOfMonth());
@@ -42,19 +43,19 @@ public class TransactionServiceImpl implements TransactionService {
         var transactions = transactionRepository.findByCategoryAndPayDayBetweenAndRepeatIsNull(categoryType, startOfMonth, endOfMonth);
         var installmentTransactions = installmentTransactionRepository.findByCategoryAndPayDayBetween(categoryType, startOfMonth, endOfMonth);
 
-        List<TransactionDto> transactionsResult = new ArrayList<>();
+        List<TransactionResponseDto> transactionsResult = new ArrayList<>();
 
         if (!transactions.isEmpty()) {
             transactionsResult.addAll(transactions
                     .stream()
-                    .map(Transaction::convertEntityToDto)
-                    .collect(Collectors.toList()));
+                    .map(Transaction::convertEntityToResponseDto)
+                    .toList());
         }
 
         if (!installmentTransactions.isEmpty()) {
             transactionsResult.addAll(installmentTransactions
                     .stream()
-                    .map(it -> it.getTransaction().convertEntityToDto())
+                    .map(it -> it.getTransaction().convertEntityToResponseDto())
                     .toList());
         }
 
@@ -63,23 +64,26 @@ public class TransactionServiceImpl implements TransactionService {
 
     @Transactional
     @Override
-    public TransactionDto createTransaction(TransactionDto transactionDto) {
+    public TransactionResponseDto createTransaction(TransactionRequestDto transactionRequestDto) {
 
-        var transaction = transactionRepository.save(transactionDto.convertDtoToTransactionEntity());
+        if (Boolean.TRUE.equals(transactionRequestDto.getFixedExpense()) && transactionRequestDto.getRepeat() > 0) {
+            throw new BusinessException(ErrorMessages.getErrorMessage("INVALID_FIX_EXPENSE"));
+        }
+        var transaction = transactionRepository.save(transactionRequestDto.convertDtoTransactionEntity());
 
-        if (transactionDto.getRepeat() > 0) {
-            createInstallmentTransaction(transactionDto, transaction);
+        if (transactionRequestDto.getRepeat() > 0) {
+            createInstallmentTransaction(transactionRequestDto, transaction);
         }
 
-        return transaction.convertEntityToDto();
+        return transaction.convertEntityToResponseDto();
     }
 
-    private void createInstallmentTransaction(TransactionDto transactionDto, Transaction transaction) {
-        int repeat = transactionDto.getRepeat();
-        LocalDateTime payDay = transactionDto.getPayDay();
+    private void createInstallmentTransaction(TransactionRequestDto transactionRequestDto, Transaction transaction) {
+        int repeat = transactionRequestDto.getRepeat();
+        LocalDateTime payDay = transactionRequestDto.getPayDay();
 
         for (int i = 0; i < repeat; i++) {
-            var installmentTransaction = transactionDto.convertDtoToInstallmentTransactionEntity();
+            var installmentTransaction = transactionRequestDto.convertDtoToInstallmentTransactionEntity();
             installmentTransaction.setTransaction(transaction);
             installmentTransaction.setPayDay(payDay.plusMonths(i));
 

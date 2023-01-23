@@ -1,15 +1,16 @@
 package com.coinsaver.services.interfaces;
 
-import com.coinsaver.api.dtos.TransactionDto;
+import com.coinsaver.api.dtos.request.TransactionRequestDto;
+import com.coinsaver.api.dtos.response.TransactionResponseDto;
 import com.coinsaver.core.enums.TransactionCategoryType;
 
 import java.time.LocalDateTime;
 import java.util.List;
 
 public interface TransactionService {
-    TransactionDto getTransaction(Long transactionId);
+    TransactionResponseDto getTransaction(Long transactionId);
 
-    List<TransactionDto> getTransactionByCategory(TransactionCategoryType categoryType, LocalDateTime date);
+    List<TransactionResponseDto> getTransactionByCategory(TransactionCategoryType categoryType, LocalDateTime date);
 
-    TransactionDto createTransaction(TransactionDto transactionDto);
+    TransactionResponseDto createTransaction(TransactionRequestDto transactionRequestDto);
 }
