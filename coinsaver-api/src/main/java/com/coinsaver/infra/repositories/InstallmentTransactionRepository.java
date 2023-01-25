@@ -10,6 +10,9 @@ import java.time.LocalDateTime;
 import java.util.List;
 
 @Repository
-public interface InstallmentTransactionRepository extends JpaRepository <InstallmentTransaction, Long> {
+public interface InstallmentTransactionRepository extends JpaRepository<InstallmentTransaction, Long> {
     List<InstallmentTransaction> findByCategoryAndPayDayBetween(TransactionCategoryType categoryType, LocalDateTime startOfMonth, LocalDateTime endOfMonth);
+
+    List<InstallmentTransaction> findByPayDayBetween(LocalDateTime startOfMonth, LocalDateTime endOfMonth);
+
 }

@@ -1,6 +1,7 @@
 package com.coinsaver.api.controllers;
 
 import com.coinsaver.api.dtos.request.TransactionRequestDto;
+import com.coinsaver.api.dtos.response.MonthlyResponseDto;
 import com.coinsaver.api.dtos.response.TransactionResponseDto;
 import com.coinsaver.core.enums.TransactionCategoryType;
 import com.coinsaver.services.interfaces.TransactionService;
@@ -39,5 +40,12 @@ public class TransactionController {
     public TransactionResponseDto createTransaction(@RequestBody @Valid TransactionRequestDto transactionRequestDto) {
 
         return transactionService.createTransaction(transactionRequestDto);
+    }
+
+    @GetMapping("/month")
+    @ResponseStatus(HttpStatus.OK)
+    public MonthlyResponseDto getTransactionsInMonth(@RequestParam LocalDateTime date) {
+
+        return transactionService.getMonthlyTransactions(date);
     }
 }

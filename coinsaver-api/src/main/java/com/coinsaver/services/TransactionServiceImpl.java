@@ -1,9 +1,11 @@
 package com.coinsaver.services;
 
 import com.coinsaver.api.dtos.request.TransactionRequestDto;
+import com.coinsaver.api.dtos.response.MonthlyResponseDto;
 import com.coinsaver.api.dtos.response.TransactionResponseDto;
 import com.coinsaver.core.enums.TransactionCategoryType;
 import com.coinsaver.core.validation.messages.ErrorMessages;
+import com.coinsaver.domain.entities.InstallmentTransaction;
 import com.coinsaver.domain.entities.Transaction;
 import com.coinsaver.domain.exceptions.BusinessException;
 import com.coinsaver.infra.repositories.InstallmentTransactionRepository;
@@ -13,6 +15,7 @@ import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.math.BigDecimal;
 import java.time.LocalDateTime;
 import java.time.temporal.TemporalAdjusters;
 import java.util.ArrayList;
@@ -76,6 +79,59 @@ public class TransactionServiceImpl implements TransactionService {
         }
 
         return transaction.convertEntityToResponseDto();
+    }
+
+    @Override
+    public MonthlyResponseDto getMonthlyTransactions(LocalDateTime date) {
+
+        LocalDateTime startOfMonth = date.with(TemporalAdjusters.firstDayOfMonth());
+        LocalDateTime endOfMonth = date.with(TemporalAdjusters.lastDayOfMonth());
+
+        var transactions = transactionRepository.findByPayDayBetweenAndRepeatIsNull(startOfMonth, endOfMonth);
+        var installmentTransactions = installmentTransactionRepository.findByPayDayBetween(startOfMonth, endOfMonth);
+
+        List<TransactionResponseDto> transactionsResult = new ArrayList<>();
+
+        BigDecimal income = BigDecimal.ZERO;
+        BigDecimal expense = BigDecimal.ZERO;
+
+        if (!transactions.isEmpty()) {
+            transactionsResult.addAll(transactions
+                    .stream()
+                    .map(Transaction::convertEntityToResponseDto)
+                    .toList());
+            income = transactions.stream()
+                    .filter(t -> t.getCategory() == TransactionCategoryType.INCOME)
+                    .map(Transaction::getAmount)
+                    .reduce(BigDecimal.ZERO, BigDecimal::add);
+            expense = transactions.stream()
+                    .filter(t -> t.getCategory() == TransactionCategoryType.EXPENSE)
+                    .map(Transaction::getAmount)
+                    .reduce(BigDecimal.ZERO, BigDecimal::add);
+        }
+
+        if (!installmentTransactions.isEmpty()) {
+            transactionsResult.addAll(installmentTransactions
+                    .stream()
+                    .map(it -> it.getTransaction().convertEntityToResponseDto())
+                    .toList());
+
+            income = income.add(installmentTransactions.stream()
+                    .filter(it -> it.getCategory() == TransactionCategoryType.INCOME)
+                    .map(InstallmentTransaction::getAmount)
+                    .reduce(BigDecimal.ZERO, BigDecimal::add));
+
+            expense = expense.add(installmentTransactions.stream()
+                    .filter(it -> it.getCategory() == TransactionCategoryType.EXPENSE)
+                    .map(InstallmentTransaction::getAmount)
+                    .reduce(BigDecimal.ZERO, BigDecimal::add));
+        }
+
+        BigDecimal monthlyBalance = income.subtract(expense);
+        return MonthlyResponseDto.builder()
+                .transactionResponseDtos(transactionsResult)
+                .monthlyBalance(monthlyBalance)
+                .build();
     }
 
     private void createInstallmentTransaction(TransactionRequestDto transactionRequestDto, Transaction transaction) {
