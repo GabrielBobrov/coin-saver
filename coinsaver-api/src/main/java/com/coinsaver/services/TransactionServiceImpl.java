@@ -100,10 +100,12 @@ public class TransactionServiceImpl implements TransactionService {
                     .stream()
                     .map(Transaction::convertEntityToResponseDto)
                     .toList());
+
             income = transactions.stream()
                     .filter(t -> t.getCategory() == TransactionCategoryType.INCOME)
                     .map(Transaction::getAmount)
                     .reduce(BigDecimal.ZERO, BigDecimal::add);
+
             expense = transactions.stream()
                     .filter(t -> t.getCategory() == TransactionCategoryType.EXPENSE)
                     .map(Transaction::getAmount)
@@ -113,7 +115,7 @@ public class TransactionServiceImpl implements TransactionService {
         if (!installmentTransactions.isEmpty()) {
             transactionsResult.addAll(installmentTransactions
                     .stream()
-                    .map(it -> it.getTransaction().convertEntityToResponseDto())
+                    .map(InstallmentTransaction::convertEntityToResponseDto)
                     .toList());
 
             income = income.add(installmentTransactions.stream()
@@ -136,14 +138,20 @@ public class TransactionServiceImpl implements TransactionService {
 
     private void createInstallmentTransaction(TransactionRequestDto transactionRequestDto, Transaction transaction) {
         int repeat = transactionRequestDto.getRepeat();
+        int installment = 1;
         LocalDateTime payDay = transactionRequestDto.getPayDay();
 
         for (int i = 0; i < repeat; i++) {
             var installmentTransaction = transactionRequestDto.convertDtoToInstallmentTransactionEntity();
             installmentTransaction.setTransaction(transaction);
-            installmentTransaction.setPayDay(payDay.plusMonths(i));
+            installmentTransaction.setDescription(transaction.getDescription() + "(" + installment + "/" + repeat + ")");
+
+            if (i > 0) {
+                installmentTransaction.setPayDay(payDay.plusMonths(i));
+            }
 
             installmentTransactionRepository.save(installmentTransaction);
+            installment++;
         }
     }
 }

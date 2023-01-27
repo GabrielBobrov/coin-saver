@@ -14,9 +14,4 @@ public class MonthlyResponseDto {
 
     List<TransactionResponseDto> transactionResponseDtos;
     BigDecimal monthlyBalance;
-
-    public void addMonthlyBalance(BigDecimal monthlyBalance) {
-        this.monthlyBalance = monthlyBalance;
-    }
-
 }
