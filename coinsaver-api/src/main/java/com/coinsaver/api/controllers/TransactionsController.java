@@ -17,7 +17,7 @@ import java.util.List;
 
 @RestController
 @RequestMapping(value = "/transactions")
-public class TransactionController implements TransactionControllerOpenApi {
+public class TransactionsController implements TransactionControllerOpenApi {
 
     @Autowired
     private TransactionService transactionService;
