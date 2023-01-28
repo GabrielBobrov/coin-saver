@@ -40,7 +40,6 @@ public class TransactionController implements TransactionControllerOpenApi {
     @ResponseStatus(HttpStatus.CREATED)
     public TransactionResponseDto createTransaction(@RequestBody @Valid TransactionRequestDto transactionRequestDto) {
 
-
         return transactionService.createTransaction(transactionRequestDto);
     }
 

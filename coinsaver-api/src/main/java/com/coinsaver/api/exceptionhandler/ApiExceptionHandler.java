@@ -2,6 +2,7 @@ package com.coinsaver.api.exceptionhandler;
 
 import java.time.OffsetDateTime;
 import java.util.List;
+import java.util.NoSuchElementException;
 import java.util.stream.Collectors;
 
 import com.coinsaver.domain.exceptions.BusinessException;
@@ -36,18 +37,34 @@ import lombok.extern.slf4j.Slf4j;
 
 @Slf4j
 @ControllerAdvice
-@Schema(name = "Problema")
 public class ApiExceptionHandler extends ResponseEntityExceptionHandler {
 
     public static final String MSG_ERRO_GENERICA_USUARIO_FINAL
             = "Ocorreu um erro interno inesperado no sistema. Tente novamente e se "
             + "o problema persistir, entre em contato com o administrador do sistema.";
 
-    @Autowired
-    private MessageSource messageSource;
+    private final MessageSource messageSource;
+
+    public ApiExceptionHandler(MessageSource messageSource) {
+        this.messageSource = messageSource;
+    }
 
     @ExceptionHandler(BusinessException.class)
-    public ResponseEntity<?> handleBusiness(BusinessException ex, WebRequest request) {
+    public ResponseEntity<Object> handleBusiness(BusinessException ex, WebRequest request) {
+
+        HttpStatus status = HttpStatus.BAD_REQUEST;
+        ProblemType problemType = ProblemType.ERRO_NEGOCIO;
+        String detail = ex.getMessage();
+
+        Problem problem = createProblemBuilder(status, problemType, detail)
+                .userMessage(detail)
+                .build();
+
+        return handleExceptionInternal(ex, problem, new HttpHeaders(), status, request);
+    }
+
+    @ExceptionHandler(NoSuchElementException.class)
+    public ResponseEntity<Object> handleNoSuchElement(NoSuchElementException ex, WebRequest request) {
 
         HttpStatus status = HttpStatus.BAD_REQUEST;
         ProblemType problemType = ProblemType.ERRO_NEGOCIO;
@@ -93,7 +110,7 @@ public class ApiExceptionHandler extends ResponseEntityExceptionHandler {
                             .userMessage(message)
                             .build();
                 })
-                .collect(Collectors.toList());
+                .toList();
 
         Problem problem = createProblemBuilder(status, problemType, detail)
                 .userMessage(detail)
