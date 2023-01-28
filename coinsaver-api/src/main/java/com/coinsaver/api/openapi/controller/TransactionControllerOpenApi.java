@@ -43,5 +43,5 @@ public interface TransactionControllerOpenApi {
     @Operation(summary = "Buscar transações do mês", responses = {
             @ApiResponse(responseCode = "200", content = @Content(schema = @Schema(implementation = MonthlyResponseDto.class))),
     })
-    MonthlyResponseDto getTransactionsInMonth(@RequestParam LocalDateTime date);
+    MonthlyResponseDto getTransactionsInMonth(@RequestParam @Schema( example = "2023-01-28T19:39:37.438") LocalDateTime date);
 }
