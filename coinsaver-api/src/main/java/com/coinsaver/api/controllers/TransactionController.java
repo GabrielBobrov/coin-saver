@@ -3,6 +3,7 @@ package com.coinsaver.api.controllers;
 import com.coinsaver.api.dtos.request.TransactionRequestDto;
 import com.coinsaver.api.dtos.response.MonthlyResponseDto;
 import com.coinsaver.api.dtos.response.TransactionResponseDto;
+import com.coinsaver.api.openapi.controller.TransactionControllerOpenApi;
 import com.coinsaver.core.enums.TransactionCategoryType;
 import com.coinsaver.services.interfaces.TransactionService;
 import jakarta.validation.Valid;
@@ -16,7 +17,7 @@ import java.util.List;
 
 @RestController
 @RequestMapping(value = "/transactions")
-public class TransactionController {
+public class TransactionController implements TransactionControllerOpenApi {
 
     @Autowired
     private TransactionService transactionService;
@@ -39,7 +40,7 @@ public class TransactionController {
     @ResponseStatus(HttpStatus.CREATED)
     public TransactionResponseDto createTransaction(@RequestBody @Valid TransactionRequestDto transactionRequestDto) {
 
-        
+
         return transactionService.createTransaction(transactionRequestDto);
     }
 
