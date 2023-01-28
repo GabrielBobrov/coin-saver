@@ -22,7 +22,7 @@ public interface TransactionControllerOpenApi {
 
     @Operation(summary = "Busca uma transação por Id",
             responses = {
-                    @ApiResponse(responseCode = "200"),
+                    @ApiResponse(responseCode = "200",  content = @Content(schema = @Schema(implementation = TransactionResponseDto.class))),
                     @ApiResponse(responseCode = "400",
                             description = "ID da transação inválido",
                             content = @Content(schema = @Schema(implementation = Problem.class))),
@@ -31,8 +31,7 @@ public interface TransactionControllerOpenApi {
             })
     TransactionResponseDto getTransaction(@PathVariable Long transactionId);
 
-    @Operation(summary = "Buscar uma transações por categoria", description = "Cadastro de uma cidade, " +
-            "necessita de um estado e um nome válido")
+    @Operation(summary = "Buscar uma transações por categoria", description = "Para buscar transações por categoria informe a cateogria que deseja e uma data para uma busca mensal")
     List<TransactionResponseDto> getTransactionByCategoryType(@PathVariable TransactionCategoryType categoryType, @RequestParam LocalDateTime date);
 
     @Operation(summary = "Criar transação",
