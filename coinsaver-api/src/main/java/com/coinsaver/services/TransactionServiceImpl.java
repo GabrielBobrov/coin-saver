@@ -12,7 +12,6 @@ import com.coinsaver.infra.repositories.InstallmentTransactionRepository;
 import com.coinsaver.infra.repositories.TransactionRepository;
 import com.coinsaver.services.interfaces.TransactionService;
 import jakarta.transaction.Transactional;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.math.BigDecimal;
@@ -24,11 +23,14 @@ import java.util.List;
 @Service
 public class TransactionServiceImpl implements TransactionService {
 
-    @Autowired
-    private TransactionRepository transactionRepository;
+    private final TransactionRepository transactionRepository;
 
-    @Autowired
-    private InstallmentTransactionRepository installmentTransactionRepository;
+    private final InstallmentTransactionRepository installmentTransactionRepository;
+
+    public TransactionServiceImpl(TransactionRepository transactionRepository, InstallmentTransactionRepository installmentTransactionRepository) {
+        this.transactionRepository = transactionRepository;
+        this.installmentTransactionRepository = installmentTransactionRepository;
+    }
 
     @Override
     public TransactionResponseDto getTransaction(Long transactionId) {
@@ -70,7 +72,7 @@ public class TransactionServiceImpl implements TransactionService {
     public TransactionResponseDto createTransaction(TransactionRequestDto transactionRequestDto) {
 
         if (Boolean.TRUE.equals(transactionRequestDto.getFixedExpense()) && transactionRequestDto.getRepeat() > 0) {
-            throw new BusinessException(ErrorMessages.getErrorMessage("INVALID_FIX_EXPENSE"));
+            throw new BusinessException(ErrorMessages.getInvalidFixedExpenseMessage("criar"));
         }
         var transaction = transactionRepository.save(transactionRequestDto.convertDtoTransactionEntity());
 
@@ -136,6 +138,22 @@ public class TransactionServiceImpl implements TransactionService {
                 .build();
     }
 
+    @Override
+    public TransactionResponseDto updateTransaction(Long transactionId, TransactionRequestDto transactionRequestDto) {
+
+        if (Boolean.TRUE.equals(transactionRequestDto.getFixedExpense()) && transactionRequestDto.getRepeat() > 0) {
+            throw new BusinessException(ErrorMessages.getInvalidFixedExpenseMessage("atualizar"));
+        }
+
+        var transaction = transactionRepository.findById(transactionId)
+                .orElseThrow(() -> new BusinessException("Transaction not found"));
+
+        updateTransactionFields(transaction, transactionRequestDto);
+        transactionRepository.save(transaction);
+
+        return transaction.convertEntityToResponseDto();
+    }
+
     private void createInstallmentTransaction(TransactionRequestDto transactionRequestDto, Transaction transaction) {
         int repeat = transactionRequestDto.getRepeat();
         int installment = 1;
@@ -153,5 +171,15 @@ public class TransactionServiceImpl implements TransactionService {
             installmentTransactionRepository.save(installmentTransaction);
             installment++;
         }
+    }
+
+    private void updateTransactionFields(Transaction transaction, TransactionRequestDto transactionRequestDto) {
+        transaction.setAmount(transactionRequestDto.getAmount());
+        transaction.setCategory(transactionRequestDto.getCategory());
+        transaction.setDescription(transactionRequestDto.getDescription());
+        transaction.setFixedExpense(transactionRequestDto.getFixedExpense());
+        transaction.setPayDay(transactionRequestDto.getPayDay());
+        transaction.setRepeat(transactionRequestDto.getRepeat());
+        transaction.setStatus(transactionRequestDto.getStatus());
     }
 }

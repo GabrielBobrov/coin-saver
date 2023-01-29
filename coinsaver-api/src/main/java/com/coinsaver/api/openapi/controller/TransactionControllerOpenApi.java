@@ -11,6 +11,7 @@ import io.swagger.v3.oas.annotations.media.Schema;
 import io.swagger.v3.oas.annotations.parameters.RequestBody;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.tags.Tag;
+import jakarta.validation.Valid;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestParam;
 
@@ -22,7 +23,7 @@ public interface TransactionControllerOpenApi {
 
     @Operation(summary = "Busca uma transação por Id",
             responses = {
-                    @ApiResponse(responseCode = "200",  content = @Content(schema = @Schema(implementation = TransactionResponseDto.class))),
+                    @ApiResponse(responseCode = "200", content = @Content(schema = @Schema(implementation = TransactionResponseDto.class))),
                     @ApiResponse(responseCode = "400",
                             description = "ID da transação inválido",
                             content = @Content(schema = @Schema(implementation = Problem.class))),
@@ -43,5 +44,10 @@ public interface TransactionControllerOpenApi {
     @Operation(summary = "Buscar transações do mês", responses = {
             @ApiResponse(responseCode = "200", content = @Content(schema = @Schema(implementation = MonthlyResponseDto.class))),
     })
-    MonthlyResponseDto getTransactionsInMonth(@RequestParam @Schema( example = "2023-01-28T19:39:37.438") LocalDateTime date);
+    MonthlyResponseDto getTransactionsInMonth(@RequestParam @Schema(example = "2023-01-28T19:39:37.438") LocalDateTime date);
+
+    @Operation(summary = "Atualizar transação", responses = {
+            @ApiResponse(responseCode = "200", content = @Content(schema = @Schema(implementation = TransactionResponseDto.class))),
+    })
+    TransactionResponseDto updateTransaction(@PathVariable Long transactionId, @org.springframework.web.bind.annotation.RequestBody @Valid TransactionRequestDto transactionRequestDto);
 }

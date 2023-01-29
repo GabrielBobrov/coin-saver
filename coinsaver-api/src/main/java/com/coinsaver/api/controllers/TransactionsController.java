@@ -49,4 +49,10 @@ public class TransactionsController implements TransactionControllerOpenApi {
 
         return transactionService.getMonthlyTransactions(date);
     }
+
+    @PutMapping("/{transactionId}")
+    @ResponseStatus(HttpStatus.OK)
+    public TransactionResponseDto updateTransaction(@PathVariable Long transactionId, @RequestBody @Valid TransactionRequestDto transactionRequestDto) {
+        return transactionService.updateTransaction(transactionId, transactionRequestDto);
+    }
 }

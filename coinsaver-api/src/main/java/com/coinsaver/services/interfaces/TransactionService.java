@@ -4,6 +4,7 @@ import com.coinsaver.api.dtos.request.TransactionRequestDto;
 import com.coinsaver.api.dtos.response.MonthlyResponseDto;
 import com.coinsaver.api.dtos.response.TransactionResponseDto;
 import com.coinsaver.core.enums.TransactionCategoryType;
+import com.coinsaver.domain.entities.Transaction;
 
 import java.time.LocalDateTime;
 import java.util.List;
@@ -16,4 +17,6 @@ public interface TransactionService {
     TransactionResponseDto createTransaction(TransactionRequestDto transactionRequestDto);
 
     MonthlyResponseDto getMonthlyTransactions(LocalDateTime date);
+
+    TransactionResponseDto updateTransaction(Long transactionId, TransactionRequestDto transactionRequestDto);
 }

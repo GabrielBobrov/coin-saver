@@ -5,9 +5,9 @@ import com.coinsaver.api.dtos.response.TransactionResponseDto;
 import com.coinsaver.core.enums.StatusType;
 import com.coinsaver.core.enums.TransactionCategoryType;
 import jakarta.persistence.*;
-import lombok.Data;
-import lombok.EqualsAndHashCode;
+import lombok.*;
 import org.hibernate.annotations.CreationTimestamp;
+import org.hibernate.annotations.DynamicUpdate;
 import org.modelmapper.ModelMapper;
 
 import java.math.BigDecimal;
@@ -15,50 +15,53 @@ import java.time.LocalDateTime;
 
 @Data
 @EqualsAndHashCode(onlyExplicitlyIncluded = true)
+@Builder
+@AllArgsConstructor
+@NoArgsConstructor
+@DynamicUpdate
 @Entity
 public class Transaction {
 
-	@EqualsAndHashCode.Include
-	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private Long id;
-	
-	@Column
-	private BigDecimal amount;
-	
-	@CreationTimestamp
-	private LocalDateTime createdAt;
-	
-	@Column(nullable = false)
-	private LocalDateTime payDay;
-	
-	@Column
-	private String description;
-	
-	@Enumerated(EnumType.ORDINAL)
-	@Column(nullable = false)
-	private StatusType status;
-	
-	@Enumerated(EnumType.ORDINAL)
-	@Column(nullable = false)
-	private TransactionCategoryType category;
-	
-	@Column
-	private Boolean fixedExpense;
-	
-	@Column
-	private Integer repeat;
-	
-	@ManyToOne
-	@JoinColumn(name = "client_id")
-	private Client client;
+    @EqualsAndHashCode.Include
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
 
-	public TransactionResponseDto convertEntityToResponseDto() {
-		return new ModelMapper().map(this, TransactionResponseDto.class);
-	}
+    @Column
+    private BigDecimal amount;
 
-	public TransactionRequestDto convertEntityToRequestDto() {
-		return new ModelMapper().map(this, TransactionRequestDto.class);
-	}
+    @CreationTimestamp
+    private LocalDateTime createdAt;
 
+    @Column(nullable = false)
+    private LocalDateTime payDay;
+
+    @Column
+    private String description;
+
+    @Enumerated(EnumType.ORDINAL)
+    @Column(nullable = false)
+    private StatusType status;
+
+    @Enumerated(EnumType.ORDINAL)
+    @Column(nullable = false)
+    private TransactionCategoryType category;
+
+    @Column
+    private Boolean fixedExpense;
+
+    @Column
+    private Integer repeat;
+
+    @ManyToOne
+    @JoinColumn(name = "client_id")
+    private Client client;
+
+    public TransactionResponseDto convertEntityToResponseDto() {
+        return new ModelMapper().map(this, TransactionResponseDto.class);
+    }
+
+    public TransactionRequestDto convertEntityToRequestDto() {
+        return new ModelMapper().map(this, TransactionRequestDto.class);
+    }
 }
