@@ -1,9 +1,12 @@
 package com.coinsaver.services;
 
 import com.coinsaver.api.dtos.request.TransactionRequestDto;
+import com.coinsaver.api.dtos.request.UpdateTransactionRequestDto;
 import com.coinsaver.api.dtos.response.MonthlyResponseDto;
 import com.coinsaver.api.dtos.response.TransactionResponseDto;
+import com.coinsaver.api.dtos.response.UpdateTransactionResponseDto;
 import com.coinsaver.core.enums.TransactionCategoryType;
+import com.coinsaver.core.enums.UpdateInstallmentTransactionType;
 import com.coinsaver.core.validation.messages.ErrorMessages;
 import com.coinsaver.domain.entities.InstallmentTransaction;
 import com.coinsaver.domain.entities.Transaction;
@@ -138,20 +141,40 @@ public class TransactionServiceImpl implements TransactionService {
                 .build();
     }
 
+    @Transactional
     @Override
-    public TransactionResponseDto updateTransaction(Long transactionId, TransactionRequestDto transactionRequestDto) {
+    public UpdateTransactionResponseDto updateTransaction(Long transactionId, UpdateTransactionRequestDto updateTransactionRequestDto) {
 
-        if (Boolean.TRUE.equals(transactionRequestDto.getFixedExpense()) && transactionRequestDto.getRepeat() > 0) {
+        if (Boolean.TRUE.equals(updateTransactionRequestDto.getFixedExpense()) && updateTransactionRequestDto.getRepeat() > 0) {
             throw new BusinessException(ErrorMessages.getInvalidFixedExpenseMessage("atualizar"));
         }
 
-        var transaction = transactionRepository.findById(transactionId)
-                .orElseThrow(() -> new BusinessException("Transaction not found"));
+        Transaction transaction = transactionRepository.findById(transactionId)
+                .orElseThrow(() -> new BusinessException(ErrorMessages.getErrorMessage("TRANSACTION_NOT_FOUND")));
 
-        updateTransactionFields(transaction, transactionRequestDto);
-        transactionRepository.save(transaction);
+        if (updateTransactionRequestDto.getRepeat() > 0) {
+            UpdateInstallmentTransactionType updateInstallmentTransactionType = updateTransactionRequestDto.getUpdateInstallmentTransactionType();
 
-        return transaction.convertEntityToResponseDto();
+            switch (updateInstallmentTransactionType) {
+                case ONLY_THIS_EXPENSE:
+//                    InstallmentTransaction installmentTransaction = installmentTransactionRepository.findById(updateTransactionRequestDto.getInstallmentTransactionId())
+//                            .orElseThrow(() -> new BusinessException(ErrorMessages.getErrorMessage("TRANSACTION_NOT_FOUND")));
+//
+//                    updateInstallmentTransaction(installmentTransaction, updateTransactionRequestDto);
+//                    installmentTransactionRepository.save(installmentTransaction);
+                    break;
+                case THIS_EXPENSE_AND_FUTURE_ONES:
+                    break;
+                case ALL_EXPENSES:
+                    updateAllExpenses(transaction, updateTransactionRequestDto);
+                    break;
+                default:
+                    break;
+            }
+
+        }
+
+        return transaction.convertEntityToUpdateResponseDto();
     }
 
     private void createInstallmentTransaction(TransactionRequestDto transactionRequestDto, Transaction transaction) {
@@ -173,13 +196,41 @@ public class TransactionServiceImpl implements TransactionService {
         }
     }
 
-    private void updateTransactionFields(Transaction transaction, TransactionRequestDto transactionRequestDto) {
-        transaction.setAmount(transactionRequestDto.getAmount());
-        transaction.setCategory(transactionRequestDto.getCategory());
-        transaction.setDescription(transactionRequestDto.getDescription());
-        transaction.setFixedExpense(transactionRequestDto.getFixedExpense());
-        transaction.setPayDay(transactionRequestDto.getPayDay());
-        transaction.setRepeat(transactionRequestDto.getRepeat());
-        transaction.setStatus(transactionRequestDto.getStatus());
+    private void updateTransactionFields(Transaction transaction, UpdateTransactionRequestDto updateTransactionRequestDto) {
+
+        transaction.setAmount(updateTransactionRequestDto.getAmount());
+        transaction.setCategory(updateTransactionRequestDto.getCategory());
+        transaction.setDescription(updateTransactionRequestDto.getDescription());
+        transaction.setFixedExpense(updateTransactionRequestDto.getFixedExpense());
+        transaction.setPayDay(updateTransactionRequestDto.getPayDay());
+        transaction.setRepeat(updateTransactionRequestDto.getRepeat());
+        transaction.setStatus(updateTransactionRequestDto.getStatus());
+    }
+
+    private void updateInstallmentTransaction(List<InstallmentTransaction> installmentTransactions, UpdateTransactionRequestDto updateTransactionRequestDto) {
+        int installment = 1;
+        int repeat = updateTransactionRequestDto.getRepeat();
+
+        for (InstallmentTransaction installmentTransaction : installmentTransactions) {
+
+            installmentTransaction.setAmount(updateTransactionRequestDto.getAmount());
+            installmentTransaction.setCategory(updateTransactionRequestDto.getCategory());
+            installmentTransaction.setDescription(updateTransactionRequestDto.getDescription());
+            installmentTransaction.setPayDay(updateTransactionRequestDto.getPayDay());
+            installmentTransaction.setStatus(updateTransactionRequestDto.getStatus());
+            installmentTransaction.setDescription(updateTransactionRequestDto.getDescription() + "(" + installment + "/" + repeat + ")");
+            installmentTransactionRepository.save(installmentTransaction);
+            installment++;
+        }
+    }
+
+    private void updateAllExpenses(Transaction transaction, UpdateTransactionRequestDto updateTransactionRequestDto) {
+
+        updateTransactionFields(transaction, updateTransactionRequestDto);
+        transactionRepository.save(transaction);
+
+        List<InstallmentTransaction> installmentTransactions = installmentTransactionRepository.findByTransaction_Id(transaction.getId());
+        updateInstallmentTransaction(installmentTransactions, updateTransactionRequestDto);
     }
 }
+

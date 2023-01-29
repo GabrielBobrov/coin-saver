@@ -1,8 +1,10 @@
 package com.coinsaver.api.controllers;
 
 import com.coinsaver.api.dtos.request.TransactionRequestDto;
+import com.coinsaver.api.dtos.request.UpdateTransactionRequestDto;
 import com.coinsaver.api.dtos.response.MonthlyResponseDto;
 import com.coinsaver.api.dtos.response.TransactionResponseDto;
+import com.coinsaver.api.dtos.response.UpdateTransactionResponseDto;
 import com.coinsaver.api.openapi.controller.TransactionControllerOpenApi;
 import com.coinsaver.core.enums.TransactionCategoryType;
 import com.coinsaver.services.interfaces.TransactionService;
@@ -19,8 +21,11 @@ import java.util.List;
 @RequestMapping(value = "/transactions")
 public class TransactionsController implements TransactionControllerOpenApi {
 
-    @Autowired
-    private TransactionService transactionService;
+    private final TransactionService transactionService;
+
+    public TransactionsController(TransactionService transactionService) {
+        this.transactionService = transactionService;
+    }
 
     @GetMapping("/{transactionId}")
     @ResponseStatus(HttpStatus.OK)
@@ -52,7 +57,7 @@ public class TransactionsController implements TransactionControllerOpenApi {
 
     @PutMapping("/{transactionId}")
     @ResponseStatus(HttpStatus.OK)
-    public TransactionResponseDto updateTransaction(@PathVariable Long transactionId, @RequestBody @Valid TransactionRequestDto transactionRequestDto) {
+    public UpdateTransactionResponseDto updateTransaction(@PathVariable Long transactionId, @RequestBody @Valid UpdateTransactionRequestDto transactionRequestDto) {
         return transactionService.updateTransaction(transactionId, transactionRequestDto);
     }
 }

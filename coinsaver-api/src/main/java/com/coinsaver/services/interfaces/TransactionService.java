@@ -1,8 +1,10 @@
 package com.coinsaver.services.interfaces;
 
 import com.coinsaver.api.dtos.request.TransactionRequestDto;
+import com.coinsaver.api.dtos.request.UpdateTransactionRequestDto;
 import com.coinsaver.api.dtos.response.MonthlyResponseDto;
 import com.coinsaver.api.dtos.response.TransactionResponseDto;
+import com.coinsaver.api.dtos.response.UpdateTransactionResponseDto;
 import com.coinsaver.core.enums.TransactionCategoryType;
 import com.coinsaver.domain.entities.Transaction;
 
@@ -18,5 +20,5 @@ public interface TransactionService {
 
     MonthlyResponseDto getMonthlyTransactions(LocalDateTime date);
 
-    TransactionResponseDto updateTransaction(Long transactionId, TransactionRequestDto transactionRequestDto);
+    UpdateTransactionResponseDto updateTransaction(Long transactionId, UpdateTransactionRequestDto transactionRequestDto);
 }

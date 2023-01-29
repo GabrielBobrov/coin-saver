@@ -2,6 +2,7 @@ package com.coinsaver.domain.entities;
 
 import com.coinsaver.api.dtos.request.TransactionRequestDto;
 import com.coinsaver.api.dtos.response.TransactionResponseDto;
+import com.coinsaver.api.dtos.response.UpdateTransactionResponseDto;
 import com.coinsaver.core.enums.StatusType;
 import com.coinsaver.core.enums.TransactionCategoryType;
 import jakarta.persistence.*;
@@ -20,7 +21,7 @@ import java.time.LocalDateTime;
 @NoArgsConstructor
 @DynamicUpdate
 @Entity
-public class Transaction {
+public class Transaction extends TransactionBase {
 
     @EqualsAndHashCode.Include
     @Id
@@ -57,11 +58,4 @@ public class Transaction {
     @JoinColumn(name = "client_id")
     private Client client;
 
-    public TransactionResponseDto convertEntityToResponseDto() {
-        return new ModelMapper().map(this, TransactionResponseDto.class);
-    }
-
-    public TransactionRequestDto convertEntityToRequestDto() {
-        return new ModelMapper().map(this, TransactionRequestDto.class);
-    }
 }

@@ -8,7 +8,7 @@ package com.coinsaver.core.enums;
 public enum CategoryType {
 	HEALTH,
 	HOME,
-	ELETRONIC,
+	ELECTRONIC,
 	RESTAURANT,
 	OTHER
 }

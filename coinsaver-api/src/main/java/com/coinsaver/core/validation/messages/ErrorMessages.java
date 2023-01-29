@@ -5,16 +5,17 @@ import java.util.Map;
 
 
 public class ErrorMessages {
-    private static final Map<String, String> errorMessages = new HashMap<>();
+    private static final Map<String, String> messages = new HashMap<>();
 
     static {
-        errorMessages.put("USER_ALREADY_EXISTS", "Já existe um usuário cadastrado com o email informado.");
-        errorMessages.put("USER_NOT_FOUND", "Não existe nenhum usuário com o id informado.");
+        messages.put("USER_ALREADY_EXISTS", "Já existe um usuário cadastrado com o email informado.");
+        messages.put("USER_NOT_FOUND", "Não existe nenhum usuário com o id informado.");
+        messages.put("TRANSACTION_NOT_FOUND", "Transação não encontrada.");
     }
 
 
     public static String getErrorMessage(String key) {
-        return errorMessages.get(key);
+        return messages.get(key);
     }
 
     public static String userInvalid(String errors) {

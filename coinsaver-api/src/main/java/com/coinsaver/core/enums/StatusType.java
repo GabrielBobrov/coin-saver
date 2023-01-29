@@ -6,8 +6,8 @@ package com.coinsaver.core.enums;
  *
  */
 public enum StatusType {
-	NOTPAID,
+	NOT_PAID,
 	PAID,
-	NOTRECIVED,
-	RECIVED	
+	NOT_RECEIVED,
+	RECEIVED
 }

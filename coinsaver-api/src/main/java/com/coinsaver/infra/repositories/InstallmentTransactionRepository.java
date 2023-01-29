@@ -15,4 +15,6 @@ public interface InstallmentTransactionRepository extends JpaRepository<Installm
 
     List<InstallmentTransaction> findByPayDayBetween(LocalDateTime startOfMonth, LocalDateTime endOfMonth);
 
+    List<InstallmentTransaction> findByTransaction_Id(Long transactionId);
+
 }

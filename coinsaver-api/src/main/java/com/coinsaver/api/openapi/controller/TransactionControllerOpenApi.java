@@ -1,8 +1,10 @@
 package com.coinsaver.api.openapi.controller;
 
 import com.coinsaver.api.dtos.request.TransactionRequestDto;
+import com.coinsaver.api.dtos.request.UpdateTransactionRequestDto;
 import com.coinsaver.api.dtos.response.MonthlyResponseDto;
 import com.coinsaver.api.dtos.response.TransactionResponseDto;
+import com.coinsaver.api.dtos.response.UpdateTransactionResponseDto;
 import com.coinsaver.api.exceptionhandler.Problem;
 import com.coinsaver.core.enums.TransactionCategoryType;
 import io.swagger.v3.oas.annotations.Operation;
@@ -47,7 +49,7 @@ public interface TransactionControllerOpenApi {
     MonthlyResponseDto getTransactionsInMonth(@RequestParam @Schema(example = "2023-01-28T19:39:37.438") LocalDateTime date);
 
     @Operation(summary = "Atualizar transação", responses = {
-            @ApiResponse(responseCode = "200", content = @Content(schema = @Schema(implementation = TransactionResponseDto.class))),
+            @ApiResponse(responseCode = "200", content = @Content(schema = @Schema(implementation = UpdateTransactionResponseDto.class))),
     })
-    TransactionResponseDto updateTransaction(@PathVariable Long transactionId, @org.springframework.web.bind.annotation.RequestBody @Valid TransactionRequestDto transactionRequestDto);
+    UpdateTransactionResponseDto updateTransaction(@PathVariable Long transactionId, @org.springframework.web.bind.annotation.RequestBody @Valid UpdateTransactionRequestDto transactionRequestDto);
 }
