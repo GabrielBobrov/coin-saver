@@ -207,18 +207,25 @@ public class TransactionServiceImpl implements TransactionService {
         transaction.setStatus(updateTransactionRequestDto.getStatus());
     }
 
-    private void updateInstallmentTransaction(List<InstallmentTransaction> installmentTransactions, UpdateTransactionRequestDto updateTransactionRequestDto) {
-        int installment = 1;
+    private void updateInstallmentTransaction(Transaction transaction, UpdateTransactionRequestDto updateTransactionRequestDto) {
         int repeat = updateTransactionRequestDto.getRepeat();
+        int installment = 1;
+        LocalDateTime payDay = updateTransactionRequestDto.getPayDay();
 
-        for (InstallmentTransaction installmentTransaction : installmentTransactions) {
-
+        for (int i = 0; i < repeat; i++) {
+            InstallmentTransaction installmentTransaction = updateTransactionRequestDto.convertDtoToInstallmentTransactionEntity();
             installmentTransaction.setAmount(updateTransactionRequestDto.getAmount());
             installmentTransaction.setCategory(updateTransactionRequestDto.getCategory());
             installmentTransaction.setDescription(updateTransactionRequestDto.getDescription());
             installmentTransaction.setPayDay(updateTransactionRequestDto.getPayDay());
             installmentTransaction.setStatus(updateTransactionRequestDto.getStatus());
-            installmentTransaction.setDescription(updateTransactionRequestDto.getDescription() + "(" + installment + "/" + repeat + ")");
+            installmentTransaction.setTransaction(transaction);
+            installmentTransaction.setDescription(transaction.getDescription() + "(" + installment + "/" + repeat + ")");
+
+            if (i > 0) {
+                installmentTransaction.setPayDay(payDay.plusMonths(i));
+            }
+
             installmentTransactionRepository.save(installmentTransaction);
             installment++;
         }
@@ -229,8 +236,8 @@ public class TransactionServiceImpl implements TransactionService {
         updateTransactionFields(transaction, updateTransactionRequestDto);
         transactionRepository.save(transaction);
 
-        List<InstallmentTransaction> installmentTransactions = installmentTransactionRepository.findByTransaction_Id(transaction.getId());
-        updateInstallmentTransaction(installmentTransactions, updateTransactionRequestDto);
+        installmentTransactionRepository.deleteByTransaction_Id(transaction.getId());
+        updateInstallmentTransaction(transaction, updateTransactionRequestDto);
     }
 }
 
