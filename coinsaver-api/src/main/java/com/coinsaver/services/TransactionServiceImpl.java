@@ -145,9 +145,7 @@ public class TransactionServiceImpl implements TransactionService {
     @Override
     public UpdateTransactionResponseDto updateTransaction(Long transactionId, UpdateTransactionRequestDto updateTransactionRequestDto) {
 
-        if (Boolean.TRUE.equals(updateTransactionRequestDto.getFixedExpense()) && updateTransactionRequestDto.getRepeat() > 0) {
-            throw new BusinessException(ErrorMessages.getInvalidFixedExpenseMessage("atualizar"));
-        }
+        validate(updateTransactionRequestDto);
 
         Transaction transaction = transactionRepository.findById(transactionId)
                 .orElseThrow(() -> new BusinessException(ErrorMessages.getErrorMessage("TRANSACTION_NOT_FOUND")));
@@ -175,6 +173,16 @@ public class TransactionServiceImpl implements TransactionService {
         }
 
         return transaction.convertEntityToUpdateResponseDto();
+    }
+
+    private void validate(UpdateTransactionRequestDto updateTransactionRequestDto) {
+        if (Boolean.TRUE.equals(updateTransactionRequestDto.getFixedExpense()) && updateTransactionRequestDto.getRepeat() > 0) {
+            throw new BusinessException(ErrorMessages.getInvalidFixedExpenseMessage("atualizar"));
+        }
+
+        if (Boolean.FALSE.equals(updateTransactionRequestDto.getFixedExpense()) && updateTransactionRequestDto.getUpdateInstallmentTransactionType() == null){
+            throw new BusinessException(ErrorMessages.getErrorMessage("INSTALLMENT_TRANSACTION_TYPE_NULL"));
+        }
     }
 
     private void createInstallmentTransaction(TransactionRequestDto transactionRequestDto, Transaction transaction) {
