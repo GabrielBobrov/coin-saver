@@ -155,17 +155,7 @@ public class TransactionServiceImpl implements TransactionService {
 
             switch (updateInstallmentTransactionType) {
                 case ONLY_THIS_EXPENSE:
-                    InstallmentTransaction installmentTransaction = installmentTransactionRepository.findById(updateTransactionRequestDto.getInstallmentTransactionId())
-                            .orElseThrow(() -> new BusinessException(ErrorMessages.getErrorMessage("TRANSACTION_NOT_FOUND")));
-
-                    installmentTransaction.setAmount(updateTransactionRequestDto.getAmount());
-                    installmentTransaction.setCategory(updateTransactionRequestDto.getCategory());
-                    installmentTransaction.setPayDay(updateTransactionRequestDto.getPayDay());
-                    installmentTransaction.setStatus(updateTransactionRequestDto.getStatus());
-                    installmentTransaction.setTransaction(transaction);
-                    installmentTransaction.setDescription(updateTransactionRequestDto.getDescription() + getInstallment(installmentTransaction.getDescription()));
-
-                    installmentTransactionRepository.save(installmentTransaction);
+                    updateOneExpense(transaction, updateTransactionRequestDto);
                     break;
                 case THIS_EXPENSE_AND_FUTURE_ONES:
                     break;
@@ -258,6 +248,20 @@ public class TransactionServiceImpl implements TransactionService {
 
         installmentTransactionRepository.deleteByTransaction_Id(transaction.getId());
         updateInstallmentTransaction(transaction, updateTransactionRequestDto);
+    }
+
+    private void updateOneExpense(Transaction transaction, UpdateTransactionRequestDto updateTransactionRequestDto) {
+        InstallmentTransaction installmentTransaction = installmentTransactionRepository.findById(updateTransactionRequestDto.getInstallmentTransactionId())
+                .orElseThrow(() -> new BusinessException(ErrorMessages.getErrorMessage("TRANSACTION_NOT_FOUND")));
+
+        installmentTransaction.setAmount(updateTransactionRequestDto.getAmount());
+        installmentTransaction.setCategory(updateTransactionRequestDto.getCategory());
+        installmentTransaction.setPayDay(updateTransactionRequestDto.getPayDay());
+        installmentTransaction.setStatus(updateTransactionRequestDto.getStatus());
+        installmentTransaction.setTransaction(transaction);
+        installmentTransaction.setDescription(updateTransactionRequestDto.getDescription() + getInstallment(installmentTransaction.getDescription()));
+
+        installmentTransactionRepository.save(installmentTransaction);
     }
 }
 
