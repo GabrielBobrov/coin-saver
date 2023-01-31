@@ -51,8 +51,4 @@ public class InstallmentTransaction extends TransactionBase {
     @JoinColumn(name = "client_id")
     private Client client;
 
-    public TransactionResponseDto convertEntityToResponseDto() {
-        return new ModelMapper().map(this, TransactionResponseDto.class);
-    }
-
 }

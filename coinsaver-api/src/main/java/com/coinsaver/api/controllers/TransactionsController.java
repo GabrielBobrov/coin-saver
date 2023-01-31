@@ -58,6 +58,7 @@ public class TransactionsController implements TransactionControllerOpenApi {
     @PutMapping("/{transactionId}")
     @ResponseStatus(HttpStatus.OK)
     public UpdateTransactionResponseDto updateTransaction(@PathVariable Long transactionId, @RequestBody @Valid UpdateTransactionRequestDto transactionRequestDto) {
+
         return transactionService.updateTransaction(transactionId, transactionRequestDto);
     }
 }

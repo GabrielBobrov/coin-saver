@@ -155,11 +155,17 @@ public class TransactionServiceImpl implements TransactionService {
 
             switch (updateInstallmentTransactionType) {
                 case ONLY_THIS_EXPENSE:
-//                    InstallmentTransaction installmentTransaction = installmentTransactionRepository.findById(updateTransactionRequestDto.getInstallmentTransactionId())
-//                            .orElseThrow(() -> new BusinessException(ErrorMessages.getErrorMessage("TRANSACTION_NOT_FOUND")));
-//
-//                    updateInstallmentTransaction(installmentTransaction, updateTransactionRequestDto);
-//                    installmentTransactionRepository.save(installmentTransaction);
+                    InstallmentTransaction installmentTransaction = installmentTransactionRepository.findById(updateTransactionRequestDto.getInstallmentTransactionId())
+                            .orElseThrow(() -> new BusinessException(ErrorMessages.getErrorMessage("TRANSACTION_NOT_FOUND")));
+
+                    installmentTransaction.setAmount(updateTransactionRequestDto.getAmount());
+                    installmentTransaction.setCategory(updateTransactionRequestDto.getCategory());
+                    installmentTransaction.setPayDay(updateTransactionRequestDto.getPayDay());
+                    installmentTransaction.setStatus(updateTransactionRequestDto.getStatus());
+                    installmentTransaction.setTransaction(transaction);
+                    installmentTransaction.setDescription(updateTransactionRequestDto.getDescription() + getInstallment(installmentTransaction.getDescription()));
+
+                    installmentTransactionRepository.save(installmentTransaction);
                     break;
                 case THIS_EXPENSE_AND_FUTURE_ONES:
                     break;
@@ -180,7 +186,7 @@ public class TransactionServiceImpl implements TransactionService {
             throw new BusinessException(ErrorMessages.getInvalidFixedExpenseMessage("atualizar"));
         }
 
-        if (Boolean.FALSE.equals(updateTransactionRequestDto.getFixedExpense()) && updateTransactionRequestDto.getUpdateInstallmentTransactionType() == null){
+        if (Boolean.FALSE.equals(updateTransactionRequestDto.getFixedExpense()) && updateTransactionRequestDto.getUpdateInstallmentTransactionType() == null) {
             throw new BusinessException(ErrorMessages.getErrorMessage("INSTALLMENT_TRANSACTION_TYPE_NULL"));
         }
     }
@@ -213,6 +219,12 @@ public class TransactionServiceImpl implements TransactionService {
         transaction.setPayDay(updateTransactionRequestDto.getPayDay());
         transaction.setRepeat(updateTransactionRequestDto.getRepeat());
         transaction.setStatus(updateTransactionRequestDto.getStatus());
+    }
+
+    private String getInstallment(String description) {
+        int length = description.length();
+        int startIndex = Math.max(length - 5, 0);
+        return description.substring(startIndex, length);
     }
 
     private void updateInstallmentTransaction(Transaction transaction, UpdateTransactionRequestDto updateTransactionRequestDto) {
