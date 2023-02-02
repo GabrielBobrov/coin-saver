@@ -154,10 +154,11 @@ public class TransactionServiceImpl implements TransactionService {
             UpdateInstallmentTransactionType updateInstallmentTransactionType = updateTransactionRequestDto.getUpdateInstallmentTransactionType();
 
             switch (updateInstallmentTransactionType) {
-                case ONLY_THIS_EXPENSE -> updateOneExpense(transaction, updateTransactionRequestDto);
+                case ONLY_THIS_EXPENSE -> updateThisExpense(transaction, updateTransactionRequestDto);
                 case THIS_EXPENSE_AND_FUTURE_ONES ->
                         updateThisAndFutureExpenses(transaction, updateTransactionRequestDto, updateInstallmentTransactionType);
-                case ALL_EXPENSES -> updateAllExpenses(transaction, updateTransactionRequestDto, updateInstallmentTransactionType);
+                case ALL_EXPENSES ->
+                        updateAllExpenses(transaction, updateTransactionRequestDto, updateInstallmentTransactionType);
             }
         }
         return transaction.convertEntityToUpdateResponseDto();
@@ -284,7 +285,7 @@ public class TransactionServiceImpl implements TransactionService {
         updateInstallmentTransaction(transaction, updateTransactionRequestDto);
     }
 
-    private void updateOneExpense(Transaction transaction, UpdateTransactionRequestDto updateTransactionRequestDto) {
+    private void updateThisExpense(Transaction transaction, UpdateTransactionRequestDto updateTransactionRequestDto) {
         InstallmentTransaction installmentTransaction = installmentTransactionRepository.findById(updateTransactionRequestDto.getInstallmentTransactionId())
                 .orElseThrow(() -> new BusinessException(ErrorMessages.getErrorMessage("TRANSACTION_NOT_FOUND")));
 
@@ -298,4 +299,3 @@ public class TransactionServiceImpl implements TransactionService {
         installmentTransactionRepository.save(installmentTransaction);
     }
 }
-
