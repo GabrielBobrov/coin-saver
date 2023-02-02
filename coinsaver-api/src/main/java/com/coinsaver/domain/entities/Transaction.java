@@ -58,4 +58,6 @@ public class Transaction extends TransactionBase {
     @JoinColumn(name = "client_id")
     private Client client;
 
+    @Column(nullable = false)
+    private Boolean paid;
 }

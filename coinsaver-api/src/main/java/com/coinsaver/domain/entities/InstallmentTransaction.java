@@ -47,8 +47,6 @@ public class InstallmentTransaction extends TransactionBase {
     @JoinColumn(name = "transaction_id")
     private Transaction transaction;
 
-    @ManyToOne
-    @JoinColumn(name = "client_id")
-    private Client client;
-
+    @Column(nullable = false)
+    private Boolean paid;
 }
