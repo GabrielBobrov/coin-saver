@@ -15,6 +15,8 @@ import com.coinsaver.core.validation.messages.ErrorMessages;
 import com.coinsaver.domain.entities.InstallmentTransaction;
 import com.coinsaver.domain.entities.Transaction;
 import com.coinsaver.domain.exceptions.BusinessException;
+import com.coinsaver.domain.mappers.InstallmentTransactionMapper;
+import com.coinsaver.domain.mappers.TransactionMapper;
 import com.coinsaver.infra.repositories.InstallmentTransactionRepository;
 import com.coinsaver.infra.repositories.TransactionRepository;
 import com.coinsaver.services.interfaces.TransactionService;
@@ -198,16 +200,16 @@ public class TransactionServiceImpl implements TransactionService {
         }
     }
 
-    private void updateThisAndFutureExpenses(Transaction transaction, UpdateTransactionRequestDto updateTransactionRequestDto, UpdateInstallmentTransactionType updateInstallmentTransactionType) {
+    private void updateThisAndFutureExpenses(Transaction transaction,
+                                             UpdateTransactionRequestDto updateTransactionRequestDto,
+                                             UpdateInstallmentTransactionType updateInstallmentTransactionType) {
 
-        updateTransactionFields(transaction, updateTransactionRequestDto, updateInstallmentTransactionType);
-        transactionRepository.save(transaction);
+        transactionRepository.save(TransactionMapper.updateTransactionFields(transaction, updateTransactionRequestDto, updateInstallmentTransactionType));
 
         List<InstallmentTransaction> futureTransactions = findFutureTransactions(updateTransactionRequestDto);
 
         for (InstallmentTransaction futureTransaction : futureTransactions) {
-            updateInstallmentTransactionFields(futureTransaction, updateTransactionRequestDto);
-            installmentTransactionRepository.save(futureTransaction);
+            installmentTransactionRepository.save(InstallmentTransactionMapper.updateInstallmentTransactionFields(futureTransaction, updateTransactionRequestDto));
         }
     }
 
@@ -216,14 +218,6 @@ public class TransactionServiceImpl implements TransactionService {
                 .orElseThrow(() -> new BusinessException(ErrorMessages.getErrorMessage("TRANSACTION_NOT_FOUND")));
 
         return installmentTransactionRepository.findInstallmentTransactionByPayDayIsGreaterThanEqual(installmentTransaction.getPayDay());
-    }
-
-    private void updateInstallmentTransactionFields(InstallmentTransaction installmentTransaction, UpdateTransactionRequestDto updateTransactionRequestDto) {
-        installmentTransaction.setAmount(updateTransactionRequestDto.getAmount());
-        installmentTransaction.setCategory(updateTransactionRequestDto.getCategory());
-        installmentTransaction.setPayDay(updateTransactionRequestDto.getPayDay());
-        installmentTransaction.setStatus(updateTransactionRequestDto.getStatus());
-        installmentTransaction.setDescription(removeInstallmentFromDescription(updateTransactionRequestDto.getDescription()) + getInstallment(installmentTransaction.getDescription()));
     }
 
     private void validate(UpdateTransactionRequestDto updateTransactionRequestDto) {
@@ -255,81 +249,33 @@ public class TransactionServiceImpl implements TransactionService {
         }
     }
 
-    private void updateTransactionFields(Transaction transaction, UpdateTransactionRequestDto updateTransactionRequestDto, UpdateInstallmentTransactionType updateInstallmentTransactionType) {
-
-        transaction.setAmount(updateTransactionRequestDto.getAmount());
-        transaction.setCategory(updateTransactionRequestDto.getCategory());
-        transaction.setDescription(updateTransactionRequestDto.getDescription());
-        transaction.setFixedExpense(updateTransactionRequestDto.getFixedExpense());
-        transaction.setPayDay(updateTransactionRequestDto.getPayDay());
-        if (updateInstallmentTransactionType.equals(UpdateInstallmentTransactionType.ALL_EXPENSES)) {
-            transaction.setRepeat(updateTransactionRequestDto.getRepeat());
-        }
-        transaction.setStatus(updateTransactionRequestDto.getStatus());
-    }
-
-    private String getInstallment(String description) {
-        int lastIndexOfOpenParenthesis = description.lastIndexOf("(");
-        int lastIndexOfCloseParenthesis = description.lastIndexOf(")");
-        if (lastIndexOfOpenParenthesis != -1 && lastIndexOfCloseParenthesis != -1) {
-            return "(" + description.substring(lastIndexOfOpenParenthesis + 1, lastIndexOfCloseParenthesis) + ")";
-        }
-        return "";
-    }
-
-    private String removeInstallmentFromDescription(String description) {
-        int lastIndexOfOpenParenthesis = description.lastIndexOf("(");
-        int lastIndexOfCloseParenthesis = description.lastIndexOf(")");
-        if (lastIndexOfOpenParenthesis != -1 && lastIndexOfCloseParenthesis != -1) {
-            return description.substring(0, lastIndexOfOpenParenthesis).trim();
-        }
-        return description;
-    }
-
     private void updateInstallmentTransaction(Transaction transaction, UpdateTransactionRequestDto updateTransactionRequestDto) {
         int repeat = updateTransactionRequestDto.getRepeat();
         int installment = 1;
-        LocalDateTime payDay = updateTransactionRequestDto.getPayDay();
 
         for (int i = 0; i < repeat; i++) {
             InstallmentTransaction installmentTransaction = updateTransactionRequestDto.convertDtoToInstallmentTransactionEntity();
-            installmentTransaction.setAmount(updateTransactionRequestDto.getAmount());
-            installmentTransaction.setCategory(updateTransactionRequestDto.getCategory());
-            installmentTransaction.setDescription(updateTransactionRequestDto.getDescription());
-            installmentTransaction.setPayDay(updateTransactionRequestDto.getPayDay());
-            installmentTransaction.setStatus(updateTransactionRequestDto.getStatus());
-            installmentTransaction.setTransaction(transaction);
-            installmentTransaction.setDescription(transaction.getDescription() + "(" + installment + "/" + repeat + ")");
-
-            if (i > 0) {
-                installmentTransaction.setPayDay(payDay.plusMonths(i));
-            }
-
-            installmentTransactionRepository.save(installmentTransaction);
+            installmentTransactionRepository.save(InstallmentTransactionMapper.updateAllInstallmentTransactions(installmentTransaction, updateTransactionRequestDto, transaction, installment, repeat, i));
             installment++;
         }
     }
 
-    private void updateAllExpenses(Transaction transaction, UpdateTransactionRequestDto updateTransactionRequestDto, UpdateInstallmentTransactionType updateInstallmentTransactionType) {
+    private void updateAllExpenses(Transaction transaction,
+                                   UpdateTransactionRequestDto updateTransactionRequestDto,
+                                   UpdateInstallmentTransactionType updateInstallmentTransactionType) {
 
-        updateTransactionFields(transaction, updateTransactionRequestDto, updateInstallmentTransactionType);
-        transactionRepository.save(transaction);
+
+        transactionRepository.save(TransactionMapper.updateTransactionFields(transaction, updateTransactionRequestDto, updateInstallmentTransactionType));
 
         installmentTransactionRepository.deleteByTransaction_Id(transaction.getId());
         updateInstallmentTransaction(transaction, updateTransactionRequestDto);
     }
 
     private void updateThisExpense(Transaction transaction, UpdateTransactionRequestDto updateTransactionRequestDto) {
+        //TODO: ajustar metodo para atualizar transactions
         InstallmentTransaction installmentTransaction = installmentTransactionRepository.findById(updateTransactionRequestDto.getInstallmentTransactionId())
                 .orElseThrow(() -> new BusinessException(ErrorMessages.getErrorMessage("TRANSACTION_NOT_FOUND")));
 
-        installmentTransaction.setAmount(updateTransactionRequestDto.getAmount());
-        installmentTransaction.setCategory(updateTransactionRequestDto.getCategory());
-        installmentTransaction.setPayDay(updateTransactionRequestDto.getPayDay());
-        installmentTransaction.setStatus(updateTransactionRequestDto.getStatus());
-        installmentTransaction.setTransaction(transaction);
-        installmentTransaction.setDescription(updateTransactionRequestDto.getDescription() + getInstallment(installmentTransaction.getDescription()));
-
-        installmentTransactionRepository.save(installmentTransaction);
+        installmentTransactionRepository.save(InstallmentTransactionMapper.updateThisExpense(installmentTransaction, updateTransactionRequestDto));
     }
 }
