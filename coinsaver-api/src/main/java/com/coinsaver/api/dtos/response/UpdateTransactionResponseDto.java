@@ -22,27 +22,12 @@ import java.time.LocalDateTime;
 public class UpdateTransactionResponseDto {
 
     private Long id;
-
-    @NotNull
     private BigDecimal amount;
-
     private LocalDateTime payDay;
-    @NotBlank
     private String description;
-    @NotNull
     private StatusType status;
-    @NotNull
     private TransactionCategoryType category;
-    @NotNull
     private Boolean fixedExpense;
-
+    private Boolean paid;
     private Integer repeat;
-
-    public Transaction convertDtoToTransactionEntity() {
-        return new ModelMapper().map(this, Transaction.class);
-    }
-
-    public InstallmentTransaction convertDtoToInstallmentTransactionEntity() {
-        return new ModelMapper().map(this, InstallmentTransaction.class);
-    }
 }

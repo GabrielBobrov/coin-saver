@@ -1,11 +1,15 @@
 package com.coinsaver.services;
 
+import com.coinsaver.api.dtos.request.PayTransactionRequestDto;
 import com.coinsaver.api.dtos.request.TransactionRequestDto;
 import com.coinsaver.api.dtos.request.UpdateTransactionRequestDto;
 import com.coinsaver.api.dtos.response.MonthlyResponseDto;
+import com.coinsaver.api.dtos.response.MonthlyTransactionResponseDto;
 import com.coinsaver.api.dtos.response.TransactionResponseDto;
 import com.coinsaver.api.dtos.response.UpdateTransactionResponseDto;
+import com.coinsaver.core.enums.StatusType;
 import com.coinsaver.core.enums.TransactionCategoryType;
+import com.coinsaver.core.enums.TransactionType;
 import com.coinsaver.core.enums.UpdateInstallmentTransactionType;
 import com.coinsaver.core.validation.messages.ErrorMessages;
 import com.coinsaver.domain.entities.InstallmentTransaction;
@@ -37,7 +41,8 @@ public class TransactionServiceImpl implements TransactionService {
 
     @Override
     public TransactionResponseDto getTransaction(Long transactionId) {
-        var transaction = transactionRepository.findById(transactionId).orElseThrow();
+        Transaction transaction = transactionRepository.findById(transactionId)
+                .orElseThrow(() -> new BusinessException(ErrorMessages.getErrorMessage("TRANSACTION_NOT_FOUND")));
 
         return transaction.convertEntityToResponseDto();
     }
@@ -95,7 +100,7 @@ public class TransactionServiceImpl implements TransactionService {
         var transactions = transactionRepository.findByPayDayBetweenAndRepeatIsNull(startOfMonth, endOfMonth);
         var installmentTransactions = installmentTransactionRepository.findByPayDayBetween(startOfMonth, endOfMonth);
 
-        List<TransactionResponseDto> transactionsResult = new ArrayList<>();
+        List<MonthlyTransactionResponseDto> transactionsResult = new ArrayList<>();
 
         BigDecimal income = BigDecimal.ZERO;
         BigDecimal expense = BigDecimal.ZERO;
@@ -103,7 +108,11 @@ public class TransactionServiceImpl implements TransactionService {
         if (!transactions.isEmpty()) {
             transactionsResult.addAll(transactions
                     .stream()
-                    .map(Transaction::convertEntityToResponseDto)
+                    .map(transaction -> {
+                        MonthlyTransactionResponseDto responseDto = transaction.convertEntityToMonthlyResponseDto();
+                        responseDto.setTransactionType(TransactionType.IN_CASH);
+                        return responseDto;
+                    })
                     .toList());
 
             income = transactions.stream()
@@ -120,7 +129,11 @@ public class TransactionServiceImpl implements TransactionService {
         if (!installmentTransactions.isEmpty()) {
             transactionsResult.addAll(installmentTransactions
                     .stream()
-                    .map(InstallmentTransaction::convertEntityToResponseDto)
+                    .map(installmentTransaction -> {
+                        MonthlyTransactionResponseDto responseDto = installmentTransaction.convertEntityToMonthlyResponseDto();
+                        responseDto.setTransactionType(TransactionType.INSTALLMENT);
+                        return responseDto;
+                    })
                     .toList());
 
             income = income.add(installmentTransactions.stream()
@@ -162,6 +175,27 @@ public class TransactionServiceImpl implements TransactionService {
             }
         }
         return transaction.convertEntityToUpdateResponseDto();
+    }
+
+    @Transactional
+    @Override
+    public void payTransaction(PayTransactionRequestDto payTransactionRequestDto) {
+        switch (payTransactionRequestDto.getTransactionType()) {
+            case IN_CASH -> {
+                Transaction transaction = transactionRepository.findById(payTransactionRequestDto.getTransactionId())
+                        .orElseThrow(() -> new BusinessException(ErrorMessages.getErrorMessage("TRANSACTION_NOT_FOUND")));
+
+                transaction.setStatus(StatusType.PAID);
+                transactionRepository.save(transaction);
+            }
+            case INSTALLMENT -> {
+                InstallmentTransaction installmentTransaction = installmentTransactionRepository.findById(payTransactionRequestDto.getTransactionId())
+                        .orElseThrow(() -> new BusinessException(ErrorMessages.getErrorMessage("TRANSACTION_NOT_FOUND")));
+
+                installmentTransaction.setStatus(StatusType.PAID);
+                installmentTransactionRepository.save(installmentTransaction);
+            }
+        }
     }
 
     private void updateThisAndFutureExpenses(Transaction transaction, UpdateTransactionRequestDto updateTransactionRequestDto, UpdateInstallmentTransactionType updateInstallmentTransactionType) {

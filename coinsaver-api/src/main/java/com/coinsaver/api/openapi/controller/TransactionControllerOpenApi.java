@@ -1,5 +1,6 @@
 package com.coinsaver.api.openapi.controller;
 
+import com.coinsaver.api.dtos.request.PayTransactionRequestDto;
 import com.coinsaver.api.dtos.request.TransactionRequestDto;
 import com.coinsaver.api.dtos.request.UpdateTransactionRequestDto;
 import com.coinsaver.api.dtos.response.MonthlyResponseDto;
@@ -52,4 +53,9 @@ public interface TransactionControllerOpenApi {
             @ApiResponse(responseCode = "200", content = @Content(schema = @Schema(implementation = UpdateTransactionResponseDto.class))),
     })
     UpdateTransactionResponseDto updateTransaction(@PathVariable Long transactionId, @org.springframework.web.bind.annotation.RequestBody @Valid UpdateTransactionRequestDto transactionRequestDto);
+
+    @Operation(summary = "Pagar transação", responses = {
+            @ApiResponse(responseCode = "204"),
+    })
+    void updateTransaction(@RequestBody( description = "Representação de uma requisição de pagamento") PayTransactionRequestDto payTransactionRequestDto);
 }
