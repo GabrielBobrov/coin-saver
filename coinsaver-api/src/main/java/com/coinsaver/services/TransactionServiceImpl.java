@@ -17,9 +17,9 @@ import com.coinsaver.domain.entities.Transaction;
 import com.coinsaver.domain.exceptions.BusinessException;
 import com.coinsaver.infra.repositories.InstallmentTransactionRepository;
 import com.coinsaver.infra.repositories.TransactionRepository;
-import com.coinsaver.services.domain.InstallmentTransactionDomainServiceImpl;
 import com.coinsaver.services.domain.TransactionDomainServiceImpl;
 import com.coinsaver.services.domain.interfaces.InstallmentTransactionDomainService;
+import com.coinsaver.services.domain.interfaces.TransactionDomainService;
 import com.coinsaver.services.interfaces.TransactionService;
 import jakarta.transaction.Transactional;
 import org.springframework.stereotype.Service;
@@ -38,12 +38,16 @@ public class TransactionServiceImpl implements TransactionService {
     private final InstallmentTransactionRepository installmentTransactionRepository;
 
     private final InstallmentTransactionDomainService installmentTransactionDomainService;
+    private final TransactionDomainService transactionDomainService;
 
-
-    public TransactionServiceImpl(TransactionRepository transactionRepository, InstallmentTransactionRepository installmentTransactionRepository, InstallmentTransactionDomainService installmentTransactionDomainService) {
+    public TransactionServiceImpl(TransactionRepository transactionRepository,
+                                  InstallmentTransactionRepository installmentTransactionRepository,
+                                  InstallmentTransactionDomainService installmentTransactionDomainService,
+                                  TransactionDomainService transactionDomainService) {
         this.transactionRepository = transactionRepository;
         this.installmentTransactionRepository = installmentTransactionRepository;
         this.installmentTransactionDomainService = installmentTransactionDomainService;
+        this.transactionDomainService = transactionDomainService;
     }
 
     @Override
@@ -209,7 +213,7 @@ public class TransactionServiceImpl implements TransactionService {
                                              UpdateTransactionRequestDto updateTransactionRequestDto,
                                              UpdateInstallmentTransactionType updateInstallmentTransactionType) {
 
-        transactionRepository.save(TransactionDomainServiceImpl.updateTransactionFields(transaction, updateTransactionRequestDto, updateInstallmentTransactionType));
+        transactionDomainService.updateTransactionFields(transaction, updateTransactionRequestDto, updateInstallmentTransactionType);
 
         List<InstallmentTransaction> futureTransactions = findFutureTransactions(updateTransactionRequestDto);
 
@@ -251,7 +255,7 @@ public class TransactionServiceImpl implements TransactionService {
 
         for (int i = 0; i < repeat; i++) {
             InstallmentTransaction installmentTransaction = updateTransactionRequestDto.convertDtoToInstallmentTransactionEntity();
-            installmentTransactionRepository.save(installmentTransactionDomainService.updateAllInstallmentTransactions(installmentTransaction, updateTransactionRequestDto, transaction, installment, repeat, i));
+           installmentTransactionDomainService.updateAllInstallmentTransactions(installmentTransaction, updateTransactionRequestDto, transaction, installment, repeat, i);
             installment++;
         }
     }
@@ -261,7 +265,7 @@ public class TransactionServiceImpl implements TransactionService {
                                    UpdateInstallmentTransactionType updateInstallmentTransactionType) {
 
 
-        transactionRepository.save(TransactionDomainServiceImpl.updateTransactionFields(transaction, updateTransactionRequestDto, updateInstallmentTransactionType));
+        transactionDomainService.updateTransactionFields(transaction, updateTransactionRequestDto, updateInstallmentTransactionType);
 
         installmentTransactionRepository.deleteByTransaction_Id(transaction.getId());
         updateInstallmentTransaction(transaction, updateTransactionRequestDto);

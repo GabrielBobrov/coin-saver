@@ -10,7 +10,7 @@ public interface InstallmentTransactionDomainService {
 
     InstallmentTransaction updateThisExpense(InstallmentTransaction installmentTransaction, UpdateTransactionRequestDto updateTransactionRequestDto);
 
-    InstallmentTransaction updateAllInstallmentTransactions(InstallmentTransaction installmentTransaction,
+    void updateAllInstallmentTransactions(InstallmentTransaction installmentTransaction,
                                                             UpdateTransactionRequestDto updateTransactionRequestDto,
                                                             Transaction transaction,
                                                             Integer installment,

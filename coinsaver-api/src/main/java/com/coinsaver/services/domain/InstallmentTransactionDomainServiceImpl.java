@@ -6,7 +6,9 @@ import com.coinsaver.domain.entities.InstallmentTransaction;
 import com.coinsaver.domain.entities.Transaction;
 import com.coinsaver.infra.repositories.InstallmentTransactionRepository;
 import com.coinsaver.services.domain.interfaces.InstallmentTransactionDomainService;
+import org.springframework.stereotype.Service;
 
+@Service
 public class InstallmentTransactionDomainServiceImpl implements InstallmentTransactionDomainService {
 
     private final InstallmentTransactionRepository installmentTransactionRepository;
@@ -37,7 +39,7 @@ public class InstallmentTransactionDomainServiceImpl implements InstallmentTrans
     }
 
     @Override
-    public InstallmentTransaction updateAllInstallmentTransactions(InstallmentTransaction installmentTransaction,
+    public void updateAllInstallmentTransactions(InstallmentTransaction installmentTransaction,
                                                                    UpdateTransactionRequestDto updateTransactionRequestDto,
                                                                    Transaction transaction,
                                                                    Integer installment,
@@ -54,12 +56,15 @@ public class InstallmentTransactionDomainServiceImpl implements InstallmentTrans
         if (monthQuantity > 0) {
             installmentTransaction.setPayDay(updateTransactionRequestDto.getPayDay().plusMonths(monthQuantity));
         }
-
-        return installmentTransaction;
+        installmentTransactionRepository.save(installmentTransaction);
     }
 
     @Override
-    public void createInstallmentTransaction(TransactionRequestDto transactionRequestDto, Transaction transaction, Integer installment, Integer monthQuantity, Integer repeat) {
+    public void createInstallmentTransaction(TransactionRequestDto transactionRequestDto,
+                                             Transaction transaction,
+                                             Integer installment,
+                                             Integer monthQuantity,
+                                             Integer repeat) {
         var installmentTransaction = transactionRequestDto.convertDtoToInstallmentTransactionEntity();
         installmentTransaction.setTransaction(transaction);
         installmentTransaction.setDescription(transactionRequestDto.getDescription() + "(" + installment + "/" + repeat + ")");
