@@ -1,12 +1,23 @@
-package com.coinsaver.domain.mappers;
+package com.coinsaver.services.domain;
 
+import com.coinsaver.api.dtos.request.TransactionRequestDto;
 import com.coinsaver.api.dtos.request.UpdateTransactionRequestDto;
 import com.coinsaver.domain.entities.InstallmentTransaction;
 import com.coinsaver.domain.entities.Transaction;
+import com.coinsaver.infra.repositories.InstallmentTransactionRepository;
+import com.coinsaver.services.domain.interfaces.InstallmentTransactionDomainService;
 
-public class InstallmentTransactionMapper {
+public class InstallmentTransactionDomainServiceImpl implements InstallmentTransactionDomainService {
 
-    public static InstallmentTransaction updateInstallmentTransactionFields(InstallmentTransaction installmentTransaction, UpdateTransactionRequestDto updateTransactionRequestDto) {
+    private final InstallmentTransactionRepository installmentTransactionRepository;
+
+    public InstallmentTransactionDomainServiceImpl(InstallmentTransactionRepository installmentTransactionRepository) {
+        this.installmentTransactionRepository = installmentTransactionRepository;
+    }
+
+
+    @Override
+    public InstallmentTransaction updateInstallmentTransactionFields(InstallmentTransaction installmentTransaction, UpdateTransactionRequestDto updateTransactionRequestDto) {
         installmentTransaction.setAmount(updateTransactionRequestDto.getAmount());
         installmentTransaction.setCategory(updateTransactionRequestDto.getCategory());
         installmentTransaction.setPayDay(updateTransactionRequestDto.getPayDay());
@@ -15,7 +26,8 @@ public class InstallmentTransactionMapper {
         return installmentTransaction;
     }
 
-    public static InstallmentTransaction updateThisExpense(InstallmentTransaction installmentTransaction, UpdateTransactionRequestDto updateTransactionRequestDto) {
+    @Override
+    public InstallmentTransaction updateThisExpense(InstallmentTransaction installmentTransaction, UpdateTransactionRequestDto updateTransactionRequestDto) {
         installmentTransaction.setAmount(updateTransactionRequestDto.getAmount());
         installmentTransaction.setCategory(updateTransactionRequestDto.getCategory());
         installmentTransaction.setPayDay(updateTransactionRequestDto.getPayDay());
@@ -24,12 +36,13 @@ public class InstallmentTransactionMapper {
         return installmentTransaction;
     }
 
-    public static InstallmentTransaction updateAllInstallmentTransactions(InstallmentTransaction installmentTransaction,
-                                                                          UpdateTransactionRequestDto updateTransactionRequestDto,
-                                                                          Transaction transaction,
-                                                                          Integer installment,
-                                                                          Integer repeat,
-                                                                          Integer monthQuantity) {
+    @Override
+    public InstallmentTransaction updateAllInstallmentTransactions(InstallmentTransaction installmentTransaction,
+                                                                   UpdateTransactionRequestDto updateTransactionRequestDto,
+                                                                   Transaction transaction,
+                                                                   Integer installment,
+                                                                   Integer repeat,
+                                                                   Integer monthQuantity) {
 
         installmentTransaction.setAmount(updateTransactionRequestDto.getAmount());
         installmentTransaction.setCategory(updateTransactionRequestDto.getCategory());
@@ -45,7 +58,20 @@ public class InstallmentTransactionMapper {
         return installmentTransaction;
     }
 
-    private static String removeInstallmentFromDescription(String description) {
+    @Override
+    public void createInstallmentTransaction(TransactionRequestDto transactionRequestDto, Transaction transaction, Integer installment, Integer monthQuantity, Integer repeat) {
+        var installmentTransaction = transactionRequestDto.convertDtoToInstallmentTransactionEntity();
+        installmentTransaction.setTransaction(transaction);
+        installmentTransaction.setDescription(transactionRequestDto.getDescription() + "(" + installment + "/" + repeat + ")");
+
+        if (monthQuantity > 0) {
+            installmentTransaction.setPayDay(transactionRequestDto.getPayDay().plusMonths(monthQuantity));
+        }
+
+        installmentTransactionRepository.save(installmentTransaction);
+    }
+
+    private String removeInstallmentFromDescription(String description) {
         int lastIndexOfOpenParenthesis = description.lastIndexOf("(");
         int lastIndexOfCloseParenthesis = description.lastIndexOf(")");
         if (lastIndexOfOpenParenthesis != -1 && lastIndexOfCloseParenthesis != -1) {
@@ -54,7 +80,7 @@ public class InstallmentTransactionMapper {
         return description;
     }
 
-    private static String getInstallment(String description) {
+    private String getInstallment(String description) {
         int lastIndexOfOpenParenthesis = description.lastIndexOf("(");
         int lastIndexOfCloseParenthesis = description.lastIndexOf(")");
         if (lastIndexOfOpenParenthesis != -1 && lastIndexOfCloseParenthesis != -1) {

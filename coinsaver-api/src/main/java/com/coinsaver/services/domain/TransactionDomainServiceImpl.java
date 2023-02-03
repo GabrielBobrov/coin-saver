@@ -1,10 +1,10 @@
-package com.coinsaver.domain.mappers;
+package com.coinsaver.services.domain;
 
 import com.coinsaver.api.dtos.request.UpdateTransactionRequestDto;
 import com.coinsaver.core.enums.UpdateInstallmentTransactionType;
 import com.coinsaver.domain.entities.Transaction;
 
-public class TransactionMapper {
+public class TransactionDomainServiceImpl {
 
     public static Transaction updateTransactionFields(Transaction transaction,
                                                       UpdateTransactionRequestDto updateTransactionRequestDto,

@@ -15,10 +15,11 @@ import com.coinsaver.core.validation.messages.ErrorMessages;
 import com.coinsaver.domain.entities.InstallmentTransaction;
 import com.coinsaver.domain.entities.Transaction;
 import com.coinsaver.domain.exceptions.BusinessException;
-import com.coinsaver.domain.mappers.InstallmentTransactionMapper;
-import com.coinsaver.domain.mappers.TransactionMapper;
 import com.coinsaver.infra.repositories.InstallmentTransactionRepository;
 import com.coinsaver.infra.repositories.TransactionRepository;
+import com.coinsaver.services.domain.InstallmentTransactionDomainServiceImpl;
+import com.coinsaver.services.domain.TransactionDomainServiceImpl;
+import com.coinsaver.services.domain.interfaces.InstallmentTransactionDomainService;
 import com.coinsaver.services.interfaces.TransactionService;
 import jakarta.transaction.Transactional;
 import org.springframework.stereotype.Service;
@@ -36,9 +37,13 @@ public class TransactionServiceImpl implements TransactionService {
 
     private final InstallmentTransactionRepository installmentTransactionRepository;
 
-    public TransactionServiceImpl(TransactionRepository transactionRepository, InstallmentTransactionRepository installmentTransactionRepository) {
+    private final InstallmentTransactionDomainService installmentTransactionDomainService;
+
+
+    public TransactionServiceImpl(TransactionRepository transactionRepository, InstallmentTransactionRepository installmentTransactionRepository, InstallmentTransactionDomainService installmentTransactionDomainService) {
         this.transactionRepository = transactionRepository;
         this.installmentTransactionRepository = installmentTransactionRepository;
+        this.installmentTransactionDomainService = installmentTransactionDomainService;
     }
 
     @Override
@@ -204,12 +209,12 @@ public class TransactionServiceImpl implements TransactionService {
                                              UpdateTransactionRequestDto updateTransactionRequestDto,
                                              UpdateInstallmentTransactionType updateInstallmentTransactionType) {
 
-        transactionRepository.save(TransactionMapper.updateTransactionFields(transaction, updateTransactionRequestDto, updateInstallmentTransactionType));
+        transactionRepository.save(TransactionDomainServiceImpl.updateTransactionFields(transaction, updateTransactionRequestDto, updateInstallmentTransactionType));
 
         List<InstallmentTransaction> futureTransactions = findFutureTransactions(updateTransactionRequestDto);
 
         for (InstallmentTransaction futureTransaction : futureTransactions) {
-            installmentTransactionRepository.save(InstallmentTransactionMapper.updateInstallmentTransactionFields(futureTransaction, updateTransactionRequestDto));
+            installmentTransactionRepository.save(installmentTransactionDomainService.updateInstallmentTransactionFields(futureTransaction, updateTransactionRequestDto));
         }
     }
 
@@ -233,18 +238,9 @@ public class TransactionServiceImpl implements TransactionService {
     private void createInstallmentTransaction(TransactionRequestDto transactionRequestDto, Transaction transaction) {
         int repeat = transactionRequestDto.getRepeat();
         int installment = 1;
-        LocalDateTime payDay = transactionRequestDto.getPayDay();
 
         for (int i = 0; i < repeat; i++) {
-            var installmentTransaction = transactionRequestDto.convertDtoToInstallmentTransactionEntity();
-            installmentTransaction.setTransaction(transaction);
-            installmentTransaction.setDescription(transaction.getDescription() + "(" + installment + "/" + repeat + ")");
-
-            if (i > 0) {
-                installmentTransaction.setPayDay(payDay.plusMonths(i));
-            }
-
-            installmentTransactionRepository.save(installmentTransaction);
+            installmentTransactionDomainService.createInstallmentTransaction(transactionRequestDto, transaction, installment, i, repeat);
             installment++;
         }
     }
@@ -255,7 +251,7 @@ public class TransactionServiceImpl implements TransactionService {
 
         for (int i = 0; i < repeat; i++) {
             InstallmentTransaction installmentTransaction = updateTransactionRequestDto.convertDtoToInstallmentTransactionEntity();
-            installmentTransactionRepository.save(InstallmentTransactionMapper.updateAllInstallmentTransactions(installmentTransaction, updateTransactionRequestDto, transaction, installment, repeat, i));
+            installmentTransactionRepository.save(installmentTransactionDomainService.updateAllInstallmentTransactions(installmentTransaction, updateTransactionRequestDto, transaction, installment, repeat, i));
             installment++;
         }
     }
@@ -265,7 +261,7 @@ public class TransactionServiceImpl implements TransactionService {
                                    UpdateInstallmentTransactionType updateInstallmentTransactionType) {
 
 
-        transactionRepository.save(TransactionMapper.updateTransactionFields(transaction, updateTransactionRequestDto, updateInstallmentTransactionType));
+        transactionRepository.save(TransactionDomainServiceImpl.updateTransactionFields(transaction, updateTransactionRequestDto, updateInstallmentTransactionType));
 
         installmentTransactionRepository.deleteByTransaction_Id(transaction.getId());
         updateInstallmentTransaction(transaction, updateTransactionRequestDto);
@@ -276,6 +272,6 @@ public class TransactionServiceImpl implements TransactionService {
         InstallmentTransaction installmentTransaction = installmentTransactionRepository.findById(updateTransactionRequestDto.getInstallmentTransactionId())
                 .orElseThrow(() -> new BusinessException(ErrorMessages.getErrorMessage("TRANSACTION_NOT_FOUND")));
 
-        installmentTransactionRepository.save(InstallmentTransactionMapper.updateThisExpense(installmentTransaction, updateTransactionRequestDto));
+        installmentTransactionRepository.save(installmentTransactionDomainService.updateThisExpense(installmentTransaction, updateTransactionRequestDto));
     }
 }
