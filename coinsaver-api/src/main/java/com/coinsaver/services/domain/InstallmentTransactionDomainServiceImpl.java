@@ -29,22 +29,23 @@ public class InstallmentTransactionDomainServiceImpl implements InstallmentTrans
     }
 
     @Override
-    public InstallmentTransaction updateThisExpense(InstallmentTransaction installmentTransaction, UpdateTransactionRequestDto updateTransactionRequestDto) {
-        installmentTransaction.setAmount(updateTransactionRequestDto.getAmount());
-        installmentTransaction.setCategory(updateTransactionRequestDto.getCategory());
-        installmentTransaction.setPayDay(updateTransactionRequestDto.getPayDay());
-        installmentTransaction.setStatus(updateTransactionRequestDto.getStatus());
-        installmentTransaction.setDescription(updateTransactionRequestDto.getDescription() + getInstallment(installmentTransaction.getDescription()));
-        return installmentTransaction;
+    public void updateThisExpense(InstallmentTransaction installmentTransaction, UpdateTransactionRequestDto updateTransactionRequestDto) {
+
+        installmentTransactionRepository.updateInstallmentTransaction(updateTransactionRequestDto.getAmount(),
+                updateTransactionRequestDto.getCategory(),
+                updateTransactionRequestDto.getPayDay(),
+                updateTransactionRequestDto.getStatus(),
+                updateTransactionRequestDto.getDescription() + getInstallment(installmentTransaction.getDescription()),
+                installmentTransaction.getId());
     }
 
     @Override
     public void updateAllInstallmentTransactions(InstallmentTransaction installmentTransaction,
-                                                                   UpdateTransactionRequestDto updateTransactionRequestDto,
-                                                                   Transaction transaction,
-                                                                   Integer installment,
-                                                                   Integer repeat,
-                                                                   Integer monthQuantity) {
+                                                 UpdateTransactionRequestDto updateTransactionRequestDto,
+                                                 Transaction transaction,
+                                                 Integer installment,
+                                                 Integer repeat,
+                                                 Integer monthQuantity) {
 
         installmentTransaction.setAmount(updateTransactionRequestDto.getAmount());
         installmentTransaction.setCategory(updateTransactionRequestDto.getCategory());

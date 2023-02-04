@@ -13,7 +13,7 @@ import java.time.LocalDateTime;
 @Data
 @EqualsAndHashCode(onlyExplicitlyIncluded = true)
 @Entity
-public class TransactionMade {
+public class AmendedFixedTransaction {
 	
 	@EqualsAndHashCode.Include
 	@Id
@@ -39,9 +39,8 @@ public class TransactionMade {
 	@Enumerated(EnumType.ORDINAL)
 	@Column(nullable = false)
 	private TransactionCategoryType category;
-	
-	@ManyToOne
-	@JoinColumn(name = "client_id")
-	private Client client;
 
+	@ManyToOne
+	@JoinColumn(name = "transaction_id")
+	private Transaction transaction;
 }

@@ -8,6 +8,6 @@ import com.coinsaver.domain.entities.Transaction;
 
 public interface TransactionDomainService {
     void updateTransactionFields(Transaction transaction,
-                                        UpdateTransactionRequestDto updateTransactionRequestDto,
-                                        UpdateInstallmentTransactionType updateInstallmentTransactionType);
+                                 UpdateTransactionRequestDto updateTransactionRequestDto,
+                                 UpdateInstallmentTransactionType updateInstallmentTransactionType);
 }

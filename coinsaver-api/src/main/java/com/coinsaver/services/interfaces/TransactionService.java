@@ -7,7 +7,6 @@ import com.coinsaver.api.dtos.response.MonthlyResponseDto;
 import com.coinsaver.api.dtos.response.TransactionResponseDto;
 import com.coinsaver.api.dtos.response.UpdateTransactionResponseDto;
 import com.coinsaver.core.enums.TransactionCategoryType;
-import com.coinsaver.domain.entities.Transaction;
 
 import java.time.LocalDateTime;
 import java.util.List;

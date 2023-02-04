@@ -17,7 +17,6 @@ import com.coinsaver.domain.entities.Transaction;
 import com.coinsaver.domain.exceptions.BusinessException;
 import com.coinsaver.infra.repositories.InstallmentTransactionRepository;
 import com.coinsaver.infra.repositories.TransactionRepository;
-import com.coinsaver.services.domain.TransactionDomainServiceImpl;
 import com.coinsaver.services.domain.interfaces.InstallmentTransactionDomainService;
 import com.coinsaver.services.domain.interfaces.TransactionDomainService;
 import com.coinsaver.services.interfaces.TransactionService;
@@ -38,6 +37,7 @@ public class TransactionServiceImpl implements TransactionService {
     private final InstallmentTransactionRepository installmentTransactionRepository;
 
     private final InstallmentTransactionDomainService installmentTransactionDomainService;
+    
     private final TransactionDomainService transactionDomainService;
 
     public TransactionServiceImpl(TransactionRepository transactionRepository,
@@ -255,7 +255,7 @@ public class TransactionServiceImpl implements TransactionService {
 
         for (int i = 0; i < repeat; i++) {
             InstallmentTransaction installmentTransaction = updateTransactionRequestDto.convertDtoToInstallmentTransactionEntity();
-           installmentTransactionDomainService.updateAllInstallmentTransactions(installmentTransaction, updateTransactionRequestDto, transaction, installment, repeat, i);
+            installmentTransactionDomainService.updateAllInstallmentTransactions(installmentTransaction, updateTransactionRequestDto, transaction, installment, repeat, i);
             installment++;
         }
     }
@@ -267,15 +267,17 @@ public class TransactionServiceImpl implements TransactionService {
 
         transactionDomainService.updateTransactionFields(transaction, updateTransactionRequestDto, updateInstallmentTransactionType);
 
-        installmentTransactionRepository.deleteByTransaction_Id(transaction.getId());
+        installmentTransactionRepository.deleteByTransactionId(transaction.getId());
         updateInstallmentTransaction(transaction, updateTransactionRequestDto);
     }
 
     private void updateThisExpense(Transaction transaction, UpdateTransactionRequestDto updateTransactionRequestDto) {
         //TODO: ajustar metodo para atualizar transactions
-        InstallmentTransaction installmentTransaction = installmentTransactionRepository.findById(updateTransactionRequestDto.getInstallmentTransactionId())
-                .orElseThrow(() -> new BusinessException(ErrorMessages.getErrorMessage("TRANSACTION_NOT_FOUND")));
+        if (updateTransactionRequestDto.getInstallmentTransactionId() > 0) {
+            InstallmentTransaction installmentTransaction = installmentTransactionRepository.findById(updateTransactionRequestDto.getInstallmentTransactionId())
+                    .orElseThrow(() -> new BusinessException(ErrorMessages.getErrorMessage("TRANSACTION_NOT_FOUND")));
 
-        installmentTransactionRepository.save(installmentTransactionDomainService.updateThisExpense(installmentTransaction, updateTransactionRequestDto));
+            installmentTransactionDomainService.updateThisExpense(installmentTransaction, updateTransactionRequestDto);
+        }
     }
 }
