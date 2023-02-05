@@ -7,7 +7,6 @@ import com.coinsaver.api.dtos.response.MonthlyResponseDto;
 import com.coinsaver.api.dtos.response.MonthlyTransactionResponseDto;
 import com.coinsaver.api.dtos.response.TransactionResponseDto;
 import com.coinsaver.api.dtos.response.UpdateTransactionResponseDto;
-import com.coinsaver.core.enums.StatusType;
 import com.coinsaver.core.enums.TransactionCategoryType;
 import com.coinsaver.core.enums.TransactionType;
 import com.coinsaver.core.enums.UpdateInstallmentTransactionType;
@@ -90,15 +89,11 @@ public class TransactionServiceImpl implements TransactionService {
     @Override
     public TransactionResponseDto createTransaction(TransactionRequestDto transactionRequestDto) {
 
-        if (Boolean.TRUE.equals(transactionRequestDto.getFixedExpense()) && transactionRequestDto.getRepeat() > 0) {
-            throw new BusinessException(ErrorMessages.getInvalidFixedExpenseMessage("criar"));
-        }
-        var transaction = transactionRepository.save(transactionRequestDto.convertDtoTransactionEntity());
+        Transaction transaction = transactionDomainService.createTransaction(transactionRequestDto);
 
-        if (transactionRequestDto.getRepeat() > 0) {
+        if (transactionRequestDto.getRepeat() != null && transactionRequestDto.getRepeat() > 0) {
             createInstallmentTransaction(transactionRequestDto, transaction);
         }
-
         return transaction.convertEntityToResponseDto();
     }
 
@@ -110,14 +105,26 @@ public class TransactionServiceImpl implements TransactionService {
 
         var transactions = transactionRepository.findByPayDayBetweenAndRepeatIsNull(startOfMonth, endOfMonth);
         var installmentTransactions = installmentTransactionRepository.findByPayDayBetween(startOfMonth, endOfMonth);
+        var fixedTransactions = transactionRepository.findByFixedExpenseIsTrue();
+
+        transactions.addAll(fixedTransactions);
+        var allMonthlyTransactions = transactions.stream()
+                .map(transaction -> {
+                    int monthDifference = getMonthDifference(startOfMonth, transaction.getPayDay());
+                    var payday = transaction.getPayDay().plusMonths(monthDifference);
+                    transaction.setPayDay(payday);
+                    return transaction;
+                })
+                .distinct()
+                .toList();
 
         List<MonthlyTransactionResponseDto> transactionsResult = new ArrayList<>();
 
         BigDecimal income = BigDecimal.ZERO;
         BigDecimal expense = BigDecimal.ZERO;
 
-        if (!transactions.isEmpty()) {
-            transactionsResult.addAll(transactions
+        if (!allMonthlyTransactions.isEmpty()) {
+            transactionsResult.addAll(allMonthlyTransactions
                     .stream()
                     .map(transaction -> {
                         MonthlyTransactionResponseDto responseDto = transaction.convertEntityToMonthlyResponseDto();
@@ -126,12 +133,12 @@ public class TransactionServiceImpl implements TransactionService {
                     })
                     .toList());
 
-            income = transactions.stream()
+            income = allMonthlyTransactions.stream()
                     .filter(t -> t.getCategory() == TransactionCategoryType.INCOME)
                     .map(Transaction::getAmount)
                     .reduce(BigDecimal.ZERO, BigDecimal::add);
 
-            expense = transactions.stream()
+            expense = allMonthlyTransactions.stream()
                     .filter(t -> t.getCategory() == TransactionCategoryType.EXPENSE)
                     .map(Transaction::getAmount)
                     .reduce(BigDecimal.ZERO, BigDecimal::add);
@@ -197,6 +204,10 @@ public class TransactionServiceImpl implements TransactionService {
         }
     }
 
+    private int getMonthDifference(LocalDateTime payDay, LocalDateTime startOfMonth) {
+        return (payDay.getYear() - startOfMonth.getYear()) * 12 + (payDay.getMonthValue() - startOfMonth.getMonthValue());
+    }
+
     private void updateThisAndFutureExpenses(Transaction transaction,
                                              UpdateTransactionRequestDto updateTransactionRequestDto,
                                              UpdateInstallmentTransactionType updateInstallmentTransactionType) {
@@ -251,7 +262,6 @@ public class TransactionServiceImpl implements TransactionService {
     private void updateAllExpenses(Transaction transaction,
                                    UpdateTransactionRequestDto updateTransactionRequestDto,
                                    UpdateInstallmentTransactionType updateInstallmentTransactionType) {
-
 
         transactionDomainService.updateTransactionFields(transaction, updateTransactionRequestDto, updateInstallmentTransactionType);
 

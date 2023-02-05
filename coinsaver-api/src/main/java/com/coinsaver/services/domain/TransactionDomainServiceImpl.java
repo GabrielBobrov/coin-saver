@@ -1,6 +1,7 @@
 package com.coinsaver.services.domain;
 
 import com.coinsaver.api.dtos.request.PayTransactionRequestDto;
+import com.coinsaver.api.dtos.request.TransactionRequestDto;
 import com.coinsaver.api.dtos.request.UpdateTransactionRequestDto;
 import com.coinsaver.core.enums.StatusType;
 import com.coinsaver.core.enums.UpdateInstallmentTransactionType;
@@ -57,5 +58,18 @@ public class TransactionDomainServiceImpl implements TransactionDomainService {
 
         transaction.setStatus(StatusType.PAID);
         transactionRepository.save(transaction);
+    }
+
+    @Override
+    public Transaction createTransaction(TransactionRequestDto transactionRequestDto) {
+
+        if (transactionRequestDto.getRepeat() == null) {
+            return transactionRepository.save(transactionRequestDto.convertDtoTransactionEntity());
+        }
+
+        if (Boolean.TRUE.equals(transactionRequestDto.getFixedExpense()) && transactionRequestDto.getRepeat() > 0) {
+            throw new BusinessException(ErrorMessages.getInvalidFixedExpenseMessage("criar"));
+        }
+        return transactionRepository.save(transactionRequestDto.convertDtoTransactionEntity());
     }
 }
