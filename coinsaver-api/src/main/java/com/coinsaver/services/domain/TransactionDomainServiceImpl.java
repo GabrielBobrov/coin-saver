@@ -1,6 +1,8 @@
 package com.coinsaver.services.domain;
 
+import com.coinsaver.api.dtos.request.PayTransactionRequestDto;
 import com.coinsaver.api.dtos.request.UpdateTransactionRequestDto;
+import com.coinsaver.core.enums.StatusType;
 import com.coinsaver.core.enums.UpdateInstallmentTransactionType;
 import com.coinsaver.core.validation.messages.ErrorMessages;
 import com.coinsaver.domain.entities.Transaction;
@@ -17,7 +19,6 @@ public class TransactionDomainServiceImpl implements TransactionDomainService {
     public TransactionDomainServiceImpl(TransactionRepository transactionRepository) {
         this.transactionRepository = transactionRepository;
     }
-
 
     public void updateTransactionFields(Transaction transaction,
                                         UpdateTransactionRequestDto updateTransactionRequestDto,
@@ -47,5 +48,14 @@ public class TransactionDomainServiceImpl implements TransactionDomainService {
                 updateTransactionRequestDto.getDescription(),
                 transaction.getRepeat(),
                 transaction.getId());
+    }
+
+    @Override
+    public void payTransaction(PayTransactionRequestDto payTransactionRequestDto) {
+        Transaction transaction = transactionRepository.findById(payTransactionRequestDto.getTransactionId())
+                .orElseThrow(() -> new BusinessException(ErrorMessages.getErrorMessage("TRANSACTION_NOT_FOUND")));
+
+        transaction.setStatus(StatusType.PAID);
+        transactionRepository.save(transaction);
     }
 }

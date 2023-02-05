@@ -192,20 +192,8 @@ public class TransactionServiceImpl implements TransactionService {
     @Override
     public void payTransaction(PayTransactionRequestDto payTransactionRequestDto) {
         switch (payTransactionRequestDto.getTransactionType()) {
-            case IN_CASH -> {
-                Transaction transaction = transactionRepository.findById(payTransactionRequestDto.getTransactionId())
-                        .orElseThrow(() -> new BusinessException(ErrorMessages.getErrorMessage("TRANSACTION_NOT_FOUND")));
-
-                transaction.setStatus(StatusType.PAID);
-                transactionRepository.save(transaction);
-            }
-            case INSTALLMENT -> {
-                InstallmentTransaction installmentTransaction = installmentTransactionRepository.findById(payTransactionRequestDto.getTransactionId())
-                        .orElseThrow(() -> new BusinessException(ErrorMessages.getErrorMessage("TRANSACTION_NOT_FOUND")));
-
-                installmentTransaction.setStatus(StatusType.PAID);
-                installmentTransactionRepository.save(installmentTransaction);
-            }
+            case IN_CASH -> transactionDomainService.payTransaction(payTransactionRequestDto);
+            case INSTALLMENT -> installmentTransactionDomainService.payTransaction(payTransactionRequestDto);
         }
     }
 
@@ -218,7 +206,7 @@ public class TransactionServiceImpl implements TransactionService {
         List<InstallmentTransaction> futureTransactions = findFutureTransactions(updateTransactionRequestDto);
 
         for (InstallmentTransaction futureTransaction : futureTransactions) {
-            installmentTransactionRepository.save(installmentTransactionDomainService.updateInstallmentTransactionFields(futureTransaction, updateTransactionRequestDto));
+            installmentTransactionDomainService.updateInstallmentTransactionFields(futureTransaction, updateTransactionRequestDto);
         }
     }
 

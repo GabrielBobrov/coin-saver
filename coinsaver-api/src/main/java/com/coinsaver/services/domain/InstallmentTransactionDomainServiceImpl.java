@@ -1,9 +1,13 @@
 package com.coinsaver.services.domain;
 
+import com.coinsaver.api.dtos.request.PayTransactionRequestDto;
 import com.coinsaver.api.dtos.request.TransactionRequestDto;
 import com.coinsaver.api.dtos.request.UpdateTransactionRequestDto;
+import com.coinsaver.core.enums.StatusType;
+import com.coinsaver.core.validation.messages.ErrorMessages;
 import com.coinsaver.domain.entities.InstallmentTransaction;
 import com.coinsaver.domain.entities.Transaction;
+import com.coinsaver.domain.exceptions.BusinessException;
 import com.coinsaver.infra.repositories.InstallmentTransactionRepository;
 import com.coinsaver.services.domain.interfaces.InstallmentTransactionDomainService;
 import org.springframework.stereotype.Service;
@@ -19,13 +23,13 @@ public class InstallmentTransactionDomainServiceImpl implements InstallmentTrans
 
 
     @Override
-    public InstallmentTransaction updateInstallmentTransactionFields(InstallmentTransaction installmentTransaction, UpdateTransactionRequestDto updateTransactionRequestDto) {
+    public void updateInstallmentTransactionFields(InstallmentTransaction installmentTransaction, UpdateTransactionRequestDto updateTransactionRequestDto) {
         installmentTransaction.setAmount(updateTransactionRequestDto.getAmount());
         installmentTransaction.setCategory(updateTransactionRequestDto.getCategory());
         installmentTransaction.setPayDay(updateTransactionRequestDto.getPayDay());
         installmentTransaction.setStatus(updateTransactionRequestDto.getStatus());
         installmentTransaction.setDescription(removeInstallmentFromDescription(updateTransactionRequestDto.getDescription()) + getInstallment(installmentTransaction.getDescription()));
-        return installmentTransaction;
+        installmentTransactionRepository.save(installmentTransaction);
     }
 
     @Override
@@ -74,6 +78,15 @@ public class InstallmentTransactionDomainServiceImpl implements InstallmentTrans
             installmentTransaction.setPayDay(transactionRequestDto.getPayDay().plusMonths(monthQuantity));
         }
 
+        installmentTransactionRepository.save(installmentTransaction);
+    }
+
+    @Override
+    public void payTransaction(PayTransactionRequestDto payTransactionRequestDto) {
+        InstallmentTransaction installmentTransaction = installmentTransactionRepository.findById(payTransactionRequestDto.getTransactionId())
+                .orElseThrow(() -> new BusinessException(ErrorMessages.getErrorMessage("TRANSACTION_NOT_FOUND")));
+
+        installmentTransaction.setStatus(StatusType.PAID);
         installmentTransactionRepository.save(installmentTransaction);
     }
 
