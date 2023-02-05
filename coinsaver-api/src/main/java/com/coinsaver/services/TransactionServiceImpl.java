@@ -103,11 +103,9 @@ public class TransactionServiceImpl implements TransactionService {
         LocalDateTime startOfMonth = date.with(TemporalAdjusters.firstDayOfMonth());
         LocalDateTime endOfMonth = date.with(TemporalAdjusters.lastDayOfMonth());
 
-        var transactions = transactionRepository.findByPayDayBetweenAndRepeatIsNull(startOfMonth, endOfMonth);
+        var transactions = transactionRepository.findByPayDayBetweenAndRepeatIsNullOrFixedExpenseIsTrue(startOfMonth, endOfMonth);
         var installmentTransactions = installmentTransactionRepository.findByPayDayBetween(startOfMonth, endOfMonth);
-        var fixedTransactions = transactionRepository.findByFixedExpenseIsTrue();
 
-        transactions.addAll(fixedTransactions);
         var allMonthlyTransactions = transactions.stream()
                 .map(transaction -> {
                     int monthDifference = getMonthDifference(startOfMonth, transaction.getPayDay());
@@ -204,8 +202,8 @@ public class TransactionServiceImpl implements TransactionService {
         }
     }
 
-    private int getMonthDifference(LocalDateTime payDay, LocalDateTime startOfMonth) {
-        return (payDay.getYear() - startOfMonth.getYear()) * 12 + (payDay.getMonthValue() - startOfMonth.getMonthValue());
+    private int getMonthDifference(LocalDateTime startOfMonth, LocalDateTime payDay) {
+        return (startOfMonth.getYear() - payDay.getYear()) * 12 + (startOfMonth.getMonthValue() - payDay.getMonthValue());
     }
 
     private void updateThisAndFutureExpenses(Transaction transaction,
