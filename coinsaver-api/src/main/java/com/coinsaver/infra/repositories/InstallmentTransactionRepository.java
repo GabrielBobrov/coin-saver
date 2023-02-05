@@ -20,7 +20,6 @@ public interface InstallmentTransactionRepository extends JpaRepository<Installm
     @Query("DELETE FROM InstallmentTransaction i WHERE i.transaction.id = :transactionId")
     void deleteByTransactionId(Long transactionId);
     List<InstallmentTransaction> findInstallmentTransactionByPayDayIsGreaterThanEqual(LocalDateTime payDay);
-
     @Modifying
     @Query("UPDATE InstallmentTransaction i set i.amount = :amount, i.category = :category, i.payDay = :payDay, i.status = :status, i.description = :description WHERE i.id = :installmentTransactionId")
     void updateInstallmentTransaction(BigDecimal amount, TransactionCategoryType category, LocalDateTime payDay, StatusType status, String description, Long installmentTransactionId);

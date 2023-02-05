@@ -37,7 +37,7 @@ public class TransactionServiceImpl implements TransactionService {
     private final InstallmentTransactionRepository installmentTransactionRepository;
 
     private final InstallmentTransactionDomainService installmentTransactionDomainService;
-    
+
     private final TransactionDomainService transactionDomainService;
 
     public TransactionServiceImpl(TransactionRepository transactionRepository,
@@ -272,8 +272,10 @@ public class TransactionServiceImpl implements TransactionService {
     }
 
     private void updateThisExpense(Transaction transaction, UpdateTransactionRequestDto updateTransactionRequestDto) {
-        //TODO: ajustar metodo para atualizar transactions
-        if (updateTransactionRequestDto.getInstallmentTransactionId() > 0) {
+
+        if (updateTransactionRequestDto.getInstallmentTransactionId() == null) {
+            transactionDomainService.updateThisTransaction(transaction, updateTransactionRequestDto);
+        } else {
             InstallmentTransaction installmentTransaction = installmentTransactionRepository.findById(updateTransactionRequestDto.getInstallmentTransactionId())
                     .orElseThrow(() -> new BusinessException(ErrorMessages.getErrorMessage("TRANSACTION_NOT_FOUND")));
 

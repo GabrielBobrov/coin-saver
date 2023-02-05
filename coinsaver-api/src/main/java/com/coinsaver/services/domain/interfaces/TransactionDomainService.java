@@ -10,4 +10,6 @@ public interface TransactionDomainService {
     void updateTransactionFields(Transaction transaction,
                                  UpdateTransactionRequestDto updateTransactionRequestDto,
                                  UpdateInstallmentTransactionType updateInstallmentTransactionType);
+
+    void updateThisTransaction(Transaction transaction, UpdateTransactionRequestDto updateTransactionRequestDto);
 }
