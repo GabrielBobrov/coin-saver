@@ -4,7 +4,7 @@ import com.coinsaver.api.dtos.request.PayTransactionRequestDto;
 import com.coinsaver.api.dtos.request.TransactionRequestDto;
 import com.coinsaver.api.dtos.request.UpdateTransactionRequestDto;
 import com.coinsaver.core.enums.StatusType;
-import com.coinsaver.core.enums.UpdateInstallmentTransactionType;
+import com.coinsaver.core.enums.UpdateTransactionType;
 import com.coinsaver.core.validation.messages.ErrorMessages;
 import com.coinsaver.domain.entities.Transaction;
 import com.coinsaver.domain.exceptions.BusinessException;
@@ -28,9 +28,9 @@ public class TransactionDomainServiceImpl implements TransactionDomainService {
 
     public void updateTransactionFields(Transaction transaction,
                                         UpdateTransactionRequestDto updateTransactionRequestDto,
-                                        UpdateInstallmentTransactionType updateInstallmentTransactionType) {
+                                        UpdateTransactionType updateTransactionType) {
 
-        if (updateInstallmentTransactionType.equals(UpdateInstallmentTransactionType.ALL_EXPENSES)) {
+        if (updateTransactionType.equals(UpdateTransactionType.ALL_EXPENSES)) {
             transaction.setRepeat(updateTransactionRequestDto.getRepeat());
         }
         transactionRepository.updateTransaction(updateTransactionRequestDto.getAmount(),

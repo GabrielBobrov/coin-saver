@@ -9,7 +9,7 @@ import com.coinsaver.api.dtos.response.TransactionResponseDto;
 import com.coinsaver.api.dtos.response.UpdateTransactionResponseDto;
 import com.coinsaver.core.enums.TransactionCategoryType;
 import com.coinsaver.core.enums.TransactionType;
-import com.coinsaver.core.enums.UpdateInstallmentTransactionType;
+import com.coinsaver.core.enums.UpdateTransactionType;
 import com.coinsaver.core.validation.messages.ErrorMessages;
 import com.coinsaver.domain.entities.InstallmentTransaction;
 import com.coinsaver.domain.entities.Transaction;
@@ -190,14 +190,14 @@ public class TransactionServiceImpl implements TransactionService {
         Transaction transaction = transactionRepository.findById(updateTransactionRequestDto.getTransactionId())
                 .orElseThrow(() -> new BusinessException(ErrorMessages.getErrorMessage("TRANSACTION_NOT_FOUND")));
 
-        UpdateInstallmentTransactionType updateInstallmentTransactionType = updateTransactionRequestDto.getUpdateInstallmentTransactionType();
+        UpdateTransactionType updateTransactionType = updateTransactionRequestDto.getUpdateTransactionType();
 
-        switch (updateInstallmentTransactionType) {
+        switch (updateTransactionType) {
             case ONLY_THIS_EXPENSE -> updateThisExpense(transaction, updateTransactionRequestDto);
             case THIS_EXPENSE_AND_FUTURE_ONES ->
-                    updateThisAndFutureExpenses(transaction, updateTransactionRequestDto, updateInstallmentTransactionType);
+                    updateThisAndFutureExpenses(transaction, updateTransactionRequestDto, updateTransactionType);
             case ALL_EXPENSES ->
-                    updateAllExpenses(transaction, updateTransactionRequestDto, updateInstallmentTransactionType);
+                    updateAllExpenses(transaction, updateTransactionRequestDto, updateTransactionType);
         }
 
         return transaction.convertEntityToUpdateResponseDto();
@@ -218,9 +218,9 @@ public class TransactionServiceImpl implements TransactionService {
 
     private void updateThisAndFutureExpenses(Transaction transaction,
                                              UpdateTransactionRequestDto updateTransactionRequestDto,
-                                             UpdateInstallmentTransactionType updateInstallmentTransactionType) {
+                                             UpdateTransactionType updateTransactionType) {
 
-        transactionDomainService.updateTransactionFields(transaction, updateTransactionRequestDto, updateInstallmentTransactionType);
+        transactionDomainService.updateTransactionFields(transaction, updateTransactionRequestDto, updateTransactionType);
 
         List<InstallmentTransaction> futureTransactions = findFutureTransactions(updateTransactionRequestDto);
 
@@ -241,7 +241,7 @@ public class TransactionServiceImpl implements TransactionService {
             throw new BusinessException(ErrorMessages.getInvalidFixedExpenseMessage("atualizar"));
         }
 
-        if (Boolean.FALSE.equals(updateTransactionRequestDto.getFixedExpense()) && updateTransactionRequestDto.getUpdateInstallmentTransactionType() == null) {
+        if (Boolean.FALSE.equals(updateTransactionRequestDto.getFixedExpense()) && updateTransactionRequestDto.getUpdateTransactionType() == null) {
             throw new BusinessException(ErrorMessages.getErrorMessage("INSTALLMENT_TRANSACTION_TYPE_NULL"));
         }
     }
@@ -269,9 +269,9 @@ public class TransactionServiceImpl implements TransactionService {
 
     private void updateAllExpenses(Transaction transaction,
                                    UpdateTransactionRequestDto updateTransactionRequestDto,
-                                   UpdateInstallmentTransactionType updateInstallmentTransactionType) {
+                                   UpdateTransactionType updateTransactionType) {
 
-        transactionDomainService.updateTransactionFields(transaction, updateTransactionRequestDto, updateInstallmentTransactionType);
+        transactionDomainService.updateTransactionFields(transaction, updateTransactionRequestDto, updateTransactionType);
 
         installmentTransactionRepository.deleteByTransactionId(transaction.getId());
         updateInstallmentTransaction(transaction, updateTransactionRequestDto);

@@ -2,10 +2,9 @@ package com.coinsaver.api.dtos.request;
 
 import com.coinsaver.core.enums.StatusType;
 import com.coinsaver.core.enums.TransactionCategoryType;
-import com.coinsaver.core.enums.UpdateInstallmentTransactionType;
+import com.coinsaver.core.enums.UpdateTransactionType;
 import com.coinsaver.domain.entities.InstallmentTransaction;
 import com.coinsaver.domain.entities.Transaction;
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 import lombok.AllArgsConstructor;
@@ -35,7 +34,7 @@ public class UpdateTransactionRequestDto {
     @NotNull
     private Boolean fixedExpense;
     private Integer repeat;
-    private UpdateInstallmentTransactionType updateInstallmentTransactionType;
+    private UpdateTransactionType updateTransactionType;
     private Long transactionId;
     private Long installmentTransactionId;
     private Long fixTransactionId;
