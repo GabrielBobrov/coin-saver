@@ -52,7 +52,7 @@ public interface TransactionControllerOpenApi {
     @Operation(summary = "Atualizar transação", responses = {
             @ApiResponse(responseCode = "200", content = @Content(schema = @Schema(implementation = UpdateTransactionResponseDto.class))),
     })
-    UpdateTransactionResponseDto updateTransaction(@PathVariable Long transactionId, @org.springframework.web.bind.annotation.RequestBody @Valid UpdateTransactionRequestDto transactionRequestDto);
+    UpdateTransactionResponseDto updateTransaction(@org.springframework.web.bind.annotation.RequestBody @Valid UpdateTransactionRequestDto transactionRequestDto);
 
     @Operation(summary = "Pagar transação", responses = {
             @ApiResponse(responseCode = "204"),

@@ -36,7 +36,9 @@ public class UpdateTransactionRequestDto {
     private Boolean fixedExpense;
     private Integer repeat;
     private UpdateInstallmentTransactionType updateInstallmentTransactionType;
+    private Long transactionId;
     private Long installmentTransactionId;
+    private Long fixTransactionId;
 
     public InstallmentTransaction convertDtoToInstallmentTransactionEntity() {
         return new ModelMapper().map(this, InstallmentTransaction.class);

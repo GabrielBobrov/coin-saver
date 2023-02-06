@@ -2,6 +2,7 @@ package com.coinsaver.api.dtos.request;
 
 import com.coinsaver.core.enums.StatusType;
 import com.coinsaver.core.enums.TransactionCategoryType;
+import com.coinsaver.domain.entities.FixTransaction;
 import com.coinsaver.domain.entities.InstallmentTransaction;
 import com.coinsaver.domain.entities.Transaction;
 import com.fasterxml.jackson.annotation.JsonIgnore;
@@ -44,7 +45,11 @@ public class TransactionRequestDto {
         return new ModelMapper().map(this, InstallmentTransaction.class);
     }
 
-    public Transaction convertDtoTransactionEntity() {
+    public Transaction convertDtoToTransactionEntity() {
         return new ModelMapper().map(this, Transaction.class);
+    }
+
+    public FixTransaction convertDtoToFixTransactionEntity() {
+        return new ModelMapper().map(this, FixTransaction.class);
     }
 }

@@ -21,4 +21,8 @@ public abstract class TransactionBase {
     public UpdateTransactionResponseDto convertEntityToUpdateResponseDto() {
         return new ModelMapper().map(this, UpdateTransactionResponseDto.class);
     }
+
+    public FixTransaction convertEntityToAmendedEntity() {
+        return new ModelMapper().map(this, FixTransaction.class);
+    }
 }

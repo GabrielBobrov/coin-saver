@@ -20,7 +20,7 @@ public interface TransactionService {
 
     MonthlyResponseDto getMonthlyTransactions(LocalDateTime date);
 
-    UpdateTransactionResponseDto updateTransaction(Long transactionId, UpdateTransactionRequestDto transactionRequestDto);
+    UpdateTransactionResponseDto updateTransaction(UpdateTransactionRequestDto transactionRequestDto);
 
     void payTransaction(PayTransactionRequestDto payTransactionRequestDto);
 }

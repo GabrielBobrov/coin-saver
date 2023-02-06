@@ -16,6 +16,7 @@ import com.coinsaver.domain.entities.Transaction;
 import com.coinsaver.domain.exceptions.BusinessException;
 import com.coinsaver.infra.repositories.InstallmentTransactionRepository;
 import com.coinsaver.infra.repositories.TransactionRepository;
+import com.coinsaver.services.domain.interfaces.FixTransactionDomainService;
 import com.coinsaver.services.domain.interfaces.InstallmentTransactionDomainService;
 import com.coinsaver.services.domain.interfaces.TransactionDomainService;
 import com.coinsaver.services.interfaces.TransactionService;
@@ -39,14 +40,17 @@ public class TransactionServiceImpl implements TransactionService {
 
     private final TransactionDomainService transactionDomainService;
 
+    private final FixTransactionDomainService fixTransactionDomainService;
+
     public TransactionServiceImpl(TransactionRepository transactionRepository,
                                   InstallmentTransactionRepository installmentTransactionRepository,
                                   InstallmentTransactionDomainService installmentTransactionDomainService,
-                                  TransactionDomainService transactionDomainService) {
+                                  TransactionDomainService transactionDomainService, FixTransactionDomainService fixTransactionDomainService) {
         this.transactionRepository = transactionRepository;
         this.installmentTransactionRepository = installmentTransactionRepository;
         this.installmentTransactionDomainService = installmentTransactionDomainService;
         this.transactionDomainService = transactionDomainService;
+        this.fixTransactionDomainService = fixTransactionDomainService;
     }
 
     @Override
@@ -90,9 +94,16 @@ public class TransactionServiceImpl implements TransactionService {
     public TransactionResponseDto createTransaction(TransactionRequestDto transactionRequestDto) {
 
         Transaction transaction = transactionDomainService.createTransaction(transactionRequestDto);
+        transactionRepository.flush();
 
         if (transactionRequestDto.getRepeat() != null && transactionRequestDto.getRepeat() > 0) {
             createInstallmentTransaction(transactionRequestDto, transaction);
+            return transaction.convertEntityToResponseDto();
+        }
+
+        if (Boolean.TRUE.equals(transactionRequestDto.getFixedExpense())) {
+            fixTransactionDomainService.createFixTransaction(transactionRequestDto, transaction);
+            return transaction.convertEntityToResponseDto();
         }
         return transaction.convertEntityToResponseDto();
     }
@@ -172,24 +183,23 @@ public class TransactionServiceImpl implements TransactionService {
 
     @Transactional
     @Override
-    public UpdateTransactionResponseDto updateTransaction(Long transactionId, UpdateTransactionRequestDto updateTransactionRequestDto) {
+    public UpdateTransactionResponseDto updateTransaction(UpdateTransactionRequestDto updateTransactionRequestDto) {
 
         validate(updateTransactionRequestDto);
 
-        Transaction transaction = transactionRepository.findById(transactionId)
+        Transaction transaction = transactionRepository.findById(updateTransactionRequestDto.getTransactionId())
                 .orElseThrow(() -> new BusinessException(ErrorMessages.getErrorMessage("TRANSACTION_NOT_FOUND")));
 
-        if (updateTransactionRequestDto.getRepeat() > 0) {
-            UpdateInstallmentTransactionType updateInstallmentTransactionType = updateTransactionRequestDto.getUpdateInstallmentTransactionType();
+        UpdateInstallmentTransactionType updateInstallmentTransactionType = updateTransactionRequestDto.getUpdateInstallmentTransactionType();
 
-            switch (updateInstallmentTransactionType) {
-                case ONLY_THIS_EXPENSE -> updateThisExpense(transaction, updateTransactionRequestDto);
-                case THIS_EXPENSE_AND_FUTURE_ONES ->
-                        updateThisAndFutureExpenses(transaction, updateTransactionRequestDto, updateInstallmentTransactionType);
-                case ALL_EXPENSES ->
-                        updateAllExpenses(transaction, updateTransactionRequestDto, updateInstallmentTransactionType);
-            }
+        switch (updateInstallmentTransactionType) {
+            case ONLY_THIS_EXPENSE -> updateThisExpense(transaction, updateTransactionRequestDto);
+            case THIS_EXPENSE_AND_FUTURE_ONES ->
+                    updateThisAndFutureExpenses(transaction, updateTransactionRequestDto, updateInstallmentTransactionType);
+            case ALL_EXPENSES ->
+                    updateAllExpenses(transaction, updateTransactionRequestDto, updateInstallmentTransactionType);
         }
+
         return transaction.convertEntityToUpdateResponseDto();
     }
 
