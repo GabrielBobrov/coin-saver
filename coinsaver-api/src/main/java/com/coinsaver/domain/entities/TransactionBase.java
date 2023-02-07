@@ -22,7 +22,7 @@ public abstract class TransactionBase {
         return new ModelMapper().map(this, UpdateTransactionResponseDto.class);
     }
 
-    public FixTransaction convertEntityToAmendedEntity() {
-        return new ModelMapper().map(this, FixTransaction.class);
+    public Transaction convertToTransactionEntity() {
+        return new ModelMapper().map(this, Transaction.class);
     }
 }

@@ -34,6 +34,7 @@ public class UpdateTransactionRequestDto {
     @NotNull
     private Boolean fixedExpense;
     private Integer repeat;
+    @NotNull
     private UpdateTransactionType updateTransactionType;
     private Long transactionId;
     private Long installmentTransactionId;

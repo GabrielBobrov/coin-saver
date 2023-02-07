@@ -16,7 +16,9 @@ import java.util.List;
 @Builder
 public class MonthlyTransactionResponseDto {
 
-    private Long id;
+    private Long transactionId;
+    private Long fixTransactionId;
+    private Long installmentTransactionId;
     private BigDecimal amount;
     private LocalDateTime payDay;
     private String description;

@@ -13,7 +13,7 @@ import java.time.LocalDateTime;
 @Data
 @EqualsAndHashCode(onlyExplicitlyIncluded = true)
 @Entity
-public class FixTransaction {
+public class FixTransaction extends TransactionBase {
 	
 	@EqualsAndHashCode.Include
 	@Id

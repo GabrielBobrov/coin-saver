@@ -11,9 +11,12 @@ import com.coinsaver.core.enums.TransactionCategoryType;
 import com.coinsaver.core.enums.TransactionType;
 import com.coinsaver.core.enums.UpdateTransactionType;
 import com.coinsaver.core.validation.messages.ErrorMessages;
+import com.coinsaver.domain.entities.FixTransaction;
 import com.coinsaver.domain.entities.InstallmentTransaction;
 import com.coinsaver.domain.entities.Transaction;
+import com.coinsaver.domain.entities.TransactionBase;
 import com.coinsaver.domain.exceptions.BusinessException;
+import com.coinsaver.infra.repositories.FixTransactionRepository;
 import com.coinsaver.infra.repositories.InstallmentTransactionRepository;
 import com.coinsaver.infra.repositories.TransactionRepository;
 import com.coinsaver.services.domain.interfaces.FixTransactionDomainService;
@@ -41,16 +44,19 @@ public class TransactionServiceImpl implements TransactionService {
     private final TransactionDomainService transactionDomainService;
 
     private final FixTransactionDomainService fixTransactionDomainService;
+    private final FixTransactionRepository fixTransactionRepository;
 
     public TransactionServiceImpl(TransactionRepository transactionRepository,
                                   InstallmentTransactionRepository installmentTransactionRepository,
                                   InstallmentTransactionDomainService installmentTransactionDomainService,
-                                  TransactionDomainService transactionDomainService, FixTransactionDomainService fixTransactionDomainService) {
+                                  TransactionDomainService transactionDomainService, FixTransactionDomainService fixTransactionDomainService,
+                                  FixTransactionRepository fixTransactionRepository) {
         this.transactionRepository = transactionRepository;
         this.installmentTransactionRepository = installmentTransactionRepository;
         this.installmentTransactionDomainService = installmentTransactionDomainService;
         this.transactionDomainService = transactionDomainService;
         this.fixTransactionDomainService = fixTransactionDomainService;
+        this.fixTransactionRepository = fixTransactionRepository;
     }
 
     @Override
@@ -114,18 +120,25 @@ public class TransactionServiceImpl implements TransactionService {
         LocalDateTime startOfMonth = date.with(TemporalAdjusters.firstDayOfMonth());
         LocalDateTime endOfMonth = date.with(TemporalAdjusters.lastDayOfMonth());
 
-        var transactions = transactionRepository.findByPayDayBetweenAndRepeatIsNullOrFixedExpenseIsTrue(startOfMonth, endOfMonth);
+        var transactions = transactionRepository.findByPayDayBetweenAndRepeatIsNullOrFixedExpenseIsFalse(startOfMonth, endOfMonth);
         var installmentTransactions = installmentTransactionRepository.findByPayDayBetween(startOfMonth, endOfMonth);
+        var fixTransactions = fixTransactionRepository.findFixTransactionByPayDayBetween(startOfMonth, endOfMonth);
 
-        var allMonthlyTransactions = transactions.stream()
+
+        List<Transaction> allMonthlyTransactions = new ArrayList<>(transactions);
+        allMonthlyTransactions.addAll(installmentTransactions.stream()
+                .map(TransactionBase::convertToTransactionEntity)
+                .toList());
+
+        allMonthlyTransactions.addAll(fixTransactions.stream()
                 .map(transaction -> {
                     int monthDifference = getMonthDifference(startOfMonth, transaction.getPayDay());
                     var payday = transaction.getPayDay().plusMonths(monthDifference);
                     transaction.setPayDay(payday);
-                    return transaction;
+                    return transaction.convertToTransactionEntity();
                 })
                 .distinct()
-                .toList();
+                .toList());
 
         List<MonthlyTransactionResponseDto> transactionsResult = new ArrayList<>();
 
@@ -133,11 +146,12 @@ public class TransactionServiceImpl implements TransactionService {
         BigDecimal expense = BigDecimal.ZERO;
 
         if (!allMonthlyTransactions.isEmpty()) {
-            transactionsResult.addAll(allMonthlyTransactions
+            transactionsResult.addAll(transactions
                     .stream()
                     .map(transaction -> {
                         MonthlyTransactionResponseDto responseDto = transaction.convertEntityToMonthlyResponseDto();
                         responseDto.setTransactionType(TransactionType.IN_CASH);
+                        responseDto.setTransactionId(transaction.getId());
                         return responseDto;
                     })
                     .toList());
@@ -159,6 +173,7 @@ public class TransactionServiceImpl implements TransactionService {
                     .map(installmentTransaction -> {
                         MonthlyTransactionResponseDto responseDto = installmentTransaction.convertEntityToMonthlyResponseDto();
                         responseDto.setTransactionType(TransactionType.INSTALLMENT);
+                        responseDto.setInstallmentTransactionId(installmentTransaction.getId());
                         return responseDto;
                     })
                     .toList());
@@ -171,6 +186,28 @@ public class TransactionServiceImpl implements TransactionService {
             expense = expense.add(installmentTransactions.stream()
                     .filter(it -> it.getCategory() == TransactionCategoryType.EXPENSE)
                     .map(InstallmentTransaction::getAmount)
+                    .reduce(BigDecimal.ZERO, BigDecimal::add));
+        }
+
+        if (!fixTransactions.isEmpty()) {
+            transactionsResult.addAll(fixTransactions
+                    .stream()
+                    .map(fixTransaction -> {
+                        MonthlyTransactionResponseDto responseDto = fixTransaction.convertEntityToMonthlyResponseDto();
+                        responseDto.setTransactionType(TransactionType.FIX);
+                        responseDto.setFixTransactionId(fixTransaction.getId());
+                        return responseDto;
+                    })
+                    .toList());
+
+            income = income.add(fixTransactions.stream()
+                    .filter(it -> it.getCategory() == TransactionCategoryType.INCOME)
+                    .map(FixTransaction::getAmount)
+                    .reduce(BigDecimal.ZERO, BigDecimal::add));
+
+            expense = expense.add(fixTransactions.stream()
+                    .filter(it -> it.getCategory() == TransactionCategoryType.EXPENSE)
+                    .map(FixTransaction::getAmount)
                     .reduce(BigDecimal.ZERO, BigDecimal::add));
         }
 
@@ -196,8 +233,7 @@ public class TransactionServiceImpl implements TransactionService {
             case ONLY_THIS_EXPENSE -> updateThisExpense(transaction, updateTransactionRequestDto);
             case THIS_EXPENSE_AND_FUTURE_ONES ->
                     updateThisAndFutureExpenses(transaction, updateTransactionRequestDto, updateTransactionType);
-            case ALL_EXPENSES ->
-                    updateAllExpenses(transaction, updateTransactionRequestDto, updateTransactionType);
+            case ALL_EXPENSES -> updateAllExpenses(transaction, updateTransactionRequestDto, updateTransactionType);
         }
 
         return transaction.convertEntityToUpdateResponseDto();
