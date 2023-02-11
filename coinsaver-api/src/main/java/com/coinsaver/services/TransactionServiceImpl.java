@@ -11,7 +11,6 @@ import com.coinsaver.core.enums.TransactionCategoryType;
 import com.coinsaver.core.enums.TransactionType;
 import com.coinsaver.core.enums.UpdateTransactionType;
 import com.coinsaver.core.validation.messages.ErrorMessages;
-import com.coinsaver.domain.entities.FixTransaction;
 import com.coinsaver.domain.entities.InstallmentTransaction;
 import com.coinsaver.domain.entities.Transaction;
 import com.coinsaver.domain.entities.TransactionBase;
@@ -120,7 +119,7 @@ public class TransactionServiceImpl implements TransactionService {
         LocalDateTime startOfMonth = date.with(TemporalAdjusters.firstDayOfMonth());
         LocalDateTime endOfMonth = date.with(TemporalAdjusters.lastDayOfMonth());
 
-        var transactions = transactionRepository.findByPayDayBetweenAndRepeatIsNullOrFixedExpenseIsFalse(startOfMonth, endOfMonth);
+        var transactions = transactionRepository.findByPayDayBetweenAndRepeatIsNullAndFixedExpenseIsFalse(startOfMonth, endOfMonth);
         var installmentTransactions = installmentTransactionRepository.findByPayDayBetween(startOfMonth, endOfMonth);
         var fixTransactions = fixTransactionRepository.findFixTransactionByPayDayBetween(startOfMonth, endOfMonth);
 
@@ -177,16 +176,6 @@ public class TransactionServiceImpl implements TransactionService {
                         return responseDto;
                     })
                     .toList());
-
-            income = income.add(installmentTransactions.stream()
-                    .filter(it -> it.getCategory() == TransactionCategoryType.INCOME)
-                    .map(InstallmentTransaction::getAmount)
-                    .reduce(BigDecimal.ZERO, BigDecimal::add));
-
-            expense = expense.add(installmentTransactions.stream()
-                    .filter(it -> it.getCategory() == TransactionCategoryType.EXPENSE)
-                    .map(InstallmentTransaction::getAmount)
-                    .reduce(BigDecimal.ZERO, BigDecimal::add));
         }
 
         if (!fixTransactions.isEmpty()) {
@@ -199,16 +188,6 @@ public class TransactionServiceImpl implements TransactionService {
                         return responseDto;
                     })
                     .toList());
-
-            income = income.add(fixTransactions.stream()
-                    .filter(it -> it.getCategory() == TransactionCategoryType.INCOME)
-                    .map(FixTransaction::getAmount)
-                    .reduce(BigDecimal.ZERO, BigDecimal::add));
-
-            expense = expense.add(fixTransactions.stream()
-                    .filter(it -> it.getCategory() == TransactionCategoryType.EXPENSE)
-                    .map(FixTransaction::getAmount)
-                    .reduce(BigDecimal.ZERO, BigDecimal::add));
         }
 
         BigDecimal monthlyBalance = income.subtract(expense);
@@ -247,6 +226,7 @@ public class TransactionServiceImpl implements TransactionService {
             case INSTALLMENT -> installmentTransactionDomainService.payTransaction(payTransactionRequestDto);
         }
     }
+
 
     private int getMonthDifference(LocalDateTime startOfMonth, LocalDateTime payDay) {
         return (startOfMonth.getYear() - payDay.getYear()) * 12 + (startOfMonth.getMonthValue() - payDay.getMonthValue());

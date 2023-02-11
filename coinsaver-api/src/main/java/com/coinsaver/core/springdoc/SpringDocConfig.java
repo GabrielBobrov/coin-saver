@@ -9,6 +9,7 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
 import java.util.Arrays;
+import java.util.Collections;
 
 @Configuration
 public class SpringDocConfig {
@@ -24,7 +25,7 @@ public class SpringDocConfig {
                                 .name("Apache 2.0")
                                 .url("http://springdoc.com")
                         )
-                ).tags(Arrays.asList(
+                ).tags(Collections.singletonList(
                         new Tag().name("Transactions").description("Gerencia de transações")
                 )).components(new Components());
     }

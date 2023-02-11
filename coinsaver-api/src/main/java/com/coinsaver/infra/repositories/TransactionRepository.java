@@ -16,7 +16,8 @@ import java.util.List;
 public interface TransactionRepository extends JpaRepository<Transaction, Long> {
     List<Transaction> findByCategoryAndPayDayBetweenAndRepeatIsNull(TransactionCategoryType categoryType, LocalDateTime startDate, LocalDateTime endDate);
 
-    List<Transaction> findByPayDayBetweenAndRepeatIsNullOrFixedExpenseIsFalse(LocalDateTime startDate, LocalDateTime endDate);
+    @Query("SELECT t FROM Transaction t WHERE t.payDay BETWEEN :startDate AND :endDate AND t.repeat IS NULL AND t.fixedExpense = false")
+    List<Transaction> findByPayDayBetweenAndRepeatIsNullAndFixedExpenseIsFalse(LocalDateTime startDate, LocalDateTime endDate);
 
     @Modifying
     @Query("UPDATE Transaction t set t.amount = :amount, t.category = :category, t.payDay = :payDay, t.status = :status, t.description = :description, t.repeat = :repeat WHERE t.id = :transactionId")
