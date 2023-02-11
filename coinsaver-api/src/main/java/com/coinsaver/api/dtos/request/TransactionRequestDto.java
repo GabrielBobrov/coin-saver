@@ -40,7 +40,7 @@ public class TransactionRequestDto {
     private Boolean fixedExpense;
     @NotNull
     private Boolean paid;
-    @Min(1)
+    @Min(2)
     private Integer repeat;
 
     public InstallmentTransaction convertDtoToInstallmentTransactionEntity() {

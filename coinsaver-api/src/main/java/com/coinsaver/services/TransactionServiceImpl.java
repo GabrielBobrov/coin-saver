@@ -101,7 +101,7 @@ public class TransactionServiceImpl implements TransactionService {
         Transaction transaction = transactionDomainService.createTransaction(transactionRequestDto);
         transactionRepository.flush();
 
-        if (transactionRequestDto.getRepeat() != null && transactionRequestDto.getRepeat() > 0) {
+        if (transactionRequestDto.getRepeat() != null) {
             createInstallmentTransaction(transactionRequestDto, transaction);
             return transaction.convertEntityToResponseDto();
         }
@@ -192,7 +192,7 @@ public class TransactionServiceImpl implements TransactionService {
 
         BigDecimal monthlyBalance = income.subtract(expense);
         return MonthlyResponseDto.builder()
-                .transactionResponseDtos(transactionsResult)
+                .transactions(transactionsResult)
                 .monthlyBalance(monthlyBalance)
                 .build();
     }

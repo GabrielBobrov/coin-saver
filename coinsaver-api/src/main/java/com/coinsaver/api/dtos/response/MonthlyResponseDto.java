@@ -12,6 +12,6 @@ import java.util.List;
 @Builder
 public class MonthlyResponseDto {
 
-    List<MonthlyTransactionResponseDto> transactionResponseDtos;
+    List<MonthlyTransactionResponseDto> transactions;
     BigDecimal monthlyBalance;
 }
