@@ -295,13 +295,16 @@ public class TransactionServiceImpl implements TransactionService {
 
     private void updateThisExpense(Transaction transaction, UpdateTransactionRequestDto updateTransactionRequestDto) {
 
-        if (updateTransactionRequestDto.getInstallmentTransactionId() == null) {
-            transactionDomainService.updateThisTransaction(transaction, updateTransactionRequestDto);
-        } else {
-            InstallmentTransaction installmentTransaction = installmentTransactionRepository.findById(updateTransactionRequestDto.getInstallmentTransactionId())
-                    .orElseThrow(() -> new BusinessException(ErrorMessages.getErrorMessage("TRANSACTION_NOT_FOUND")));
+        switch (transaction.getTransactionType()) {
+            case IN_CASH -> transactionDomainService.updateThisTransaction(transaction, updateTransactionRequestDto);
+            case INSTALLMENT -> {
+                InstallmentTransaction installmentTransaction = installmentTransactionRepository.findById(updateTransactionRequestDto.getInstallmentTransactionId())
+                        .orElseThrow(() -> new BusinessException(ErrorMessages.getErrorMessage("TRANSACTION_NOT_FOUND")));
 
-            installmentTransactionDomainService.updateThisExpense(installmentTransaction, updateTransactionRequestDto);
+                installmentTransactionDomainService.updateThisExpense(installmentTransaction, updateTransactionRequestDto);
+            }
+            case FIX -> fixTransactionDomainService.updateFixTransaction(updateTransactionRequestDto);
+
         }
     }
 }

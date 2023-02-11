@@ -2,10 +2,12 @@ package com.coinsaver.api.dtos.request;
 
 import com.coinsaver.core.enums.StatusType;
 import com.coinsaver.core.enums.TransactionCategoryType;
+import com.coinsaver.core.enums.TransactionType;
 import com.coinsaver.domain.entities.FixTransaction;
 import com.coinsaver.domain.entities.InstallmentTransaction;
 import com.coinsaver.domain.entities.Transaction;
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import jakarta.validation.constraints.Min;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 import lombok.AllArgsConstructor;
@@ -38,8 +40,8 @@ public class TransactionRequestDto {
     private Boolean fixedExpense;
     @NotNull
     private Boolean paid;
+    @Min(1)
     private Integer repeat;
-
 
     public InstallmentTransaction convertDtoToInstallmentTransactionEntity() {
         return new ModelMapper().map(this, InstallmentTransaction.class);

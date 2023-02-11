@@ -4,6 +4,7 @@ import com.coinsaver.api.dtos.request.PayTransactionRequestDto;
 import com.coinsaver.api.dtos.request.TransactionRequestDto;
 import com.coinsaver.api.dtos.request.UpdateTransactionRequestDto;
 import com.coinsaver.core.enums.StatusType;
+import com.coinsaver.core.enums.TransactionType;
 import com.coinsaver.core.enums.UpdateTransactionType;
 import com.coinsaver.core.validation.messages.ErrorMessages;
 import com.coinsaver.domain.entities.Transaction;
@@ -44,21 +45,18 @@ public class TransactionDomainServiceImpl implements TransactionDomainService {
 
     @Override
     public void updateThisTransaction(Transaction transaction, UpdateTransactionRequestDto updateTransactionRequestDto) {
+
         if (transaction.getRepeat() != null && transaction.getRepeat() > 0) {
             throw new BusinessException(ErrorMessages.getErrorMessage("TRANSACTION_WITH_REPEAT"));
         }
 
-        if (Boolean.TRUE.equals(transaction.getFixedExpense())) {
-            fixTransactionDomainService.updateFixTransaction(updateTransactionRequestDto);
-        } else {
-            transactionRepository.updateTransaction(updateTransactionRequestDto.getAmount(),
-                    updateTransactionRequestDto.getCategory(),
-                    updateTransactionRequestDto.getPayDay(),
-                    updateTransactionRequestDto.getStatus(),
-                    updateTransactionRequestDto.getDescription(),
-                    transaction.getRepeat(),
-                    transaction.getId());
-        }
+        transactionRepository.updateTransaction(updateTransactionRequestDto.getAmount(),
+                updateTransactionRequestDto.getCategory(),
+                updateTransactionRequestDto.getPayDay(),
+                updateTransactionRequestDto.getStatus(),
+                updateTransactionRequestDto.getDescription(),
+                transaction.getRepeat(),
+                transaction.getId());
     }
 
     @Override
@@ -73,13 +71,19 @@ public class TransactionDomainServiceImpl implements TransactionDomainService {
     @Override
     public Transaction createTransaction(TransactionRequestDto transactionRequestDto) {
 
-        if (transactionRequestDto.getRepeat() == null) {
-            return transactionRepository.save(transactionRequestDto.convertDtoToTransactionEntity());
-        }
-
-        if (Boolean.TRUE.equals(transactionRequestDto.getFixedExpense()) && transactionRequestDto.getRepeat() > 0) {
+        if (Boolean.TRUE.equals(transactionRequestDto.getFixedExpense()) && transactionRequestDto.getRepeat() != null) {
             throw new BusinessException(ErrorMessages.getInvalidFixedExpenseMessage("criar"));
         }
-        return transactionRepository.save(transactionRequestDto.convertDtoToTransactionEntity());
+
+        Transaction transaction = transactionRequestDto.convertDtoToTransactionEntity();
+
+        if (Boolean.TRUE.equals(transactionRequestDto.getFixedExpense())) {
+            transaction.setTransactionType(TransactionType.FIX);
+        } else if (transactionRequestDto.getRepeat() != null) {
+            transaction.setTransactionType(TransactionType.INSTALLMENT);
+        } else {
+            transaction.setTransactionType(TransactionType.IN_CASH);
+        }
+        return transactionRepository.save(transaction);
     }
 }

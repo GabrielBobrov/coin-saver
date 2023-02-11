@@ -2,6 +2,7 @@ package com.coinsaver.api.dtos.request;
 
 import com.coinsaver.core.enums.StatusType;
 import com.coinsaver.core.enums.TransactionCategoryType;
+import com.coinsaver.core.enums.TransactionType;
 import com.coinsaver.core.enums.UpdateTransactionType;
 import com.coinsaver.domain.entities.InstallmentTransaction;
 import com.coinsaver.domain.entities.Transaction;
@@ -36,15 +37,12 @@ public class UpdateTransactionRequestDto {
     private Integer repeat;
     @NotNull
     private UpdateTransactionType updateTransactionType;
+    @NotNull
     private Long transactionId;
     private Long installmentTransactionId;
     private Long fixTransactionId;
 
     public InstallmentTransaction convertDtoToInstallmentTransactionEntity() {
         return new ModelMapper().map(this, InstallmentTransaction.class);
-    }
-
-    public Transaction convertDtoTransactionEntity() {
-        return new ModelMapper().map(this, Transaction.class);
     }
 }

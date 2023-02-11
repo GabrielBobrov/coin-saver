@@ -2,6 +2,7 @@ package com.coinsaver.api.dtos.response;
 
 import com.coinsaver.core.enums.StatusType;
 import com.coinsaver.core.enums.TransactionCategoryType;
+import com.coinsaver.core.enums.TransactionType;
 import com.coinsaver.domain.entities.InstallmentTransaction;
 import com.coinsaver.domain.entities.Transaction;
 import jakarta.validation.constraints.NotBlank;
@@ -29,4 +30,5 @@ public class TransactionResponseDto {
     private TransactionCategoryType category;
     private Boolean fixedExpense;
     private Integer repeat;
+    private TransactionType transactionType;
 }
