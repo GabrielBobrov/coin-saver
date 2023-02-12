@@ -40,6 +40,9 @@ public class FixTransaction extends TransactionBase {
 	@Column(nullable = false)
 	private TransactionCategoryType category;
 
+	@Column(nullable = false)
+	private Boolean edited;
+
 	@ManyToOne
 	@JoinColumn(name = "transaction_id")
 	private Transaction transaction;

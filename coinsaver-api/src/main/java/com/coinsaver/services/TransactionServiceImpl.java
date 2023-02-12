@@ -11,6 +11,7 @@ import com.coinsaver.core.enums.TransactionCategoryType;
 import com.coinsaver.core.enums.TransactionType;
 import com.coinsaver.core.enums.UpdateTransactionType;
 import com.coinsaver.core.validation.messages.ErrorMessages;
+import com.coinsaver.domain.entities.FixTransaction;
 import com.coinsaver.domain.entities.InstallmentTransaction;
 import com.coinsaver.domain.entities.Transaction;
 import com.coinsaver.domain.entities.TransactionBase;
@@ -30,6 +31,8 @@ import java.time.LocalDateTime;
 import java.time.temporal.TemporalAdjusters;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
+import java.util.stream.Collectors;
 
 @Service
 public class TransactionServiceImpl implements TransactionService {
@@ -121,15 +124,26 @@ public class TransactionServiceImpl implements TransactionService {
 
         var transactions = transactionRepository.findByPayDayBetweenAndRepeatIsNullAndFixedExpenseIsFalse(startOfMonth, endOfMonth);
         var installmentTransactions = installmentTransactionRepository.findByPayDayBetween(startOfMonth, endOfMonth);
-        var fixTransactions = fixTransactionRepository.findFixTransactionByPayDayBetween(startOfMonth, endOfMonth);
+        var fixTransactionsEdited = fixTransactionRepository.findFixTransactionByPayDayBetween(startOfMonth, endOfMonth, Boolean.TRUE);
+        var fixTransactions = fixTransactionRepository.findFixTransactionByPayDayBetween(startOfMonth, endOfMonth, Boolean.FALSE);
 
+        List<Transaction> transactionsEdited = fixTransactionsEdited.stream()
+                .map(FixTransaction::getTransaction)
+                .toList();
+
+        List<FixTransaction> fixTransactionsNotEdited = fixTransactions.stream()
+                .filter(fixTransaction -> !transactionsEdited.contains(fixTransaction.getTransaction()))
+                .toList();
+
+        List<FixTransaction> fixTransactionsResult = new ArrayList<>(fixTransactionsEdited);
+        fixTransactionsResult.addAll(fixTransactionsNotEdited);
 
         List<Transaction> allMonthlyTransactions = new ArrayList<>(transactions);
         allMonthlyTransactions.addAll(installmentTransactions.stream()
                 .map(TransactionBase::convertToTransactionEntity)
                 .toList());
 
-        allMonthlyTransactions.addAll(fixTransactions.stream()
+        allMonthlyTransactions.addAll(fixTransactionsResult.stream()
                 .map(transaction -> {
                     int monthDifference = getMonthDifference(startOfMonth, transaction.getPayDay());
                     var payday = transaction.getPayDay().plusMonths(monthDifference);
@@ -178,8 +192,8 @@ public class TransactionServiceImpl implements TransactionService {
                     .toList());
         }
 
-        if (!fixTransactions.isEmpty()) {
-            transactionsResult.addAll(fixTransactions
+        if (!fixTransactionsResult.isEmpty()) {
+            transactionsResult.addAll(fixTransactionsResult
                     .stream()
                     .map(fixTransaction -> {
                         MonthlyTransactionResponseDto responseDto = fixTransaction.convertEntityToMonthlyResponseDto();
@@ -303,7 +317,7 @@ public class TransactionServiceImpl implements TransactionService {
 
                 installmentTransactionDomainService.updateThisExpense(installmentTransaction, updateTransactionRequestDto);
             }
-            case FIX -> fixTransactionDomainService.updateFixTransaction(updateTransactionRequestDto);
+            case FIX -> fixTransactionDomainService.updateFixTransaction(transaction, updateTransactionRequestDto);
 
         }
     }

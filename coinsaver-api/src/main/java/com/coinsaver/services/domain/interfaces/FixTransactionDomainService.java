@@ -5,7 +5,7 @@ import com.coinsaver.api.dtos.request.UpdateTransactionRequestDto;
 import com.coinsaver.domain.entities.Transaction;
 
 public interface FixTransactionDomainService {
-    void updateFixTransaction(UpdateTransactionRequestDto updateTransactionRequestDto);
+    void updateFixTransaction(Transaction transaction, UpdateTransactionRequestDto updateTransactionRequestDto);
 
     void createFixTransaction(TransactionRequestDto transactionRequestDto, Transaction transaction);
 }

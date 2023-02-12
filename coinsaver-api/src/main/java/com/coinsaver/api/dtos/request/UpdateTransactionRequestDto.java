@@ -4,6 +4,7 @@ import com.coinsaver.core.enums.StatusType;
 import com.coinsaver.core.enums.TransactionCategoryType;
 import com.coinsaver.core.enums.TransactionType;
 import com.coinsaver.core.enums.UpdateTransactionType;
+import com.coinsaver.domain.entities.FixTransaction;
 import com.coinsaver.domain.entities.InstallmentTransaction;
 import com.coinsaver.domain.entities.Transaction;
 import jakarta.validation.constraints.NotBlank;
@@ -44,5 +45,9 @@ public class UpdateTransactionRequestDto {
 
     public InstallmentTransaction convertDtoToInstallmentTransactionEntity() {
         return new ModelMapper().map(this, InstallmentTransaction.class);
+    }
+
+    public FixTransaction convertDtoToFixTransactionEntity() {
+        return new ModelMapper().map(this, FixTransaction.class);
     }
 }

@@ -20,22 +20,32 @@ public class FixTransactionDomainServiceImpl implements FixTransactionDomainServ
     }
 
     @Override
-    public void updateFixTransaction(UpdateTransactionRequestDto updateTransactionRequestDto) {
+    public void updateFixTransaction(Transaction transaction, UpdateTransactionRequestDto updateTransactionRequestDto) {
         FixTransaction fixTransaction = fixTransactionRepository.findById(updateTransactionRequestDto.getFixTransactionId())
                 .orElseThrow(() -> new BusinessException(ErrorMessages.getErrorMessage("TRANSACTION_NOT_FOUND")));
 
-        fixTransactionRepository.updateFixTransaction(updateTransactionRequestDto.getAmount(),
-                updateTransactionRequestDto.getCategory(),
-                updateTransactionRequestDto.getPayDay(),
-                updateTransactionRequestDto.getStatus(),
-                updateTransactionRequestDto.getDescription(),
-                fixTransaction.getId());
+        if (Boolean.FALSE.equals(fixTransaction.getEdited())) {
+            FixTransaction fixTransactionEntity = updateTransactionRequestDto.convertDtoToFixTransactionEntity();
+            fixTransactionEntity.setEdited(Boolean.TRUE);
+            fixTransactionEntity.setTransaction(transaction);
+
+            fixTransactionRepository.save(fixTransactionEntity);
+        } else {
+            fixTransactionRepository.updateFixTransaction(updateTransactionRequestDto.getAmount(),
+                    updateTransactionRequestDto.getCategory(),
+                    updateTransactionRequestDto.getPayDay(),
+                    updateTransactionRequestDto.getStatus(),
+                    updateTransactionRequestDto.getDescription(),
+                    fixTransaction.getId());
+        }
     }
 
     @Override
     public void createFixTransaction(TransactionRequestDto transactionRequestDto, Transaction transaction) {
         FixTransaction fixTransaction = transactionRequestDto.convertDtoToFixTransactionEntity();
         fixTransaction.setTransaction(transaction);
+        fixTransaction.setEdited(Boolean.FALSE);
+
         fixTransactionRepository.save(fixTransaction);
     }
 }
