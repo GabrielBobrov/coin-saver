@@ -6,7 +6,6 @@ import com.coinsaver.core.enums.TransactionType;
 import com.coinsaver.core.enums.UpdateTransactionType;
 import com.coinsaver.domain.entities.FixTransaction;
 import com.coinsaver.domain.entities.InstallmentTransaction;
-import com.coinsaver.domain.entities.Transaction;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 import lombok.AllArgsConstructor;
@@ -38,6 +37,8 @@ public class UpdateTransactionRequestDto {
     private Integer repeat;
     @NotNull
     private UpdateTransactionType updateTransactionType;
+    @NotNull
+    private TransactionType transactionType;
     @NotNull
     private Long transactionId;
     private Long installmentTransactionId;

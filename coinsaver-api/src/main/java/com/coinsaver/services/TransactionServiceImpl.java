@@ -250,13 +250,20 @@ public class TransactionServiceImpl implements TransactionService {
                                              UpdateTransactionRequestDto updateTransactionRequestDto,
                                              UpdateTransactionType updateTransactionType) {
 
+        if (TransactionType.FIX.equals(updateTransactionRequestDto.getTransactionType()) && updateTransactionRequestDto.getFixTransactionId() != null) {
+            throw new BusinessException(ErrorMessages.getErrorMessage("INVALID_FIX_TRANSACTION_UPDATE"));
+        }
+
         transactionDomainService.updateTransactionFields(transaction, updateTransactionRequestDto, updateTransactionType);
 
-        List<InstallmentTransaction> futureTransactions = findFutureTransactions(updateTransactionRequestDto);
+        if (TransactionType.INSTALLMENT.equals(updateTransactionRequestDto.getTransactionType())) {
+            List<InstallmentTransaction> futureTransactions = findFutureTransactions(updateTransactionRequestDto);
 
-        for (InstallmentTransaction futureTransaction : futureTransactions) {
-            installmentTransactionDomainService.updateInstallmentTransactionFields(futureTransaction, updateTransactionRequestDto);
+            for (InstallmentTransaction futureTransaction : futureTransactions) {
+                installmentTransactionDomainService.updateInstallmentTransactionFields(futureTransaction, updateTransactionRequestDto);
+            }
         }
+
     }
 
     private List<InstallmentTransaction> findFutureTransactions(UpdateTransactionRequestDto updateTransactionRequestDto) {
@@ -303,8 +310,16 @@ public class TransactionServiceImpl implements TransactionService {
 
         transactionDomainService.updateTransactionFields(transaction, updateTransactionRequestDto, updateTransactionType);
 
-        installmentTransactionRepository.deleteByTransactionId(transaction.getId());
-        updateInstallmentTransaction(transaction, updateTransactionRequestDto);
+        if (TransactionType.INSTALLMENT.equals(updateTransactionRequestDto.getTransactionType())) {
+            installmentTransactionRepository.deleteByTransactionId(transaction.getId());
+            updateInstallmentTransaction(transaction, updateTransactionRequestDto);
+        }
+
+        if (TransactionType.FIX.equals(updateTransactionRequestDto.getTransactionType())) {
+            fixTransactionDomainService.updateAllFixTransactions(transaction, updateTransactionRequestDto);
+        }
+
+
     }
 
     private void updateThisExpense(Transaction transaction, UpdateTransactionRequestDto updateTransactionRequestDto) {

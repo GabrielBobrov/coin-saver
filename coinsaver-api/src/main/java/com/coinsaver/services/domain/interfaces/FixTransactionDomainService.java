@@ -8,4 +8,6 @@ public interface FixTransactionDomainService {
     void updateFixTransaction(Transaction transaction, UpdateTransactionRequestDto updateTransactionRequestDto);
 
     void createFixTransaction(TransactionRequestDto transactionRequestDto, Transaction transaction);
+
+    void updateAllFixTransactions(Transaction transaction, UpdateTransactionRequestDto updateTransactionRequestDto);
 }

@@ -19,19 +19,16 @@ public class TransactionDomainServiceImpl implements TransactionDomainService {
 
     private final TransactionRepository transactionRepository;
 
-    private final FixTransactionDomainService fixTransactionDomainService;
 
-    public TransactionDomainServiceImpl(TransactionRepository transactionRepository,
-                                        FixTransactionDomainService fixTransactionDomainService) {
+    public TransactionDomainServiceImpl(TransactionRepository transactionRepository) {
         this.transactionRepository = transactionRepository;
-        this.fixTransactionDomainService = fixTransactionDomainService;
     }
 
     public void updateTransactionFields(Transaction transaction,
                                         UpdateTransactionRequestDto updateTransactionRequestDto,
                                         UpdateTransactionType updateTransactionType) {
 
-        if (updateTransactionType.equals(UpdateTransactionType.ALL_EXPENSES)) {
+        if (UpdateTransactionType.ALL_EXPENSES.equals(updateTransactionType)) {
             transaction.setRepeat(updateTransactionRequestDto.getRepeat());
         }
         transactionRepository.updateTransaction(updateTransactionRequestDto.getAmount(),

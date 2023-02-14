@@ -12,6 +12,7 @@ import org.springframework.stereotype.Repository;
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
 import java.util.List;
+import java.util.Optional;
 
 @Repository
 public interface FixTransactionRepository extends JpaRepository<FixTransaction, Long> {
@@ -19,7 +20,15 @@ public interface FixTransactionRepository extends JpaRepository<FixTransaction, 
     @Query("UPDATE FixTransaction i set i.amount = :amount, i.category = :category, i.payDay = :payDay, i.status = :status, i.description = :description WHERE i.id = :fixTransaction")
     void updateFixTransaction(BigDecimal amount, TransactionCategoryType category, LocalDateTime payDay, StatusType status, String description, Long fixTransaction);
 
+    @Modifying
+    @Query("UPDATE FixTransaction i set i.amount = :amount, i.category = :category, i.payDay = :payDay, i.status = :status, i.description = :description WHERE i.transaction = :transaction")
+    void updateFixTransactionByTransaction(BigDecimal amount, TransactionCategoryType category, LocalDateTime payDay, StatusType status, String description, Transaction transaction);
+
     @Query("SELECT ft FROM FixTransaction ft WHERE ft.payDay BETWEEN :startDate AND :endDate AND ft.edited = :edited")
     List<FixTransaction> findFixTransactionByPayDayBetween(LocalDateTime startDate, LocalDateTime endDate, Boolean edited);
+
+    Optional<FixTransaction> findFixTransactionByTransactionAndEditedIsFalse(Transaction transaction);
+
+    List<FixTransaction> findFixTransactionByTransactionAndEditedIsTrue(Transaction transaction);
 }
 

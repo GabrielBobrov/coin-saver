@@ -48,4 +48,28 @@ public class FixTransactionDomainServiceImpl implements FixTransactionDomainServ
 
         fixTransactionRepository.save(fixTransaction);
     }
+
+    @Override
+    public void updateAllFixTransactions(Transaction transaction, UpdateTransactionRequestDto updateTransactionRequestDto) {
+        var fixTransaction = fixTransactionRepository.findFixTransactionByTransactionAndEditedIsFalse(transaction)
+                .orElseThrow(() -> new BusinessException(ErrorMessages.getErrorMessage("TRANSACTION_NOT_FOUND")));
+
+        fixTransactionRepository.updateFixTransaction(updateTransactionRequestDto.getAmount(),
+                updateTransactionRequestDto.getCategory(),
+                updateTransactionRequestDto.getPayDay(),
+                updateTransactionRequestDto.getStatus(),
+                updateTransactionRequestDto.getDescription(),
+                fixTransaction.getId());
+
+        var fixTransactionEdited = fixTransactionRepository.findFixTransactionByTransactionAndEditedIsTrue(transaction);
+
+        if (!fixTransactionEdited.isEmpty()) {
+            fixTransactionRepository.updateFixTransactionByTransaction(updateTransactionRequestDto.getAmount(),
+                    updateTransactionRequestDto.getCategory(),
+                    updateTransactionRequestDto.getPayDay(),
+                    updateTransactionRequestDto.getStatus(),
+                    updateTransactionRequestDto.getDescription(),
+                    transaction);
+        }
+    }
 }
