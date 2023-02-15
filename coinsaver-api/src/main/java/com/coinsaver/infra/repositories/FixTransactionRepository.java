@@ -30,5 +30,7 @@ public interface FixTransactionRepository extends JpaRepository<FixTransaction, 
     Optional<FixTransaction> findFixTransactionByTransactionAndEditedIsFalse(Transaction transaction);
 
     List<FixTransaction> findFixTransactionByTransactionAndEditedIsTrue(Transaction transaction);
+
+    Optional<FixTransaction> findFixTransactionByTransactionAndEditedIsTrueAndPayDayBetween(Transaction transaction, LocalDateTime startDate, LocalDateTime endDate);
 }
 

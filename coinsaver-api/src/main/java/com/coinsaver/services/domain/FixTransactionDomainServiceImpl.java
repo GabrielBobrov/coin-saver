@@ -10,6 +10,10 @@ import com.coinsaver.infra.repositories.FixTransactionRepository;
 import com.coinsaver.services.domain.interfaces.FixTransactionDomainService;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDateTime;
+import java.time.temporal.TemporalAdjusters;
+import java.util.Optional;
+
 @Service
 public class FixTransactionDomainServiceImpl implements FixTransactionDomainService {
 
@@ -25,11 +29,29 @@ public class FixTransactionDomainServiceImpl implements FixTransactionDomainServ
                 .orElseThrow(() -> new BusinessException(ErrorMessages.getErrorMessage("TRANSACTION_NOT_FOUND")));
 
         if (Boolean.FALSE.equals(fixTransaction.getEdited())) {
-            FixTransaction fixTransactionEntity = updateTransactionRequestDto.convertDtoToFixTransactionEntity();
-            fixTransactionEntity.setEdited(Boolean.TRUE);
-            fixTransactionEntity.setTransaction(transaction);
+            LocalDateTime startOfMonth = updateTransactionRequestDto.getPayDay().with(TemporalAdjusters.firstDayOfMonth());
+            LocalDateTime endOfMonth = updateTransactionRequestDto.getPayDay().with(TemporalAdjusters.lastDayOfMonth());
 
-            fixTransactionRepository.save(fixTransactionEntity);
+            Optional<FixTransaction> optionalFixTransactionEdited = fixTransactionRepository.findFixTransactionByTransactionAndEditedIsTrueAndPayDayBetween(transaction,
+                    startOfMonth,
+                    endOfMonth);
+
+            if (optionalFixTransactionEdited.isPresent()) {
+                FixTransaction fixTransactionEdited = optionalFixTransactionEdited.get();
+
+                fixTransactionRepository.updateFixTransaction(updateTransactionRequestDto.getAmount(),
+                        updateTransactionRequestDto.getCategory(),
+                        updateTransactionRequestDto.getPayDay(),
+                        updateTransactionRequestDto.getStatus(),
+                        updateTransactionRequestDto.getDescription(),
+                        fixTransactionEdited.getId());
+            } else {
+                FixTransaction fixTransactionEntity = updateTransactionRequestDto.convertDtoToFixTransactionEntity();
+                fixTransactionEntity.setEdited(Boolean.TRUE);
+                fixTransactionEntity.setTransaction(transaction);
+
+                fixTransactionRepository.save(fixTransactionEntity);
+            }
         } else {
             fixTransactionRepository.updateFixTransaction(updateTransactionRequestDto.getAmount(),
                     updateTransactionRequestDto.getCategory(),
