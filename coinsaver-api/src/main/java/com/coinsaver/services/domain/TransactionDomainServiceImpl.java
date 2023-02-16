@@ -19,7 +19,6 @@ public class TransactionDomainServiceImpl implements TransactionDomainService {
 
     private final TransactionRepository transactionRepository;
 
-
     public TransactionDomainServiceImpl(TransactionRepository transactionRepository) {
         this.transactionRepository = transactionRepository;
     }

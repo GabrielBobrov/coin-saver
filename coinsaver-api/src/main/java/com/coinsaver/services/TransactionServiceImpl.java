@@ -75,8 +75,10 @@ public class TransactionServiceImpl implements TransactionService {
         LocalDateTime startOfMonth = date.with(TemporalAdjusters.firstDayOfMonth());
         LocalDateTime endOfMonth = date.with(TemporalAdjusters.lastDayOfMonth());
 
-        var transactions = transactionRepository.findByCategoryAndPayDayBetweenAndRepeatIsNull(categoryType, startOfMonth, endOfMonth);
+
+        var transactions = transactionRepository.findByCategoryAndPayDayBetweenAndRepeatIsNullAndFixedExpenseIsFalse(categoryType, startOfMonth, endOfMonth);
         var installmentTransactions = installmentTransactionRepository.findByCategoryAndPayDayBetween(categoryType, startOfMonth, endOfMonth);
+        var fixTransaction = fixTransactionRepository.findByCategoryAndPayDayBetween(categoryType, startOfMonth, endOfMonth);
 
         List<TransactionResponseDto> transactionsResult = new ArrayList<>();
 
@@ -89,6 +91,13 @@ public class TransactionServiceImpl implements TransactionService {
 
         if (!installmentTransactions.isEmpty()) {
             transactionsResult.addAll(installmentTransactions
+                    .stream()
+                    .map(it -> it.getTransaction().convertEntityToResponseDto())
+                    .toList());
+        }
+
+        if (!fixTransaction.isEmpty()) {
+            transactionsResult.addAll(fixTransaction
                     .stream()
                     .map(it -> it.getTransaction().convertEntityToResponseDto())
                     .toList());
