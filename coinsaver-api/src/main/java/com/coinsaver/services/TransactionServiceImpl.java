@@ -67,25 +67,19 @@ public class TransactionServiceImpl implements TransactionService {
                 Transaction transaction = transactionRepository.findById(transactionId)
                         .orElseThrow(() -> new BusinessException(ErrorMessages.getErrorMessage("TRANSACTION_NOT_FOUND")));
 
-                TransactionResponseDto transactionResponseDto = transaction.convertEntityToResponseDto();
-                transactionResponseDto.setTransactionType(TransactionType.IN_CASH);
-                return transactionResponseDto;
+                return transaction.convertEntityToResponseDto();
             }
             case FIX -> {
                 FixTransaction fixTransaction = fixTransactionRepository.findById(transactionId)
                         .orElseThrow(() -> new BusinessException(ErrorMessages.getErrorMessage("TRANSACTION_NOT_FOUND")));
 
-                TransactionResponseDto transactionResponseDto = fixTransaction.convertEntityToResponseDto();
-                transactionResponseDto.setTransactionType(TransactionType.FIX);
-                return transactionResponseDto;
+                return fixTransaction.convertEntityToResponseDto();
             }
             case INSTALLMENT -> {
                 InstallmentTransaction installmentTransaction = installmentTransactionRepository.findById(transactionId)
                         .orElseThrow(() -> new BusinessException(ErrorMessages.getErrorMessage("TRANSACTION_NOT_FOUND")));
 
-                TransactionResponseDto transactionResponseDto = installmentTransaction.convertEntityToResponseDto();
-                transactionResponseDto.setTransactionType(TransactionType.INSTALLMENT);
-                return transactionResponseDto;
+                return installmentTransaction.convertEntityToResponseDto();
             }
         }
         return null;
