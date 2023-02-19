@@ -67,6 +67,10 @@ public class TransactionServiceImpl implements TransactionService {
                 Transaction transaction = transactionRepository.findById(transactionId)
                         .orElseThrow(() -> new BusinessException(ErrorMessages.getErrorMessage("TRANSACTION_NOT_FOUND")));
 
+                if (TransactionType.IN_CASH != transaction.getTransactionType()) {
+                    throw new BusinessException(ErrorMessages.getErrorMessage("TRANSACTION_NOT_FOUND"));
+                }
+
                 return transaction.convertEntityToResponseDto();
             }
             case FIX -> {
