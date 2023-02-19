@@ -8,6 +8,7 @@ import com.coinsaver.api.dtos.response.TransactionResponseDto;
 import com.coinsaver.api.dtos.response.UpdateTransactionResponseDto;
 import com.coinsaver.api.exceptionhandler.Problem;
 import com.coinsaver.core.enums.TransactionCategoryType;
+import com.coinsaver.core.enums.TransactionType;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.media.Content;
 import io.swagger.v3.oas.annotations.media.Schema;
@@ -33,7 +34,7 @@ public interface TransactionControllerOpenApi {
                     @ApiResponse(responseCode = "404", description = "Transação não encontrada",
                             content = @Content(schema = @Schema(implementation = Problem.class)))
             })
-    TransactionResponseDto getTransaction(@PathVariable Long transactionId);
+    TransactionResponseDto getTransaction(@PathVariable Long transactionId, @RequestParam TransactionType transactionType);
 
     @Operation(summary = "Buscar uma transações por categoria", description = "Para buscar transações por categoria informe a cateogria que deseja e uma data para uma busca mensal")
     List<TransactionResponseDto> getTransactionByCategoryType(@PathVariable TransactionCategoryType categoryType, @RequestParam LocalDateTime date);

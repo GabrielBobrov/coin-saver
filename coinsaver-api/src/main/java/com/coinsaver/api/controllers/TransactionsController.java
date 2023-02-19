@@ -8,6 +8,7 @@ import com.coinsaver.api.dtos.response.TransactionResponseDto;
 import com.coinsaver.api.dtos.response.UpdateTransactionResponseDto;
 import com.coinsaver.api.openapi.controller.TransactionControllerOpenApi;
 import com.coinsaver.core.enums.TransactionCategoryType;
+import com.coinsaver.core.enums.TransactionType;
 import com.coinsaver.services.interfaces.TransactionService;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -30,9 +31,9 @@ public class TransactionsController implements TransactionControllerOpenApi {
 
     @GetMapping("/{transactionId}")
     @ResponseStatus(HttpStatus.OK)
-    public TransactionResponseDto getTransaction(@PathVariable Long transactionId) {
+    public TransactionResponseDto getTransaction(@PathVariable Long transactionId, @RequestParam TransactionType transactionType) {
 
-        return transactionService.getTransaction(transactionId);
+        return transactionService.getTransaction(transactionId, transactionType);
     }
 
     @GetMapping("/category/{categoryType}")

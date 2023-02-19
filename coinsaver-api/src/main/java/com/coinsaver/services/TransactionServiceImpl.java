@@ -31,8 +31,6 @@ import java.time.LocalDateTime;
 import java.time.temporal.TemporalAdjusters;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Map;
-import java.util.stream.Collectors;
 
 @Service
 public class TransactionServiceImpl implements TransactionService {
@@ -62,11 +60,35 @@ public class TransactionServiceImpl implements TransactionService {
     }
 
     @Override
-    public TransactionResponseDto getTransaction(Long transactionId) {
-        Transaction transaction = transactionRepository.findById(transactionId)
-                .orElseThrow(() -> new BusinessException(ErrorMessages.getErrorMessage("TRANSACTION_NOT_FOUND")));
+    public TransactionResponseDto getTransaction(Long transactionId, TransactionType transactionType) {
 
-        return transaction.convertEntityToResponseDto();
+        switch (transactionType) {
+            case IN_CASH -> {
+                Transaction transaction = transactionRepository.findById(transactionId)
+                        .orElseThrow(() -> new BusinessException(ErrorMessages.getErrorMessage("TRANSACTION_NOT_FOUND")));
+
+                TransactionResponseDto transactionResponseDto = transaction.convertEntityToResponseDto();
+                transactionResponseDto.setTransactionType(TransactionType.IN_CASH);
+                return transactionResponseDto;
+            }
+            case FIX -> {
+                FixTransaction fixTransaction = fixTransactionRepository.findById(transactionId)
+                        .orElseThrow(() -> new BusinessException(ErrorMessages.getErrorMessage("TRANSACTION_NOT_FOUND")));
+
+                TransactionResponseDto transactionResponseDto = fixTransaction.convertEntityToResponseDto();
+                transactionResponseDto.setTransactionType(TransactionType.FIX);
+                return transactionResponseDto;
+            }
+            case INSTALLMENT -> {
+                InstallmentTransaction installmentTransaction = installmentTransactionRepository.findById(transactionId)
+                        .orElseThrow(() -> new BusinessException(ErrorMessages.getErrorMessage("TRANSACTION_NOT_FOUND")));
+
+                TransactionResponseDto transactionResponseDto = installmentTransaction.convertEntityToResponseDto();
+                transactionResponseDto.setTransactionType(TransactionType.INSTALLMENT);
+                return transactionResponseDto;
+            }
+        }
+        return null;
     }
 
     @Override
