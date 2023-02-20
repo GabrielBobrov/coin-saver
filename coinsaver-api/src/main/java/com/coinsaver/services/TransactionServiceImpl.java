@@ -35,6 +35,8 @@ import java.util.List;
 @Service
 public class TransactionServiceImpl implements TransactionService {
 
+    private static final String TRANSACTION_NOT_FOUND = "TRANSACTION_NOT_FOUND";
+
     private final TransactionRepository transactionRepository;
 
     private final InstallmentTransactionRepository installmentTransactionRepository;
@@ -49,7 +51,8 @@ public class TransactionServiceImpl implements TransactionService {
     public TransactionServiceImpl(TransactionRepository transactionRepository,
                                   InstallmentTransactionRepository installmentTransactionRepository,
                                   InstallmentTransactionDomainService installmentTransactionDomainService,
-                                  TransactionDomainService transactionDomainService, FixTransactionDomainService fixTransactionDomainService,
+                                  TransactionDomainService transactionDomainService,
+                                  FixTransactionDomainService fixTransactionDomainService,
                                   FixTransactionRepository fixTransactionRepository) {
         this.transactionRepository = transactionRepository;
         this.installmentTransactionRepository = installmentTransactionRepository;
@@ -64,24 +67,20 @@ public class TransactionServiceImpl implements TransactionService {
 
         switch (transactionType) {
             case IN_CASH -> {
-                Transaction transaction = transactionRepository.findById(transactionId)
-                        .orElseThrow(() -> new BusinessException(ErrorMessages.getErrorMessage("TRANSACTION_NOT_FOUND")));
-
-                if (TransactionType.IN_CASH != transaction.getTransactionType()) {
-                    throw new BusinessException(ErrorMessages.getErrorMessage("TRANSACTION_NOT_FOUND"));
-                }
+                Transaction transaction = transactionRepository.findByIdAndTransactionType(transactionId, transactionType)
+                        .orElseThrow(() -> new BusinessException(ErrorMessages.getErrorMessage(TRANSACTION_NOT_FOUND)));
 
                 return transaction.convertEntityToResponseDto();
             }
             case FIX -> {
                 FixTransaction fixTransaction = fixTransactionRepository.findById(transactionId)
-                        .orElseThrow(() -> new BusinessException(ErrorMessages.getErrorMessage("TRANSACTION_NOT_FOUND")));
+                        .orElseThrow(() -> new BusinessException(ErrorMessages.getErrorMessage(TRANSACTION_NOT_FOUND)));
 
                 return fixTransaction.convertEntityToResponseDto();
             }
             case INSTALLMENT -> {
                 InstallmentTransaction installmentTransaction = installmentTransactionRepository.findById(transactionId)
-                        .orElseThrow(() -> new BusinessException(ErrorMessages.getErrorMessage("TRANSACTION_NOT_FOUND")));
+                        .orElseThrow(() -> new BusinessException(ErrorMessages.getErrorMessage(TRANSACTION_NOT_FOUND)));
 
                 return installmentTransaction.convertEntityToResponseDto();
             }
@@ -247,7 +246,7 @@ public class TransactionServiceImpl implements TransactionService {
         validate(updateTransactionRequestDto);
 
         Transaction transaction = transactionRepository.findById(updateTransactionRequestDto.getTransactionId())
-                .orElseThrow(() -> new BusinessException(ErrorMessages.getErrorMessage("TRANSACTION_NOT_FOUND")));
+                .orElseThrow(() -> new BusinessException(ErrorMessages.getErrorMessage(TRANSACTION_NOT_FOUND)));
 
         UpdateTransactionType updateTransactionType = updateTransactionRequestDto.getUpdateTransactionType();
 
@@ -297,7 +296,7 @@ public class TransactionServiceImpl implements TransactionService {
 
     private List<InstallmentTransaction> findFutureTransactions(UpdateTransactionRequestDto updateTransactionRequestDto) {
         InstallmentTransaction installmentTransaction = installmentTransactionRepository.findById(updateTransactionRequestDto.getInstallmentTransactionId())
-                .orElseThrow(() -> new BusinessException(ErrorMessages.getErrorMessage("TRANSACTION_NOT_FOUND")));
+                .orElseThrow(() -> new BusinessException(ErrorMessages.getErrorMessage(TRANSACTION_NOT_FOUND)));
 
         return installmentTransactionRepository.findInstallmentTransactionByPayDayIsGreaterThanEqual(installmentTransaction.getPayDay());
     }
@@ -357,7 +356,7 @@ public class TransactionServiceImpl implements TransactionService {
             case IN_CASH -> transactionDomainService.updateThisTransaction(transaction, updateTransactionRequestDto);
             case INSTALLMENT -> {
                 InstallmentTransaction installmentTransaction = installmentTransactionRepository.findById(updateTransactionRequestDto.getInstallmentTransactionId())
-                        .orElseThrow(() -> new BusinessException(ErrorMessages.getErrorMessage("TRANSACTION_NOT_FOUND")));
+                        .orElseThrow(() -> new BusinessException(ErrorMessages.getErrorMessage(TRANSACTION_NOT_FOUND)));
 
                 installmentTransactionDomainService.updateThisExpense(installmentTransaction, updateTransactionRequestDto);
             }
