@@ -14,36 +14,44 @@ import java.time.LocalDateTime;
 @EqualsAndHashCode(onlyExplicitlyIncluded = true)
 @Entity
 public class FixTransaction extends TransactionBase {
-	
-	@EqualsAndHashCode.Include
-	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private Long id;
-	
-	@Column(nullable = false)
-	private BigDecimal amount;
-	
-	@CreationTimestamp
-	private LocalDateTime createdAt;
-	
-	@Column(nullable = false)
-	private LocalDateTime payDay;
-	
-	@Column
-	private String description;
-	
-	@Enumerated(EnumType.ORDINAL)
-	@Column(nullable = false)
-	private StatusType status;
-	
-	@Enumerated(EnumType.ORDINAL)
-	@Column(nullable = false)
-	private TransactionCategoryType category;
 
-	@Column(nullable = false)
-	private Boolean edited;
+    public FixTransaction() {
 
-	@ManyToOne
-	@JoinColumn(name = "transaction_id")
-	private Transaction transaction;
+    }
+
+    @EqualsAndHashCode.Include
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
+
+    @Column(nullable = false)
+    private BigDecimal amount;
+
+    @CreationTimestamp
+    private LocalDateTime createdAt;
+
+    @Column(nullable = false)
+    private LocalDateTime payDay;
+
+    @Column
+    private String description;
+
+    @Enumerated(EnumType.ORDINAL)
+    @Column(nullable = false)
+    private StatusType status;
+
+    @Enumerated(EnumType.ORDINAL)
+    @Column(nullable = false)
+    private TransactionCategoryType category;
+
+    @Column(nullable = false)
+    private Boolean edited;
+
+    @ManyToOne
+    @JoinColumn(name = "transaction_id")
+    private Transaction transaction;
+
+    public void payTransaction() {
+        this.setStatus(StatusType.PAID);
+    }
 }

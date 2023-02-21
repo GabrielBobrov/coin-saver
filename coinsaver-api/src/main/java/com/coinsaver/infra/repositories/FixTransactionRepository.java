@@ -2,6 +2,7 @@ package com.coinsaver.infra.repositories;
 
 import com.coinsaver.core.enums.StatusType;
 import com.coinsaver.core.enums.TransactionCategoryType;
+import com.coinsaver.domain.entities.Client;
 import com.coinsaver.domain.entities.FixTransaction;
 import com.coinsaver.domain.entities.InstallmentTransaction;
 import com.coinsaver.domain.entities.Transaction;
@@ -36,5 +37,6 @@ public interface FixTransactionRepository extends JpaRepository<FixTransaction, 
 
     List<FixTransaction> findByCategoryAndPayDayBetween(TransactionCategoryType categoryType, LocalDateTime startOfMonth, LocalDateTime endOfMonth);
 
+    List<FixTransaction> findFixTransactionByEditedFalse();
 }
 

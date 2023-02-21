@@ -24,6 +24,7 @@ import com.coinsaver.services.domain.interfaces.InstallmentTransactionDomainServ
 import com.coinsaver.services.domain.interfaces.TransactionDomainService;
 import com.coinsaver.services.interfaces.TransactionService;
 import jakarta.transaction.Transactional;
+import org.hibernate.id.GUIDGenerator;
 import org.springframework.stereotype.Service;
 
 import java.math.BigDecimal;
@@ -153,7 +154,7 @@ public class TransactionServiceImpl implements TransactionService {
         var transactions = transactionRepository.findByPayDayBetweenAndRepeatIsNullAndFixedExpenseIsFalse(startOfMonth, endOfMonth);
         var installmentTransactions = installmentTransactionRepository.findByPayDayBetween(startOfMonth, endOfMonth);
         var fixTransactionsEdited = fixTransactionRepository.findFixTransactionByPayDayBetween(startOfMonth, endOfMonth, Boolean.TRUE);
-        var fixTransactions = fixTransactionRepository.findFixTransactionByPayDayBetween(startOfMonth, endOfMonth, Boolean.FALSE);
+        var fixTransactions = fixTransactionRepository.findFixTransactionByEditedFalse();
 
         List<Transaction> transactionsEdited = fixTransactionsEdited.stream()
                 .map(FixTransaction::getTransaction)
@@ -266,6 +267,7 @@ public class TransactionServiceImpl implements TransactionService {
         switch (payTransactionRequestDto.getTransactionType()) {
             case IN_CASH -> transactionDomainService.payTransaction(payTransactionRequestDto);
             case INSTALLMENT -> installmentTransactionDomainService.payTransaction(payTransactionRequestDto);
+            case FIX -> fixTransactionDomainService.payTransaction(payTransactionRequestDto);
         }
     }
 
@@ -346,8 +348,6 @@ public class TransactionServiceImpl implements TransactionService {
         if (TransactionType.FIX.equals(updateTransactionRequestDto.getTransactionType())) {
             fixTransactionDomainService.updateAllFixTransactions(transaction, updateTransactionRequestDto);
         }
-
-
     }
 
     private void updateThisExpense(Transaction transaction, UpdateTransactionRequestDto updateTransactionRequestDto) {
@@ -361,7 +361,6 @@ public class TransactionServiceImpl implements TransactionService {
                 installmentTransactionDomainService.updateThisExpense(installmentTransaction, updateTransactionRequestDto);
             }
             case FIX -> fixTransactionDomainService.updateFixTransaction(transaction, updateTransactionRequestDto);
-
         }
     }
 }

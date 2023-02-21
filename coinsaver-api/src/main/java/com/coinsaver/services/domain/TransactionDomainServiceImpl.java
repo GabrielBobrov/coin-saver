@@ -4,6 +4,7 @@ import com.coinsaver.api.dtos.request.PayTransactionRequestDto;
 import com.coinsaver.api.dtos.request.TransactionRequestDto;
 import com.coinsaver.api.dtos.request.UpdateTransactionRequestDto;
 import com.coinsaver.core.enums.StatusType;
+import com.coinsaver.core.enums.TransactionCategoryType;
 import com.coinsaver.core.enums.TransactionType;
 import com.coinsaver.core.enums.UpdateTransactionType;
 import com.coinsaver.core.validation.messages.ErrorMessages;
@@ -60,7 +61,11 @@ public class TransactionDomainServiceImpl implements TransactionDomainService {
         Transaction transaction = transactionRepository.findById(payTransactionRequestDto.getTransactionId())
                 .orElseThrow(() -> new BusinessException(ErrorMessages.getErrorMessage("TRANSACTION_NOT_FOUND")));
 
-        transaction.setStatus(StatusType.PAID);
+        if (TransactionCategoryType.INCOME.equals(transaction.getCategory())) {
+            throw new BusinessException(ErrorMessages.getErrorMessage("PAY_INCOME_TRANSACTION"));
+        }
+
+        transaction.payTransaction();
         transactionRepository.save(transaction);
     }
 

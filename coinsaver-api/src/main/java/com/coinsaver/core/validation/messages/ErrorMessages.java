@@ -14,7 +14,7 @@ public class ErrorMessages {
         messages.put("INSTALLMENT_TRANSACTION_TYPE_NULL", "Informe um installmentTransactionType.");
         messages.put("TRANSACTION_WITH_REPEAT", "Não é possível alterar uma transação que possui parcelamentos, altere os parcelamentos.");
         messages.put("INVALID_FIX_TRANSACTION_UPDATE", "Não é possível atualizar transações futuras de uma transação fixa.");
-
+        messages.put("PAY_INCOME_TRANSACTION", "Não é possível pagar uma transação que nào é uma despesa.");
     }
 
 

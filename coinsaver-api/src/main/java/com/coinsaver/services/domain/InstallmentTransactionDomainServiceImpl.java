@@ -4,6 +4,7 @@ import com.coinsaver.api.dtos.request.PayTransactionRequestDto;
 import com.coinsaver.api.dtos.request.TransactionRequestDto;
 import com.coinsaver.api.dtos.request.UpdateTransactionRequestDto;
 import com.coinsaver.core.enums.StatusType;
+import com.coinsaver.core.enums.TransactionCategoryType;
 import com.coinsaver.core.validation.messages.ErrorMessages;
 import com.coinsaver.domain.entities.InstallmentTransaction;
 import com.coinsaver.domain.entities.Transaction;
@@ -86,7 +87,11 @@ public class InstallmentTransactionDomainServiceImpl implements InstallmentTrans
         InstallmentTransaction installmentTransaction = installmentTransactionRepository.findById(payTransactionRequestDto.getTransactionId())
                 .orElseThrow(() -> new BusinessException(ErrorMessages.getErrorMessage("TRANSACTION_NOT_FOUND")));
 
-        installmentTransaction.setStatus(StatusType.PAID);
+        if (TransactionCategoryType.INCOME.equals(installmentTransaction.getCategory())) {
+            throw new BusinessException(ErrorMessages.getErrorMessage("PAY_INCOME_TRANSACTION"));
+        }
+
+        installmentTransaction.payTransaction();
         installmentTransactionRepository.save(installmentTransaction);
     }
 

@@ -57,4 +57,8 @@ public class Transaction extends TransactionBase {
     @ManyToOne
     @JoinColumn(name = "client_id")
     private Client client;
+
+    public void payTransaction() {
+        this.setStatus(StatusType.PAID);
+    }
 }
