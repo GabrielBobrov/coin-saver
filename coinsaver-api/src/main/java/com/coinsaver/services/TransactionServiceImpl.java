@@ -16,6 +16,9 @@ import com.coinsaver.domain.entities.InstallmentTransaction;
 import com.coinsaver.domain.entities.Transaction;
 import com.coinsaver.domain.entities.TransactionBase;
 import com.coinsaver.domain.exceptions.BusinessException;
+import com.coinsaver.domain.mapper.FixTransactionMapper;
+import com.coinsaver.domain.mapper.InstallmentTransactionMapper;
+import com.coinsaver.domain.mapper.TransactionMapper;
 import com.coinsaver.infra.repositories.FixTransactionRepository;
 import com.coinsaver.infra.repositories.InstallmentTransactionRepository;
 import com.coinsaver.infra.repositories.TransactionRepository;
@@ -24,7 +27,6 @@ import com.coinsaver.services.domain.interfaces.InstallmentTransactionDomainServ
 import com.coinsaver.services.domain.interfaces.TransactionDomainService;
 import com.coinsaver.services.interfaces.TransactionService;
 import jakarta.transaction.Transactional;
-import org.hibernate.id.GUIDGenerator;
 import org.springframework.stereotype.Service;
 
 import java.math.BigDecimal;
@@ -47,20 +49,33 @@ public class TransactionServiceImpl implements TransactionService {
     private final TransactionDomainService transactionDomainService;
 
     private final FixTransactionDomainService fixTransactionDomainService;
+
     private final FixTransactionRepository fixTransactionRepository;
+
+    private final InstallmentTransactionMapper installmentTransactionMapper;
+
+    private final FixTransactionMapper fixTransactionMapper;
+
+    private final TransactionMapper transactionMapper;
 
     public TransactionServiceImpl(TransactionRepository transactionRepository,
                                   InstallmentTransactionRepository installmentTransactionRepository,
                                   InstallmentTransactionDomainService installmentTransactionDomainService,
                                   TransactionDomainService transactionDomainService,
                                   FixTransactionDomainService fixTransactionDomainService,
-                                  FixTransactionRepository fixTransactionRepository) {
+                                  FixTransactionRepository fixTransactionRepository,
+                                  InstallmentTransactionMapper installmentTransactionMapper,
+                                  FixTransactionMapper fixTransactionMapper,
+                                  TransactionMapper transactionMapper) {
         this.transactionRepository = transactionRepository;
         this.installmentTransactionRepository = installmentTransactionRepository;
         this.installmentTransactionDomainService = installmentTransactionDomainService;
         this.transactionDomainService = transactionDomainService;
         this.fixTransactionDomainService = fixTransactionDomainService;
         this.fixTransactionRepository = fixTransactionRepository;
+        this.installmentTransactionMapper = installmentTransactionMapper;
+        this.fixTransactionMapper = fixTransactionMapper;
+        this.transactionMapper = transactionMapper;
     }
 
     @Override
@@ -96,34 +111,76 @@ public class TransactionServiceImpl implements TransactionService {
         LocalDateTime endOfMonth = date.with(TemporalAdjusters.lastDayOfMonth());
 
 
-        var transactions = transactionRepository.findByCategoryAndPayDayBetweenAndRepeatIsNullAndFixedExpenseIsFalse(categoryType, startOfMonth, endOfMonth);
+        var transactions = transactionRepository.findTransactionByPayDayBetweenAndTransactionType(startOfMonth, endOfMonth, TransactionType.IN_CASH);
         var installmentTransactions = installmentTransactionRepository.findByCategoryAndPayDayBetween(categoryType, startOfMonth, endOfMonth);
-        var fixTransaction = fixTransactionRepository.findByCategoryAndPayDayBetween(categoryType, startOfMonth, endOfMonth);
+        var fixTransactionsEdited = fixTransactionRepository.findByCategoryAndPayDayBetweenAndEditedIsTrue(categoryType, startOfMonth, endOfMonth);
+        var fixTransactions = fixTransactionRepository.findByCategoryAndPayDayBetween(categoryType, startOfMonth, endOfMonth);
 
+        List<Transaction> transactionsEdited = fixTransactionsEdited.stream()
+                .map(FixTransaction::getTransaction)
+                .toList();
+
+        List<FixTransaction> fixTransactionsNotEdited = fixTransactions.stream()
+                .filter(fixTransaction -> !transactionsEdited.contains(fixTransaction.getTransaction()))
+                .toList();
+
+        List<FixTransaction> fixTransactionsResult = new ArrayList<>(fixTransactionsEdited);
+        fixTransactionsResult.addAll(fixTransactionsNotEdited);
+
+        List<Transaction> transactionsList = new ArrayList<>(transactions);
+        transactionsList.addAll(installmentTransactions.stream()
+                .map(TransactionBase::convertToTransactionEntity)
+                .toList());
+
+        transactionsList.addAll(fixTransactionsResult.stream()
+                .map(transaction -> {
+                    int monthDifference = getMonthDifference(startOfMonth, transaction.getPayDay());
+                    var payday = transaction.getPayDay().plusMonths(monthDifference);
+                    transaction.setPayDay(payday);
+                    return transaction.convertToTransactionEntity();
+                })
+                .distinct()
+                .toList());
         List<TransactionResponseDto> transactionsResult = new ArrayList<>();
 
-        if (!transactions.isEmpty()) {
+        if (!transactionsList.isEmpty()) {
             transactionsResult.addAll(transactions
                     .stream()
-                    .map(Transaction::convertEntityToResponseDto)
+                    .map(transaction -> {
+                        TransactionResponseDto responseDto = transactionMapper.fromTransactionToTransactionRequestDto(transaction);
+                        responseDto.setTransactionType(TransactionType.IN_CASH);
+                        responseDto.setTransactionId(transaction.getId());
+                        return responseDto;
+                    })
                     .toList());
         }
 
         if (!installmentTransactions.isEmpty()) {
             transactionsResult.addAll(installmentTransactions
                     .stream()
-                    .map(it -> it.getTransaction().convertEntityToResponseDto())
+                    .map(installmentTransaction -> {
+                        TransactionResponseDto responseDto = installmentTransactionMapper.fromInstallmentTransactionToTransactionResponseDto(installmentTransaction);
+                        responseDto.setTransactionType(TransactionType.INSTALLMENT);
+                        return responseDto;
+                    })
                     .toList());
         }
 
-        if (!fixTransaction.isEmpty()) {
-            transactionsResult.addAll(fixTransaction
+        if (!fixTransactionsResult.isEmpty()) {
+            transactionsResult.addAll(fixTransactionsResult
                     .stream()
-                    .map(it -> it.getTransaction().convertEntityToResponseDto())
+                    .map(fixTransaction -> {
+                        TransactionResponseDto responseDto = fixTransactionMapper.fromFixTransactionToTransactionResponseDto(fixTransaction);
+                        responseDto.setTransactionType(TransactionType.FIX);
+                        return responseDto;
+                    })
                     .toList());
         }
 
-        return transactionsResult;
+        return transactionsResult
+                .stream()
+                .distinct()
+                .toList();
     }
 
     @Transactional
@@ -151,7 +208,7 @@ public class TransactionServiceImpl implements TransactionService {
         LocalDateTime startOfMonth = date.with(TemporalAdjusters.firstDayOfMonth());
         LocalDateTime endOfMonth = date.with(TemporalAdjusters.lastDayOfMonth());
 
-        var transactions = transactionRepository.findByPayDayBetweenAndRepeatIsNullAndFixedExpenseIsFalse(startOfMonth, endOfMonth);
+        var transactions = transactionRepository.findTransactionByPayDayBetweenAndTransactionType(startOfMonth, endOfMonth, TransactionType.IN_CASH);
         var installmentTransactions = installmentTransactionRepository.findByPayDayBetween(startOfMonth, endOfMonth);
         var fixTransactionsEdited = fixTransactionRepository.findFixTransactionByPayDayBetween(startOfMonth, endOfMonth, Boolean.TRUE);
         var fixTransactions = fixTransactionRepository.findFixTransactionByEditedFalse();

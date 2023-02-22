@@ -22,7 +22,9 @@ import java.time.LocalDateTime;
 @AllArgsConstructor
 public class TransactionResponseDto {
 
-    private Long id;
+    private Long transactionId;
+    private Long installmentTransactionId;
+    private Long fixTransactionId;
     private BigDecimal amount;
     private LocalDateTime payDay;
     private String description;
