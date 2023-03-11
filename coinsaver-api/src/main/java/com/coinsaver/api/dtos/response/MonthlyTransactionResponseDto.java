@@ -24,7 +24,5 @@ public class MonthlyTransactionResponseDto {
     private String description;
     private StatusType status;
     private TransactionCategoryType category;
-    private Boolean fixedExpense;
-    private Integer repeat;
     private TransactionType transactionType;
 }

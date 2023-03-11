@@ -5,6 +5,7 @@ import java.util.Map;
 
 
 public class ErrorMessages {
+    private ErrorMessages() { }
     private static final Map<String, String> messages = new HashMap<>();
 
     static {
