@@ -11,6 +11,8 @@ import org.hibernate.annotations.CreationTimestamp;
 
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
+import java.util.HashSet;
+import java.util.Set;
 
 @Data
 @EqualsAndHashCode(onlyExplicitlyIncluded = true)
@@ -34,5 +36,24 @@ public class Client {
 	
 	@Column(nullable = false)
 	private BigDecimal balance;
+
+	@ManyToMany
+	@JoinTable(name = "client_group", joinColumns = @JoinColumn(name = "usuario_id"),
+			inverseJoinColumns = @JoinColumn(name = "grupo_id"))
+	private Set<Group_> grupos = new HashSet<>();
+
+	private String senha;
+
+	public boolean removerGrupo(Group_ group) {
+		return getGrupos().remove(group);
+	}
+
+	public boolean adicionarGrupo(Group_ group) {
+		return getGrupos().add(group);
+	}
+
+	public boolean isNovo() {
+		return getId() == null;
+	}
 		
 }

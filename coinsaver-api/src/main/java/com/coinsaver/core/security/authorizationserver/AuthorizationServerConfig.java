@@ -1,7 +1,7 @@
 package com.coinsaver.core.security.authorizationserver;
 
-import com.algaworks.algafood.domain.model.Usuario;
-import com.algaworks.algafood.domain.repository.UsuarioRepository;
+import com.coinsaver.domain.entities.Client;
+import com.coinsaver.infra.repositories.ClientRepository;
 import com.nimbusds.jose.jwk.JWKSet;
 import com.nimbusds.jose.jwk.RSAKey;
 import com.nimbusds.jose.jwk.source.ImmutableJWKSet;
@@ -19,7 +19,10 @@ import org.springframework.security.core.Authentication;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.User;
 import org.springframework.security.crypto.password.PasswordEncoder;
-import org.springframework.security.oauth2.server.authorization.*;
+import org.springframework.security.oauth2.server.authorization.JdbcOAuth2AuthorizationConsentService;
+import org.springframework.security.oauth2.server.authorization.JdbcOAuth2AuthorizationService;
+import org.springframework.security.oauth2.server.authorization.OAuth2AuthorizationConsentService;
+import org.springframework.security.oauth2.server.authorization.OAuth2AuthorizationService;
 import org.springframework.security.oauth2.server.authorization.client.JdbcRegisteredClientRepository;
 import org.springframework.security.oauth2.server.authorization.client.RegisteredClientRepository;
 import org.springframework.security.oauth2.server.authorization.config.annotation.web.configurers.OAuth2AuthorizationServerConfigurer;
@@ -32,10 +35,7 @@ import org.springframework.security.web.util.matcher.RequestMatcher;
 
 import java.io.InputStream;
 import java.security.KeyStore;
-import java.time.Duration;
-import java.util.Arrays;
 import java.util.HashSet;
-import java.util.Optional;
 import java.util.Set;
 
 @Configuration
@@ -54,15 +54,13 @@ public class AuthorizationServerConfig {
                 .getEndpointsMatcher();
 
         http.securityMatcher(endpointsMatcher)
-            .authorizeHttpRequests(authorize -> {
-                authorize.anyRequest().authenticated();
-            })
-            .csrf(csrf -> csrf.ignoringRequestMatchers(endpointsMatcher))
-            .formLogin(Customizer.withDefaults())
-            .exceptionHandling(exceptions -> {
-                exceptions.authenticationEntryPoint(new LoginUrlAuthenticationEntryPoint("/login"));
-            })
-            .apply(authorizationServerConfigurer);
+                .authorizeHttpRequests(authorize -> {
+                    authorize.anyRequest().authenticated();
+                })
+                .csrf(csrf -> csrf.ignoringRequestMatchers(endpointsMatcher))
+                .formLogin(Customizer.withDefaults())
+                .exceptionHandling(exceptions -> exceptions.authenticationEntryPoint(new LoginUrlAuthenticationEntryPoint("/login")))
+                .apply(authorizationServerConfigurer);
 
         return http.formLogin(customizer -> customizer.loginPage("/login")).build();
     }
@@ -105,13 +103,13 @@ public class AuthorizationServerConfig {
     }
 
     @Bean
-    public OAuth2TokenCustomizer<JwtEncodingContext> jwtCustomizer(UsuarioRepository usuarioRepository) {
+    public OAuth2TokenCustomizer<JwtEncodingContext> jwtCustomizer(ClientRepository clientRepository) {
         return context -> {
             Authentication authentication = context.getPrincipal();
             if (authentication.getPrincipal() instanceof User) {
                 User user = (User) authentication.getPrincipal();
 
-                Usuario usuario = usuarioRepository.findByEmail(user.getUsername()).orElseThrow();
+                Client usuario = clientRepository.findByEmail(user.getUsername()).orElseThrow();
 
                 Set<String> authorities = new HashSet<>();
                 for (GrantedAuthority authority : user.getAuthorities()) {
