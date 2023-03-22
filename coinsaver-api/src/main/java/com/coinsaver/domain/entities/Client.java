@@ -1,59 +1,77 @@
 package com.coinsaver.domain.entities;
 
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
-import lombok.Data;
-import lombok.EqualsAndHashCode;
+import com.coinsaver.core.enums.Role;
+import jakarta.persistence.*;
+import lombok.*;
 import org.hibernate.annotations.CreationTimestamp;
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
+import org.springframework.security.core.userdetails.UserDetails;
 
-import java.math.BigDecimal;
 import java.time.LocalDateTime;
-import java.util.HashSet;
-import java.util.Set;
+import java.util.Collection;
+import java.util.List;
 
+@Builder
+@NoArgsConstructor
+@AllArgsConstructor
 @Data
 @EqualsAndHashCode(onlyExplicitlyIncluded = true)
 @Entity
-public class Client {
-	
-	@EqualsAndHashCode.Include
-	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private Long id;
-	
-	@Column(nullable = false)
-	private String name;
-	
-	@Column(nullable = false)
-	private String email;
-	
-	@CreationTimestamp
-	@Column(nullable = false)
-	private LocalDateTime createdAt;
-	
-	@Column(nullable = false)
-	private BigDecimal balance;
+public class Client implements UserDetails {
 
-	@ManyToMany
-	@JoinTable(name = "client_group", joinColumns = @JoinColumn(name = "usuario_id"),
-			inverseJoinColumns = @JoinColumn(name = "grupo_id"))
-	private Set<Group_> grupos = new HashSet<>();
+    @EqualsAndHashCode.Include
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
 
-	private String senha;
+    @Column(nullable = false)
+    private String name;
 
-	public boolean removerGrupo(Group_ group) {
-		return getGrupos().remove(group);
-	}
+    @Column(nullable = false)
+    private String email;
 
-	public boolean adicionarGrupo(Group_ group) {
-		return getGrupos().add(group);
-	}
+    @CreationTimestamp
+    @Column(nullable = false)
+    private LocalDateTime createdAt;
 
-	public boolean isNovo() {
-		return getId() == null;
-	}
-		
+    private String password;
+
+    @Enumerated(EnumType.STRING)
+    private Role role;
+
+    @Override
+    public Collection<? extends GrantedAuthority> getAuthorities() {
+        return List.of(new SimpleGrantedAuthority(role.name()));
+    }
+
+    @Override
+    public String getPassword() {
+        return password;
+    }
+
+    @Override
+    public String getUsername() {
+        return email;
+    }
+
+    @Override
+    public boolean isAccountNonExpired() {
+        return true;
+    }
+
+    @Override
+    public boolean isAccountNonLocked() {
+        return true;
+    }
+
+    @Override
+    public boolean isCredentialsNonExpired() {
+        return true;
+    }
+
+    @Override
+    public boolean isEnabled() {
+        return true;
+    }
 }

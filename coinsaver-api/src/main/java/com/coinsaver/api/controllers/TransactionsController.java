@@ -9,7 +9,7 @@ import com.coinsaver.api.dtos.response.UpdateTransactionResponseDto;
 import com.coinsaver.api.openapi.controller.TransactionsControllerOpenApi;
 import com.coinsaver.core.enums.TransactionCategoryType;
 import com.coinsaver.core.enums.TransactionType;
-import com.coinsaver.services.interfaces.TransactionService;
+import com.coinsaver.services.transactions.interfaces.TransactionService;
 import jakarta.validation.Valid;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.DeleteMapping;
