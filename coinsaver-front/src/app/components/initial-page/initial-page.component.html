@@ -1,1 +1,921 @@
-<p>initial-page works! com meus ovo</p>
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>COINSAVER</title>
+</head>
+
+<body data-bs-offset="120" data-bs-spy="scroll" data-bs-target="#sidebarMenu" tabindex="0" data-aos-easing="ease-out"
+  data-aos-duration="350" data-aos-delay="0">
+  <!-- Google Tag Manager (noscript) -->
+  <noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-N3MJ7ND" height="0" width="0"
+      style="display:none;visibility:hidden"></iframe>
+  </noscript>
+  <!-- End Google Tag Manager (noscript) -->
+
+  <!-- section em comum com pagina empresarial e pessoal -->
+  <nav class="navbar pt-2 pb-3 navbar-expand-lg navbar-light" id="navbar">
+    <div class="container nav-container aos-init aos-animate" data-aos="fade" data-aos-duration="280">
+      <div class="navbar-brand d-sm-flex">
+
+        <a href="/">
+          <img alt="" class="img-fluid logo-pessoal" data-cms-original-src="/assets/imgs/logos/logo-horizontal.svg"
+            src="../../../assets/images/coinsaver_logo-removebg-preview.png">
+        </a>
+
+      </div>
+      <button aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation"
+        class="navbar-toggler" data-bs-target="#navbarSupportedContent" data-bs-toggle="collapse" type="button">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse mt-2" id="navbarSupportedContent">
+        <ul
+          class="navbar-nav flex-md-grow-1 justify-content-lg-evenly align-items-center align-lg-items-end mb-2 mb-lg-0">
+
+          <li class="nav-item mb-1 mb-lg-0">
+
+            <div class="nav-link no-effect">
+              <a href="/empresarial"> Para Empresas</a>
+            </div>
+
+          </li>
+          <li class="nav-item mb-1 mb-lg-0">
+            <div class="nav-link no-effect">
+              <a href="http://www.meudinheiroinvestimentos.com.br" target="_blank"> Controle de Investimentos </a>
+            </div>
+          </li>
+          <li class="nav-item mb-1 mb-lg-0">
+            <div class="nav-link no-effect">
+              <a href="/pessoal/planos">
+                Planos
+              </a>
+            </div>
+          </li>
+        </ul>
+        <div class="row justify-content-between align-items-center acoes">
+
+          <div class="col-12 col-lg-4 buttons criar-conta-wrapper mb-1 mb-lg-0">
+            <a class="btn default-button-2 criar-conta" href="https://app.meudinheiroweb.com.br/novaconta"
+              target="_blank">
+              Criar conta grátis
+            </a>
+          </div>
+
+          <div class="col-12 col-lg-4 buttons">
+            <a class="btn default-button-2 entrar" href="https://app.meudinheiroweb.com.br" target="_blank">
+              Entrar
+            </a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </nav>
+
+
+
+  <header class="header" id="header">
+    <div class="cadastro">
+      <!-- <div class="border-top border-bottom title-header-banks">
+      <div class="d-flex flex-column align-items-lg-center intro">
+          <div class="title-header">
+              <h3 class="h3">Controle financeiro conectado com os principais bancos</h3>
+          </div>
+          <div class="d-none d-lg-block imgs">
+              <img class="img-fluid" alt="controle-financeiro-pessoal" src="/assets/imgs/misc/header-bancos.webp">
+          </div>
+      </div>
+  </div> -->
+      <div class="container">
+        <div class="d-flex flex-md-row justify-content-center justify-content-lg-between intro">
+          <div class="d-flex flex-column justify-content-evenly">
+            <div class="d-flex flex-column title-header aos-init aos-animate" data-aos="fade-up">
+
+
+              <h1 class="h1">Sistema para controle </h1>
+              <h1>financeiro online</h1>
+              <h2 class="h2">Fácil e gratuito </h2>
+
+
+            </div>
+            <div class="d-flex flex-column justify-content-baseline criar-conta aos-init aos-animate" data-aos="fade"
+              data-aos-duration="180">
+
+<!--
+              <h4 class="h4">
+                Mais de 450 mil pessoas utilizam o Meu Dinheiro
+                <span class="stores">
+                  <a href="https://itunes.apple.com/us/app/meu-dinheiro/id634913743?l=pt&amp;ls=1&amp;mt=8"
+                    target="_blank">
+                    <i class="fa fa-apple" style="display: inline;" aria-hidden="true"></i>
+                  </a>
+                  <a href="https://play.google.com/store/apps/details?id=easyme.meudinheiro&amp;feature=search_result#?t=W251bGwsMSwxLDEsImVhc3ltZS5tZXVkaW5oZWlybyJd"
+                    target="_blank">
+                    <i class="fa fa-android" style="display: inline;" aria-hidden="true"></i>
+                  </a>
+                </span>
+              </h4> -->
+
+
+              <form action="https://app.meudinheiroweb.com.br/novaconta" class="form-inline" method="GET">
+                <div class="d-flex flex-row flex-wrap email-input">
+                  <div class="d-flex flex-column flex-grow-1 my-1 my-md-0 ">
+                    <input id="email-input" name="e" placeholder="Seu e-mail" required="" type="email">
+                  </div>
+                  <div class="d-flexflex-column flex-grow-1 my-1 my-md-0 ">
+                    <button type="submit">Criar conta grátis</button>
+                  </div>
+                </div>
+
+                <!-- <a class="detalhes-plano-gratuito" href="/pessoal/planos">
+                  <em>*Confira detalhes do plano gratuito</em>
+                </a> -->
+
+              </form>
+            </div>
+          </div>
+          <div class="d-none d-lg-block imgs aos-init aos-animate" data-aos="fade" data-aos-duration="180">
+
+            <img alt="controle-financeiro-pessoal" class="img-fluid"
+              data-cms-original-src="/assets/imgs/misc/header-mockup-pessoal.webp"
+              src="../../../assets/images/header-mockup-pessoal.webp">
+
+          </div>
+        </div>
+        <!-- <h3 class="h3 py-5 invest-info aos-init aos-animate" data-aos="fade" data-aos-duration="180">Único com controle
+          de investimentos integrado</h3> -->
+      </div>
+
+
+
+    </div>
+  </header>
+
+
+  <section class="conhecer py-5 my-4" style="position: relative;">
+    <div class="container-fluid">
+      <div class="row title-wrapper py-2 text-center">
+        <h1 class="h1">Como o COINSAVER vai me ajudar?</h1>
+        <h3 class="h3">Proporcionando meios para você gerenciar seus sonhos, metas e objetivos</h3>
+        <hr>
+      </div>
+      <div class="d-flex flex-wrap flex-lg-nowrap my-3 justify-content-center boxes">
+        <div class="default-box-shadow bg-body box-recursos">
+          <img alt="controle-financeiro" data-cms-original-src="/assets/imgs/icons/pessoal/card.png"
+            src="../../../assets/images/card.webp">
+          <h4 class="h4">Controle<br>suas despesas</h4>
+          <p class="descricao">
+            Gerencie com precisão todas as despesas dos seus cartões de crédito.
+            Tenha controle do cartão titular e dos adicionais. Receba lembretes para pagar suas faturas e contas em dia.
+          </p>
+        </div>
+        <div class="default-box-shadow bg-body box-recursos">
+          <img alt="gerenciar-metas-financeiras" data-cms-original-src="/assets/imgs/icons/pessoal/metas.png"
+            src="../../../assets/images/metas.webp">
+          <h4 class="h4">Acompanhe<br>suas metas</h4>
+          <p class="descricao">
+            Crie metas e acompanhe sua evolução. Gerencie seus objetivos financeiros de curto, médio e
+            longo prazo. Fique cada vez mais perto de alcançar seus sonhos e objetivos.
+          </p>
+        </div>
+        <div class="default-box-shadow bg-body box-recursos">
+          <img alt="gerenciador-patrimonial" data-cms-original-src="/assets/imgs/icons/pessoal/bank.png"
+            src="../../../assets/images/bank.webp">
+          <h4 class="h4">Controle<br>sua riqueza</h4>
+          <p class="descricao">
+            Acompanhe seu crescimento rumo a sua independência financeira. Gerencie seu patrimônio,
+            acompanhe a evolução dos seus investimentos e todos os demais ativos e passivos.
+          </p>
+        </div>
+        <div class="default-box-shadow bg-body box-recursos">
+          <img alt="gerenciar-projetos" data-cms-original-src="/assets/imgs/icons/pessoal/project.png"
+            src="../../../assets/images/project.webp">
+          <h4 class="h4">Gerencie<br>seus projetos</h4>
+          <p class="descricao">
+            Crie e gerencie projetos para saber exatamente quanto
+            gastou em suas viagens de férias ou naquela reforma da sua casa.
+          </p>
+        </div>
+      </div>
+      <!-- <div class="text-center experimente-gratuito py-5 aos-init aos-animate" data-aos="fade" data-aos-duration="180">
+        <h3 class="h3">Experimente todos os recursos gratuitamente por sete dias</h3>
+        <h4 class="h4">Sem informar dados de compra</h4>
+      </div> -->
+      <div class="row justify-content-center">
+        <a class="btn default-button-1" href="https://app.meudinheiroweb.com.br/novaconta">
+          Crie sua conta grátis
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <section class="recursos-principais section-bg py-5">
+    <div class="container">
+      <div class="row title-wrapper text-center my-5 aos-init aos-animate" data-aos="fade-up">
+        <div class="col">
+          <h1 class="h1">Nossos principais recursos</h1>
+          <h3 class="h3">Tome as melhores decisões financeiras</h3>
+          <hr>
+        </div>
+      </div>
+
+      <div class="row justify-content-between my-5 aos-init aos-animate" data-aos="fade-up">
+
+        <div class="col-sm-12 col-md-6 box-recursos">
+          <div class="d-flex flex-row wrapper">
+            <div class="wrapper-img">
+              <img alt="" class="icon-img" data-cms-original-src="/assets/imgs/icons/pessoal/import.png"
+                src="/assets/imgs/icons/pessoal/import.png?_cchid=cc920ab4c3f7b97f95afe446440e1ac6">
+            </div>
+            <div class="wrapper-text">
+              <h3 class="h3">Importação de extratos bancários</h3>
+              <p>Controle o saldo de suas contas. Importe extratos do seu banco e faça conciliação bancária.</p>
+            </div>
+          </div>
+        </div>
+
+        <div class="col-sm-12 col-md-6 box-recursos">
+          <div class="d-flex flex-row wrapper">
+            <div class="wrapper-img">
+              <img alt="" class="icon-img" data-cms-original-src="/assets/imgs/icons/pessoal/custo.png"
+                src="/assets/imgs/icons/pessoal/custo.png?_cchid=3717a83772caf1b3eb6b5b11b1b50caa">
+            </div>
+            <div class="wrapper-text">
+              <h3 class="h3">Centros de custos e lucros</h3>
+              <p>Controle quanto está gastando com cada filho, veículo ou imóvel e saiba a origem das despesas e
+                receitas.</p>
+            </div>
+          </div>
+        </div>
+
+        <div class="col-sm-12 col-md-6 box-recursos">
+          <div class="d-flex flex-row wrapper">
+            <div class="wrapper-img">
+              <img alt="" class="icon-img" data-cms-original-src="/assets/imgs/icons/pessoal/card.png"
+                src="/assets/imgs/icons/pessoal/card.png?_cchid=eef19768e6b6cfb0d1eafbcb0af16604">
+            </div>
+            <div class="wrapper-text">
+              <h3 class="h3">Cartões de crédito</h3>
+              <p>Gerencie as despesas dos cartões de crédito. Controle cartões adicionais.</p>
+            </div>
+          </div>
+        </div>
+
+        <div class="col-sm-12 col-md-6 box-recursos">
+          <div class="d-flex flex-row wrapper">
+            <div class="wrapper-img">
+              <img alt="" class="icon-img" data-cms-original-src="/assets/imgs/icons/pessoal/metas.png"
+                src="/assets/imgs/icons/pessoal/metas.png?_cchid=14d2400d9a3466e1dac07004421eebb5">
+            </div>
+            <div class="wrapper-text">
+              <h3 class="h3">Controle de metas</h3>
+              <p>Controle de metas de despesas, receitas e investimentos. Planeje seus sonhos e objetivos.</p>
+            </div>
+          </div>
+        </div>
+
+        <div class="col-sm-12 col-md-6 box-recursos">
+          <div class="d-flex flex-row wrapper">
+            <div class="wrapper-img">
+              <img alt="" class="icon-img" data-cms-original-src="/assets/imgs/icons/pessoal/project.png"
+                src="/assets/imgs/icons/pessoal/project.png?_cchid=bf8647721a54948e85fd004d5a1b919b">
+            </div>
+            <div class="wrapper-text">
+              <h3 class="h3">Controle de projetos</h3>
+              <p>Crie e gerencie projetos. Custos totais, metas de orçamento, e gastos por categoria.</p>
+            </div>
+          </div>
+        </div>
+
+        <!-- <div class="col-sm-12 col-md-6 box-recursos">
+          <div class="d-flex flex-row wrapper">
+            <div class="wrapper-img">
+              <img alt="" class="icon-img" data-cms-original-src="/assets/imgs/icons/pessoal/sms.png"
+                src="/assets/imgs/icons/pessoal/sms.png?_cchid=49d0ac327cba4c8c1aeb438fdee42593">
+            </div>
+            <div class="wrapper-text">
+              <h3 class="h3">Importação de notificações</h3>
+              <p>Importe SMS financeiros e notificações push recebidas do seu banco ou cartão.</p>
+            </div>
+          </div>
+        </div> -->
+
+        <!-- <div class="col-sm-12 col-md-6 box-recursos">
+          <div class="d-flex flex-row wrapper">
+            <div class="wrapper-img">
+              <img alt="" class="icon-img" data-cms-original-src="/assets/imgs/icons/pessoal/leao.png"
+                src="/assets/imgs/icons/pessoal/leao.png?_cchid=37d6cc0fab25fef56fa44658bf75a600">
+            </div>
+            <div class="wrapper-text">
+              <h3 class="h3">Carnê leão exportação arquivo</h3>
+              <p>Exportação do arquivo para aplicativo do Carnê Leão da Receita Federal</p>
+            </div>
+          </div>
+        </div> -->
+
+        <!-- <div class="col-sm-12 col-md-6 box-recursos">
+          <div class="d-flex flex-row wrapper">
+            <div class="wrapper-img">
+              <img alt="" class="icon-img" data-cms-original-src="/assets/imgs/icons/pessoal/users.png"
+                src="/assets/imgs/icons/pessoal/users.png?_cchid=80d746e94cc86ed1688843faac1ca49b">
+            </div>
+            <div class="wrapper-text">
+              <h3 class="h3">Usuários adicionais</h3>
+              <p>Adicione outras pessoas para participar do seu planejamento financeiro.</p>
+            </div>
+          </div>
+        </div> -->
+
+      </div>
+
+      <!-- <div class="row justify-content-center my-5">
+        <div class="col text-center">
+          <a class="default-button-1 btn" href="/pessoal/planos">
+            Conheça nossos planos
+          </a>
+        </div>
+      </div> -->
+    </div>
+  </section>
+
+  <!-- <section class="recursos-exclusivos-2 py-5">
+
+    <div class="container title-wrapper py-3">
+      <div class="row justify-content-center tect-center">
+        <div class="col">
+          <h1 class="h1">Você só encontra no Meu Dinheiro</h1>
+          <h3 class="h3">Recursos exclusivos do sistema</h3>
+          <hr>
+        </div>
+      </div>
+    </div>
+
+
+
+
+    <div class="container menu">
+      <div
+        class="row nav nav-tabs text-center py-3 justify-content-center justify-content-lg-around align-items-center">
+        <div class="col-6 col-md-auto nav-item nav-item-recursos active investimento" id="investimento">
+          <a aria-current="page" class="nav-link">
+            <i aria-hidden="true" class="fa fa-line-chart d-block pb-1 pb-md-2"></i>
+            Investimentos
+          </a>
+          <span class="border-active"></span>
+        </div>
+        <div class="col-6 col-md-auto nav-item nav-item-recursos calculadora" id="calculadora">
+          <a class="nav-link">
+            <i aria-hidden="true" class="fa fa-calculator d-block pb-1 pb-md-2"></i>
+            Calculadora de IR
+          </a>
+          <span class="border-active"></span>
+        </div>
+        <div class="col-6 col-md-auto nav-item nav-item-recursos multimoeda" id="multimoeda">
+          <a class="nav-link">
+            <i aria-hidden="true" class="fa fa-eur d-block pb-1 pb-md-2"></i>
+            Multimoedas
+          </a>
+          <span class="border-active"></span>
+        </div>
+        <div class="col-6 col-md-auto nav-item nav-item-recursos carne" id="carne">
+          <a class="nav-link">
+            <img class="carne-leao-icon pb-1 pb-md-2" data-cms-original-src="/assets/imgs/logos/carne-leao.svg"
+              src="/assets/imgs/logos/carne-leao.svg?_cchid=5040a02b3f20b41be44de7ae89553390">
+            Carnê Leão
+          </a>
+          <span class="border-active"></span>
+        </div>
+        <div class="col-6 col-md-auto nav-item nav-item-recursos projetos" id="projetos">
+          <a class="nav-link">
+            <i aria-hidden="true" class="fa fa-home d-block pb-1 pb-md-2"></i>
+            Projetos
+          </a>
+          <span class="border-active"></span>
+        </div>
+        <div class="col-6 col-md-auto nav-item nav-item-recursos patrimonio" id="patrimonio">
+          <a class="nav-link">
+            <i aria-hidden="true" class="fa fa-university d-block pb-1 pb-md-2"></i>
+            Patrimônio
+          </a>
+          <span class="border-active"></span>
+        </div>
+      </div>
+    </div>
+
+    <div class="container recursos">
+      <div class="row justify-content-evenly py-4">
+        <div class="col-12 col-md-6 px-3">
+          <div class="img-recurso investimento" id="img-investimento">
+            <img alt="controle-de-investimentos" class="img-fluid"
+              data-cms-original-src="/assets/imgs/home/recursos-investimento.jpg"
+              src="/assets/imgs/home/recursos-investimento.jpg?_cchid=5997cdff6de139fdedfd4cea78fbb8ce">
+          </div>
+
+          <div class="img-recurso calculadora" id="img-calculadora" style="display: none;">
+            <img alt="calculadora-de-ir-para-investimentos" class="img-fluid"
+              data-cms-original-src="/assets/imgs/home/recursos-calculadora-ir.jpg"
+              src="/assets/imgs/home/recursos-calculadora-ir.jpg?_cchid=5b8594ac5f937764dabdc51a5ae2783a">
+          </div>
+
+          <div class="img-recurso multimoeda" id="img-multimoeda" style="display: none;">
+            <img alt="controle-de-contas-em-multimoedas" class="img-fluid"
+              data-cms-original-src="/assets/imgs/home/recursos-multimoedas.png"
+              src="/assets/imgs/home/recursos-multimoedas.png?_cchid=2578ebbe0b25429e35ffc73d1a4ff9fa">
+          </div>
+
+          <div class="img-recurso carne" id="img-carne" style="display: none;">
+            <img alt="carne-leao" class="img-fluid" data-cms-original-src="/assets/imgs/home/recursos-carne-leao.jpg"
+              src="/assets/imgs/home/recursos-carne-leao.jpg?_cchid=53885e65ef33e4aeb35f0b2eec808e08">
+          </div>
+
+          <div class="img-recurso projetos" id="img-projetos" style="display: none;">
+            <img alt="controle-de-projetos" class="img-fluid"
+              data-cms-original-src="/assets/imgs/home/recursos-projetos.jpg"
+              src="/assets/imgs/home/recursos-projetos.jpg?_cchid=4539c598e65092fb274307ac52e74a71">
+          </div>
+
+          <div class="img-recurso patrimonio" id="img-patrimonio" style="display: none;">
+            <img alt="balanco-patrimonial" class="img-fluid"
+              data-cms-original-src="/assets/imgs/home/recursos-balanco-patrimonio.jpg"
+              src="/assets/imgs/home/recursos-balanco-patrimonio.jpg?_cchid=490a895a080bc412412d8d7b7e738497">
+          </div>
+        </div>
+
+        <div class="col-12 col-md-5">
+          <div class="text-recurso py-3 py-md-0 px-2 px-md-4 investimento" id="text-investimento">
+            <h1 class="h3 mb-3">
+              Investimentos
+            </h1>
+            <p class="p">
+              Gerencie e acompanhe a evolução da rentabilidade da sua carteira de ativos. Ações,
+              Opções, FIIs, ETFs, CDBs, LCAs, LCIs, Tesouro Direto, subscrições, contratos a Termo,
+              Mercado Futuro, Fundos de Investimentos e Previdência, Debêntures, Moedas, <strong>Criptomoedas</strong>,
+              Imóveis, Poupança. Controle contas em moedas estrangeiras, de ativos estrangeiros
+              (Stocks, REITs, ETFs) entre outros.
+            </p>
+          </div>
+
+          <div class="text-recurso py-3 py-md-0 px-2 px-md-4 calculadora" id="text-calculadora" style="display: none;">
+            <h1 class="h3 mb-3">
+              Calculadora de IR
+            </h1>
+            <p class="p">Calcule o IR e gere a DARF em 2 cliques.</p>
+            <p class="p">
+              Apure o IR a pagar das operações realizadas com ações, opções, FIIs, ETFs, Subscrições e Mercado Futuro na
+              B3,
+              considerando todos os parâmetros legais para isenção de ações, compensação de prejuízo e créditos a
+              compensar
+              de IRRF (IR dedo duro). São considerados os resultados de todas as operações independentemente da
+              corretora,
+              segregando os valores entre operações Swing trade e Day trade com ações, opções, ETFs e Mercado Futuro
+              e operações com FIIs, conforme as alíquotas e características legais de cada operação.
+            </p>
+          </div>
+
+
+          <div class="text-recurso py-3 py-md-0 px-2 px-md-4 multimoeda" id="text-multimoeda" style="display: none;">
+            <h1 class="h3 mb-3">
+              Multimoedas
+            </h1>
+            <p class="p">
+              Crie contas em outras moedas para controlar despesas, receitas e investimentos que
+              você possui em todas as suas contas. No Meu Dinheiro é possível cadastrar contas
+              para controlar dinheiro físico em outras moedas e também contas que você possua no
+              exterior ou que estejam em moeda diferente da moeda padrão do país em que você está.
+              Se você reside em região de fronteira ou tem residência e patrimônio em mais de um
+              país, o Meu Dinheiro é a escolha certa para você.
+            </p>
+          </div>
+
+          <div class="text-recurso py-3 py-md-0 px-2 px-md-4 carne" id="text-carne" style="display: none;">
+            <h1 class="h3 mb-3">
+              Carnê Leão
+            </h1>
+            <p class="p">
+              O módulo de Carnê Leão do Meu Dinheiro, permite gerar um arquivo para importação no
+              aplicativo do Carnê Leão da Receita Federal, de forma a facilitar o preenchimento
+              do mesmo. Este recurso facilita bastante a vida de profissionais liberais, pessoas
+              física residentes no Brasil que estão sujeitas ao pagamento de imposto por receber
+              rendimentos tributáveis de pessoas físicas ou jurídicas.
+            </p>
+          </div>
+
+
+          <div class="text-recurso py-3 py-md-0 px-2 px-md-4 projetos" id="text-projetos" style="display: none;">
+            <h1 class="h3 mb-3">
+              Projetos
+            </h1>
+            <p class="p">
+              Projetos são muito úteis para o controle de receitas e despesas, como a realização de uma viagem,
+              reforma da casa ou quaisquer outros eventos ou atividades temporárias. Além de poder associar
+              despesas e receitas aos seus projetos o Meu Dinheiro ainda permite que você defina e acompanhe
+              metas totais e também para cada uma das categorias de despesas e receitas dos seus projetos.
+            </p>
+          </div>
+          <div class="text-recurso py-3 py-md-0 px-2 px-md-4 patrimonio" id="text-patrimonio" style="display: none;">
+            <h1 class="h3 mb-3">
+              Patrimônio
+            </h1>
+            <p class="p">
+              No Meu Dinheiro você consegue visualizar e gerenciar a evolução do seu patrimônio e da sua riqueza.
+              Tenha uma visão detalhada de todos os seus ativos e passivos. Visualize de forma bem simples e
+              completa todo o seu patrimônio e sua evolução financeira.
+            </p>
+          </div>
+        </div>
+      </div>
+
+      <div class="row justify-content-center text-center py-2 py-md-5">
+        <div class="col">
+          <a class="default-button-1 d-inline-block" href="/comparativo-gerenciador-financeiro-pessoal/">Comparativo de
+            recursos</a>
+        </div>
+      </div>
+    </div>
+  </section> -->
+
+  <script>
+    $(function () {
+      $('.nav-link').mouseleave(function () {
+        $(this).addClass('no-effect');
+      })
+    })
+  </script>
+
+  <section class="app-stores mt-1 mt-md-5 py-1 py-md-5">
+    <!-- .app-stores tem position relative, para que .svg-wave-top consiga 'entrar' na div .background-wrapper -->
+    <!-- Para que o celular transpasse o background cinza ondulado -->
+
+    <div class="svg-wave-top">
+
+      <svg preserveAspectRatio="none" viewBox="0 0 1440 320" xmlns="http://www.w3.org/2000/svg">
+        <defs>
+          <linearGradient id="grad3" x1="0%" x2="200%" y1="0%" y2="0%">
+            <stop offset="0%" style="stop-color:rgba(250,254,254,1);stop-opacity:1"></stop>
+            <stop offset="200%" style="stop-color:rgba(240,252,251,1);stop-opacity:1"></stop>
+          </linearGradient>
+        </defs>
+        <path
+          d="M0,192L48,165.3C96,139,192,85,288,64C384,43,480,53,576,96C672,139,768,213,864,229.3C960,245,1056,203,1152,160C1248,117,1344,75,1392,53.3L1440,32L1440,320L1392,320C1344,320,1248,320,1152,320C1056,320,960,320,864,320C768,320,672,320,576,320C480,320,384,320,288,320C192,320,96,320,48,320L0,320Z"
+          fill="url(#grad3)" fill-opacity="1"></path>
+      </svg>
+
+    </div>
+
+    <div class="content section-bg pb-5">
+      <div class="container">
+        <div class="row justify-content-between align-items-center">
+          <div class="col-12 col-xl-6">
+            <div class="row justify-content-center">
+              <div class="col pb-5 pessoal align-self-start">
+                <div class="title-wrapper text-center text-xl-start">
+
+
+                  <h1 class="h1">Suas finanças na palma da sua mão</h1>
+
+                  <h3 class="h3">Disponível na Play Store da Google</h3>
+                </div>
+              </div>
+            </div>
+            <div class="row justify-content-around align-items-end">
+              <div class="col-12 col-xl-auto pb-5">
+                <div class="stores-div">
+                  <a class="store-btn"
+                    href=""
+                    target="_blank">
+                    <img alt="download-aplicativo-android" class="app-store"
+                      data-cms-original-src="/assets/imgs/stores/google-play-badge.png"
+                      src="../../../assets/images/google-play-badge.webp">
+                  </a>
+                </div>
+              </div>
+              <!-- <div class="col-12 col-xl-auto pb-5">
+                <div class="stores-div">
+                  <a class="store-btn"
+                    href=""
+                    target="_blank">
+                    <img alt="download-aplicativo-iphone" class="app-store"
+                      data-cms-original-src="/assets/imgs/stores/app-store-badge.svg"
+                      src="../../../assets/images/app-store-badge.svg">
+                  </a>
+                </div>
+              </div> -->
+            </div>
+          </div>
+          <div class="col-4 d-none d-xl-block smartphone-div">
+            <div class="smartphone-img">
+              <img alt="aplicativo-de-controle-financeiro" data-cms-original-src="/assets/imgs/misc/smartphones3.webp"
+                src="../../../assets/images/smartphones.png">
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+
+
+
+
+
+
+  <!-- <section class="faq-planos py-3">
+    <div class="container my-5">
+      <div class="faq-inner aos-init aos-animate" data-aos="fade-up">
+        <div class="row title-wrapper text-start">
+          <div class="col">
+            <h1 class="h1">Dúvidas Frequentes</h1>
+            <hr>
+          </div>
+        </div>
+        <div class="accordion" id="accordion">
+
+          <div class="accordion-item">
+            <h2 class="accordion-header" id="heading1">
+              <button class="accordion-button" data-bs-target="#collapse1" data-bs-toggle="collapse" type="button">
+                Minhas informações estão seguras?
+              </button>
+            </h2>
+            <div class="accordion-collapse collapse" id="collapse1">
+              <div class="accordion-body">
+                <span>
+                  Sim, as informações trafegam criptografadas em servidores dedicados de alta performance e com backups
+                  automáticos.
+                  O acesso ao sistema é feito por meio de login e senhas individuais, apenas por usuários autorizados e
+                  todas as operações são auditadas,
+                  mostrando quem, onde, quando cada operação foi realizada.
+                </span>
+              </div>
+            </div>
+          </div>
+
+          <div class="accordion-item">
+            <h2 class="accordion-header" id="heading2">
+              <button class="accordion-button" data-bs-target="#collapse2" data-bs-toggle="collapse" type="button">
+                Consigo fazer backup dos meu dados?
+              </button>
+            </h2>
+            <div class="accordion-collapse collapse" id="collapse2">
+              <div class="accordion-body">
+                <span>
+                  Sim. Apesar de não ser necessário, o Meu Dinheiro permite exportar seus lançamentos financeiros para
+                  planilhas em formato Excel.
+                </span>
+              </div>
+            </div>
+          </div>
+
+          <div class="accordion-item">
+            <h2 class="accordion-header" id="heading3">
+              <button class="accordion-button" data-bs-target="#collapse3" data-bs-toggle="collapse" type="button">
+                Posso controlar minhas finanças pessoais e do meu negócio?
+              </button>
+            </h2>
+            <div class="accordion-collapse collapse" id="collapse3">
+              <div class="accordion-body">
+                <span>
+                  Sim, o Meu Dinheiro possui versão para controle de finanças pessoais e empresariais.
+                  <br>
+                  Para acessar a versão empresarial <strong><a href="/empresarial/" target="_blank">clique
+                      aqui.</a></strong>
+                </span>
+              </div>
+            </div>
+          </div>
+
+          <div class="accordion-item">
+            <h2 class="accordion-header" id="heading4">
+              <button class="accordion-button" data-bs-target="#collapse4" data-bs-toggle="collapse" type="button">
+                O sistema recebe atualizações frequentes?
+              </button>
+            </h2>
+            <div class="accordion-collapse collapse" id="collapse4">
+              <div class="accordion-body">
+                <span>
+                  Sim, estamos sempre em constante evolução. Você pode ficar por dentro das novidades através do nosso
+                  blog, de nossas redes sociais
+                  e na nossa página de <strong><a href="https://releases.meudinheiroweb.com.br"
+                      target="_blank">releases</a></strong>.
+                </span>
+              </div>
+            </div>
+          </div>
+
+          <div class="accordion-item">
+            <h2 class="accordion-header" id="heading5">
+              <button class="accordion-button" data-bs-target="#collapse5" data-bs-toggle="collapse" type="button">
+                Consigo importar meus extratos bancários?
+              </button>
+            </h2>
+            <div class="accordion-collapse collapse" id="collapse5">
+              <div class="accordion-body">
+                <span>
+                  Sim. O Meu Dinheiro permite importar e conciliar lançamentos através de extratos bancários em formato
+                  OFC/OFX e também planilha.
+                  <br>
+                  O Aplicativo Android também permite importar lançamentos automaticamente via SMS bancário e
+                  notificações PUSH de apps como
+                  NuBank, Digio, Santander Way, Intermedium, Porto Seguro Cartões, etc.
+                </span>
+              </div>
+            </div>
+          </div>
+
+          <div class="accordion-item">
+            <h2 class="accordion-header" id="heading6">
+              <button class="accordion-button" data-bs-target="#collapse6" data-bs-toggle="collapse" type="button">
+                Consigo controlar meus investimentos e meus ativos?
+              </button>
+            </h2>
+            <div class="accordion-collapse collapse" id="collapse6">
+              <div class="accordion-body">
+                <span>
+                  É possível controlar qualquer tipo de investimento: ações, stocks, opções, ETFs, FIIs Títulos
+                  bancários(CBD,RDB,LCA), Tesouro Direto, fundos, poupança, FGTS,
+                  previdência privada, imóveis, moedas e criptomoedas, entre outros.
+                </span>
+              </div>
+            </div>
+          </div>
+
+          <div class="accordion-item">
+            <h2 class="accordion-header" id="heading7">
+              <button class="accordion-button" data-bs-target="#collapse7" data-bs-toggle="collapse" type="button">
+                Possui controle de contas a pagar/receber e lembretes por email?
+              </button>
+            </h2>
+            <div class="accordion-collapse collapse" id="collapse7">
+              <div class="accordion-body">
+                <span>
+                  Sim, o Meu Dinheiro dispõe de um mecanismo completo de controle de contas a pagar e receber com
+                  lembretes por email
+                  e notificações através dos aplicativos disponíveis para as plataformas Android e IOS.
+                </span>
+              </div>
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </div>
+  </section> -->
+
+  <section class="outras-duvidas mb-0 mb-sm-5">
+    <div class="container p-5">
+      <div class="row justify-content-center align-items-center">
+        <div class="col">
+          <div class="text mb-5">
+            <h1 class="h1 text-center text-md-start mb-3"> Dúvidas? </h1>
+            <p class="p">
+              Quaisquer outras dúvidas sobre os nossos serviços podem ser
+              esclarecidas por meio do <strong>Fale conosco</strong>.
+              Se preferir, você pode consultar nosso <strong>manual</strong>, onde estão documentadas
+              informações detalhadas sobre o uso dos recursos e funcionamento da nossa plataforma
+            </p>
+          </div>
+        </div>
+      </div>
+      <div class="row justify-content-center buttons">
+        <div class="col-12 col-md-4 py-2 py-md-0">
+          <div class="buttons">
+            <a class="default-button-1 btn" href="/fale-conosco" target="_blank">
+              Fale conosco
+            </a>
+          </div>
+        </div>
+        <div class="col-12 col-md-4 py-2 py-md-0">
+          <div class="buttons">
+            <a class="default-button-1 btn" href="https://docs.meudinheiroweb.com.br" target="_blank">
+              Manual
+            </a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <footer class="footer pt-5 pb-3">
+    <div class="container footer-links">
+      <div class="row  justify-content-evenly">
+        <div class="col-xs-12 mb-3  col-sm-12 col-md-3 col-lg-auto">
+          <a class="m-0 p-0" href="/quem-somos/" target="_blank">Quem somos</a>
+        </div>
+        <div class="col-xs-12 mb-3 mb-md-5 col-sm-12 col-md-3 col-lg-auto">
+          <a class="m-0 p-0" href="/termos-de-uso/" target="_blank">Termos de uso</a>
+        </div>
+
+        <div class="col-xs-12 mb-3 mb-md-5 col-sm-12 col-md-3 col-lg-auto">
+          <a class="m-0 p-0" href="/politica-de-privacidade/" target="_blank">Politica de privacidade</a>
+        </div>
+
+        <div class="col-xs-12 mb-3 mb-md-5 col-sm-12 col-md-3 col-lg-auto">
+          <a class="m-0 p-0" href="https://blog.meudinheiroweb.com.br" target="_blank">Blog</a>
+        </div>
+
+        <div class="col-xs-12 mb-3 mb-md-5 col-sm-12 col-md-3 col-lg-auto">
+          <a class="m-0 p-0" href="/fale-conosco/" target="_blank">Fale conosco</a>
+        </div>
+
+        <div class="col-xs-12 mb-3 mb-md-5 col-sm-12 col-md-3 col-lg-auto">
+          <a class="m-0 p-0" href="https://docs.meudinheiroweb.com.br" target="_blank">Manual</a>
+        </div>
+      </div>
+    </div>
+
+
+    <!-- <div class="container mb-1 mb-sm-4">
+      <div class="row justify-content-center social-div">
+        <div class="col-12 col-sm-2 col-lg-1 mb-4 mb-sm-0">
+          <a href="" target="_blank">
+            <i class="fa fa-instagram" aria-hidden="true"></i>
+          </a>
+        </div>
+        <div class="col-12 col-sm-2 col-lg-1 mb-4 mb-sm-0">
+          <a href="" target="_blank">
+            <i class="fa fa-facebook" aria-hidden="true"></i>
+          </a>
+        </div>
+        <div class="col-12 col-sm-2 col-lg-1 mb-4 mb-sm-0">
+          <a href="" target="_blank">
+            <i class="fa fa-telegram" aria-hidden="true"></i>
+          </a>
+        </div>
+        <div class="col-12 col-sm-2 col-lg-1 mb-4 mb-sm-0">
+          <a href="" target="_blank">
+            <i class="fa fa-linkedin" aria-hidden="true"></i>
+          </a>
+        </div>
+      </div>
+    </div> -->
+    <!-- <div class="container">
+      <div class="row justify-content-center">
+        <div class="col">
+          <span class="cnpj">
+            <p>Easyme<i class="fa fa-solid fa-copyright" aria-hidden="true"></i> 2011 - <span id="year">2023</span></p>
+            <p>CNPJ 13.380.838/0001-08</p>
+          </span>
+        </div>
+      </div>
+    </div> -->
+  </footer>
+  <script>
+    document.getElementById("year").innerHTML = new Date().getFullYear();
+  </script>
+
+  <!--
+      // Ref: < https://github.com/michalsnik/aos >
+      // Ajustes podem ser sobreescritos pelo atributo: `data-aos-*` aplicado nas tags:
+      offset: -20, // offset (in px) from the original trigger point
+      delay: 0, // values from 0 to 3000, with step 50ms
+      duration: 400, // values from 0 to 3000, with step 50ms
+      easing: 'ease-in-out-back', // default easing for AOS animations
+      once: true, // whether animation should happen only once - while scrolling down
+      mirror: false, // whether elements should animate out while scrolling past them
+      anchorPlacement: 'top-bottom', // defines which position of the element regarding to window should trigger the animation -->
+  <!-- script deve vir depois de importar o jQuery: -->
+  <script>
+    $(document).ready(function () {
+      mdwUpdateHeight();
+      $(window).scroll(mdwUpdateHeight);
+      function mdwUpdateHeight() {
+        var scrollPosition = $(document).scrollTop();
+        $('#navbar').toggleClass('navbar-scroll', scrollPosition >= 300);
+      }
+    });
+    AOS.init({
+      offset: -10,
+      delay: 0,
+      duration: 350,
+      easing: 'ease-out',
+      once: true,
+      mirror: false,
+      anchorPlacement: 'top-bottom'
+    });
+  </script>
+  <script data-cms-original-src="/assets/js/md.js"
+    src="/assets/js/md.js?_cchid=a626357689b6edd9e92e33e5718d9846"></script>
+
+  <div id="cookie-message" style="display: none;">
+    <div class="message-content">
+      <div>Utilizamos cookies para melhorar sua experiência e segurança de acordo com a nossa <a
+          href="/politica-de-privacidade" target="_blank">Política de Privacidade</a>.</div>
+      <div>
+        <button id="cookie-accept">OK</button>
+      </div>
+    </div>
+  </div>
+  <script>
+    !function () { var e = document.getElementById("cookie-message"); if (null != e) { var n = function (e) { for (var n = e + "=", t = document.cookie.split(";"), o = 0; o < t.length; o++) { for (var i = t[o]; " " == i.charAt(0);)i = i.substring(1, i.length); if (0 == i.indexOf(n)) return i.substring(n.length, i.length) } return null }("seen-cookie-message"); e.style.display = null != n && "yes" == n ? "none" : "flex"; document.getElementById("cookie-accept").onclick = function () { !function (e, n, t, o) { if (t) { var i = new Date; i.setTime(i.getTime() + 24 * t * 60 * 60 * 1e3); var s = "; expires=" + i.toGMTString() } else s = ""; document.cookie = e + "=" + n + s + "; path=" + o }("seen-cookie-message", "yes", 1e4, "/"), e.style.display = "none" } } }();
+  </script>
+
+  <!-- <loom-container id="lo-engage-ext-container">
+    <loom-shadow classname="resolved"></loom-shadow>
+  </loom-container>
+  <loom-container id="lo-companion-container">
+    <loom-shadow classname="resolved"></loom-shadow>
+  </loom-container> -->
+</body>
+
+</html>
