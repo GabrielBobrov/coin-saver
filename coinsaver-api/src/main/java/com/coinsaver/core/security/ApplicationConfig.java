@@ -1,4 +1,4 @@
-package com.coinsaver.security;
+package com.coinsaver.core.security;
 
 import com.coinsaver.infra.repositories.ClientRepository;
 import lombok.RequiredArgsConstructor;

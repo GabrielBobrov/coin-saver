@@ -2,8 +2,8 @@ package com.coinsaver.services.authentication;
 
 
 import com.coinsaver.api.dtos.request.AuthenticationRequest;
-import com.coinsaver.api.dtos.request.RegisterRequest;
-import com.coinsaver.api.dtos.response.AuthenticationResponse;
+import com.coinsaver.api.dtos.request.RegisterRequestDto;
+import com.coinsaver.api.dtos.response.AuthenticationResponseDto;
 import com.coinsaver.core.enums.Role;
 import com.coinsaver.core.enums.TokenType;
 import com.coinsaver.domain.entities.Client;
@@ -27,7 +27,7 @@ public class AuthenticationServiceImpl implements AuthenticationService {
     private final JwtService jwtService;
     private final AuthenticationManager authenticationManager;
 
-    public AuthenticationResponse register(RegisterRequest request) {
+    public AuthenticationResponseDto register(RegisterRequestDto request) {
 
         var user = Client.builder()
                 .name(request.getName())
@@ -41,12 +41,12 @@ public class AuthenticationServiceImpl implements AuthenticationService {
 
         saveUserToken(savedUser, jwtToken);
 
-        return AuthenticationResponse.builder()
+        return AuthenticationResponseDto.builder()
                 .token(jwtToken)
                 .build();
     }
 
-    public AuthenticationResponse authenticate(AuthenticationRequest request) {
+    public AuthenticationResponseDto authenticate(AuthenticationRequest request) {
 
         authenticationManager
                 .authenticate(new UsernamePasswordAuthenticationToken(request.getEmail(), request.getPassword()));
@@ -59,7 +59,7 @@ public class AuthenticationServiceImpl implements AuthenticationService {
         revokeAllUserTokens(user);
         saveUserToken(user, jwtToken);
 
-        return AuthenticationResponse.builder()
+        return AuthenticationResponseDto.builder()
                 .token(jwtToken)
                 .build();
     }

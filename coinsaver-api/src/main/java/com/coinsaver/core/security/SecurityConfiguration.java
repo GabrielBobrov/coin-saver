@@ -1,7 +1,6 @@
-package com.coinsaver.security;
+package com.coinsaver.core.security;
 
 import lombok.RequiredArgsConstructor;
-import org.springframework.boot.autoconfigure.security.servlet.PathRequest;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.authentication.AuthenticationProvider;
@@ -32,6 +31,10 @@ public class SecurityConfiguration {
                 .requestMatchers("/auth/**")
                 .permitAll()
                 .requestMatchers(new AntPathRequestMatcher("/h2-console/**"))
+                .permitAll()
+                .requestMatchers(new AntPathRequestMatcher("/swagger-ui/**"))
+                .permitAll()
+                .requestMatchers(new AntPathRequestMatcher("/v3/**"))
                 .permitAll()
                 .anyRequest()
                 .authenticated()

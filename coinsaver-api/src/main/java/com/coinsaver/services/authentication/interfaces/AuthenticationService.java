@@ -1,10 +1,10 @@
 package com.coinsaver.services.authentication.interfaces;
 
 import com.coinsaver.api.dtos.request.AuthenticationRequest;
-import com.coinsaver.api.dtos.request.RegisterRequest;
-import com.coinsaver.api.dtos.response.AuthenticationResponse;
+import com.coinsaver.api.dtos.request.RegisterRequestDto;
+import com.coinsaver.api.dtos.response.AuthenticationResponseDto;
 
 public interface AuthenticationService {
-    AuthenticationResponse register(RegisterRequest request);
-    AuthenticationResponse authenticate(AuthenticationRequest request);
+    AuthenticationResponseDto register(RegisterRequestDto request);
+    AuthenticationResponseDto authenticate(AuthenticationRequest request);
 }

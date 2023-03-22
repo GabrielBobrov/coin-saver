@@ -1,4 +1,4 @@
-package com.coinsaver.security;
+package com.coinsaver.core.security;
 
 import com.coinsaver.infra.repositories.TokenRepository;
 import com.coinsaver.services.authentication.interfaces.JwtService;
