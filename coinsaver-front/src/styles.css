@@ -67,6 +67,10 @@
   margin-top: 2rem
 }
 
+.nav-container {
+  margin-left: 570px;
+}
+
 .navbar .navbar-toggler {
   background-color: #fff
 }
