@@ -64,7 +64,7 @@
   background: transparent;
   width: 100%;
   z-index: 1;
-  margin-top: 2rem
+  margin-top: -1.5rem
 }
 
 .nav-container {
@@ -1005,8 +1005,6 @@ html body .default-box-shadow {
 }
 
 .outras-duvidas .container {
-  background-color: #e5e5e56b;
-  border-radius: 12px;
   color: #111111
 }
 
