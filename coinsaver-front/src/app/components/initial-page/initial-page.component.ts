@@ -14,7 +14,7 @@ export class InitialPageComponent {
   ) {}
 
   showModalCadastro() {
-    const page = this.dialogService.open(ModalCadastroComponent, {
+    this.dialogService.open(ModalCadastroComponent, {
       data: {},
       showHeader: false
     });
