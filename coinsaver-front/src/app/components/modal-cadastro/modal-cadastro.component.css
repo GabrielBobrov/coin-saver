@@ -68,6 +68,11 @@ body {
   margin-top: 20px
 }
 
+#container>div .btn:hover {
+  background-color: #009e92;
+  color: #fff
+}
+
 #container>div #acoes a {
   text-decoration: none;
   color: #fe801f
