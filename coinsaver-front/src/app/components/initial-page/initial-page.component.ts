@@ -13,7 +13,7 @@ export class InitialPageComponent {
     private dialogService: DialogService,
   ) {}
 
-  showModalCadastroPage() {
+  showModalCadastro() {
     const page = this.dialogService.open(ModalCadastroComponent, {
       data: {},
       showHeader: false
