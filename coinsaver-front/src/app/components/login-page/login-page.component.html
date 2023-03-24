@@ -1,7 +1,8 @@
 <body class="ng-scope">
   <div id="container">
     <div>
-      <a class="logomd"><img src="../../../assets/images/coinsaver_logo-removebg-preview.png"></a>
+      <a class="logomd" href="/">
+        <img src="../../../assets/images/coinsaver_logo-removebg-preview.png"></a>
       <div class="ng-scope">
         <h2 class="container-title">Acesse sua conta</h2>
         <form name="form" autocomplete="off" class="ng-pristine ng-invalid ng-invalid-required ng-valid-minlength ng-valid-email">
@@ -13,7 +14,10 @@
           <a ng-href="/esqueciminhasenha" href="/esqueciminhasenha">Esqueci minha senha</a>
         </div>
         <div id="acoes">
-          <a ng-href="/novaconta" href="/novaconta">Criar nova conta</a>
+          <a href="/cadastro-page" (click)="abrirCadastroPage()">Criar nova conta</a>
+        </div>
+        <div id="acoes">
+          <a href="/">Pagina Inicial</a>
         </div>
       </div>
     </div>
