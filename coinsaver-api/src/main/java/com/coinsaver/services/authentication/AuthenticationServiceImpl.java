@@ -6,8 +6,10 @@ import com.coinsaver.api.dtos.request.RegisterRequestDto;
 import com.coinsaver.api.dtos.response.AuthenticationResponseDto;
 import com.coinsaver.core.enums.Role;
 import com.coinsaver.core.enums.TokenType;
+import com.coinsaver.core.validation.messages.ErrorMessages;
 import com.coinsaver.domain.entities.Client;
 import com.coinsaver.domain.entities.Token;
+import com.coinsaver.domain.exceptions.BusinessException;
 import com.coinsaver.infra.repositories.ClientRepository;
 import com.coinsaver.infra.repositories.TokenRepository;
 import com.coinsaver.services.authentication.interfaces.AuthenticationService;
@@ -21,13 +23,18 @@ import org.springframework.stereotype.Service;
 @Service
 @RequiredArgsConstructor
 public class AuthenticationServiceImpl implements AuthenticationService {
-    private final ClientRepository repository;
+    private final ClientRepository clientRepository;
     private final TokenRepository tokenRepository;
     private final PasswordEncoder passwordEncoder;
     private final JwtService jwtService;
     private final AuthenticationManager authenticationManager;
 
     public AuthenticationResponseDto register(RegisterRequestDto request) {
+
+        var client = clientRepository.findByEmail(request.getEmail());
+
+        if (client.isPresent())
+            throw new BusinessException(ErrorMessages.getErrorMessage("USER_ALREADY_EXISTS"));
 
         var user = Client.builder()
                 .name(request.getName())
@@ -36,7 +43,7 @@ public class AuthenticationServiceImpl implements AuthenticationService {
                 .role(Role.USER)
                 .build();
 
-        var savedUser = repository.save(user);
+        var savedUser = clientRepository.save(user);
         var jwtToken = jwtService.generateToken(user);
 
         saveUserToken(savedUser, jwtToken);
@@ -51,7 +58,7 @@ public class AuthenticationServiceImpl implements AuthenticationService {
         authenticationManager
                 .authenticate(new UsernamePasswordAuthenticationToken(request.getEmail(), request.getPassword()));
 
-        var user = repository.findByEmail(request.getEmail())
+        var user = clientRepository.findByEmail(request.getEmail())
                 .orElseThrow();
 
         var jwtToken = jwtService.generateToken(user);
