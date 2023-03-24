@@ -1,5 +1,7 @@
+import { ModalRedefinirSenhaComponent } from './modal-redefinir-senha/modal-redefinir-senha.component';
 import { Component } from '@angular/core';
 import { Router } from '@angular/router';
+import { DialogService } from 'primeng/dynamicdialog';
 
 @Component({
   selector: 'app-login-page',
@@ -10,6 +12,7 @@ export class LoginPageComponent {
 
   constructor(
     public router: Router,
+    private dialogService: DialogService,
   ) {}
 
   abrirCadastroPage() {
@@ -17,6 +20,13 @@ export class LoginPageComponent {
       state: {
         data: {},
       },
+    });
+  }
+
+  showModalRedefinirSenha() {
+    this.dialogService.open(ModalRedefinirSenhaComponent, {
+      data: {},
+      showHeader: false
     });
   }
 
