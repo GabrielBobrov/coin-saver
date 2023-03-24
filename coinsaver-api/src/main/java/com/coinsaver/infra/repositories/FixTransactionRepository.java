@@ -24,8 +24,8 @@ public interface FixTransactionRepository extends JpaRepository<FixTransaction, 
     @Query("UPDATE FixTransaction i set i.amount = :amount, i.category = :category, i.payDay = :payDay, i.status = :status, i.description = :description WHERE i.transaction = :transaction")
     void updateFixTransactionByTransaction(BigDecimal amount, TransactionCategoryType category, LocalDate payDay, StatusType status, String description, Transaction transaction);
 
-    @Query("SELECT ft FROM FixTransaction ft WHERE ft.payDay BETWEEN :startDate AND :endDate AND ft.edited = :edited")
-    List<FixTransaction> findFixTransactionByPayDayBetween(LocalDate startDate, LocalDate endDate, Boolean edited);
+    @Query("SELECT ft FROM FixTransaction ft WHERE ft.payDay BETWEEN :startDate AND :endDate AND ft.edited = :edited AND ft.transaction IN :transactions")
+    List<FixTransaction> findFixTransactionByPayDayBetween(LocalDate startDate, LocalDate endDate, Boolean edited, List<Transaction> transactions);
 
     Optional<FixTransaction> findFixTransactionByTransactionAndEditedIsFalse(Transaction transaction);
 

@@ -6,6 +6,7 @@ import com.coinsaver.api.dtos.request.UpdateTransactionRequestDto;
 import com.coinsaver.core.enums.TransactionCategoryType;
 import com.coinsaver.core.enums.TransactionType;
 import com.coinsaver.core.enums.UpdateTransactionType;
+import com.coinsaver.core.utils.SecurityUtil;
 import com.coinsaver.core.validation.messages.ErrorMessages;
 import com.coinsaver.domain.entities.Division;
 import com.coinsaver.domain.entities.Transaction;
@@ -79,6 +80,9 @@ public class TransactionDomainServiceImpl implements TransactionDomainService {
         }
 
         Transaction transaction = transactionRequestDto.convertDtoToTransactionEntity();
+
+        var client = SecurityUtil.getClientFromJwt();
+        transaction.setClient(client);
 
         if (Boolean.TRUE.equals(transactionRequestDto.getFixedExpense())) {
             transaction.setTransactionType(TransactionType.FIX);

@@ -3,9 +3,11 @@ package com.coinsaver.infra.repositories;
 import com.coinsaver.core.enums.StatusType;
 import com.coinsaver.core.enums.TransactionCategoryType;
 import com.coinsaver.domain.entities.InstallmentTransaction;
+import com.coinsaver.domain.entities.Transaction;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
+import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 
 import java.math.BigDecimal;
@@ -15,11 +17,11 @@ import java.util.List;
 
 @Repository
 public interface InstallmentTransactionRepository extends JpaRepository<InstallmentTransaction, Long> {
-    List<InstallmentTransaction> findByCategoryAndPayDayBetween(TransactionCategoryType categoryType, LocalDate startOfMonth, LocalDate endOfMonth);
+    List<InstallmentTransaction> findByCategoryAndPayDayBetween(TransactionCategoryType categoryType, LocalDateTime startOfMonth, LocalDateTime endOfMonth);
 
-    List<InstallmentTransaction> findByPayDayBetween(LocalDate startOfMonth, LocalDate endOfMonth);
-
-    @Modifying
+    @Query("SELECT it FROM InstallmentTransaction it WHERE it.payDay BETWEEN :startOfMonth AND :endOfMonth AND it.transaction IN :transactions")
+    List<InstallmentTransaction> findByPayDayBetweenAndTransactions(LocalDate startOfMonth,  LocalDate endOfMonth, List<Transaction> transactions
+    );    @Modifying
     @Query("DELETE FROM InstallmentTransaction i WHERE i.transaction.id = :transactionId")
     void deleteByTransactionId(Long transactionId);
 

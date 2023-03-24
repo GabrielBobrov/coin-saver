@@ -29,7 +29,7 @@ public interface TransactionRepository extends JpaRepository<Transaction, Long> 
     @Query("UPDATE Transaction t set t.amount = :amount, t.category = :category, t.payDay = :payDay, t.status = :status, t.description = :description, t.repeat = :repeat WHERE t.id = :transactionId")
     void updateTransaction(BigDecimal amount, TransactionCategoryType category, LocalDate payDay, StatusType status, String description, Integer repeat, Long transactionId);
 
-    List<Transaction> findTransactionByPayDayBetweenAndTransactionTypeAndClient(LocalDate startDate, LocalDate endDate, TransactionType transactionType, Client client);
+    List<Transaction> findTransactionByPayDayBetweenAndClient(LocalDate startDate, LocalDate endDate, Client client);
 
 }
 

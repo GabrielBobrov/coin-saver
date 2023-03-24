@@ -1,4 +1,4 @@
-package com.coinsaver.core.util;
+package com.coinsaver.core.utils;
 
 import com.coinsaver.domain.entities.Client;
 import org.springframework.security.core.context.SecurityContextHolder;

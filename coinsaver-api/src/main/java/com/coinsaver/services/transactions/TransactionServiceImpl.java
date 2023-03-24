@@ -11,7 +11,7 @@ import com.coinsaver.core.enums.StatusType;
 import com.coinsaver.core.enums.TransactionCategoryType;
 import com.coinsaver.core.enums.TransactionType;
 import com.coinsaver.core.enums.UpdateTransactionType;
-import com.coinsaver.core.util.SecurityUtil;
+import com.coinsaver.core.utils.SecurityUtil;
 import com.coinsaver.core.validation.messages.ErrorMessages;
 import com.coinsaver.domain.entities.*;
 import com.coinsaver.domain.entities.Division;
@@ -125,7 +125,7 @@ public class TransactionServiceImpl implements TransactionService {
         LocalDate endOfMonth = date.withDayOfMonth(date.lengthOfMonth());
         Client client = SecurityUtil.getClientFromJwt();
 
-        var transactions = transactionRepository.findTransactionByPayDayBetweenAndTransactionTypeAndClient(startOfMonth, endOfMonth, TransactionType.IN_CASH, client);
+        var transactions = transactionRepository.findTransactionByPayDayBetweenAndClient(startOfMonth, endOfMonth, client);
         var installmentTransactions = installmentTransactionRepository.findByCategoryAndPayDayBetween(categoryType, startOfMonth, endOfMonth);
         var fixTransactionsEdited = fixTransactionRepository.findByCategoryAndPayDayBetweenAndEditedIsTrue(categoryType, startOfMonth, endOfMonth);
         var fixTransactions = fixTransactionRepository.findFixTransactionByEditedFalse(categoryType);
@@ -224,10 +224,16 @@ public class TransactionServiceImpl implements TransactionService {
         LocalDate endOfMonth = date.withDayOfMonth(date.lengthOfMonth());
         Client client = SecurityUtil.getClientFromJwt();
 
-        var transactions = transactionRepository.findTransactionByPayDayBetweenAndTransactionTypeAndClient(startOfMonth, endOfMonth, TransactionType.IN_CASH, client);
-        var installmentTransactions = installmentTransactionRepository.findByPayDayBetween(startOfMonth, endOfMonth);
-        var fixTransactionsEdited = fixTransactionRepository.findFixTransactionByPayDayBetween(startOfMonth, endOfMonth, Boolean.TRUE);
-        var fixTransactions = fixTransactionRepository.findFixTransactionByEditedFalse(null);
+        var allTransactions = transactionRepository.findTransactionByPayDayBetweenAndClient(startOfMonth, endOfMonth, client);
+
+        List<Transaction> transactions = allTransactions
+                .stream()
+                .filter(t -> t.getTransactionType() == TransactionType.IN_CASH)
+                .toList();
+
+        var installmentTransactions = installmentTransactionRepository.findByPayDayBetweenAndTransactions(startOfMonth, endOfMonth, allTransactions);
+        var fixTransactionsEdited = fixTransactionRepository.findFixTransactionByPayDayBetween(startOfMonth, endOfMonth, Boolean.TRUE, allTransactions);
+        var fixTransactions = fixTransactionRepository.findFixTransactionByEditedFalse(allTransactions);
 
         List<Transaction> transactionsEdited = fixTransactionsEdited.stream()
                 .map(FixTransaction::getTransaction)
