@@ -45,9 +45,6 @@ public class TransactionRequestDto {
     @NotNull
     private Long divisionId;
 
-    @JsonIgnore
-    private Client client;
-
     public InstallmentTransaction convertDtoToInstallmentTransactionEntity() {
         return new ModelMapper().map(this, InstallmentTransaction.class);
     }
