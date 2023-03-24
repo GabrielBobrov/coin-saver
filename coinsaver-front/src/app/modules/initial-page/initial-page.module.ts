@@ -8,6 +8,7 @@ import { DynamicDialogModule, DialogService } from 'primeng/dynamicdialog';
 import { DialogModule } from 'primeng/dialog';
 import { CadastroPageComponent } from '../../components/modal-cadastro/cadastro-page/cadastro-page.component';
 import { LoginPageComponent } from '../../components/login-page/login-page.component';
+import { ModalRedefinirSenhaComponent } from '../../components/login-page/modal-redefinir-senha/modal-redefinir-senha.component';
 
 @NgModule({
   declarations: [
@@ -15,6 +16,7 @@ import { LoginPageComponent } from '../../components/login-page/login-page.compo
     ModalCadastroComponent,
     CadastroPageComponent,
     LoginPageComponent,
+    ModalRedefinirSenhaComponent,
   ],
   imports: [
     InitialPageRoutingModule,
