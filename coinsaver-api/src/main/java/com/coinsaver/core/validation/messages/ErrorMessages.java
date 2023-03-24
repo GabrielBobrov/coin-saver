@@ -23,7 +23,6 @@ public class ErrorMessages {
         messages.put("TRANSACTION_WITHOUT_REPEAT", "Transação parcelada sem repeat.");
     }
 
-
     public static String getErrorMessage(String key) {
         return messages.get(key);
     }
