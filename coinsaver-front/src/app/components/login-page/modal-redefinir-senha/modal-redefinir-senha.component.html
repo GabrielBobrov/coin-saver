@@ -1,0 +1,22 @@
+<body class="ng-scope">
+ <div id="container">
+      <div>
+          <a href="/" class="logomd"><img src="../../../../assets/images/coinsaver_logo-removebg-preview.png"></a>
+          <h2 class="container-title">Redefinir senha de acesso</h2>
+          <form name="form" autocomplete="off" ng-submit="vm.enviarEmail()" ng-if="!vm.enviado &amp;&amp; !vm.redefinir" class="ng-pristine ng-scope ng-valid-email ng-invalid ng-invalid-required">
+              <input style="display:none" type="text" name="fakeusernameremembered">
+
+                  <label class="label">Email: </label>
+                  <input class="campo-email input ng-pristine ng-empty ng-valid-email ng-invalid ng-invalid-required ng-touched" ng-disabled="vm.enviando" type="email" ng-model="vm.email" required="" autocomplete="off">
+
+
+              <div class="input-container ng-scope" style="margin-top: 20px">
+                  <button type="submit" class="btn ng-binding">Redefinir senha</button>
+              </div>
+          </form>
+
+          <div id="acoes" class="ng-scope">
+              <a href="/login-page">Voltar</a>
+          </div>
+      </div>
+  </div>

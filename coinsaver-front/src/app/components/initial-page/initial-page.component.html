@@ -1,1 +1,349 @@
-<p>initial-page works! com meus ovo</p>
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>COINSAVER</title>
+</head>
+
+<body data-bs-offset="120" data-bs-spy="scroll" data-bs-target="#sidebarMenu" tabindex="0" data-aos-easing="ease-out"
+  data-aos-duration="350" data-aos-delay="0">
+  <nav class="navbar pt-2 pb-3 navbar-expand-lg navbar-light" id="navbar">
+    <div class="container nav-container aos-init aos-animate" data-aos="fade" data-aos-duration="280">
+
+      <div class="navbar-brand d-sm-flex">
+        <a href="/">
+          <img alt="" class="img-fluid logo-pessoal" src="../../../assets/images/coinsaver_logo-removebg-preview.png">
+        </a>
+      </div>
+
+      <div class="collapse navbar-collapse mt-2" id="navbarSupportedContent">
+        <!-- <ul
+          class="navbar-nav flex-md-grow-1 justify-content-lg-evenly align-items-center align-lg-items-end mb-2 mb-lg-0">
+
+          <li class="nav-item mb-1 mb-lg-0">
+
+            <div class="nav-link no-effect">
+              <a href="/empresarial"> Para Empresas</a>
+            </div>
+
+          </li>
+          <li class="nav-item mb-1 mb-lg-0">
+            <div class="nav-link no-effect">
+              <a href="http://www.meudinheiroinvestimentos.com.br" target="_blank"> Controle de Investimentos </a>
+            </div>
+          </li>
+          <li class="nav-item mb-1 mb-lg-0">
+            <div class="nav-link no-effect">
+              <a href="/pessoal/planos">
+                Planos
+              </a>
+            </div>
+          </li>
+        </ul> -->
+        <div class="row justify-content-between align-items-center acoes">
+          <div class="col-12 col-lg-4 buttons criar-conta-wrapper mb-1 mb-lg-0">
+            <a class="btn default-button-2 criar-conta" (click)="showModalCadastro()"
+              target="_blank">
+              Criar conta grátis
+            </a>
+          </div>
+          <div class="col-12 col-lg-4 buttons">
+            <a class="btn default-button-2 entrar" (click)="abrirLoginPage()">
+              Entrar
+            </a>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </nav>
+
+  <header class="header" id="header">
+    <div class="cadastro section-bg">
+      <div class="container">
+        <div class="d-flex flex-md-row justify-content-center justify-content-lg-between intro">
+
+          <div class="d-flex flex-column justify-content-evenly">
+            <div class="d-flex flex-column title-header aos-init aos-animate" data-aos="fade-up">
+              <h1 class="h1">Sistema para controle </h1>
+              <h1>financeiro online</h1>
+              <h2 class="h2">Fácil e gratuito </h2>
+            </div>
+          </div>
+
+          <div class="d-none d-lg-block imgs aos-init aos-animate" data-aos="fade" data-aos-duration="180">
+            <img alt="controle-financeiro-pessoal" class="img-fluid" src="../../../assets/images/header-mockup-pessoal.webp">
+          </div>
+
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <section class="conhecer py-5 my-4" style="position: relative;" style="padding-top: 0rem!important; padding-bottom: 1rem!important;">
+    <div class="container-fluid">
+      <div class="row title-wrapper py-2 text-center">
+        <h1 class="h1">Como o COINSAVER vai me ajudar?</h1>
+        <h3 class="h3">Proporcionando meios para você gerenciar seus sonhos, metas e objetivos</h3>
+        <hr>
+      </div>
+      <div class="d-flex flex-wrap flex-lg-nowrap my-3 justify-content-center boxes">
+        <div class="default-box-shadow bg-body box-recursos">
+          <img alt="controle-financeiro" src="../../../assets/images/card.webp">
+          <h4 class="h4">Controle<br>suas despesas</h4>
+          <p class="descricao">
+            Gerencie com precisão todas as despesas dos seus cartões de crédito.
+            Tenha controle do cartão titular e dos adicionais. Receba lembretes para pagar suas faturas e contas em dia.
+          </p>
+        </div>
+        <div class="default-box-shadow bg-body box-recursos">
+          <img alt="gerenciar-metas-financeiras" src="../../../assets/images/metas.webp">
+          <h4 class="h4">Acompanhe<br>suas metas</h4>
+          <p class="descricao">
+            Crie metas e acompanhe sua evolução. Gerencie seus objetivos financeiros de curto, médio e
+            longo prazo. Fique cada vez mais perto de alcançar seus sonhos e objetivos.
+          </p>
+        </div>
+        <div class="default-box-shadow bg-body box-recursos">
+          <img alt="gerenciador-patrimonial" src="../../../assets/images/bank.webp">
+          <h4 class="h4">Controle<br>sua riqueza</h4>
+          <p class="descricao">
+            Acompanhe seu crescimento rumo a sua independência financeira. Gerencie seu patrimônio,
+            acompanhe a evolução dos seus investimentos e todos os demais ativos e passivos.
+          </p>
+        </div>
+        <div class="default-box-shadow bg-body box-recursos">
+          <img alt="gerenciar-projetos" src="../../../assets/images/project.webp">
+          <h4 class="h4">Gerencie<br>seus projetos</h4>
+          <p class="descricao">
+            Crie e gerencie projetos para saber exatamente quanto
+            gastou em suas viagens de férias ou naquela reforma da sua casa.
+          </p>
+        </div>
+      </div>
+
+      <div class="row justify-content-center">
+        <a class="btn default-button-1" (click)="showModalCadastro()">
+          Crie sua conta grátis
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <section class="recursos-principais section-bg py-1">
+    <div class="container">
+      <div class="row title-wrapper text-center my-5 aos-init aos-animate" data-aos="fade-up">
+        <div class="col">
+          <h1 class="h1">Nossos principais recursos</h1>
+          <h3 class="h3">Tome as melhores decisões financeiras</h3>
+          <hr>
+        </div>
+      </div>
+
+      <div class="row justify-content-between my-5 aos-init aos-animate" data-aos="fade-up">
+
+        <div class="col-sm-12 col-md-6 box-recursos">
+          <div class="d-flex flex-row wrapper">
+            <div class="wrapper-img">
+              <img alt="" class="icon-img" src="/assets/imgs/icons/pessoal/import.png?_cchid=cc920ab4c3f7b97f95afe446440e1ac6">
+            </div>
+            <div class="wrapper-text">
+              <h3 class="h3">Importação de extratos bancários</h3>
+              <p>Controle o saldo de suas contas. Importe extratos do seu banco e faça conciliação bancária.</p>
+            </div>
+          </div>
+        </div>
+
+        <div class="col-sm-12 col-md-6 box-recursos">
+          <div class="d-flex flex-row wrapper">
+            <div class="wrapper-img">
+              <img alt="" class="icon-img" src="/assets/imgs/icons/pessoal/custo.png?_cchid=3717a83772caf1b3eb6b5b11b1b50caa">
+            </div>
+            <div class="wrapper-text">
+              <h3 class="h3">Centros de custos e lucros</h3>
+              <p>Controle quanto está gastando com cada filho, veículo ou imóvel e saiba a origem das despesas e
+                receitas.</p>
+            </div>
+          </div>
+        </div>
+
+        <div class="col-sm-12 col-md-6 box-recursos">
+          <div class="d-flex flex-row wrapper">
+            <div class="wrapper-img">
+              <img alt="" class="icon-img" src="/assets/imgs/icons/pessoal/card.png?_cchid=eef19768e6b6cfb0d1eafbcb0af16604">
+            </div>
+            <div class="wrapper-text">
+              <h3 class="h3">Cartões de crédito</h3>
+              <p>Gerencie as despesas dos cartões de crédito. Controle cartões adicionais.</p>
+            </div>
+          </div>
+        </div>
+
+        <div class="col-sm-12 col-md-6 box-recursos">
+          <div class="d-flex flex-row wrapper">
+            <div class="wrapper-img">
+              <img alt="" class="icon-img" src="/assets/imgs/icons/pessoal/metas.png?_cchid=14d2400d9a3466e1dac07004421eebb5">
+            </div>
+            <div class="wrapper-text">
+              <h3 class="h3">Controle de metas</h3>
+              <p>Controle de metas de despesas, receitas e investimentos. Planeje seus sonhos e objetivos.</p>
+            </div>
+          </div>
+        </div>
+
+        <div class="col-sm-12 col-md-6 box-recursos">
+          <div class="d-flex flex-row wrapper">
+            <div class="wrapper-img">
+              <img alt="" class="icon-img" src="/assets/imgs/icons/pessoal/project.png?_cchid=bf8647721a54948e85fd004d5a1b919b">
+            </div>
+            <div class="wrapper-text">
+              <h3 class="h3">Controle de projetos</h3>
+              <p>Crie e gerencie projetos. Custos totais, metas de orçamento, e gastos por categoria.</p>
+            </div>
+          </div>
+        </div>
+
+        <!-- <div class="col-sm-12 col-md-6 box-recursos">
+          <div class="d-flex flex-row wrapper">
+            <div class="wrapper-img">
+              <img alt="" class="icon-img" data-cms-original-src="/assets/imgs/icons/pessoal/sms.png"
+                src="/assets/imgs/icons/pessoal/sms.png?_cchid=49d0ac327cba4c8c1aeb438fdee42593">
+            </div>
+            <div class="wrapper-text">
+              <h3 class="h3">CABE MAIS UM RECURSO</h3>
+              <p>Importe SMS financeiros e notificações push recebidas do seu banco ou cartão.</p>
+            </div>
+          </div>
+        </div> -->
+
+      </div>
+    </div>
+  </section>
+
+  <section class="app-stores mt-1 mt-md-5 py-1 py-md-5" style="padding-top: 0rem!important;">
+    <!-- <div class="svg-wave-top">
+      <svg preserveAspectRatio="none" viewBox="0 0 1440 320" xmlns="http://www.w3.org/2000/svg">
+        <defs>
+          <linearGradient id="grad3" x1="0%" x2="200%" y1="0%" y2="0%">
+            <stop offset="0%" style="stop-color:rgb(245, 123, 9);stop-opacity:1"></stop>
+            <stop offset="200%" style="stop-color:rgb(8, 245, 225);stop-opacity:1"></stop>
+          </linearGradient>
+        </defs>
+        <path
+          d="M0,192L48,165.3C96,139,192,85,288,64C384,43,480,53,576,96C672,139,768,213,864,229.3C960,245,1056,203,1152,160C1248,117,1344,75,1392,53.3L1440,32L1440,320L1392,320C1344,320,1248,320,1152,320C1056,320,960,320,864,320C768,320,672,320,576,320C480,320,384,320,288,320C192,320,96,320,48,320L0,320Z"
+          fill="url(#grad3)" fill-opacity="1"></path>
+      </svg>
+    </div> -->
+
+    <div class="content section-bg pb-5">
+      <div class="container">
+        <div class="row justify-content-between align-items-center">
+          <div class="col-12 col-xl-6">
+            <div class="row justify-content-center">
+              <div class="col pb-5 pessoal align-self-start">
+                <div class="title-wrapper text-center text-xl-start" style="margin-top: 40px;">
+                  <h1 class="h1">Suas finanças na palma da sua mão</h1>
+                  <h3 class="h3">Disponível no Google Play e na App Store</h3>
+                </div>
+              </div>
+            </div>
+            <div class="row align-items-end">
+              <div class="col-12 col-xl-auto pb-5">
+                <div class="stores-div">
+                  <a class="store-btn"
+                    href=""
+                    target="_blank">
+                    <img alt="download-aplicativo-android" class="app-store" src="../../../assets/images/google-play-badge.webp">
+                  </a>
+                </div>
+              </div>
+              <div class="col-12 col-xl-auto pb-5">
+                <div class="stores-div">
+                  <a class="store-btn"
+                    href=""
+                    target="_blank">
+                    <img alt="download-aplicativo-iphone" class="app-store" src="../../../assets/images/png-clipart-app-store-apple-logo-apple-text-logo.png">
+                  </a>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="col-4 d-none d-xl-block smartphone-div">
+            <div class="smartphone-img">
+              <img alt="aplicativo-de-controle-financeiro" src="../../../assets/images/smartphones.png">
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="outras-duvidas mb-0 mb-sm-5">
+    <div class="content section-bg pb-1">
+    <div class="container p-5">
+      <div class="row justify-content-center align-items-center">
+        <div class="col">
+          <div class="text mb-5">
+            <h1 class="h1 text-center text-md-start mb-3"> Dúvidas? </h1>
+            <p class="p">
+              <strong>Fale conosco</strong>.
+              Se preferir, você pode consultar nosso <strong>manual</strong>, onde estão documentadas
+              informações detalhadas sobre o uso dos recursos e funcionamento da nossa plataforma
+            </p>
+          </div>
+        </div>
+      </div>
+      <div class="row justify-content-center buttons">
+        <div class="col-12 col-md-4 py-2 py-md-0">
+          <div class="buttons">
+            <a class="default-button-1 btn" href="/fale-conosco" target="_blank">
+              Fale conosco
+            </a>
+          </div>
+        </div>
+        <div class="col-12 col-md-4 py-2 py-md-0">
+          <div class="buttons">
+            <a class="default-button-1 btn" href="https://docs.meudinheiroweb.com.br" target="_blank">
+              Manual
+            </a>
+          </div>
+        </div>
+      </div>
+    </div>
+    </div>
+  </section>
+
+  <footer class="footer pt-3">
+    <div class="container footer-links">
+      <div class="row  justify-content-evenly">
+        <div class="col-xs-12 mb-3  col-sm-12 col-md-3 col-lg-auto">
+          <a class="m-0 p-0" href="/quem-somos/" target="_blank">Quem somos</a>
+        </div>
+        <div class="col-xs-12 mb-3 mb-md-5 col-sm-12 col-md-3 col-lg-auto">
+          <a class="m-0 p-0" href="/termos-de-uso/" target="_blank">Termos de uso</a>
+        </div>
+
+        <div class="col-xs-12 mb-3 mb-md-5 col-sm-12 col-md-3 col-lg-auto">
+          <a class="m-0 p-0" href="/politica-de-privacidade/" target="_blank">Politica de privacidade</a>
+        </div>
+
+        <div class="col-xs-12 mb-3 mb-md-5 col-sm-12 col-md-3 col-lg-auto">
+          <a class="m-0 p-0" href="https://blog.meudinheiroweb.com.br" target="_blank">Blog</a>
+        </div>
+
+        <div class="col-xs-12 mb-3 mb-md-5 col-sm-12 col-md-3 col-lg-auto">
+          <a class="m-0 p-0" href="/fale-conosco/" target="_blank">Fale conosco</a>
+        </div>
+
+        <div class="col-xs-12 mb-3 mb-md-5 col-sm-12 col-md-3 col-lg-auto">
+          <a class="m-0 p-0" href="https://docs.meudinheiroweb.com.br" target="_blank">Manual</a>
+        </div>
+      </div>
+    </div>
+  </footer>
+</body>
+
+</html>
