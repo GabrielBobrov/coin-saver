@@ -9,6 +9,7 @@ import { DialogModule } from 'primeng/dialog';
 import { CadastroPageComponent } from '../../components/modal-cadastro/cadastro-page/cadastro-page.component';
 import { LoginPageComponent } from '../../components/login-page/login-page.component';
 import { ModalRedefinirSenhaComponent } from '../../components/login-page/modal-redefinir-senha/modal-redefinir-senha.component';
+import { UsuarioLogadoPageComponent } from '../../components/usuario-logado-page/usuario-logado-page.component';
 
 @NgModule({
   declarations: [
@@ -17,6 +18,7 @@ import { ModalRedefinirSenhaComponent } from '../../components/login-page/modal-
     CadastroPageComponent,
     LoginPageComponent,
     ModalRedefinirSenhaComponent,
+    UsuarioLogadoPageComponent,
   ],
   imports: [
     InitialPageRoutingModule,
