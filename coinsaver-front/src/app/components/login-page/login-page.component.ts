@@ -30,4 +30,12 @@ export class LoginPageComponent {
     });
   }
 
+  abrirUsuarioLogadoPage() {
+    this.router.navigateByUrl('usuario-logado-page', {
+      state: {
+        data: {},
+      },
+    });
+  }
+
 }

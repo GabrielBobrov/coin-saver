@@ -2,7 +2,7 @@ import { Transaction } from './../../dtos/transactions/transaction.dto';
 import { environment } from './../../environments/environments';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { catchError, Observable, throwError } from 'rxjs';
+import { catchError, map, Observable, throwError } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
@@ -14,8 +14,8 @@ export class TransactionsService {
   ) { }
 
   httpOptions = {
-    headers : new HttpHeaders(
-      {'Content-Type':'application/json'}
+    headers: new HttpHeaders(
+      { 'Content-Type': 'application/json' }
     )
   };
 
@@ -24,33 +24,54 @@ export class TransactionsService {
 
   getAllTransactions(): Observable<Transaction[]> {
     return this.httpClient.get<Transaction[]>(
-      `${
-        this.baseUrl +
-        this.transactionControllerUrl +
-        environment.api.backendEndpoints.getTransactions}`
+      `${this.baseUrl +
+      this.transactionControllerUrl +
+      environment.api.backendEndpoints.getAllTransactions}`
     )
-    .pipe(
+      .pipe(
+        map((transactions: Transaction[]) => {
+          transactions.forEach((transaction) => {
 
-      catchError((erroResponse) => {
-        return throwError(erroResponse);
-      })
-
-    );
+          })
+          return transactions;
+        }),
+        catchError((erroResponse) => {
+          return throwError(erroResponse);
+        })
+      );
   }
 
-  getMonthTransactions(): Observable<Transaction[]> {
+  getTransactionsInMonth(): Observable<Transaction[]> {
     return this.httpClient.get<Transaction[]>(
-      `${
-        this.baseUrl +
-        this.transactionControllerUrl +
-        environment.api.backendEndpoints.getTransactionsMonth}`
+      `${this.baseUrl +
+      this.transactionControllerUrl +
+      environment.api.backendEndpoints.getTransactionsInMonth}`
     )
     .pipe(
+      map((monthTransactions: Transaction[]) => {
+        monthTransactions.forEach((monthTransaction) => {
 
+        })
+        return monthTransactions;
+      }),
       catchError((erroResponse) => {
         return throwError(erroResponse);
       })
-
     );
   }
+
+  getTransaction(): Observable<Transaction> {
+    return this.httpClient.get<Transaction>(
+      `${this.baseUrl +
+      this.transactionControllerUrl +
+      environment.api.backendEndpoints.getTransaction
+      }/1?transactionType=IN_CASH`
+    )
+    .pipe(
+      catchError((erroResponse) => {
+        return throwError(erroResponse);
+      })
+    );
+  }
+
 }

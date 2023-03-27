@@ -6,13 +6,16 @@ export const environment = {
     transactionsControllerBackend: '/transactions',
 
     backendEndpoints: {
-      getTransactions: '',
-      getTransactionsById: '/{transactionId}',
-      getTransactionsMonth: '/month',
-      getTransactionsCategoryByCategoryType: '/category/{categoryType}',
+      getAllTransactions: '',
+      getTransaction: '',
+      getTransactionsInMonth: '/month',
+      getTransactionByCategoryType: '/category',
 
-      postTransactions: '',
-      putTransactions: '',
+      createTransaction: '',
+      updateTransaction: '',
+
+      updateTransactionPatch: '/pay',
+
     }
   }
 }

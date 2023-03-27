@@ -1,3 +1,4 @@
+import { UsuarioLogadoPageComponent } from './../../components/usuario-logado-page/usuario-logado-page.component';
 import { LoginPageComponent } from './../../components/login-page/login-page.component';
 import { CadastroPageComponent } from './../../components/modal-cadastro/cadastro-page/cadastro-page.component';
 import { InitialPageComponent } from './../../components/initial-page/initial-page.component';
@@ -17,6 +18,10 @@ const routes: Routes = [
   {
     path: 'cadastro-page',
     component: CadastroPageComponent
+  },
+  {
+    path: 'usuario-logado-page',
+    component: UsuarioLogadoPageComponent
   }
 ];
 
