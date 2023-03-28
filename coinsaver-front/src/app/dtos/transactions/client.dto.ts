@@ -1,14 +1,11 @@
-import { TransactionCategoryType } from 'src/app/enums/transaction-category-type.enum';
-import { TransactionType } from 'src/app/enums/transaction-type.enum';
-import { StatusType } from '../../enums/status-type.enum';
 export class Client {
   constructor(
-    public id?: number,
-    public name?: string,
-    public email?: string,
+    public id?: number | any,
+    public name?: string | any,
+    public email?: string | any,
 
-    public createdAt?: Date,
+    public createdAt?: string | any,
 
-    public balance?: number,
+    public balance?: number | any,
   ) {}
 }

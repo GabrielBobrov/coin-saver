@@ -1,23 +1,23 @@
-import { TransactionCategoryType } from 'src/app/enums/transaction-category-type.enum';
-import { TransactionType } from 'src/app/enums/transaction-type.enum';
-import { StatusType } from './../../enums/status-type.enum';
+import { TransactionCategoryTypeEnum } from 'src/app/enums/transaction-category-type.enum';
+import { TransactionTypeEnum } from 'src/app/enums/transaction-type.enum';
+import { StatusTypeEnum } from './../../enums/status-type.enum';
 import { Client } from './client.dto';
 export class Transaction {
   constructor(
-    public id?: number,
-    public amount?: number,
+    public id?: number | any,
+    public amount?: number | any,
 
-    public createdAt?: Date,
-    public payDay?: Date,
+    public createdAt?: string | any,
+    public payDay?: string | any,
 
-    public description?: string,
+    public description?: string | any,
 
-    public status?: StatusType,
-    public category?: TransactionCategoryType,
-    public transactionType?: TransactionType,
+    public status?: StatusTypeEnum,
+    public category?: TransactionCategoryTypeEnum,
+    public transactionType?: TransactionTypeEnum,
 
-    public fixedExpense?: boolean,
-    public repeat?: number,
+    public fixedExpense?: boolean | any,
+    public repeat?: number | any,
 
     public client?: Client
 
