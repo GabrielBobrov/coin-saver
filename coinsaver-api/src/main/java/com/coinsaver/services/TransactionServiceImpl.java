@@ -107,10 +107,10 @@ public class TransactionServiceImpl implements TransactionService {
     }
 
     @Override
-    public List<TransactionResponseDto> getTransactionByCategory(TransactionCategoryType categoryType, LocalDateTime date) {
+    public List<TransactionResponseDto> getTransactionByCategory(TransactionCategoryType categoryType, LocalDate date) {
 
-        LocalDateTime startOfMonth = date.with(TemporalAdjusters.firstDayOfMonth());
-        LocalDateTime endOfMonth = date.with(TemporalAdjusters.lastDayOfMonth());
+        LocalDateTime startOfMonth = date.atStartOfDay().with(TemporalAdjusters.firstDayOfMonth());
+        LocalDateTime endOfMonth = date.with(TemporalAdjusters.lastDayOfMonth()).atTime(LocalTime.MAX);
 
 
         var transactions = transactionRepository.findTransactionByPayDayBetweenAndTransactionType(startOfMonth, endOfMonth, TransactionType.IN_CASH);

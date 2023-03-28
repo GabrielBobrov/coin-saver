@@ -39,7 +39,7 @@ public class TransactionsController implements TransactionControllerOpenApi {
 
     @GetMapping("/category/{categoryType}")
     @ResponseStatus(HttpStatus.OK)
-    public List<TransactionResponseDto> getTransactionByCategoryType(@PathVariable TransactionCategoryType categoryType, @RequestParam LocalDateTime date) {
+    public List<TransactionResponseDto> getTransactionByCategoryType(@PathVariable TransactionCategoryType categoryType, @RequestParam LocalDate date) {
 
         return transactionService.getTransactionByCategory(categoryType, date);
     }

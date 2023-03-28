@@ -16,7 +16,7 @@ import java.util.List;
 public interface TransactionService {
     TransactionResponseDto getTransaction(Long transactionId, TransactionType transactionType);
 
-    List<TransactionResponseDto> getTransactionByCategory(TransactionCategoryType categoryType, LocalDateTime date);
+    List<TransactionResponseDto> getTransactionByCategory(TransactionCategoryType categoryType, LocalDate date);
 
     TransactionResponseDto createTransaction(TransactionRequestDto transactionRequestDto);
 
