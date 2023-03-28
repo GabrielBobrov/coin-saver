@@ -1,6 +1,7 @@
 package com.coinsaver.services.transactions.domain.interfaces;
 
 import com.coinsaver.api.dtos.request.PayTransactionRequestDto;
+import com.coinsaver.api.dtos.request.ReceiveTransactionRequestDto;
 import com.coinsaver.api.dtos.request.TransactionRequestDto;
 import com.coinsaver.api.dtos.request.UpdateTransactionRequestDto;
 import com.coinsaver.core.enums.UpdateTransactionType;
@@ -17,4 +18,5 @@ public interface TransactionDomainService {
 
     Transaction createTransaction(TransactionRequestDto transactionRequestDto);
 
+    void receiveTransaction(ReceiveTransactionRequestDto receiveTransactionRequestDto);
 }

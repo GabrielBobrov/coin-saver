@@ -1,6 +1,7 @@
 package com.coinsaver.api.controllers;
 
 import com.coinsaver.api.dtos.request.PayTransactionRequestDto;
+import com.coinsaver.api.dtos.request.ReceiveTransactionRequestDto;
 import com.coinsaver.api.dtos.request.TransactionRequestDto;
 import com.coinsaver.api.dtos.request.UpdateTransactionRequestDto;
 import com.coinsaver.api.dtos.response.MonthlyResponseDto;
@@ -77,7 +78,7 @@ public class TransactionsController implements TransactionsControllerOpenApi {
 
     @PatchMapping("/pay")
     @ResponseStatus(HttpStatus.NO_CONTENT)
-    public void updateTransaction(@RequestBody @Valid PayTransactionRequestDto payTransactionRequestDto) {
+    public void payTransaction(@RequestBody @Valid PayTransactionRequestDto payTransactionRequestDto) {
 
         transactionService.payTransaction(payTransactionRequestDto);
     }
@@ -87,5 +88,12 @@ public class TransactionsController implements TransactionsControllerOpenApi {
     public void deleteByTransactionId(@PathVariable Long transactionId) {
 
         transactionService.deleteByTransactionId(transactionId);
+    }
+
+    @PatchMapping("/receive")
+    @ResponseStatus(HttpStatus.NO_CONTENT)
+    public void receiveTransaction(@RequestBody @Valid ReceiveTransactionRequestDto receiveTransactionRequestDto) {
+
+        transactionService.receiveTransaction(receiveTransactionRequestDto);
     }
 }

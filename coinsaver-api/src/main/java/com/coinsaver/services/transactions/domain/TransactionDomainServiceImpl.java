@@ -1,6 +1,7 @@
 package com.coinsaver.services.transactions.domain;
 
 import com.coinsaver.api.dtos.request.PayTransactionRequestDto;
+import com.coinsaver.api.dtos.request.ReceiveTransactionRequestDto;
 import com.coinsaver.api.dtos.request.TransactionRequestDto;
 import com.coinsaver.api.dtos.request.UpdateTransactionRequestDto;
 import com.coinsaver.core.enums.TransactionCategoryType;
@@ -92,5 +93,19 @@ public class TransactionDomainServiceImpl implements TransactionDomainService {
             transaction.setTransactionType(TransactionType.IN_CASH);
         }
         return transactionRepository.save(transaction);
+    }
+
+    @Override
+    public void receiveTransaction(ReceiveTransactionRequestDto receiveTransactionRequestDto) {
+
+        Transaction transaction = transactionRepository.findById(receiveTransactionRequestDto.getTransactionId())
+                .orElseThrow(() -> new BusinessException(ErrorMessages.getErrorMessage("TRANSACTION_NOT_FOUND")));
+
+        if (TransactionCategoryType.EXPENSE.equals(transaction.getCategory())) {
+            throw new BusinessException(ErrorMessages.getErrorMessage("PAY_INCOME_TRANSACTION"));
+        }
+
+        transaction.receiveTransaction();
+        transactionRepository.save(transaction);
     }
 }

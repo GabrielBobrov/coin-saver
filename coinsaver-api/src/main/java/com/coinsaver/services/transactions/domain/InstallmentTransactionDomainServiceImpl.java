@@ -1,6 +1,7 @@
 package com.coinsaver.services.transactions.domain;
 
 import com.coinsaver.api.dtos.request.PayTransactionRequestDto;
+import com.coinsaver.api.dtos.request.ReceiveTransactionRequestDto;
 import com.coinsaver.api.dtos.request.TransactionRequestDto;
 import com.coinsaver.api.dtos.request.UpdateTransactionRequestDto;
 import com.coinsaver.core.enums.TransactionCategoryType;
@@ -101,6 +102,21 @@ public class InstallmentTransactionDomainServiceImpl implements InstallmentTrans
 
         installmentTransaction.payTransaction();
         installmentTransactionRepository.save(installmentTransaction);
+    }
+
+    @Override
+    public void receiveTransaction(ReceiveTransactionRequestDto receiveTransactionRequestDto) {
+
+        InstallmentTransaction installmentTransaction = installmentTransactionRepository.findById(receiveTransactionRequestDto.getTransactionId())
+                .orElseThrow(() -> new BusinessException(ErrorMessages.getErrorMessage("TRANSACTION_NOT_FOUND")));
+
+        if (TransactionCategoryType.INCOME.equals(installmentTransaction.getCategory())) {
+            throw new BusinessException(ErrorMessages.getErrorMessage("PAY_INCOME_TRANSACTION"));
+        }
+
+        installmentTransaction.receiveTransaction();
+        installmentTransactionRepository.save(installmentTransaction);
+
     }
 
     private String removeInstallmentFromDescription(String description) {

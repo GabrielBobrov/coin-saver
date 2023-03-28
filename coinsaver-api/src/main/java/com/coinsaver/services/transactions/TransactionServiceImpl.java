@@ -1,6 +1,7 @@
 package com.coinsaver.services.transactions;
 
 import com.coinsaver.api.dtos.request.PayTransactionRequestDto;
+import com.coinsaver.api.dtos.request.ReceiveTransactionRequestDto;
 import com.coinsaver.api.dtos.request.TransactionRequestDto;
 import com.coinsaver.api.dtos.request.UpdateTransactionRequestDto;
 import com.coinsaver.api.dtos.response.MonthlyResponseDto;
@@ -233,7 +234,7 @@ public class TransactionServiceImpl implements TransactionService {
 
         var installmentTransactions = installmentTransactionRepository.findByPayDayBetweenAndTransactions(startOfMonth, endOfMonth, allTransactions);
         var fixTransactionsEdited = fixTransactionRepository.findFixTransactionByPayDayBetween(startOfMonth, endOfMonth, Boolean.TRUE, allTransactions);
-        var fixTransactions = fixTransactionRepository.findFixTransactionByEditedFalse(allTransactions);
+        var fixTransactions = fixTransactionRepository.findFixTransactionByEditedFalse(client);
 
         List<Transaction> transactionsEdited = fixTransactionsEdited.stream()
                 .map(FixTransaction::getTransaction)
@@ -361,6 +362,16 @@ public class TransactionServiceImpl implements TransactionService {
                 .orElseThrow(() -> new BusinessException(ErrorMessages.getErrorMessage("TRANSACTION_NOT_FOUND")));
 
         transactionRepository.deleteById(transaction.getId());
+    }
+
+    @Transactional
+    @Override
+    public void receiveTransaction(ReceiveTransactionRequestDto receiveTransactionRequestDto) {
+        switch (receiveTransactionRequestDto.getTransactionType()) {
+            case IN_CASH -> transactionDomainService.receiveTransaction(receiveTransactionRequestDto);
+            case INSTALLMENT -> installmentTransactionDomainService.receiveTransaction(receiveTransactionRequestDto);
+            case FIX -> fixTransactionDomainService.receiveTransaction(receiveTransactionRequestDto);
+        }
     }
 
 

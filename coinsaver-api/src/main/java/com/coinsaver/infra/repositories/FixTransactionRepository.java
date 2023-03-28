@@ -2,6 +2,7 @@ package com.coinsaver.infra.repositories;
 
 import com.coinsaver.core.enums.StatusType;
 import com.coinsaver.core.enums.TransactionCategoryType;
+import com.coinsaver.domain.entities.Client;
 import com.coinsaver.domain.entities.FixTransaction;
 import com.coinsaver.domain.entities.Transaction;
 import org.springframework.data.jpa.repository.JpaRepository;
@@ -35,8 +36,8 @@ public interface FixTransactionRepository extends JpaRepository<FixTransaction, 
 
     List<FixTransaction> findByCategoryAndPayDayBetween(TransactionCategoryType categoryType, LocalDate startOfMonth, LocalDate endOfMonth);
 
-    @Query("SELECT ft FROM FixTransaction ft INNER JOIN ft.transaction t WHERE ft.edited = false AND (:categoryType IS NULL OR ft.category = :categoryType)")
-    List<FixTransaction> findFixTransactionByEditedFalse(TransactionCategoryType categoryType);
+    @Query("SELECT ft FROM FixTransaction ft INNER JOIN ft.transaction t WHERE ft.edited = false AND t.client = :client")
+    List<FixTransaction> findFixTransactionByEditedFalse( Client client);
 
     List<FixTransaction> findByCategoryAndPayDayBetweenAndEditedIsTrue(TransactionCategoryType categoryType, LocalDate startOfMonth, LocalDate endOfMonth);
 }

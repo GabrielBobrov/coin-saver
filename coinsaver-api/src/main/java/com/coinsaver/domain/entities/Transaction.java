@@ -87,4 +87,8 @@ public class Transaction extends TransactionBase {
     public void payTransaction() {
         this.setStatus(StatusType.PAID);
     }
+
+    public void receiveTransaction() {
+        this.setStatus(StatusType.RECEIVED);
+    }
 }

@@ -1,6 +1,7 @@
 package com.coinsaver.services.transactions.domain;
 
 import com.coinsaver.api.dtos.request.PayTransactionRequestDto;
+import com.coinsaver.api.dtos.request.ReceiveTransactionRequestDto;
 import com.coinsaver.api.dtos.request.TransactionRequestDto;
 import com.coinsaver.api.dtos.request.UpdateTransactionRequestDto;
 import com.coinsaver.core.enums.StatusType;
@@ -132,5 +133,35 @@ public class FixTransactionDomainServiceImpl implements FixTransactionDomainServ
             fixTransaction.payTransaction();
             fixTransactionRepository.save(fixTransaction);
         }
+    }
+
+    @Override
+    public void receiveTransaction(ReceiveTransactionRequestDto receiveTransactionRequestDto) {
+
+
+        FixTransaction fixTransaction = fixTransactionRepository.findById(receiveTransactionRequestDto.getTransactionId())
+                .orElseThrow(() -> new BusinessException(ErrorMessages.getErrorMessage("TRANSACTION_NOT_FOUND")));
+
+        if (TransactionCategoryType.EXPENSE.equals(fixTransaction.getCategory())) {
+            throw new BusinessException(ErrorMessages.getErrorMessage("PAY_INCOME_TRANSACTION"));
+        }
+
+        if (Boolean.FALSE.equals(fixTransaction.getEdited())) {
+
+            var fixTransactionDto = fixTransactionMapper.fromFixTransactionToTransactionRequestDto(fixTransaction);
+
+            var fixTransactionEdited = fixTransactionMapper.fromTransactionRequestDtoToFixTransaction(fixTransactionDto);
+            fixTransactionEdited.setId(null);
+            fixTransactionEdited.setEdited(Boolean.TRUE);
+            fixTransactionEdited.setTransaction(fixTransaction.getTransaction());
+            fixTransactionEdited.receiveTransaction();
+
+            fixTransactionRepository.save(fixTransactionEdited);
+        } else {
+
+            fixTransaction.receiveTransaction();
+            fixTransactionRepository.save(fixTransaction);
+        }
+
     }
 }

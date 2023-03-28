@@ -1,6 +1,7 @@
 package com.coinsaver.api.openapi.controller;
 
 import com.coinsaver.api.dtos.request.PayTransactionRequestDto;
+import com.coinsaver.api.dtos.request.ReceiveTransactionRequestDto;
 import com.coinsaver.api.dtos.request.TransactionRequestDto;
 import com.coinsaver.api.dtos.request.UpdateTransactionRequestDto;
 import com.coinsaver.api.dtos.response.MonthlyResponseDto;
@@ -64,4 +65,10 @@ public interface TransactionsControllerOpenApi {
             @ApiResponse(responseCode = "200")
     })
     void deleteByTransactionId(@PathVariable Long transactionId);
+    void payTransaction(@RequestBody(description = "Representação de uma requisição de pagamento") PayTransactionRequestDto payTransactionRequestDto);
+
+    @Operation(summary = "Receber transação", responses = {
+            @ApiResponse(responseCode = "204"),
+    })
+    void receiveTransaction(@RequestBody @Valid ReceiveTransactionRequestDto receiveTransactionRequestDto);
 }

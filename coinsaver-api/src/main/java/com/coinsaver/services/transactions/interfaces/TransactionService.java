@@ -1,6 +1,7 @@
 package com.coinsaver.services.transactions.interfaces;
 
 import com.coinsaver.api.dtos.request.PayTransactionRequestDto;
+import com.coinsaver.api.dtos.request.ReceiveTransactionRequestDto;
 import com.coinsaver.api.dtos.request.TransactionRequestDto;
 import com.coinsaver.api.dtos.request.UpdateTransactionRequestDto;
 import com.coinsaver.api.dtos.response.MonthlyResponseDto;
@@ -26,4 +27,6 @@ public interface TransactionService {
     void payTransaction(PayTransactionRequestDto payTransactionRequestDto);
 
     void deleteByTransactionId(Long transactionId);
+
+    void receiveTransaction(ReceiveTransactionRequestDto receiveTransactionRequestDto);
 }
