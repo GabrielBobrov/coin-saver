@@ -45,11 +45,11 @@ public class FixTransaction extends TransactionBase {
     @Column
     private String description;
 
-    @Enumerated(EnumType.ORDINAL)
+    @Enumerated(EnumType.STRING)
     @Column(nullable = false)
     private StatusType status;
 
-    @Enumerated(EnumType.ORDINAL)
+    @Enumerated(EnumType.STRING)
     @Column(nullable = false)
     private TransactionCategoryType category;
 
