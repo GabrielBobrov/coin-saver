@@ -3,6 +3,7 @@ import { environment } from './../../environments/environments';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { catchError, map, Observable, throwError } from 'rxjs';
+import { TransactionTypeEnum } from 'src/app/enums/transaction-type.enum';
 
 @Injectable({
   providedIn: 'root'
@@ -26,7 +27,8 @@ export class TransactionsService {
     return this.httpClient.get<Transaction[]>(
       `${this.baseUrl +
       this.transactionControllerUrl +
-      environment.api.backendEndpoints.getAllTransactions}`
+      environment.api.backendEndpoints.getAllTransactions
+    }`
     )
       .pipe(
         map((transactions: Transaction[]) => {
@@ -41,31 +43,27 @@ export class TransactionsService {
       );
   }
 
-  getTransactionsInMonth(): Observable<Transaction[]> {
+  getTransactionsInMonth(date: string): Observable<Transaction[]> {
     return this.httpClient.get<Transaction[]>(
       `${this.baseUrl +
       this.transactionControllerUrl +
-      environment.api.backendEndpoints.getTransactionsInMonth}`
+      environment.api.backendEndpoints.getTransactionsInMonth
+    }?date=${date}`
     )
     .pipe(
-      map((monthTransactions: Transaction[]) => {
-        monthTransactions.forEach((monthTransaction) => {
-
-        })
-        return monthTransactions;
-      }),
       catchError((erroResponse) => {
         return throwError(erroResponse);
       })
     );
   }
 
-  getTransaction(): Observable<Transaction> {
+  getTransaction(transactionId: number, transactionType: TransactionTypeEnum): Observable<Transaction> {
     return this.httpClient.get<Transaction>(
       `${this.baseUrl +
       this.transactionControllerUrl +
       environment.api.backendEndpoints.getTransaction
-      }/1?transactionType=IN_CASH`
+    }/${transactionId
+    }?transactionType=${transactionType}`
     )
     .pipe(
       catchError((erroResponse) => {
