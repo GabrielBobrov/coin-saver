@@ -15,6 +15,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.List;
 
@@ -52,7 +53,7 @@ public class TransactionsController implements TransactionControllerOpenApi {
 
     @GetMapping("/month")
     @ResponseStatus(HttpStatus.OK)
-    public MonthlyResponseDto getTransactionsInMonth(@RequestParam LocalDateTime date) {
+    public MonthlyResponseDto getTransactionsInMonth(@RequestParam LocalDate date) {
 
         return transactionService.getMonthlyTransactions(date);
     }

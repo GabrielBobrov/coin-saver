@@ -19,6 +19,7 @@ import jakarta.validation.Valid;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.List;
 
@@ -48,7 +49,7 @@ public interface TransactionControllerOpenApi {
     @Operation(summary = "Buscar transações do mês", responses = {
             @ApiResponse(responseCode = "200", content = @Content(schema = @Schema(implementation = MonthlyResponseDto.class))),
     })
-    MonthlyResponseDto getTransactionsInMonth(@RequestParam @Schema(example = "2023-01-28T19:39:37.438") LocalDateTime date);
+    MonthlyResponseDto getTransactionsInMonth(@RequestParam @Schema(example = "2023-01-28") LocalDate date);
 
     @Operation(summary = "Atualizar transação", responses = {
             @ApiResponse(responseCode = "200", content = @Content(schema = @Schema(implementation = UpdateTransactionResponseDto.class))),

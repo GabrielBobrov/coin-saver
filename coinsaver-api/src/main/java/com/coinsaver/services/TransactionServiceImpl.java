@@ -30,7 +30,9 @@ import jakarta.transaction.Transactional;
 import org.springframework.stereotype.Service;
 
 import java.math.BigDecimal;
+import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.time.LocalTime;
 import java.time.temporal.TemporalAdjusters;
 import java.util.ArrayList;
 import java.util.List;
@@ -203,10 +205,10 @@ public class TransactionServiceImpl implements TransactionService {
     }
 
     @Override
-    public MonthlyResponseDto getMonthlyTransactions(LocalDateTime date) {
+    public MonthlyResponseDto getMonthlyTransactions(LocalDate date) {
 
-        LocalDateTime startOfMonth = date.with(TemporalAdjusters.firstDayOfMonth());
-        LocalDateTime endOfMonth = date.with(TemporalAdjusters.lastDayOfMonth());
+        LocalDateTime startOfMonth = date.atStartOfDay().with(TemporalAdjusters.firstDayOfMonth());
+        LocalDateTime endOfMonth = date.with(TemporalAdjusters.lastDayOfMonth()).atTime(LocalTime.MAX);
 
         var transactions = transactionRepository.findTransactionByPayDayBetweenAndTransactionType(startOfMonth, endOfMonth, TransactionType.IN_CASH);
         var installmentTransactions = installmentTransactionRepository.findByPayDayBetween(startOfMonth, endOfMonth);
