@@ -999,7 +999,7 @@ html body .default-box-shadow {
 
 @media (max-width: 1400px) {
   .app-stores .content .container .smartphone-img img {
-      bottom:4vw;
+      bottom:3vw;
       right: 7vw
   }
 }
