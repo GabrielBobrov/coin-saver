@@ -20,11 +20,10 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import java.time.LocalDate;
-import java.time.LocalDateTime;
 import java.util.List;
 
 @Tag(name = "Transactions")
-public interface TransactionControllerOpenApi {
+public interface TransactionsControllerOpenApi {
 
     @Operation(summary = "Busca uma transação por Id",
             responses = {
@@ -38,7 +37,7 @@ public interface TransactionControllerOpenApi {
     TransactionResponseDto getTransaction(@PathVariable Long transactionId, @RequestParam TransactionType transactionType);
 
     @Operation(summary = "Buscar uma transações por categoria", description = "Para buscar transações por categoria informe a cateogria que deseja e uma data para uma busca mensal")
-    List<TransactionResponseDto> getTransactionByCategoryType(@PathVariable TransactionCategoryType categoryType, @RequestParam LocalDateTime date);
+    List<TransactionResponseDto> getTransactionByCategoryType(@PathVariable TransactionCategoryType categoryType, @RequestParam LocalDate date);
 
     @Operation(summary = "Criar transação",
             responses = {

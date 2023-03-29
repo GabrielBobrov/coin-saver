@@ -6,23 +6,21 @@ import com.coinsaver.api.dtos.request.UpdateTransactionRequestDto;
 import com.coinsaver.api.dtos.response.MonthlyResponseDto;
 import com.coinsaver.api.dtos.response.TransactionResponseDto;
 import com.coinsaver.api.dtos.response.UpdateTransactionResponseDto;
-import com.coinsaver.api.openapi.controller.TransactionControllerOpenApi;
+import com.coinsaver.api.openapi.controller.TransactionsControllerOpenApi;
 import com.coinsaver.core.enums.TransactionCategoryType;
 import com.coinsaver.core.enums.TransactionType;
 import com.coinsaver.services.interfaces.TransactionService;
 import jakarta.validation.Valid;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
 import java.time.LocalDate;
-import java.time.LocalDateTime;
 import java.util.List;
 
 
 @RestController
 @RequestMapping(value = "/transactions")
-public class TransactionsController implements TransactionControllerOpenApi {
+public class TransactionsController implements TransactionsControllerOpenApi {
 
     private final TransactionService transactionService;
 
