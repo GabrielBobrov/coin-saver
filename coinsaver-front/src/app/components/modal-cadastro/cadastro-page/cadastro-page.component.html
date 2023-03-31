@@ -11,15 +11,54 @@
           <div>
             <mat-form-field class="mat-form-field" appearance="fill">
               <mat-label>Nome</mat-label>
-              <input type="text" matInput>
+              <input type="text" matInput placeholder="Digite seu nome">
             </mat-form-field>
+          </div>
+
+          <div>
+            <mat-form-field class="mat-form-field" appearance="fill">
+              <mat-label>Gênero</mat-label>
+              <mat-select>
+                <mat-option value="one">Masculino</mat-option>
+                <mat-option value="two">Feminino</mat-option>
+                <mat-option value="three">Outro</mat-option>
+              </mat-select>
+            </mat-form-field>
+          </div>
+
+          <div>
+            <form>
+              <mat-form-field class="mat-form-field">
+                <mat-label>Telefone</mat-label>
+                <input type="tel" matInput placeholder="(99)99999-9999">
+                <mat-icon matSuffix></mat-icon>
+              </mat-form-field>
+            </form>
           </div>
 
           <div>
             <form>
               <mat-form-field class="mat-form-field" appearance="fill">
                 <mat-label>Email</mat-label>
-                <input type="email" matInput [formControl]="emailFormControl" [errorStateMatcher]="matcher" placeholder="email@example.com">
+                <input type="email" matInput [formControl]="emailFormControl" [errorStateMatcher]="matcher"
+                  placeholder="email@example.com">
+                <mat-hint>Errors appear instantly!</mat-hint>
+                <mat-error *ngIf="emailFormControl.hasError('email') && !emailFormControl.hasError('required')">
+                  Please enter a valid email address
+                </mat-error>
+                <mat-error *ngIf="emailFormControl.hasError('required')">
+                  Email is <strong>required</strong>
+                </mat-error>
+              </mat-form-field>
+            </form>
+          </div>
+
+          <div>
+            <form>
+              <mat-form-field class="mat-form-field" appearance="fill">
+                <mat-label>Confirme seu Email</mat-label>
+                <input type="email" matInput [formControl]="emailFormControl" [errorStateMatcher]="matcher"
+                  placeholder="email@example.com">
                 <mat-hint>Errors appear instantly!</mat-hint>
                 <mat-error *ngIf="emailFormControl.hasError('email') && !emailFormControl.hasError('required')">
                   Please enter a valid email address
@@ -33,14 +72,24 @@
 
           <div>
             <mat-form-field class="mat-form-field" appearance="fill">
-              <mat-label>Gênero</mat-label>
-              <mat-select>
-                <mat-option value="one">Masculino</mat-option>
-                <mat-option value="two">Feminino</mat-option>
-                <mat-option value="three">Outro</mat-option>
-              </mat-select>
+              <mat-label>Senha</mat-label>
+              <input [type]="hideSenha ? 'password' : 'text'" matInput placeholder="Digite ssua senha">
+              <button mat-icon-button matSuffix (click)="hideSenha = !hideSenha" [attr.aria-label]="'HideSenha password'" [attr.aria-pressed]="hideSenha">
+                <mat-icon>{{hideSenha ? 'visibility_off' : 'visibility'}}</mat-icon>
+              </button>
             </mat-form-field>
           </div>
+
+          <div>
+            <mat-form-field class="mat-form-field" appearance="fill">
+              <mat-label>Confirme sua senha</mat-label>
+              <input [type]="hideContraSenha ? 'password' : 'text'" matInput placeholder="Repita sua senha">
+              <button mat-icon-button matSuffix (click)="hideContraSenha = !hideContraSenha" [attr.aria-label]="'HideContraSenha password'" [attr.aria-pressed]="hideContraSenha">
+                <mat-icon>{{hideContraSenha ? 'visibility_off' : 'visibility'}}</mat-icon>
+              </button>
+            </mat-form-field>
+          </div>
+
           <button type="submit" class="btn ng-binding">Cadastrar</button>
         </div>
 

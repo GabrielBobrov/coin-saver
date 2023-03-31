@@ -19,4 +19,7 @@ export class CadastroPageComponent {
   emailFormControl = new FormControl('', [Validators.required, Validators.email]);
   matcher = new MyErrorStateMatcher();
 
+  hideSenha = true;
+  hideContraSenha = true;
+
 }
