@@ -1,0 +1,107 @@
+@charset "UTF-8";html {
+  font-size: 10px
+}
+
+body {
+  font-size: 1.4rem;
+  background-color: #f5f5f5;
+  font-family: "Open Sans",sans-serif;
+  color: #444;
+  margin: 0;
+  overflow-y: auto
+}
+
+#container {
+  text-align: center;
+  margin: 80px auto;
+  padding: 0 10px;
+  box-sizing: border-box
+}
+
+#container .logomd {
+  display: block;
+  margin-bottom: 50px
+}
+
+#container .logomd>img {
+  width: 200px
+}
+
+#container>div {
+  box-shadow: 0 2px 2px 0 rgba(0,0,0,.07),0 3px 1px -2px rgba(0,0,0,.06),0 1px 5px 0 rgba(0,0,0,.1);
+  background: #fff;
+  padding: 50px;
+  position: relative;
+  width: 100%;
+  box-sizing: border-box;
+  border-radius: 6px
+}
+
+#container>div .container-title {
+  text-align: center;
+  margin: 0;
+  padding: 0 0 20px 0;
+  color: #555;
+  font-size: 22px;
+  margin-bottom: 10px
+}
+
+#container>div .btn {
+  border: none;
+  border-radius: 5px;
+  color: #fff;
+  background-color: #fe801f;
+  height: 48px;
+  padding: 8px 16px;
+  box-shadow: 0 2px 2px 0 rgba(0,0,0,.07),0 3px 1px -2px rgba(0,0,0,.06),0 1px 5px 0 rgba(0,0,0,.1);
+  letter-spacing: .01em;
+  font-weight: 600;
+  outline: 0;
+  text-decoration: none;
+  cursor: pointer;
+  width: 30%;
+  font-size: 16px;
+  transition: background-color 150ms cubic-bezier(.4,0,.2,1)
+}
+
+#container>div .btn:active,#container>div .btn:focus,#container>div .btn:hover {
+  background-color: #009690;
+  border-color: #009690;
+  text-decoration: none;
+  color: #fff
+}
+
+#container>div #acoes {
+  margin-top: 20px
+}
+
+#container>div #acoes a {
+  text-decoration: none;
+  color: #fe801f;
+}
+
+a {
+  text-decoration: none;
+  color: #fe801f;
+}
+
+.mat-form-field {
+  width: 100%;
+}
+
+/* CUSTOMIZACAO */
+::ng-deep .mdc-text-field--filled:not(.mdc-text-field--disabled) {
+  background-color: #4a4a4a;
+}
+
+::ng-deep .mdc-text-field:not(.mdc-text-field--disabled) .mdc-floating-label {
+  color: #fe801f;
+}
+
+::ng-deep .mdc-text-field .mdc-text-field__input {
+  caret-color: var(--mdc-theme-primary, #fe801f);
+}
+
+::ng-deep .mdc-text-field--filled .mdc-line-ripple::after {
+  border-bottom-color: var(--mdc-theme-primary, #fe801f);
+}
