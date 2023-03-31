@@ -77,10 +77,31 @@ body {
 
 #container>div #acoes a {
   text-decoration: none;
-  color: #fe801f
+  color: #fe801f;
 }
 
 a {
   text-decoration: none;
-  color: #fe801f
+  color: #fe801f;
+}
+
+.mat-form-field {
+  width: 100%;
+}
+
+/* CUSTOMIZACAO */
+::ng-deep .mdc-text-field--filled:not(.mdc-text-field--disabled) {
+  background-color: #4a4a4a;
+}
+
+::ng-deep .mdc-text-field:not(.mdc-text-field--disabled) .mdc-floating-label {
+  color: #fe801f;
+}
+
+::ng-deep .mdc-text-field .mdc-text-field__input {
+  caret-color: var(--mdc-theme-primary, #fe801f);
+}
+
+::ng-deep .mdc-text-field--filled .mdc-line-ripple::after {
+  border-bottom-color: var(--mdc-theme-primary, #fe801f);
 }
