@@ -1,7 +1,7 @@
 import { TransactionCategoryTypeEnum } from 'src/app/enums/transaction-category-type.enum';
 import { TransactionTypeEnum } from 'src/app/enums/transaction-type.enum';
 import { StatusTypeEnum } from './../../enums/status-type.enum';
-import { Client } from './client.dto';
+import { Client } from '../client/client.dto';
 export class Transaction {
   constructor(
     public id?: number | any,
