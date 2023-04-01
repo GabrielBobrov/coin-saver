@@ -25,8 +25,8 @@ public interface FixTransactionRepository extends JpaRepository<FixTransaction, 
     @Query("UPDATE FixTransaction i set i.amount = :amount, i.category = :category, i.payDay = :payDay, i.status = :status, i.description = :description WHERE i.transaction = :transaction")
     void updateFixTransactionByTransaction(BigDecimal amount, TransactionCategoryType category, LocalDate payDay, StatusType status, String description, Transaction transaction);
 
-    @Query("SELECT ft FROM FixTransaction ft WHERE ft.payDay BETWEEN :startDate AND :endDate AND ft.edited = :edited AND ft.transaction IN :transactions")
-    List<FixTransaction> findFixTransactionByPayDayBetween(LocalDate startDate, LocalDate endDate, Boolean edited, List<Transaction> transactions);
+    @Query("SELECT ft FROM FixTransaction ft WHERE ft.payDay BETWEEN :startDate AND :endDate AND ft.edited = :edited AND (:categoryType IS NULL OR ft.category = :categoryType) AND ft.transaction IN :transactions")
+    List<FixTransaction> findFixTransactionByPayDayBetween(LocalDate startDate, LocalDate endDate, Boolean edited, List<Transaction> transactions, TransactionCategoryType categoryType);
 
     Optional<FixTransaction> findFixTransactionByTransactionAndEditedIsFalse(Transaction transaction);
 
@@ -36,8 +36,8 @@ public interface FixTransactionRepository extends JpaRepository<FixTransaction, 
 
     List<FixTransaction> findByCategoryAndPayDayBetween(TransactionCategoryType categoryType, LocalDate startOfMonth, LocalDate endOfMonth);
 
-    @Query("SELECT ft FROM FixTransaction ft INNER JOIN ft.transaction t WHERE ft.edited = false AND t.client = :client")
-    List<FixTransaction> findFixTransactionByEditedFalse(Client client);
+    @Query("SELECT ft FROM FixTransaction ft INNER JOIN ft.transaction t WHERE ft.edited = false AND t.client = :client AND (:categoryType IS NULL OR ft.category = :categoryType)")
+    List<FixTransaction> findFixTransactionByEditedFalse(Client client, TransactionCategoryType categoryType);
 
     List<FixTransaction> findByCategoryAndPayDayBetweenAndEditedIsTrue(TransactionCategoryType categoryType, LocalDate startOfMonth, LocalDate endOfMonth);
 }

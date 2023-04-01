@@ -4,6 +4,7 @@ import com.coinsaver.api.dtos.request.PayTransactionRequestDto;
 import com.coinsaver.api.dtos.request.ReceiveTransactionRequestDto;
 import com.coinsaver.api.dtos.request.TransactionRequestDto;
 import com.coinsaver.api.dtos.request.UpdateTransactionRequestDto;
+import com.coinsaver.api.dtos.response.MonthlyChartDto;
 import com.coinsaver.api.dtos.response.MonthlyResponseDto;
 import com.coinsaver.api.dtos.response.TransactionResponseDto;
 import com.coinsaver.api.dtos.response.UpdateTransactionResponseDto;
@@ -37,7 +38,7 @@ public interface TransactionsControllerOpenApi {
             })
     TransactionResponseDto getTransaction(@PathVariable Long transactionId, @RequestParam TransactionType transactionType);
 
-    @Operation(summary = "Buscar uma transações por categoria", description = "Para buscar transações por categoria informe a cateogria que deseja e uma data para uma busca mensal")
+    @Operation(summary = "Buscar transações por categoria", description = "Para buscar transações por categoria informe a cateogria que deseja e uma data para uma busca mensal")
     List<TransactionResponseDto> getTransactionByCategoryType(@PathVariable TransactionCategoryType categoryType, @RequestParam LocalDate date);
 
     @Operation(summary = "Criar transação",
@@ -71,4 +72,9 @@ public interface TransactionsControllerOpenApi {
             @ApiResponse(responseCode = "204"),
     })
     void receiveTransaction(@RequestBody @Valid ReceiveTransactionRequestDto receiveTransactionRequestDto);
+
+    @Operation(summary = "Buscar valores de transações agrupadas por categoria", responses = {
+            @ApiResponse(responseCode = "204"),
+    })
+    List<MonthlyChartDto> getTransactionsAmountByCategory(@RequestParam LocalDate date);
 }

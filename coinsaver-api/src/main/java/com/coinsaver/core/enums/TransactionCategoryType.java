@@ -6,6 +6,16 @@ package com.coinsaver.core.enums;
  *
  */
 public enum TransactionCategoryType {
-		EXPENSE,
-		INCOME
+	EXPENSE("Despesa"),
+	INCOME("Entrada");
+
+	private final String name;
+
+	TransactionCategoryType(String name) {
+		this.name = name;
+	}
+
+	public String getName() {
+		return name;
+	}
 }

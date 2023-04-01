@@ -7,7 +7,6 @@ import com.coinsaver.domain.entities.Transaction;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
-import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 
 import java.math.BigDecimal;
@@ -19,9 +18,10 @@ import java.util.List;
 public interface InstallmentTransactionRepository extends JpaRepository<InstallmentTransaction, Long> {
     List<InstallmentTransaction> findByCategoryAndPayDayBetween(TransactionCategoryType categoryType, LocalDateTime startOfMonth, LocalDateTime endOfMonth);
 
-    @Query("SELECT it FROM InstallmentTransaction it WHERE it.payDay BETWEEN :startOfMonth AND :endOfMonth AND it.transaction IN :transactions")
-    List<InstallmentTransaction> findByPayDayBetweenAndTransactions(LocalDate startOfMonth,  LocalDate endOfMonth, List<Transaction> transactions
-    );    @Modifying
+    @Query("SELECT it FROM InstallmentTransaction it WHERE it.payDay BETWEEN :startOfMonth AND :endOfMonth AND it.transaction IN :transactions AND (:categoryType IS NULL OR it.category = :categoryType)")
+    List<InstallmentTransaction> findByPayDayBetweenAndTransactions(LocalDate startOfMonth, LocalDate endOfMonth, List<Transaction> transactions, TransactionCategoryType categoryType);
+
+    @Modifying
     @Query("DELETE FROM InstallmentTransaction i WHERE i.transaction.id = :transactionId")
     void deleteByTransactionId(Long transactionId);
 

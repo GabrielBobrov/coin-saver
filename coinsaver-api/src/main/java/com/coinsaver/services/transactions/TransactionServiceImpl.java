@@ -4,6 +4,11 @@ import com.coinsaver.api.dtos.request.PayTransactionRequestDto;
 import com.coinsaver.api.dtos.request.ReceiveTransactionRequestDto;
 import com.coinsaver.api.dtos.request.TransactionRequestDto;
 import com.coinsaver.api.dtos.request.UpdateTransactionRequestDto;
+import com.coinsaver.api.dtos.response.*;
+import com.coinsaver.core.enums.StatusType;
+import com.coinsaver.core.enums.TransactionCategoryType;
+import com.coinsaver.core.enums.TransactionType;
+import com.coinsaver.core.enums.UpdateTransactionType;
 import com.coinsaver.api.dtos.response.MonthlyResponseDto;
 import com.coinsaver.api.dtos.response.MonthlyTransactionResponseDto;
 import com.coinsaver.api.dtos.response.TransactionResponseDto;
@@ -39,8 +44,10 @@ import org.springframework.stereotype.Service;
 import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Objects;
+import java.util.Map;
 
 @Service
 public class TransactionServiceImpl implements TransactionService {
@@ -126,10 +133,16 @@ public class TransactionServiceImpl implements TransactionService {
         LocalDate endOfMonth = date.withDayOfMonth(date.lengthOfMonth());
         Client client = SecurityUtil.getClientFromJwt();
 
-        var transactions = transactionRepository.findTransactionByPayDayBetweenAndClient(startOfMonth, endOfMonth, client);
-        var installmentTransactions = installmentTransactionRepository.findByCategoryAndPayDayBetween(categoryType, startOfMonth, endOfMonth);
-        var fixTransactionsEdited = fixTransactionRepository.findByCategoryAndPayDayBetweenAndEditedIsTrue(categoryType, startOfMonth, endOfMonth);
-        var fixTransactions = fixTransactionRepository.findFixTransactionByEditedFalse(categoryType);
+        var allTransactions = transactionRepository.findTransactionByPayDayBetweenAndClientAndCategory(startOfMonth, endOfMonth, client, categoryType);
+
+        List<Transaction> transactions = allTransactions
+                .stream()
+                .filter(t -> t.getTransactionType() == TransactionType.IN_CASH)
+                .toList();
+
+        var installmentTransactions = installmentTransactionRepository.findByPayDayBetweenAndTransactions(startOfMonth, endOfMonth, allTransactions, categoryType);
+        var fixTransactionsEdited = fixTransactionRepository.findFixTransactionByPayDayBetween(startOfMonth, endOfMonth, Boolean.TRUE, allTransactions, categoryType);
+        var fixTransactions = fixTransactionRepository.findFixTransactionByEditedFalse(client, categoryType);
 
         List<Transaction> transactionsEdited = fixTransactionsEdited.stream()
                 .map(FixTransaction::getTransaction)
@@ -232,9 +245,9 @@ public class TransactionServiceImpl implements TransactionService {
                 .filter(t -> t.getTransactionType() == TransactionType.IN_CASH)
                 .toList();
 
-        var installmentTransactions = installmentTransactionRepository.findByPayDayBetweenAndTransactions(startOfMonth, endOfMonth, allTransactions);
-        var fixTransactionsEdited = fixTransactionRepository.findFixTransactionByPayDayBetween(startOfMonth, endOfMonth, Boolean.TRUE, allTransactions);
-        var fixTransactions = fixTransactionRepository.findFixTransactionByEditedFalse(client);
+        var installmentTransactions = installmentTransactionRepository.findByPayDayBetweenAndTransactions(startOfMonth, endOfMonth, allTransactions, null);
+        var fixTransactionsEdited = fixTransactionRepository.findFixTransactionByPayDayBetween(startOfMonth, endOfMonth, Boolean.TRUE, allTransactions, null);
+        var fixTransactions = fixTransactionRepository.findFixTransactionByEditedFalse(client, null);
 
         List<Transaction> transactionsEdited = fixTransactionsEdited.stream()
                 .map(FixTransaction::getTransaction)
@@ -371,6 +384,58 @@ public class TransactionServiceImpl implements TransactionService {
             case IN_CASH -> transactionDomainService.receiveTransaction(receiveTransactionRequestDto);
             case INSTALLMENT -> installmentTransactionDomainService.receiveTransaction(receiveTransactionRequestDto);
             case FIX -> fixTransactionDomainService.receiveTransaction(receiveTransactionRequestDto);
+        }
+    }
+
+    @Override
+    public List<MonthlyChartDto> getTransactionsAmountByCategory(LocalDate date) {
+        List<TransactionResponseDto> expenses = this.getTransactionByCategory(TransactionCategoryType.EXPENSE, date);
+        List<TransactionResponseDto> incomes = this.getTransactionByCategory(TransactionCategoryType.INCOME, date);
+
+        Map<String, BigDecimal> expenseMap = new HashMap<>();
+        Map<String, BigDecimal> incomeMap = new HashMap<>();
+
+        getMapValues(expenses, expenseMap);
+        getMapValues(incomes, incomeMap);
+
+        List<MonthlyChartDto> monthlyCharts = new ArrayList<>();
+
+        expenseMap.forEach((categoryName, amount) -> {
+
+            MonthlyChartDto monthlyChartDto = MonthlyChartDto.builder()
+                    .categoryName(categoryName)
+                    .totalAmount(amount.negate())
+                    .build();
+
+            monthlyCharts.add(monthlyChartDto);
+        });
+
+        incomeMap.forEach((categoryName, amount) -> {
+
+            MonthlyChartDto monthlyChartDto = MonthlyChartDto.builder()
+                    .categoryName(categoryName)
+                    .totalAmount(amount)
+                    .build();
+
+            monthlyCharts.add(monthlyChartDto);
+        });
+
+        return monthlyCharts;
+    }
+
+    private void getMapValues(List<TransactionResponseDto> transactionResponseDtos, Map<String, BigDecimal> map) {
+
+        for (TransactionResponseDto transactionResponseDto : transactionResponseDtos) {
+
+            String categoryName = transactionResponseDto.getCategory().getName();
+            BigDecimal amount = transactionResponseDto.getAmount();
+
+            if (map.containsKey(categoryName)) {
+                BigDecimal currentAmount = map.get(categoryName);
+                map.put(categoryName, currentAmount.add(amount));
+            } else {
+                map.put(categoryName, amount);
+            }
         }
     }
 

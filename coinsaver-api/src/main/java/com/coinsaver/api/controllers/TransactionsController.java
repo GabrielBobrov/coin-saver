@@ -4,6 +4,7 @@ import com.coinsaver.api.dtos.request.PayTransactionRequestDto;
 import com.coinsaver.api.dtos.request.ReceiveTransactionRequestDto;
 import com.coinsaver.api.dtos.request.TransactionRequestDto;
 import com.coinsaver.api.dtos.request.UpdateTransactionRequestDto;
+import com.coinsaver.api.dtos.response.MonthlyChartDto;
 import com.coinsaver.api.dtos.response.MonthlyResponseDto;
 import com.coinsaver.api.dtos.response.TransactionResponseDto;
 import com.coinsaver.api.dtos.response.UpdateTransactionResponseDto;
@@ -93,5 +94,11 @@ public class TransactionsController implements TransactionsControllerOpenApi {
     public void receiveTransaction(@RequestBody @Valid ReceiveTransactionRequestDto receiveTransactionRequestDto) {
 
         transactionService.receiveTransaction(receiveTransactionRequestDto);
+    }
+    @GetMapping("/chart/category")
+    @ResponseStatus(HttpStatus.OK)
+    public List<MonthlyChartDto> getTransactionsAmountByCategory(@RequestParam LocalDate date) {
+
+        return transactionService.getTransactionsAmountByCategory(date);
     }
 }
