@@ -398,7 +398,7 @@ public class TransactionServiceImpl implements TransactionService {
         getMapValues(expenses, expenseMap);
         getMapValues(incomes, incomeMap);
 
-        List<MonthlyChartDto> monthlyCharts = new ArrayList<>();
+        List<MonthlyChartDto> monthlyChartData = new ArrayList<>();
 
         expenseMap.forEach((categoryName, amount) -> {
 
@@ -407,7 +407,7 @@ public class TransactionServiceImpl implements TransactionService {
                     .totalAmount(amount.negate())
                     .build();
 
-            monthlyCharts.add(monthlyChartDto);
+            monthlyChartData.add(monthlyChartDto);
         });
 
         incomeMap.forEach((categoryName, amount) -> {
@@ -417,10 +417,10 @@ public class TransactionServiceImpl implements TransactionService {
                     .totalAmount(amount)
                     .build();
 
-            monthlyCharts.add(monthlyChartDto);
+            monthlyChartData.add(monthlyChartDto);
         });
 
-        return monthlyCharts;
+        return monthlyChartData;
     }
 
     private void getMapValues(List<TransactionResponseDto> transactionResponseDtos, Map<String, BigDecimal> map) {
