@@ -74,7 +74,7 @@ public interface TransactionsControllerOpenApi {
     void receiveTransaction(@RequestBody @Valid ReceiveTransactionRequestDto receiveTransactionRequestDto);
 
     @Operation(summary = "Buscar valores de transações agrupadas por categoria", responses = {
-            @ApiResponse(responseCode = "204"),
+            @ApiResponse(responseCode = "200"),
     })
     List<MonthlyChartDto> getTransactionsAmountByCategory(@RequestParam LocalDate date);
 }
