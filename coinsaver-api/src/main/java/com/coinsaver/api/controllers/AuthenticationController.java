@@ -30,6 +30,4 @@ public class AuthenticationController implements AuthenticationControllerOpenApi
 
         return authenticationService.authenticate(request);
     }
-
-
 }
