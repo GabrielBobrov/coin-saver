@@ -10,6 +10,7 @@ import { CadastroPageComponent } from '../../components/modal-cadastro/cadastro-
 import { LoginPageComponent } from '../../components/login-page/login-page.component';
 import { ModalRedefinirSenhaComponent } from '../../components/login-page/modal-redefinir-senha/modal-redefinir-senha.component';
 import { UsuarioLogadoPageComponent } from '../../components/usuario-logado-page/usuario-logado-page.component';
+import { CommonModule } from '@angular/common';
 
 @NgModule({
   declarations: [
@@ -25,6 +26,7 @@ import { UsuarioLogadoPageComponent } from '../../components/usuario-logado-page
     HttpClientModule,
     AngularMaterialModule,
     AngularPrimeNgModule,
+    CommonModule
   ],
 })
 
