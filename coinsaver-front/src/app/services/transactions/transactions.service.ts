@@ -3,6 +3,7 @@ import { environment } from './../../environments/environments';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { catchError, map, Observable, throwError } from 'rxjs';
+import { TransactionCategoryTypeEnum } from 'src/app/enums/transaction-category-type.enum';
 import { TransactionTypeEnum } from 'src/app/enums/transaction-type.enum';
 
 @Injectable({
@@ -64,6 +65,21 @@ export class TransactionsService {
       environment.api.backendEndpoints.getTransaction
     }/${transactionId
     }?transactionType=${transactionType}`
+    )
+    .pipe(
+      catchError((erroResponse) => {
+        return throwError(erroResponse);
+      })
+    );
+  }
+
+  getTransactionByCategoryType(transactionCategoryType: TransactionCategoryTypeEnum, date: string): Observable<Transaction> {
+    return this.httpClient.get<Transaction>(
+      `${this.baseUrl +
+      this.transactionControllerUrl +
+      environment.api.backendEndpoints.getTransactionByCategoryType
+    }/${transactionCategoryType
+    }?date=${date}`
     )
     .pipe(
       catchError((erroResponse) => {
