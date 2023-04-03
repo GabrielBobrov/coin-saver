@@ -7,6 +7,7 @@ export class DataUtils {
     var day = date.getDate();
 
     month = this.acrescentaZeroEsquerda(month);
+    day = this.acrescentaZeroEsquerda(day);
 
     switch(formato) {
       case 'US':
@@ -16,11 +17,11 @@ export class DataUtils {
     }
   }
 
-  acrescentaZeroEsquerda(month: any) {
-    if (month < 10) {
-      return '0' + month;
+  acrescentaZeroEsquerda(param: any) {
+    if (param < 10) {
+      return '0' + param;
      } else {
-      return month;
+      return param;
      }
   }
 }
