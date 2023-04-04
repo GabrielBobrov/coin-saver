@@ -1,11 +1,18 @@
 <mat-drawer-container class="example-container" autosize>
 
   <mat-drawer #drawer class="example-sidenav" mode="side">
+    <div class="navbar-brand d-sm-flex menu-lateral-position">
+      <a>
+        <img alt="" class="img-fluid logo-pessoal" src="../../../../assets/images/coinsaver_logo-removebg-preview.png">
+      </a>
+    </div>
+
     <div>
       <p (click)="showFillerPerfil = !showFillerPerfil" mat-raised-button style="cursor: pointer;">PERFIL</p>
       <p *ngIf="showFillerPerfil">Entradas</p>
       <p *ngIf="showFillerPerfil">Saídas</p>
     </div>
+
     <div>
       <p (click)="showFillerTransacoes = !showFillerTransacoes" mat-raised-button style="cursor: pointer;">TRANSACOES</p>
       <p *ngIf="showFillerTransacoes">Entradas</p>

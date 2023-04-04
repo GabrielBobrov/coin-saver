@@ -23,6 +23,12 @@
   height: 100%;
   overflow: auto;
   -webkit-overflow-scrolling: touch;
-  padding-top: 100px;
+  padding-top: 120px;
   color: #111111;
+}
+
+.menu-lateral-position {
+  position: absolute;
+  top: -40px;
+  left: 5px;
 }
