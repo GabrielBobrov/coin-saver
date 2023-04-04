@@ -8,15 +8,13 @@
     </div>
 
     <div>
-      <p (click)="showFillerPerfil = !showFillerPerfil" mat-raised-button style="cursor: pointer;">PERFIL</p>
-      <p *ngIf="showFillerPerfil">Entradas</p>
-      <p *ngIf="showFillerPerfil">Saídas</p>
-    </div>
-
-    <div>
-      <p (click)="showFillerTransacoes = !showFillerTransacoes" mat-raised-button style="cursor: pointer;">TRANSACOES</p>
-      <p *ngIf="showFillerTransacoes">Entradas</p>
-      <p *ngIf="showFillerTransacoes">Saídas</p>
+      <p (click)="showFillerTransacoes = !showFillerTransacoes" mat-raised-button style="cursor: pointer; font-weight: bold;">CONTROLE TRANSAÇÕES</p>
+      <p *ngIf="showFillerTransacoes"> icone > Geral</p>
+      <p *ngIf="showFillerTransacoes"> icone > Mensal</p>
+      <!-- <p *ngIf="showFillerTransacoes"> icone > Nova Transação</p>
+      <p *ngIf="showFillerTransacoes"> icone > Editar Transação</p>
+      <p *ngIf="showFillerTransacoes"> icone > Pagar Transação</p>
+      <p *ngIf="showFillerTransacoes"> icone > Receber Transação</p> -->
     </div>
   </mat-drawer>
 

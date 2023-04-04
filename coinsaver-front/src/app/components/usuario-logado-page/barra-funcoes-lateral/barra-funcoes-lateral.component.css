@@ -15,7 +15,7 @@
 
 .example-sidenav {
   background: linear-gradient(to right,#fe801f1a 0%,#fe801f1a);
-  padding: 100px;
+  padding: 80px;
 }
 
 ::ng-deep .mat-drawer-inner-container {
@@ -29,6 +29,6 @@
 
 .menu-lateral-position {
   position: absolute;
-  top: -40px;
+  top: -25px;
   left: 5px;
 }

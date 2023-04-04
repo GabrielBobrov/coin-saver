@@ -7,7 +7,6 @@ import { Component } from '@angular/core';
 })
 export class BarraFuncoesLateralComponent {
 
-  showFillerPerfil = false;
   showFillerTransacoes = false;
 
 }
