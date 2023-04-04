@@ -1,0 +1,22 @@
+<mat-drawer-container class="example-container" autosize>
+
+  <mat-drawer #drawer class="example-sidenav" mode="side">
+    <div>
+      <p (click)="showFillerPerfil = !showFillerPerfil" mat-raised-button style="cursor: pointer;">PERFIL</p>
+      <p *ngIf="showFillerPerfil">Entradas</p>
+      <p *ngIf="showFillerPerfil">Saídas</p>
+    </div>
+    <div>
+      <p (click)="showFillerTransacoes = !showFillerTransacoes" mat-raised-button style="cursor: pointer;">TRANSACOES</p>
+      <p *ngIf="showFillerTransacoes">Entradas</p>
+      <p *ngIf="showFillerTransacoes">Saídas</p>
+    </div>
+  </mat-drawer>
+
+  <div class="example-sidenav-content">
+    <button type="button" mat-button (click)="drawer.toggle()">
+      Menu lateral
+    </button>
+  </div>
+
+</mat-drawer-container>

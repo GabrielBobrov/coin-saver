@@ -1,0 +1,28 @@
+.example-container {
+  background: transparent;
+  width: 500px;
+  height: 800px;
+}
+
+.example-sidenav-content {
+  padding-top: 70px;
+  padding-left: 20px;
+  /* display: flex;
+  height: 100%;
+  align-items: center;
+  justify-content: center; */
+}
+
+.example-sidenav {
+  background: linear-gradient(to right,#fe801f1a 0%,#fe801f1a);
+  padding: 100px;
+}
+
+::ng-deep .mat-drawer-inner-container {
+  width: 120px !important;
+  height: 100%;
+  overflow: auto;
+  -webkit-overflow-scrolling: touch;
+  padding-top: 100px;
+  color: #111111;
+}

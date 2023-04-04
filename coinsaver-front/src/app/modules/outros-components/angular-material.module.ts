@@ -5,6 +5,7 @@ import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatSelectModule } from '@angular/material/select';
 import { MatInputModule } from '@angular/material/input';
 import { MatIconModule } from '@angular/material/icon';
+import { MatSidenavModule } from '@angular/material/sidenav';
 
 const ANGULAR_MATERIAL_MODULES = [
   MatFormFieldModule,
@@ -13,6 +14,7 @@ const ANGULAR_MATERIAL_MODULES = [
   MatSelectModule,
   MatInputModule,
   MatIconModule,
+  MatSidenavModule,
 ]
 
 @NgModule({

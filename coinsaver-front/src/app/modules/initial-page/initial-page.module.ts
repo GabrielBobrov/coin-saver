@@ -11,6 +11,7 @@ import { LoginPageComponent } from '../../components/login-page/login-page.compo
 import { ModalRedefinirSenhaComponent } from '../../components/login-page/modal-redefinir-senha/modal-redefinir-senha.component';
 import { UsuarioLogadoPageComponent } from '../../components/usuario-logado-page/usuario-logado-page.component';
 import { CommonModule } from '@angular/common';
+import { BarraFuncoesLateralComponent } from '../../components/usuario-logado-page/barra-funcoes-lateral/barra-funcoes-lateral.component';
 
 @NgModule({
   declarations: [
@@ -20,6 +21,7 @@ import { CommonModule } from '@angular/common';
     LoginPageComponent,
     ModalRedefinirSenhaComponent,
     UsuarioLogadoPageComponent,
+    BarraFuncoesLateralComponent,
   ],
   imports: [
     InitialPageRoutingModule,
