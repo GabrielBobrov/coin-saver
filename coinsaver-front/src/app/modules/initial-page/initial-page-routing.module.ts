@@ -4,6 +4,8 @@ import { CadastroPageComponent } from './../../components/modal-cadastro/cadastr
 import { InitialPageComponent } from './../../components/initial-page/initial-page.component';
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
+import { GeralComponent } from 'src/app/components/usuario-logado-page/barra-funcoes-lateral/transacoes/geral/geral.component';
+import { MensalComponent } from 'src/app/components/usuario-logado-page/barra-funcoes-lateral/transacoes/mensal/mensal.component';
 
 const routes: Routes = [
   {
@@ -22,6 +24,14 @@ const routes: Routes = [
   {
     path: 'usuario-logado-page',
     component: UsuarioLogadoPageComponent
+  },
+  {
+    path: 'transacoes-gerais-page',
+    component: GeralComponent
+  },
+  {
+    path: 'transacoes-mensais-page',
+    component: MensalComponent
   }
 ];
 
