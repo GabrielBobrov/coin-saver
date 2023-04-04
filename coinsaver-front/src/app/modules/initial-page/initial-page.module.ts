@@ -12,6 +12,8 @@ import { ModalRedefinirSenhaComponent } from '../../components/login-page/modal-
 import { UsuarioLogadoPageComponent } from '../../components/usuario-logado-page/usuario-logado-page.component';
 import { CommonModule } from '@angular/common';
 import { BarraFuncoesLateralComponent } from '../../components/usuario-logado-page/barra-funcoes-lateral/barra-funcoes-lateral.component';
+import { GeralComponent } from '../../components/usuario-logado-page/barra-funcoes-lateral/transacoes/geral/geral.component';
+import { MensalComponent } from '../../components/usuario-logado-page/barra-funcoes-lateral/transacoes/mensal/mensal.component';
 
 @NgModule({
   declarations: [
@@ -22,6 +24,8 @@ import { BarraFuncoesLateralComponent } from '../../components/usuario-logado-pa
     ModalRedefinirSenhaComponent,
     UsuarioLogadoPageComponent,
     BarraFuncoesLateralComponent,
+    GeralComponent,
+    MensalComponent,
   ],
   imports: [
     InitialPageRoutingModule,
