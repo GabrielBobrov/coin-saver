@@ -14,6 +14,7 @@ import { CommonModule } from '@angular/common';
 import { BarraFuncoesLateralComponent } from '../../components/usuario-logado-page/barra-funcoes-lateral/barra-funcoes-lateral.component';
 import { GeralComponent } from '../../components/usuario-logado-page/barra-funcoes-lateral/transacoes/geral/geral.component';
 import { MensalComponent } from '../../components/usuario-logado-page/barra-funcoes-lateral/transacoes/mensal/mensal.component';
+import { TableMensalComponent } from '../../components/usuario-logado-page/barra-funcoes-lateral/transacoes/mensal/table-mensal/table-mensal.component';
 
 @NgModule({
   declarations: [
@@ -26,6 +27,7 @@ import { MensalComponent } from '../../components/usuario-logado-page/barra-func
     BarraFuncoesLateralComponent,
     GeralComponent,
     MensalComponent,
+    TableMensalComponent,
   ],
   imports: [
     InitialPageRoutingModule,
@@ -34,6 +36,7 @@ import { MensalComponent } from '../../components/usuario-logado-page/barra-func
     AngularPrimeNgModule,
     CommonModule
   ],
+  providers: []
 })
 
 export class InitialPageModule {}

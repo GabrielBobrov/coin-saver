@@ -6,6 +6,8 @@ import { MatSelectModule } from '@angular/material/select';
 import { MatInputModule } from '@angular/material/input';
 import { MatIconModule } from '@angular/material/icon';
 import { MatSidenavModule } from '@angular/material/sidenav';
+import { MatTableModule } from '@angular/material/table';
+import { MatNativeDateModule } from '@angular/material/core';
 
 const ANGULAR_MATERIAL_MODULES = [
   MatFormFieldModule,
@@ -15,6 +17,8 @@ const ANGULAR_MATERIAL_MODULES = [
   MatInputModule,
   MatIconModule,
   MatSidenavModule,
+  MatTableModule,
+  MatNativeDateModule
 ]
 
 @NgModule({
