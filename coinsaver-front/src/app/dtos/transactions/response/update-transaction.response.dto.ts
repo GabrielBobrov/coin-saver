@@ -1,12 +1,9 @@
 import { TransactionCategoryTypeEnum } from 'src/app/enums/transaction-category-type.enum';
-import { TransactionTypeEnum } from 'src/app/enums/transaction-type.enum';
 import { StatusTypeEnum } from '../../../enums/status-type.enum';
 
-export class TransactionResponseDto {
+export class UpdateTransactionResponseDto {
   constructor(
-    public transactionId: number,
-    public installmentTransactionId: number,
-    public fixTransactionId: number,
+    public id: number,
 
     public amount: number,
 
@@ -19,7 +16,7 @@ export class TransactionResponseDto {
 
     public fixedExpense: boolean,
 
-    public transactionType: TransactionTypeEnum,
+    public paid: boolean,
 
     public repeat: number,
   ) {}

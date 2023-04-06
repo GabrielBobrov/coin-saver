@@ -7,11 +7,14 @@ export const environment = {
 
     backendEndpoints: {
       getAllTransactions: '',
+
       getTransaction: '',
-      getTransactionsInMonth: '/month',
       getTransactionByCategoryType: '/category',
 
       createTransaction: '',
+
+      getTransactionsInMonth: '/month',
+
       updateTransaction: '',
 
       updateTransactionPatch: '/pay',
