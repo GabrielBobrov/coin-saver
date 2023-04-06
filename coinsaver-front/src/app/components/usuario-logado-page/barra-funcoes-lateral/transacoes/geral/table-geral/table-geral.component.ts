@@ -2,7 +2,6 @@ import { Component, OnInit } from '@angular/core';
 import { MonthlyTransactionResponseDto } from 'src/app/dtos/transactions/response/monthly-transactions.response.dto';
 import { MonthlyResponseDto } from 'src/app/dtos/transactions/response/monthly.response.dto';
 import { TransactionsService } from 'src/app/services/transactions/transactions.service';
-import { DataUtils } from 'src/app/shared/utils/DataUtils.class';
 
 @Component({
   selector: 'app-table-geral',
@@ -14,30 +13,19 @@ export class TableGeralComponent implements OnInit {
   monthlyResponseDto: MonthlyResponseDto | undefined;
   monthlyTransactionsResponseDtoList: MonthlyTransactionResponseDto[] = [];
 
-  date: string = '';
-  dataUtils = new DataUtils();
-
   constructor(
     private transactionsService: TransactionsService,
     ) {}
 
   ngOnInit() {
-      this.getTransactionsInMonth();
+      this.getAllTransactions();
   }
 
-  getTransactionsInMonth() {
-    this.date = this.dataUtils.transformaToLocalDateFormat('US');
-
-    this.transactionsService.getTransactionsInMonth(this.date)
+  getAllTransactions() {
+    this.transactionsService.getAllTransactions()
       .subscribe((res) => {
-        this.monthlyResponseDto = res;
 
-        this.monthlyResponseDto.transactions?.forEach((transaction) => {
-        })
-
-        this.monthlyTransactionsResponseDtoList = this.monthlyResponseDto.transactions;
-
-        console.log('month', this.monthlyResponseDto)
+        console.log('all', res)
       });
   }
 

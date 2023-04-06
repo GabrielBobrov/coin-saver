@@ -4,6 +4,7 @@ import { TransactionsService } from './../../services/transactions/transactions.
 import { Component, OnInit } from '@angular/core';
 import { DataUtils } from 'src/app/shared/utils/DataUtils.class';
 import { TransactionCategoryTypeEnum } from 'src/app/enums/transaction-category-type.enum';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-usuario-logado-page',
@@ -21,31 +22,12 @@ export class UsuarioLogadoPageComponent implements OnInit {
 
   constructor(
     private transactionsService: TransactionsService,
+    public router: Router,
   ) {}
 
   ngOnInit(): void {
-    // this.getAllTransactions();
-    this.getTransactionsInMonth();
     this.getTransaction();
     this.getTransactionByCategoryType();
-  }
-
-  getAllTransactions() {
-    this.transactionsService.getAllTransactions()
-      .subscribe((res) => {
-
-        console.log('all', res)
-      });
-  }
-
-  getTransactionsInMonth() {
-    this.date = this.dataUtils.transformaToLocalDateFormat('US');
-
-    this.transactionsService.getTransactionsInMonth(this.date)
-      .subscribe((res) => {
-
-        console.log('month', res)
-      });
   }
 
   getTransaction() {
