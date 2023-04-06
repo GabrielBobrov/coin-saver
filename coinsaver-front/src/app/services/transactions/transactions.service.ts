@@ -1,4 +1,4 @@
-import { Transaction } from './../../dtos/transactions/transaction.dto';
+import { TransactionResponseDto } from '../../dtos/transactions/response/transaction.response.dto';
 import { environment } from './../../environments/environments';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
@@ -25,15 +25,15 @@ export class TransactionsService {
   baseUrl = environment.api.hostBackend;
   transactionControllerUrl = environment.api.transactionsControllerBackend;
 
-  getAllTransactions(): Observable<Transaction[]> {
-    return this.httpClient.get<Transaction[]>(
+  getAllTransactions(): Observable<TransactionResponseDto[]> {
+    return this.httpClient.get<TransactionResponseDto[]>(
       `${this.baseUrl +
       this.transactionControllerUrl +
       environment.api.backendEndpoints.getAllTransactions
     }`
     )
       .pipe(
-        map((transactions: Transaction[]) => {
+        map((transactions: TransactionResponseDto[]) => {
           transactions.forEach((transaction) => {
 
           })
@@ -59,8 +59,8 @@ export class TransactionsService {
     );
   }
 
-  getTransaction(transactionId: number, transactionType: TransactionTypeEnum): Observable<Transaction> {
-    return this.httpClient.get<Transaction>(
+  getTransaction(transactionId: number, transactionType: TransactionTypeEnum): Observable<TransactionResponseDto> {
+    return this.httpClient.get<TransactionResponseDto>(
       `${this.baseUrl +
       this.transactionControllerUrl +
       environment.api.backendEndpoints.getTransaction
@@ -74,8 +74,8 @@ export class TransactionsService {
     );
   }
 
-  getTransactionByCategoryType(transactionCategoryType: TransactionCategoryTypeEnum, date: string): Observable<Transaction> {
-    return this.httpClient.get<Transaction>(
+  getTransactionByCategoryType(transactionCategoryType: TransactionCategoryTypeEnum, date: string): Observable<TransactionResponseDto> {
+    return this.httpClient.get<TransactionResponseDto>(
       `${this.baseUrl +
       this.transactionControllerUrl +
       environment.api.backendEndpoints.getTransactionByCategoryType

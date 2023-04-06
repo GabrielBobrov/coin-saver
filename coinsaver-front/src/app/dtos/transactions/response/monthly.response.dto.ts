@@ -3,6 +3,7 @@ import { MonthlyTransactionResponseDto } from './monthly-transactions.response.d
 export class MonthlyResponseDto {
   constructor(
     public monthlyBalance: number,
+
     public transactions: MonthlyTransactionResponseDto[],
   ) {}
 }

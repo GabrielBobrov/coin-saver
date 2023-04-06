@@ -1,5 +1,5 @@
 import { TransactionTypeEnum } from './../../enums/transaction-type.enum';
-import { Transaction } from './../../dtos/transactions/transaction.dto';
+import { TransactionResponseDto } from '../../dtos/transactions/response/transaction.response.dto';
 import { TransactionsService } from './../../services/transactions/transactions.service';
 import { Component, OnInit } from '@angular/core';
 import { DataUtils } from 'src/app/shared/utils/DataUtils.class';
@@ -12,7 +12,7 @@ import { TransactionCategoryTypeEnum } from 'src/app/enums/transaction-category-
 })
 export class UsuarioLogadoPageComponent implements OnInit {
 
-  transaction: Transaction | undefined;
+  transaction: TransactionResponseDto | undefined;
   transactionId: number = 0;
   transactionType: TransactionTypeEnum | undefined;
   transactionCategoryType: TransactionCategoryTypeEnum | undefined;
