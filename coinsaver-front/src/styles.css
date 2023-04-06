@@ -603,7 +603,7 @@ html body .default-box-shadow {
 .header {
   padding-top: 10rem;
   background-color: #fafefe;
-  background-image: url(/assets/imgs/backgrounds/curva-homepage-pessoal.svg?_cchid=37e0b936c33d82f784884fec48f4d782);
+  /* background-image: url(/assets/imgs/backgrounds/curva-homepage-pessoal.svg?_cchid=37e0b936c33d82f784884fec48f4d782); */
   background-position: center;
   background-repeat: no-repeat;
   background-size: cover;
