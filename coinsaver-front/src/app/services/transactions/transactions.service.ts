@@ -3,6 +3,7 @@ import { environment } from './../../environments/environments';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { catchError, map, Observable, throwError } from 'rxjs';
+import { MonthlyResponseDto } from 'src/app/dtos/transactions/monthly.response.dto';
 import { TransactionCategoryTypeEnum } from 'src/app/enums/transaction-category-type.enum';
 import { TransactionTypeEnum } from 'src/app/enums/transaction-type.enum';
 
@@ -44,8 +45,8 @@ export class TransactionsService {
       );
   }
 
-  getTransactionsInMonth(date: string): Observable<Transaction[]> {
-    return this.httpClient.get<Transaction[]>(
+  getTransactionsInMonth(date: string): Observable<MonthlyResponseDto> {
+    return this.httpClient.get<MonthlyResponseDto>(
       `${this.baseUrl +
       this.transactionControllerUrl +
       environment.api.backendEndpoints.getTransactionsInMonth

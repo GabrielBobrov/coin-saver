@@ -1,11 +1,11 @@
 export class Client {
   constructor(
-    public id?: number | any,
-    public name?: string | any,
-    public email?: string | any,
+    public id: number,
+    public name: string,
+    public email: string,
 
-    public createdAt?: string | any,
+    public createdAt: string,
 
-    public balance?: number | any,
+    public balance: number,
   ) {}
 }
