@@ -1,3 +1,10 @@
 .navbar {
   background: linear-gradient(to right,#fe801f1a 0%,#f0fcfb 200%);
 }
+
+.logo-fundo-paginas {
+  opacity: 0.1;
+  margin-top: -940px;
+  margin-left: 650px;
+  position: static;
+}

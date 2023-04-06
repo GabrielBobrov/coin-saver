@@ -11,6 +11,7 @@
       <p (click)="showFillerTransacoes = !showFillerTransacoes" mat-raised-button style="cursor: pointer; font-weight: bold;">CONTROLE TRANSAÇÕES</p>
       <p *ngIf="showFillerTransacoes" (click)="abrirTransacoesGeral()" style="cursor: pointer;"> icone > Geral</p>
       <p *ngIf="showFillerTransacoes" (click)="abrirTransacoesMensal()" style="cursor: pointer;"> icone > Mensal</p>
+      <p (click)="retornaPaginaInicialUsuarioLogado()" mat-raised-button style="cursor: pointer; font-weight: bold;">PÁGINA INICIAL USUÁRIO</p>
       <!-- <p *ngIf="showFillerTransacoes"> icone > Nova Transação</p>
       <p *ngIf="showFillerTransacoes"> icone > Editar Transação</p>
       <p *ngIf="showFillerTransacoes"> icone > Pagar Transação</p>

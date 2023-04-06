@@ -30,4 +30,12 @@ export class BarraFuncoesLateralComponent {
     });
   }
 
+  retornaPaginaInicialUsuarioLogado() {
+    this.router.navigateByUrl('usuario-logado-page', {
+      state: {
+        data: {},
+      },
+    });
+  }
+
 }
