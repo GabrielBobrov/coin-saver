@@ -15,6 +15,7 @@ import { BarraFuncoesLateralComponent } from '../../components/usuario-logado-pa
 import { GeralComponent } from '../../components/usuario-logado-page/barra-funcoes-lateral/transacoes/geral/geral.component';
 import { MensalComponent } from '../../components/usuario-logado-page/barra-funcoes-lateral/transacoes/mensal/mensal.component';
 import { TableMensalComponent } from '../../components/usuario-logado-page/barra-funcoes-lateral/transacoes/mensal/table-mensal/table-mensal.component';
+import { TableGeralComponent } from '../../components/usuario-logado-page/barra-funcoes-lateral/transacoes/geral/table-geral/table-geral.component';
 
 @NgModule({
   declarations: [
@@ -28,6 +29,7 @@ import { TableMensalComponent } from '../../components/usuario-logado-page/barra
     GeralComponent,
     MensalComponent,
     TableMensalComponent,
+    TableGeralComponent,
   ],
   imports: [
     InitialPageRoutingModule,
