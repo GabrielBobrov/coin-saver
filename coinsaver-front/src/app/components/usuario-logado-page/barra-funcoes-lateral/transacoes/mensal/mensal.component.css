@@ -4,3 +4,8 @@
   margin-left: 650px;
   position: static;
 }
+
+.table-transacoes-mensais {
+  margin-top: -650px;
+  margin-left: 350px;
+}
