@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import { MonthlyTransactionResponseDto } from 'src/app/dtos/transactions/monthly-transactions.response.dto';
-import { MonthlyResponseDto } from 'src/app/dtos/transactions/monthly.response.dto';
+import { MonthlyTransactionResponseDto } from 'src/app/dtos/transactions/response/monthly-transactions.response.dto';
+import { MonthlyResponseDto } from 'src/app/dtos/transactions/response/monthly.response.dto';
 import { TransactionsService } from 'src/app/services/transactions/transactions.service';
 import { DataUtils } from 'src/app/shared/utils/DataUtils.class';
 

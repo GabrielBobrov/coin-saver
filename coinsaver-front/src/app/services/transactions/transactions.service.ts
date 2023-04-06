@@ -3,7 +3,7 @@ import { environment } from './../../environments/environments';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { catchError, map, Observable, throwError } from 'rxjs';
-import { MonthlyResponseDto } from 'src/app/dtos/transactions/monthly.response.dto';
+import { MonthlyResponseDto } from 'src/app/dtos/transactions/response/monthly.response.dto';
 import { TransactionCategoryTypeEnum } from 'src/app/enums/transaction-category-type.enum';
 import { TransactionTypeEnum } from 'src/app/enums/transaction-type.enum';
 

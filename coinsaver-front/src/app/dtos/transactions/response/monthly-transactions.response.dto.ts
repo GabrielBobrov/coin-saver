@@ -1,6 +1,6 @@
 import { TransactionCategoryTypeEnum } from 'src/app/enums/transaction-category-type.enum';
 import { TransactionTypeEnum } from 'src/app/enums/transaction-type.enum';
-import { StatusTypeEnum } from '../../enums/status-type.enum';
+import { StatusTypeEnum } from '../../../enums/status-type.enum';
 
 export class MonthlyTransactionResponseDto {
   constructor(
