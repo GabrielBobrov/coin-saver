@@ -2,9 +2,7 @@ package com.coinsaver.infra.repositories;
 
 import com.coinsaver.core.enums.StatusType;
 import com.coinsaver.core.enums.TransactionCategoryType;
-import com.coinsaver.domain.entities.Client;
 import com.coinsaver.domain.entities.FixTransaction;
-import com.coinsaver.domain.entities.InstallmentTransaction;
 import com.coinsaver.domain.entities.Transaction;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Modifying;
