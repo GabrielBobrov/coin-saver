@@ -95,6 +95,7 @@ public class TransactionsController implements TransactionsControllerOpenApi {
 
         transactionService.receiveTransaction(receiveTransactionRequestDto);
     }
+
     @GetMapping("/chart/category")
     @ResponseStatus(HttpStatus.OK)
     public List<MonthlyChartDto> getTransactionsAmountByCategory(@RequestParam LocalDate date) {
