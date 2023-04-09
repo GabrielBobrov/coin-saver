@@ -15,6 +15,6 @@ import org.springframework.validation.annotation.Validated;
 public class EmailProperties {
 
     @NotNull
-    private String remetente;
+    private String sender;
 
 }
