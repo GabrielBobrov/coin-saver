@@ -11,6 +11,7 @@ public class ErrorMessages {
     static {
         messages.put("USER_ALREADY_EXISTS", "Já existe um usuário cadastrado com o email informado.");
         messages.put("USER_NOT_FOUND", "Não existe nenhum usuário com o id informado.");
+        messages.put("USER_NOT_FOUND_BY_EMAIL", "Não existe nenhum usuário com o email informado.");
         messages.put("TRANSACTION_NOT_FOUND", "Transação não encontrada.");
         messages.put("INSTALLMENT_TRANSACTION_TYPE_NULL", "Informe um installmentTransactionType.");
         messages.put("TRANSACTION_WITH_REPEAT", "Não é possível alterar uma transação que possui parcelamentos, altere os parcelamentos.");

@@ -1,6 +1,7 @@
 package com.coinsaver.api.exceptionhandler;
 
 import com.coinsaver.domain.exceptions.BusinessException;
+import com.coinsaver.domain.exceptions.EmailException;
 import com.fasterxml.jackson.databind.JsonMappingException.Reference;
 import com.fasterxml.jackson.databind.exc.InvalidFormatException;
 import com.fasterxml.jackson.databind.exc.PropertyBindingException;
@@ -47,7 +48,7 @@ public class ApiExceptionHandler extends ResponseEntityExceptionHandler {
         this.messageSource = messageSource;
     }
 
-    @ExceptionHandler(BusinessException.class)
+    @ExceptionHandler({BusinessException.class, EmailException.class})
     public ResponseEntity<Object> handleBusiness(BusinessException ex, WebRequest request) {
 
         HttpStatus status = HttpStatus.BAD_REQUEST;

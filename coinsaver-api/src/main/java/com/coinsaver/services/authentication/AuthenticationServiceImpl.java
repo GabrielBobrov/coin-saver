@@ -6,31 +6,39 @@ import com.coinsaver.api.dtos.request.RegisterRequestDto;
 import com.coinsaver.api.dtos.response.AuthenticationResponseDto;
 import com.coinsaver.core.enums.Role;
 import com.coinsaver.core.enums.TokenType;
+import com.coinsaver.core.validation.messages.EmailMessages;
 import com.coinsaver.core.validation.messages.ErrorMessages;
 import com.coinsaver.domain.entities.Client;
+import com.coinsaver.domain.entities.EmailMessage;
 import com.coinsaver.domain.entities.Token;
 import com.coinsaver.domain.exceptions.BusinessException;
 import com.coinsaver.infra.repositories.ClientRepository;
 import com.coinsaver.infra.repositories.TokenRepository;
 import com.coinsaver.services.authentication.interfaces.AuthenticationService;
 import com.coinsaver.services.authentication.interfaces.JwtService;
+import com.coinsaver.services.email.EmailService;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
+import org.jasypt.encryption.pbe.StandardPBEStringEncryptor;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
-import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
+import java.util.HashSet;
+import java.util.Set;
+
+@Slf4j
 @Service
 @RequiredArgsConstructor
 public class AuthenticationServiceImpl implements AuthenticationService {
     private final ClientRepository clientRepository;
     private final TokenRepository tokenRepository;
-    private final PasswordEncoder passwordEncoder;
+    private final StandardPBEStringEncryptor encryptor;
     private final JwtService jwtService;
     private final AuthenticationManager authenticationManager;
+    private final EmailService emailService;
 
     public AuthenticationResponseDto register(RegisterRequestDto request) {
-
         var client = clientRepository.findByEmail(request.getEmail());
 
         if (client.isPresent())
@@ -39,7 +47,7 @@ public class AuthenticationServiceImpl implements AuthenticationService {
         var user = Client.builder()
                 .name(request.getName())
                 .email(request.getEmail())
-                .password(passwordEncoder.encode(request.getPassword()))
+                .password(encryptor.encrypt(request.getPassword()))
                 .role(Role.USER)
                 .build();
 
@@ -69,6 +77,23 @@ public class AuthenticationServiceImpl implements AuthenticationService {
         return AuthenticationResponseDto.builder()
                 .token(jwtToken)
                 .build();
+    }
+
+    @Override
+    public void recoverPassword(String email) {
+        Client client = clientRepository.findByEmail(email)
+                .orElseThrow(() -> new BusinessException(ErrorMessages.getErrorMessage("USER_NOT_FOUND_BY_EMAIL")));
+
+        Set<String> set = new HashSet<>();
+        set.add(client.getEmail());
+
+        EmailMessage emailMessage = EmailMessage.builder()
+                .subject("Recuperação de senha")
+                .body(EmailMessages.getRecoverPasswordMessage(client.getName(), encryptor.decrypt(client.getPassword())))
+                .recipients(set)
+                .build();
+
+        emailService.sendEmail(emailMessage);
     }
 
     private void saveUserToken(Client user, String jwtToken) {

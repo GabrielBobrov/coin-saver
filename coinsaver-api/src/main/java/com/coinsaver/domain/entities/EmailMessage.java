@@ -9,8 +9,8 @@ import java.util.Set;
 @Builder
 public class EmailMessage {
 
-    private Set<String> destinatarios;
-    private String assunto;
-    private String corpo;
+    private Set<String> recipients;
+    private String subject;
+    private String body;
 
 }

@@ -6,5 +6,8 @@ import com.coinsaver.api.dtos.response.AuthenticationResponseDto;
 
 public interface AuthenticationService {
     AuthenticationResponseDto register(RegisterRequestDto request);
+
     AuthenticationResponseDto authenticate(AuthenticationRequest request);
+
+    void recoverPassword(String email);
 }

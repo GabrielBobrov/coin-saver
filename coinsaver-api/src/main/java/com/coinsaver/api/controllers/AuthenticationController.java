@@ -11,6 +11,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -33,5 +34,12 @@ public class AuthenticationController implements AuthenticationControllerOpenApi
     public AuthenticationResponseDto authenticate(@RequestBody @Valid AuthenticationRequest request) {
 
         return authenticationService.authenticate(request);
+    }
+
+    @PostMapping("/recover-password")
+    @ResponseStatus(HttpStatus.CREATED)
+    public void recoverPassword(@RequestParam String email) {
+
+        authenticationService.recoverPassword(email);
     }
 }

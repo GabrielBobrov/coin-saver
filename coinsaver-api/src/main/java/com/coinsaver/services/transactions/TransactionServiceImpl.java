@@ -24,6 +24,7 @@ import com.coinsaver.core.enums.UpdateTransactionType;
 import com.coinsaver.core.utils.SecurityUtil;
 import com.coinsaver.core.validation.messages.ErrorMessages;
 import com.coinsaver.domain.entities.Client;
+import com.coinsaver.domain.entities.EmailMessage;
 import com.coinsaver.domain.entities.FixTransaction;
 import com.coinsaver.domain.entities.InstallmentTransaction;
 import com.coinsaver.domain.entities.Transaction;
@@ -43,20 +44,24 @@ import com.coinsaver.infra.repositories.DivisionRepository;
 import com.coinsaver.infra.repositories.FixTransactionRepository;
 import com.coinsaver.infra.repositories.InstallmentTransactionRepository;
 import com.coinsaver.infra.repositories.TransactionRepository;
+import com.coinsaver.services.email.EmailService;
 import com.coinsaver.services.transactions.domain.interfaces.FixTransactionDomainService;
 import com.coinsaver.services.transactions.domain.interfaces.InstallmentTransactionDomainService;
 import com.coinsaver.services.transactions.domain.interfaces.TransactionDomainService;
 import com.coinsaver.services.transactions.interfaces.TransactionService;
 import jakarta.transaction.Transactional;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Objects;
 import java.util.Map;
+import java.util.Set;
 
 @Service
 public class TransactionServiceImpl implements TransactionService {
@@ -81,6 +86,11 @@ public class TransactionServiceImpl implements TransactionService {
 
     private final TransactionMapper transactionMapper;
 
+    private final EmailService emailService;
+
+    private final PasswordEncoder passwordEncoder;
+
+
     private final DivisionRepository divisionRepository;
 
     private final DivisionMapper divisionMapper;
@@ -94,6 +104,8 @@ public class TransactionServiceImpl implements TransactionService {
                                   InstallmentTransactionMapper installmentTransactionMapper,
                                   FixTransactionMapper fixTransactionMapper,
                                   TransactionMapper transactionMapper,
+                                  EmailService emailService,
+                                  PasswordEncoder passwordEncoder,
                                   DivisionRepository divisionRepository,
                                   DivisionMapper divisionMapper) {
         this.transactionRepository = transactionRepository;
@@ -105,6 +117,8 @@ public class TransactionServiceImpl implements TransactionService {
         this.installmentTransactionMapper = installmentTransactionMapper;
         this.fixTransactionMapper = fixTransactionMapper;
         this.transactionMapper = transactionMapper;
+        this.emailService = emailService;
+        this.passwordEncoder = passwordEncoder;
         this.divisionRepository = divisionRepository;
         this.divisionMapper = divisionMapper;
     }
