@@ -25,6 +25,7 @@ import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.stereotype.Service;
 
+import java.util.Collections;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -84,13 +85,10 @@ public class AuthenticationServiceImpl implements AuthenticationService {
     public void recoverPassword() {
         Client client = SecurityUtil.getClientFromJwt();
 
-        Set<String> set = new HashSet<>();
-        set.add(client.getEmail());
-
         EmailMessage emailMessage = EmailMessage.builder()
                 .subject("Recuperação de senha")
                 .body(EmailMessages.getRecoverPasswordMessage(client.getName(), encryptor.decrypt(client.getPassword())))
-                .recipients(set)
+                .recipients(Collections.singleton(client.getEmail()))
                 .build();
 
         emailService.sendEmail(emailMessage);

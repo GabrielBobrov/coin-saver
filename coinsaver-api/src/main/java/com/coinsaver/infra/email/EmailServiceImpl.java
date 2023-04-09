@@ -27,14 +27,14 @@ public class EmailServiceImpl implements EmailService {
     public void sendEmail(EmailMessage emailMessage) {
 
         try {
-            MimeMessage mimeMessage = criarMimeMessage(emailMessage);
+            MimeMessage mimeMessage = createMimeMessage(emailMessage);
             mailSender.send(mimeMessage);
         } catch (Exception e) {
             throw new EmailException("Não foi possível enviar e-mail");
         }
     }
 
-    protected MimeMessage criarMimeMessage(EmailMessage emailMessage) throws MessagingException {
+    protected MimeMessage createMimeMessage(EmailMessage emailMessage) throws MessagingException {
 
         MimeMessage mimeMessage = mailSender.createMimeMessage();
 
