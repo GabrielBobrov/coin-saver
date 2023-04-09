@@ -9,5 +9,5 @@ public interface AuthenticationService {
 
     AuthenticationResponseDto authenticate(AuthenticationRequest request);
 
-    void recoverPassword(String email);
+    void recoverPassword();
 }

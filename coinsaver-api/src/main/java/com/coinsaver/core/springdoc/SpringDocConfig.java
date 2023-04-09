@@ -28,7 +28,8 @@ public class SpringDocConfig {
                 ).tags(Arrays.asList(
                         new Tag().name("Transactions").description("Gerencia de transações"),
                         new Tag().name("Authentication").description("Gerencia de autenticações"),
-                        new Tag().name("Divisions").description("Gerencia de divisões"))
+                        new Tag().name("Divisions").description("Gerencia de divisões"),
+                        new Tag().name("Clients").description("Gerencia de clientes"))
                 ).components(new Components());
     }
 }

@@ -35,11 +35,4 @@ public class AuthenticationController implements AuthenticationControllerOpenApi
 
         return authenticationService.authenticate(request);
     }
-
-    @PostMapping("/recover-password")
-    @ResponseStatus(HttpStatus.CREATED)
-    public void recoverPassword(@RequestParam String email) {
-
-        authenticationService.recoverPassword(email);
-    }
 }

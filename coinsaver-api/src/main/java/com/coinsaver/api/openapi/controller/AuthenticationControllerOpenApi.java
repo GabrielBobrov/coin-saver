@@ -28,11 +28,4 @@ public interface AuthenticationControllerOpenApi {
                     @ApiResponse(responseCode = "400", description = "Dados inválidos", content = @Content(schema = @Schema(implementation = Problem.class)))
             })
     AuthenticationResponseDto authenticate(@RequestBody AuthenticationRequest request);
-
-    @Operation(summary = "Envia email para o cliente com a senha atual",
-            responses = {
-                    @ApiResponse(responseCode = "201"),
-                    @ApiResponse(responseCode = "400", description = "Dados inválidos", content = @Content(schema = @Schema(implementation = Problem.class)))
-            })
-    void recoverPassword(@RequestParam String email);
 }

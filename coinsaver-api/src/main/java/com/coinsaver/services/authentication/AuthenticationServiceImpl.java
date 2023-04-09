@@ -6,6 +6,7 @@ import com.coinsaver.api.dtos.request.RegisterRequestDto;
 import com.coinsaver.api.dtos.response.AuthenticationResponseDto;
 import com.coinsaver.core.enums.Role;
 import com.coinsaver.core.enums.TokenType;
+import com.coinsaver.core.utils.SecurityUtil;
 import com.coinsaver.core.validation.messages.EmailMessages;
 import com.coinsaver.core.validation.messages.ErrorMessages;
 import com.coinsaver.domain.entities.Client;
@@ -80,9 +81,8 @@ public class AuthenticationServiceImpl implements AuthenticationService {
     }
 
     @Override
-    public void recoverPassword(String email) {
-        Client client = clientRepository.findByEmail(email)
-                .orElseThrow(() -> new BusinessException(ErrorMessages.getErrorMessage("USER_NOT_FOUND_BY_EMAIL")));
+    public void recoverPassword() {
+        Client client = SecurityUtil.getClientFromJwt();
 
         Set<String> set = new HashSet<>();
         set.add(client.getEmail());
