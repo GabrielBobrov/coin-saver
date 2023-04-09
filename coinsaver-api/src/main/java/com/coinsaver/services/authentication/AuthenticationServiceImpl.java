@@ -1,7 +1,7 @@
 package com.coinsaver.services.authentication;
 
 
-import com.coinsaver.api.dtos.request.AuthenticationRequest;
+import com.coinsaver.api.dtos.request.AuthenticationRequestDto;
 import com.coinsaver.api.dtos.request.RegisterRequestDto;
 import com.coinsaver.api.dtos.response.AuthenticationResponseDto;
 import com.coinsaver.core.enums.Role;
@@ -62,7 +62,7 @@ public class AuthenticationServiceImpl implements AuthenticationService {
                 .build();
     }
 
-    public AuthenticationResponseDto authenticate(AuthenticationRequest request) {
+    public AuthenticationResponseDto authenticate(AuthenticationRequestDto request) {
 
         authenticationManager
                 .authenticate(new UsernamePasswordAuthenticationToken(request.getEmail(), request.getPassword()));
