@@ -11,6 +11,8 @@ import { SliderModule } from 'primeng/slider';
 import { MultiSelectModule } from 'primeng/multiselect';
 import { AutoCompleteModule } from 'primeng/autocomplete';
 import { InputTextModule } from 'primeng/inputtext';
+import { TimelineModule } from 'primeng/timeline';
+import { CardModule } from 'primeng/card';
 import { ButtonModule } from 'primeng/button';
 
 
@@ -28,6 +30,8 @@ const ANGULAR_PRIMENG_MODULES = [
   AutoCompleteModule,
   InputTextModule,
   ButtonModule,
+  TimelineModule,
+  CardModule
 ]
 
 @NgModule({
