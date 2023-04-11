@@ -1,5 +1,7 @@
 import { Component } from '@angular/core';
 import { Router } from '@angular/router';
+import { DialogService } from 'primeng/dynamicdialog';
+import { ModalCadastroNovaTransacaoComponent } from './transacoes/modal-cadastro-nova-transacao/modal-cadastro-nova-transacao.component';
 
 @Component({
   selector: 'app-barra-funcoes-lateral',
@@ -9,9 +11,11 @@ import { Router } from '@angular/router';
 export class BarraFuncoesLateralComponent {
 
   showFillerTransacoes = false;
+  showFillerNovaTransacao = false;
 
   constructor(
     public router: Router,
+    private dialogService: DialogService,
   ) {}
 
   abrirTransacoesGeral() {
@@ -28,6 +32,14 @@ export class BarraFuncoesLateralComponent {
         data: {},
       },
     });
+  }
+
+  abrirModalCadastroNovaTransacao() {
+    this.dialogService.open(ModalCadastroNovaTransacaoComponent, {
+      data: {},
+      showHeader: false
+    });
+
   }
 
   retornaPaginaInicialUsuarioLogado() {
