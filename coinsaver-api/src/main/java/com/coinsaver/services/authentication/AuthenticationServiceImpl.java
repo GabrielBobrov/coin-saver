@@ -2,6 +2,7 @@ package com.coinsaver.services.authentication;
 
 
 import com.coinsaver.api.dtos.request.AuthenticationRequestDto;
+import com.coinsaver.api.dtos.request.ChangePasswordRequestDto;
 import com.coinsaver.api.dtos.request.RegisterRequestDto;
 import com.coinsaver.api.dtos.response.AuthenticationResponseDto;
 import com.coinsaver.core.enums.Role;
@@ -23,6 +24,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.jasypt.encryption.pbe.StandardPBEStringEncryptor;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.util.Collections;
@@ -39,6 +41,8 @@ public class AuthenticationServiceImpl implements AuthenticationService {
     private final JwtService jwtService;
     private final AuthenticationManager authenticationManager;
     private final EmailService emailService;
+    private final PasswordEncoder passwordEncoder;
+
 
     public AuthenticationResponseDto register(RegisterRequestDto request) {
         var client = clientRepository.findByEmail(request.getEmail());
@@ -49,7 +53,8 @@ public class AuthenticationServiceImpl implements AuthenticationService {
         var user = Client.builder()
                 .name(request.getName())
                 .email(request.getEmail())
-                .password(encryptor.encrypt(request.getPassword()))
+                .password(passwordEncoder.encode(request.getPassword()))
+                .passwordVerification(encryptor.encrypt(request.getPassword()))
                 .role(Role.USER)
                 .build();
 
@@ -87,11 +92,36 @@ public class AuthenticationServiceImpl implements AuthenticationService {
 
         EmailMessage emailMessage = EmailMessage.builder()
                 .subject("Recuperação de senha")
-                .body(EmailMessages.getRecoverPasswordMessage(client.getName(), encryptor.decrypt(client.getPassword())))
+                .body(EmailMessages.getRecoverPasswordMessage(client.getName(), encryptor.decrypt(client.getPasswordVerification())))
                 .recipients(Collections.singleton(client.getEmail()))
                 .build();
 
         emailService.sendEmail(emailMessage);
+    }
+
+    @Override
+    public void changePassword(ChangePasswordRequestDto changePasswordRequestDto) {
+        Client client = SecurityUtil.getClientFromJwt();
+
+        validate(changePasswordRequestDto, client);
+        client.setPassword(passwordEncoder.encode(changePasswordRequestDto.getNewPassword()));
+        client.setPasswordVerification(encryptor.encrypt(changePasswordRequestDto.getNewPassword()));
+
+        clientRepository.save(client);
+    }
+
+    private void validate(ChangePasswordRequestDto changePasswordRequestDto, Client client) {
+        String actualPassword =  encryptor.decrypt(client.getPasswordVerification());
+
+        if (!actualPassword.equals(changePasswordRequestDto.getOldPassword()))
+            throw new BusinessException("Senha atual incorreta");
+
+        String newPassword = changePasswordRequestDto.getNewPassword();
+        String newPasswordVerify = changePasswordRequestDto.getNewPasswordVerify();
+
+        if (!newPassword.equals(newPasswordVerify))
+            throw new BusinessException("As senhas novas devem ser iguais");
+
     }
 
     private void saveUserToken(Client user, String jwtToken) {
