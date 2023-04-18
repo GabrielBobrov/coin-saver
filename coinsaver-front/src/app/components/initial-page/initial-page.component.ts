@@ -1,6 +1,6 @@
-import { ModalCadastroUsuarioComponent } from '../modal-cadastro/modal-cadastro-usuario.component';
+import { ModalCadastroUsuarioComponent } from '../modal-cadastro-usuario/modal-cadastro-usuario.component';
 import { Component } from '@angular/core';
-import { DialogService, DynamicDialogRef } from 'primeng/dynamicdialog';
+import { DialogService } from 'primeng/dynamicdialog';
 import { Router } from '@angular/router';
 
 @Component({
