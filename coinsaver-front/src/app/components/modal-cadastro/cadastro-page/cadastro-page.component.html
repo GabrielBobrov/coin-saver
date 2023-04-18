@@ -6,7 +6,7 @@
       <div class="ng-scope">
         <h2 class="container-title">Realize seu cadastro</h2>
 
-        <div class="formulario-login">
+        <div class="formulario-cadastro-usuario">
 
           <div>
             <mat-form-field class="mat-form-field" appearance="fill">
@@ -18,10 +18,10 @@
           <div>
             <mat-form-field class="mat-form-field" appearance="fill">
               <mat-label>Gênero</mat-label>
-              <mat-select>
-                <mat-option value="one">Masculino</mat-option>
-                <mat-option value="two">Feminino</mat-option>
-                <mat-option value="three">Outro</mat-option>
+              <mat-select [formControl]="generoControl">
+                <mat-option value="masculino">Masculino</mat-option>
+                <mat-option value="feminino">Feminino</mat-option>
+                <mat-option value="outro">Outro</mat-option>
               </mat-select>
             </mat-form-field>
           </div>

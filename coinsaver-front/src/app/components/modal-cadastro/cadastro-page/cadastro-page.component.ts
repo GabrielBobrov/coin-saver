@@ -16,6 +16,8 @@ export class MyErrorStateMatcher implements ErrorStateMatcher {
 })
 export class CadastroPageComponent {
 
+  generoControl = new FormControl();
+
   emailFormControl = new FormControl('', [Validators.required, Validators.email]);
   matcher = new MyErrorStateMatcher();
 
