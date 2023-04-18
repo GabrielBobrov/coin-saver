@@ -50,4 +50,12 @@ export class BarraFuncoesLateralComponent {
     });
   }
 
+  sairLoginUsuario() {
+    this.router.navigateByUrl('', {
+      state: {
+        data: {},
+      },
+    });
+  }
+
 }
