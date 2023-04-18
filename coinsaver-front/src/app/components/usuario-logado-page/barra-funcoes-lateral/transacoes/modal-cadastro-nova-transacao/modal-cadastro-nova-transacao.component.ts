@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { FormControl } from '@angular/forms';
 
 @Component({
   selector: 'app-modal-cadastro-nova-transacao',
@@ -6,5 +7,9 @@ import { Component } from '@angular/core';
   styleUrls: ['./modal-cadastro-nova-transacao.component.css']
 })
 export class ModalCadastroNovaTransacaoComponent {
+
+  transactionCategoryTypeControl = new FormControl();
+  categoryTypeControl = new FormControl();
+  transactionTypeControl = new FormControl();
 
 }

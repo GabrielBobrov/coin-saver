@@ -1,1 +1,59 @@
-<p>modal-cadastro-nova-transacao works!</p>
+<body class="ng-scope">
+  <div id="container">
+    <div>
+      <!-- <a class="logomd"><img src="../../../../assets/images/coinsaver_logo-removebg-preview.png"></a> -->
+      <h2 class="container-title">Cadastrar Nova Transação</h2>
+
+      <div class="formulario-nova-transacao">
+
+        <div>
+          <mat-form-field class="mat-form-field" appearance="fill">
+            <mat-label>Valor</mat-label>
+            <input matInput type="number" class="example-right-align" placeholder="R$ 0,00">
+            <span matTextPrefix>R$</span>
+            <span matTextSuffix>,00</span>
+          </mat-form-field>
+        </div>
+
+        <div>
+          <mat-form-field class="mat-form-field" appearance="fill">
+            <mat-label>Categoria Tipo Transação</mat-label>
+            <mat-select [formControl]="transactionCategoryTypeControl">
+              <mat-option value="recebido">Recebido</mat-option>
+              <mat-option value="gasto">Gasto</mat-option>
+            </mat-select>
+          </mat-form-field>
+        </div>
+
+        <div>
+          <mat-form-field class="mat-form-field" appearance="fill">
+            <mat-label>Tipo Categoria</mat-label>
+            <mat-select [formControl]="categoryTypeControl">
+              <mat-option value="academia">Academia</mat-option>
+              <mat-option value="restaurante">Restaurante</mat-option>
+            </mat-select>
+          </mat-form-field>
+        </div>
+
+        <div>
+          <mat-form-field class="mat-form-field" appearance="fill">
+            <mat-label>Tipo Transação</mat-label>
+            <mat-select [formControl]="transactionTypeControl">
+              <mat-option value="prazo">A prazo</mat-option>
+              <mat-option value="dinheiro">Dinheiro</mat-option>
+            </mat-select>
+          </mat-form-field>
+        </div>
+
+        <div class="input-container ng-scope" style="margin-top: 20px">
+          <button type="submit" class="btn ng-binding">Cadastrar</button>
+        </div>
+
+      </div>
+
+      <div id="acoes" class="ng-scope">
+        <a href="/usuario-logado-page">Sair</a>
+      </div>
+
+    </div>
+  </div>
