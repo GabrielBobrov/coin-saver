@@ -3,11 +3,11 @@ import { Router } from '@angular/router';
 import { DynamicDialogRef } from 'primeng/dynamicdialog';
 
 @Component({
-  selector: 'app-modal-cadastro',
-  templateUrl: './modal-cadastro.component.html',
-  styleUrls: ['./modal-cadastro.component.css']
+  selector: 'app-modal-cadastro-usuario',
+  templateUrl: './modal-cadastro-usuario.component.html',
+  styleUrls: ['./modal-cadastro-usuario.component.css']
 })
-export class ModalCadastroComponent {
+export class ModalCadastroUsuarioComponent {
 
   constructor(
     public router: Router,
@@ -15,7 +15,7 @@ export class ModalCadastroComponent {
   ) {}
 
   abrirCadastroPage() {
-    this.router.navigateByUrl('cadastro-page', {
+    this.router.navigateByUrl('cadastro-usuario-page', {
       state: {
         data: {},
       },

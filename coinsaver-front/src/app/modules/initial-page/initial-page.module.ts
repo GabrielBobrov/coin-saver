@@ -5,8 +5,8 @@ import { InitialPageRoutingModule } from './initial-page-routing.module';
 import { InitialPageComponent } from './../../components/initial-page/initial-page.component';
 import { NgModule } from '@angular/core';
 import { platformBrowserDynamic } from '@angular/platform-browser-dynamic';
-import { ModalCadastroComponent } from '../../components/modal-cadastro/modal-cadastro.component';
-import { CadastroPageComponent } from '../../components/modal-cadastro/cadastro-page/cadastro-page.component';
+import { ModalCadastroUsuarioComponent } from '../../components/modal-cadastro/modal-cadastro-usuario.component';
+import { CadastroUsuarioPageComponent } from '../../components/modal-cadastro/cadastro-usuario-page/cadastro-usuario-page.component';
 import { LoginPageComponent } from '../../components/login-page/login-page.component';
 import { ModalRedefinirSenhaComponent } from '../../components/login-page/modal-redefinir-senha/modal-redefinir-senha.component';
 import { UsuarioLogadoPageComponent } from '../../components/usuario-logado-page/usuario-logado-page.component';
@@ -21,8 +21,8 @@ import { ModalCadastroNovaTransacaoComponent } from '../../components/usuario-lo
 @NgModule({
   declarations: [
     InitialPageComponent,
-    ModalCadastroComponent,
-    CadastroPageComponent,
+    ModalCadastroUsuarioComponent,
+    CadastroUsuarioPageComponent,
     LoginPageComponent,
     ModalRedefinirSenhaComponent,
     UsuarioLogadoPageComponent,

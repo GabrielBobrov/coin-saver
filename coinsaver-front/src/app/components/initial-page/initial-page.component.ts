@@ -1,4 +1,4 @@
-import { ModalCadastroComponent } from '../modal-cadastro/modal-cadastro.component';
+import { ModalCadastroUsuarioComponent } from '../modal-cadastro/modal-cadastro-usuario.component';
 import { Component } from '@angular/core';
 import { DialogService, DynamicDialogRef } from 'primeng/dynamicdialog';
 import { Router } from '@angular/router';
@@ -16,7 +16,7 @@ export class InitialPageComponent {
   ) {}
 
   showModalCadastro() {
-    this.dialogService.open(ModalCadastroComponent, {
+    this.dialogService.open(ModalCadastroUsuarioComponent, {
       data: {},
       showHeader: false
     });

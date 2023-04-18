@@ -10,11 +10,11 @@ export class MyErrorStateMatcher implements ErrorStateMatcher {
 }
 
 @Component({
-  selector: 'app-cadastro-page',
-  templateUrl: './cadastro-page.component.html',
-  styleUrls: ['./cadastro-page.component.css']
+  selector: 'app-cadastro-usuario-page',
+  templateUrl: './cadastro-usuario-page.component.html',
+  styleUrls: ['./cadastro-usuario-page.component.css']
 })
-export class CadastroPageComponent {
+export class CadastroUsuarioPageComponent {
 
   generoControl = new FormControl();
 
