@@ -7,6 +7,7 @@ import com.coinsaver.api.dtos.response.MonthlyResponseDto;
 import com.coinsaver.api.dtos.response.MonthlyTransactionResponseDto;
 import com.coinsaver.api.dtos.response.TransactionResponseDto;
 import com.coinsaver.api.dtos.response.UpdateTransactionResponseDto;
+import com.coinsaver.core.enums.StatusType;
 import com.coinsaver.core.enums.TransactionCategoryType;
 import com.coinsaver.core.enums.TransactionType;
 import com.coinsaver.core.enums.UpdateTransactionType;
@@ -189,6 +190,8 @@ public class TransactionServiceImpl implements TransactionService {
     @Override
     public TransactionResponseDto createTransaction(TransactionRequestDto transactionRequestDto) {
 
+        validate(transactionRequestDto);
+
         Transaction transaction = transactionDomainService.createTransaction(transactionRequestDto);
         transactionRepository.flush();
 
@@ -369,6 +372,18 @@ public class TransactionServiceImpl implements TransactionService {
 
         if (Boolean.FALSE.equals(updateTransactionRequestDto.getFixedExpense()) && updateTransactionRequestDto.getUpdateTransactionType() == null) {
             throw new BusinessException(ErrorMessages.getErrorMessage("INSTALLMENT_TRANSACTION_TYPE_NULL"));
+        }
+    }
+
+    private void validate(TransactionRequestDto transactionRequestDto) {
+        if (StatusType.NOT_PAID.equals(transactionRequestDto.getStatus()) &&
+                TransactionCategoryType.INCOME.equals(transactionRequestDto.getCategory())) {
+            throw new BusinessException(ErrorMessages.getErrorMessage("INVALID_STATUS_NOT_PAID_CATEGORY_INCOME"));
+        }
+
+        if (StatusType.NOT_RECEIVED.equals(transactionRequestDto.getStatus()) &&
+                TransactionCategoryType.EXPENSE.equals(transactionRequestDto.getCategory())) {
+            throw new BusinessException(ErrorMessages.getErrorMessage("INVALID_STATUS_NOT_RECEIVED_CATEGORY_EXPENSE"));
         }
     }
 
