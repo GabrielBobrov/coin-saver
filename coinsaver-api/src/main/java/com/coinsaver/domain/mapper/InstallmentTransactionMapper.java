@@ -12,6 +12,7 @@ public interface InstallmentTransactionMapper {
     @Mapping(source = "id", target = "installmentTransactionId")
     @Mapping(source = "transaction.id", target = "transactionId")
     TransactionResponseDto fromInstallmentTransactionToTransactionResponseDto(InstallmentTransaction installmentTransaction);
+
     @Mapping(source = "installmentTransactionId", target = "id")
     @Mapping(source = "transactionId", target = "transaction.id")
     InstallmentTransaction fromUpdateTransactionRequestDtoToInstallmentTransaction(UpdateTransactionRequestDto updateTransactionRequestDto);
