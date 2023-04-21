@@ -11,5 +11,6 @@ export class ModalCadastroNovaTransacaoComponent {
   transactionCategoryTypeControl = new FormControl();
   categoryTypeControl = new FormControl();
   transactionTypeControl = new FormControl();
+  statusTypeControl = new FormControl();
 
 }
