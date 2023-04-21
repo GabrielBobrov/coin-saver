@@ -1026,3 +1026,7 @@ html body .default-box-shadow {
   color: #fff;
   padding: 1rem
 }
+
+.cdk-global-overlay-wrapper, .cdk-overlay-container {
+  z-index: 10000 !important;
+  }
