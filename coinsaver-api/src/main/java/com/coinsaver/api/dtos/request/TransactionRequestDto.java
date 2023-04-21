@@ -37,8 +37,6 @@ public class TransactionRequestDto {
     private TransactionCategoryType category;
     @NotNull
     private Boolean fixedExpense;
-    @NotNull
-    private Boolean paid;
     @Min(2)
     private Integer repeat;
 
