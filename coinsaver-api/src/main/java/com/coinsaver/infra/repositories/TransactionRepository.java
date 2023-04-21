@@ -31,7 +31,7 @@ public interface TransactionRepository extends JpaRepository<Transaction, Long> 
 
     List<Transaction> findTransactionByPayDayBetweenAndClient(LocalDate startDate, LocalDate endDate, Client client);
 
-    List<Transaction> findTransactionByPayDayBetweenAndClientAndCategory(LocalDateTime startDate, LocalDateTime endDate, Client client, TransactionCategoryType category);
+    List<Transaction> findTransactionByPayDayBetweenAndClientAndCategory(LocalDate startDate, LocalDate endDate, Client client, TransactionCategoryType category);
 
 
 }
