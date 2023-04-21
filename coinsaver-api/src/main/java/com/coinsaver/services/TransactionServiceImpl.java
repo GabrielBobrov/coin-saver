@@ -350,9 +350,11 @@ public class TransactionServiceImpl implements TransactionService {
 
         if (TransactionType.INSTALLMENT.equals(updateTransactionRequestDto.getTransactionType())) {
             List<InstallmentTransaction> futureTransactions = findFutureTransactions(updateTransactionRequestDto);
+            Integer month = 0;
 
             for (InstallmentTransaction futureTransaction : futureTransactions) {
-                installmentTransactionDomainService.updateInstallmentTransactionFields(futureTransaction, updateTransactionRequestDto);
+                installmentTransactionDomainService.updateInstallmentTransactionFields(futureTransaction, updateTransactionRequestDto, month);
+                month++;
             }
         }
 

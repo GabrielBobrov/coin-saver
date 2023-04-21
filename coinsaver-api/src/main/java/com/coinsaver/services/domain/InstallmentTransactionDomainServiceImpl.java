@@ -25,10 +25,10 @@ public class InstallmentTransactionDomainServiceImpl implements InstallmentTrans
 
 
     @Override
-    public void updateInstallmentTransactionFields(InstallmentTransaction installmentTransaction, UpdateTransactionRequestDto updateTransactionRequestDto) {
+    public void updateInstallmentTransactionFields(InstallmentTransaction installmentTransaction, UpdateTransactionRequestDto updateTransactionRequestDto, Integer month) {
         installmentTransaction.setAmount(updateTransactionRequestDto.getAmount());
         installmentTransaction.setCategory(updateTransactionRequestDto.getCategory());
-        installmentTransaction.setPayDay(updateTransactionRequestDto.getPayDay());
+        installmentTransaction.setPayDay(updateTransactionRequestDto.getPayDay().plusMonths(month));
         installmentTransaction.setStatus(updateTransactionRequestDto.getStatus());
         installmentTransaction.setDescription(removeInstallmentFromDescription(updateTransactionRequestDto.getDescription()) + getInstallment(installmentTransaction.getDescription()));
         installmentTransactionRepository.save(installmentTransaction);
