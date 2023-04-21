@@ -21,6 +21,7 @@ import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.DynamicUpdate;
 
 import java.math.BigDecimal;
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 
 @Data
@@ -44,7 +45,7 @@ public class Transaction extends TransactionBase {
     private LocalDateTime createdAt;
 
     @Column(nullable = false)
-    private LocalDateTime payDay;
+    private LocalDate payDay;
 
     @Column
     private String description;

@@ -16,6 +16,7 @@ import lombok.Setter;
 import org.modelmapper.ModelMapper;
 
 import java.math.BigDecimal;
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 
 @Setter
@@ -28,7 +29,7 @@ public class TransactionRequestDto {
     private Long id;
     @NotNull
     private BigDecimal amount;
-    private LocalDateTime payDay;
+    private LocalDate payDay;
     @NotBlank
     private String description;
     @NotNull

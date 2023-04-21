@@ -1,5 +1,6 @@
 package com.coinsaver.infra.repositories;
 
+import com.coinsaver.core.enums.CategoryType;
 import com.coinsaver.core.enums.StatusType;
 import com.coinsaver.core.enums.TransactionCategoryType;
 import com.coinsaver.domain.entities.FixTransaction;
@@ -10,6 +11,7 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
 
 import java.math.BigDecimal;
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Optional;
@@ -18,25 +20,26 @@ import java.util.Optional;
 public interface FixTransactionRepository extends JpaRepository<FixTransaction, Long> {
     @Modifying
     @Query("UPDATE FixTransaction i set i.amount = :amount, i.category = :category, i.payDay = :payDay, i.status = :status, i.description = :description WHERE i.id = :fixTransaction")
-    void updateFixTransaction(BigDecimal amount, TransactionCategoryType category, LocalDateTime payDay, StatusType status, String description, Long fixTransaction);
+    void updateFixTransaction(BigDecimal amount, TransactionCategoryType category, LocalDate payDay, StatusType status, String description, Long fixTransaction);
 
     @Modifying
     @Query("UPDATE FixTransaction i set i.amount = :amount, i.category = :category, i.payDay = :payDay, i.status = :status, i.description = :description WHERE i.transaction = :transaction")
-    void updateFixTransactionByTransaction(BigDecimal amount, TransactionCategoryType category, LocalDateTime payDay, StatusType status, String description, Transaction transaction);
+    void updateFixTransactionByTransaction(BigDecimal amount, TransactionCategoryType category, LocalDate payDay, StatusType status, String description, Transaction transaction);
 
     @Query("SELECT ft FROM FixTransaction ft WHERE ft.payDay BETWEEN :startDate AND :endDate AND ft.edited = :edited")
-    List<FixTransaction> findFixTransactionByPayDayBetween(LocalDateTime startDate, LocalDateTime endDate, Boolean edited);
+    List<FixTransaction> findFixTransactionByPayDayBetween(LocalDate startDate, LocalDate endDate, Boolean edited);
 
     Optional<FixTransaction> findFixTransactionByTransactionAndEditedIsFalse(Transaction transaction);
 
     List<FixTransaction> findFixTransactionByTransactionAndEditedIsTrue(Transaction transaction);
 
-    Optional<FixTransaction> findFixTransactionByTransactionAndEditedIsTrueAndPayDayBetween(Transaction transaction, LocalDateTime startDate, LocalDateTime endDate);
+    Optional<FixTransaction> findFixTransactionByTransactionAndEditedIsTrueAndPayDayBetween(Transaction transaction, LocalDate startDate, LocalDate endDate);
 
-    List<FixTransaction> findByCategoryAndPayDayBetween(TransactionCategoryType categoryType, LocalDateTime startOfMonth, LocalDateTime endOfMonth);
+    List<FixTransaction> findByCategoryAndPayDayBetween(TransactionCategoryType categoryType, LocalDate startOfMonth, LocalDate endOfMonth);
 
-    List<FixTransaction> findFixTransactionByEditedFalse();
+    @Query("SELECT ft FROM FixTransaction ft INNER JOIN ft.transaction t WHERE ft.edited = false AND (:categoryType IS NULL OR ft.category = :categoryType)")
+    List<FixTransaction> findFixTransactionByEditedFalse(TransactionCategoryType categoryType);
 
-    List<FixTransaction> findByCategoryAndPayDayBetweenAndEditedIsTrue(TransactionCategoryType categoryType, LocalDateTime startOfMonth, LocalDateTime endOfMonth);
+    List<FixTransaction> findByCategoryAndPayDayBetweenAndEditedIsTrue(TransactionCategoryType categoryType, LocalDate startOfMonth, LocalDate endOfMonth);
 }
 

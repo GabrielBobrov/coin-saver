@@ -10,7 +10,7 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import java.math.BigDecimal;
-import java.time.LocalDateTime;
+import java.time.LocalDate;
 
 @Setter
 @Getter
@@ -23,7 +23,7 @@ public class MonthlyTransactionResponseDto {
     private Long fixTransactionId;
     private Long installmentTransactionId;
     private BigDecimal amount;
-    private LocalDateTime payDay;
+    private LocalDate payDay;
     private String description;
     private StatusType status;
     private TransactionCategoryType category;

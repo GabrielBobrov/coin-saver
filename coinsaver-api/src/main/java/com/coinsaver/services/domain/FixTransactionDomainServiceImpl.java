@@ -14,6 +14,7 @@ import com.coinsaver.infra.repositories.FixTransactionRepository;
 import com.coinsaver.services.domain.interfaces.FixTransactionDomainService;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.temporal.TemporalAdjusters;
 import java.util.Optional;
@@ -36,8 +37,8 @@ public class FixTransactionDomainServiceImpl implements FixTransactionDomainServ
                 .orElseThrow(() -> new BusinessException(ErrorMessages.getErrorMessage("TRANSACTION_NOT_FOUND")));
 
         if (Boolean.FALSE.equals(fixTransaction.getEdited())) {
-            LocalDateTime startOfMonth = updateTransactionRequestDto.getPayDay().with(TemporalAdjusters.firstDayOfMonth());
-            LocalDateTime endOfMonth = updateTransactionRequestDto.getPayDay().with(TemporalAdjusters.lastDayOfMonth());
+            LocalDate startOfMonth = updateTransactionRequestDto.getPayDay().withDayOfMonth(1);
+            LocalDate endOfMonth = updateTransactionRequestDto.getPayDay().withDayOfMonth(updateTransactionRequestDto.getPayDay().lengthOfMonth());
 
             Optional<FixTransaction> optionalFixTransactionEdited = fixTransactionRepository.findFixTransactionByTransactionAndEditedIsTrueAndPayDayBetween(transaction,
                     startOfMonth,

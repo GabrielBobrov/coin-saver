@@ -16,6 +16,7 @@ import lombok.EqualsAndHashCode;
 import org.hibernate.annotations.CreationTimestamp;
 
 import java.math.BigDecimal;
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 
 @Data
@@ -35,7 +36,7 @@ public class FixTransaction extends TransactionBase {
     private LocalDateTime createdAt;
 
     @Column(nullable = false)
-    private LocalDateTime payDay;
+    private LocalDate payDay;
 
     @Column
     private String description;

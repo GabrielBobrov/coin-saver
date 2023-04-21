@@ -110,14 +110,14 @@ public class TransactionServiceImpl implements TransactionService {
     @Override
     public List<TransactionResponseDto> getTransactionByCategory(TransactionCategoryType categoryType, LocalDate date) {
 
-        LocalDateTime startOfMonth = date.atStartOfDay().with(TemporalAdjusters.firstDayOfMonth());
-        LocalDateTime endOfMonth = date.with(TemporalAdjusters.lastDayOfMonth()).atTime(LocalTime.MAX);
+        LocalDate startOfMonth = date.withDayOfMonth(1);
+        LocalDate endOfMonth = date.withDayOfMonth(date.lengthOfMonth());
 
 
         var transactions = transactionRepository.findTransactionByPayDayBetweenAndTransactionType(startOfMonth, endOfMonth, TransactionType.IN_CASH);
         var installmentTransactions = installmentTransactionRepository.findByCategoryAndPayDayBetween(categoryType, startOfMonth, endOfMonth);
         var fixTransactionsEdited = fixTransactionRepository.findByCategoryAndPayDayBetweenAndEditedIsTrue(categoryType, startOfMonth, endOfMonth);
-        var fixTransactions = fixTransactionRepository.findByCategoryAndPayDayBetween(categoryType, startOfMonth, endOfMonth);
+        var fixTransactions = fixTransactionRepository.findFixTransactionByEditedFalse(categoryType);
 
         List<Transaction> transactionsEdited = fixTransactionsEdited.stream()
                 .map(FixTransaction::getTransaction)
@@ -210,13 +210,13 @@ public class TransactionServiceImpl implements TransactionService {
     @Override
     public MonthlyResponseDto getMonthlyTransactions(LocalDate date) {
 
-        LocalDateTime startOfMonth = date.atStartOfDay().with(TemporalAdjusters.firstDayOfMonth());
-        LocalDateTime endOfMonth = date.with(TemporalAdjusters.lastDayOfMonth()).atTime(LocalTime.MAX);
+        LocalDate startOfMonth = date.withDayOfMonth(1);
+        LocalDate endOfMonth = date.withDayOfMonth(date.lengthOfMonth());
 
         var transactions = transactionRepository.findTransactionByPayDayBetweenAndTransactionType(startOfMonth, endOfMonth, TransactionType.IN_CASH);
         var installmentTransactions = installmentTransactionRepository.findByPayDayBetween(startOfMonth, endOfMonth);
         var fixTransactionsEdited = fixTransactionRepository.findFixTransactionByPayDayBetween(startOfMonth, endOfMonth, Boolean.TRUE);
-        var fixTransactions = fixTransactionRepository.findFixTransactionByEditedFalse();
+        var fixTransactions = fixTransactionRepository.findFixTransactionByEditedFalse(null);
 
         List<Transaction> transactionsEdited = fixTransactionsEdited.stream()
                 .map(FixTransaction::getTransaction)
@@ -334,7 +334,7 @@ public class TransactionServiceImpl implements TransactionService {
     }
 
 
-    private int getMonthDifference(LocalDateTime startOfMonth, LocalDateTime payDay) {
+    private int getMonthDifference(LocalDate startOfMonth, LocalDate payDay) {
         return (startOfMonth.getYear() - payDay.getYear()) * 12 + (startOfMonth.getMonthValue() - payDay.getMonthValue());
     }
 

@@ -12,6 +12,8 @@ import com.coinsaver.infra.repositories.InstallmentTransactionRepository;
 import com.coinsaver.services.domain.interfaces.InstallmentTransactionDomainService;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDate;
+
 @Service
 public class InstallmentTransactionDomainServiceImpl implements InstallmentTransactionDomainService {
 
@@ -75,7 +77,7 @@ public class InstallmentTransactionDomainServiceImpl implements InstallmentTrans
         installmentTransaction.setDescription(transactionRequestDto.getDescription() + "(" + installment + "/" + repeat + ")");
 
         if (monthQuantity > 0) {
-            installmentTransaction.setPayDay(transactionRequestDto.getPayDay().plusMonths(monthQuantity));
+            installmentTransaction.setPayDay(LocalDate.from(transactionRequestDto.getPayDay().plusMonths(monthQuantity)));
         }
 
         installmentTransactionRepository.save(installmentTransaction);
