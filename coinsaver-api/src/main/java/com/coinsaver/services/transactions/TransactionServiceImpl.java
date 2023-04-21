@@ -163,7 +163,7 @@ public class TransactionServiceImpl implements TransactionService {
                 .filter(t -> t.getTransactionType() == TransactionType.IN_CASH)
                 .toList();
 
-        var installmentTransactions = installmentTransactionRepository.findByPayDayBetweenAndTransactions(startOfMonth, endOfMonth, allTransactions, categoryType);
+        var installmentTransactions = installmentTransactionRepository.findByPayDayBetweenAndTransactions(startOfMonth, endOfMonth, categoryType, client);
         var fixTransactionsEdited = fixTransactionRepository.findFixTransactionByPayDayBetween(startOfMonth, endOfMonth, Boolean.TRUE, allTransactions, categoryType);
         var fixTransactions = fixTransactionRepository.findFixTransactionByEditedFalse(client, categoryType);
 
@@ -268,7 +268,7 @@ public class TransactionServiceImpl implements TransactionService {
                 .filter(t -> t.getTransactionType() == TransactionType.IN_CASH)
                 .toList();
 
-        var installmentTransactions = installmentTransactionRepository.findByPayDayBetweenAndTransactions(startOfMonth, endOfMonth, allTransactions, null);
+        var installmentTransactions = installmentTransactionRepository.findByPayDayBetweenAndTransactions(startOfMonth, endOfMonth, null, client);
         var fixTransactionsEdited = fixTransactionRepository.findFixTransactionByPayDayBetween(startOfMonth, endOfMonth, Boolean.TRUE, allTransactions, null);
         var fixTransactions = fixTransactionRepository.findFixTransactionByEditedFalse(client, null);
 

@@ -2,6 +2,7 @@ package com.coinsaver.infra.repositories;
 
 import com.coinsaver.core.enums.StatusType;
 import com.coinsaver.core.enums.TransactionCategoryType;
+import com.coinsaver.domain.entities.Client;
 import com.coinsaver.domain.entities.InstallmentTransaction;
 import com.coinsaver.domain.entities.Transaction;
 import org.springframework.data.jpa.repository.JpaRepository;
@@ -18,8 +19,11 @@ import java.util.List;
 public interface InstallmentTransactionRepository extends JpaRepository<InstallmentTransaction, Long> {
     List<InstallmentTransaction> findByCategoryAndPayDayBetween(TransactionCategoryType categoryType, LocalDateTime startOfMonth, LocalDateTime endOfMonth);
 
-    @Query("SELECT it FROM InstallmentTransaction it WHERE it.payDay BETWEEN :startOfMonth AND :endOfMonth AND it.transaction IN :transactions AND (:categoryType IS NULL OR it.category = :categoryType)")
-    List<InstallmentTransaction> findByPayDayBetweenAndTransactions(LocalDate startOfMonth, LocalDate endOfMonth, List<Transaction> transactions, TransactionCategoryType categoryType);
+    @Query("SELECT it FROM InstallmentTransaction it INNER JOIN it.transaction t " +
+            "WHERE t.client = :client " +
+            "AND it.payDay BETWEEN :startOfMonth AND :endOfMonth " +
+            "AND (:categoryType IS NULL OR it.category = :categoryType)")
+    List<InstallmentTransaction> findByPayDayBetweenAndTransactions(LocalDate startOfMonth, LocalDate endOfMonth, TransactionCategoryType categoryType, Client client);
 
     @Modifying
     @Query("DELETE FROM InstallmentTransaction i WHERE i.transaction.id = :transactionId")
