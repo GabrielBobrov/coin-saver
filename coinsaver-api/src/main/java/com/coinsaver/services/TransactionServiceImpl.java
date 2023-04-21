@@ -404,7 +404,7 @@ public class TransactionServiceImpl implements TransactionService {
         int installment = 1;
 
         for (int i = 0; i < repeat; i++) {
-            InstallmentTransaction installmentTransaction = updateTransactionRequestDto.convertDtoToInstallmentTransactionEntity();
+            InstallmentTransaction installmentTransaction = installmentTransactionMapper.fromUpdateTransactionRequestDtoToInstallmentTransaction(updateTransactionRequestDto);
             installmentTransactionDomainService.updateAllInstallmentTransactions(installmentTransaction, updateTransactionRequestDto, transaction, installment, repeat, i);
             installment++;
         }

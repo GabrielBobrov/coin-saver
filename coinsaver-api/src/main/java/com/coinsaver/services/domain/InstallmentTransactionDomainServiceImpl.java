@@ -64,6 +64,7 @@ public class InstallmentTransactionDomainServiceImpl implements InstallmentTrans
             installmentTransaction.setPayDay(updateTransactionRequestDto.getPayDay().plusMonths(monthQuantity));
         }
         installmentTransactionRepository.save(installmentTransaction);
+        installmentTransactionRepository.flush();
     }
 
     @Override
