@@ -45,10 +45,6 @@ public class UpdateTransactionRequestDto {
     private Long installmentTransactionId;
     private Long fixTransactionId;
 
-    public InstallmentTransaction convertDtoToInstallmentTransactionEntity() {
-        return new ModelMapper().map(this, InstallmentTransaction.class);
-    }
-
     public FixTransaction convertDtoToFixTransactionEntity() {
         return new ModelMapper().map(this, FixTransaction.class);
     }
