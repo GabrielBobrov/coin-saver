@@ -33,20 +33,15 @@ export class ModalCadastroNovaTransacaoComponent {
   };
 
   createTransaction(transactionRequestDto: TransactionRequestDto) {
+      this.transactionsService.createTransaction(transactionRequestDto).subscribe(
+        (res) => {
+          console.log(res)
+        },
+        (error) => {
 
-    transactionRequestDto.payDay = transactionRequestDto.payDay + "T11:54:15.747431";
-
-    // if (transactionRequestDto.fixedExpense == "false") {
-    //   if (transactionRequestDto.repeat == 0 ||
-    //       transactionRequestDto.repeat == 1) {
-    //         transactionRequestDto.repeat == null;
-    //       }
-    // } else if (transactionRequestDto.fixedExpense == "true") {
-    //   transactionRequestDto.repeat == null;
-    // }
-
-    this.transactionsService.createTransaction(transactionRequestDto);
-    // this.cleanObject();
+        }
+      );
+    this.cleanObject();
   }
 
   cleanObject() {

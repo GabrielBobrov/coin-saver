@@ -32,7 +32,7 @@ export class TransactionsService {
       `${this.baseUrl +
       this.transactionControllerUrl +
       environment.api.backendEndpoints.getAllTransactions
-    }`
+      }`
     )
       .pipe(
         map((transactions: TransactionResponseDto[]) => {
@@ -52,44 +52,43 @@ export class TransactionsService {
       `${this.baseUrl +
       this.transactionControllerUrl +
       environment.api.backendEndpoints.getTransaction
-    }/${transactionId
-    }?transactionType=${transactionType}`
+      }/${transactionId
+      }?transactionType=${transactionType}`
     )
-    .pipe(
-      catchError((erroResponse) => {
-        return throwError(erroResponse);
-      })
-    );
+      .pipe(
+        catchError((erroResponse) => {
+          return throwError(erroResponse);
+        })
+      );
   }
 
-  getTransactionByCategoryType(transactionCategoryType: TransactionCategoryTypeEnum, date: string): Observable<TransactionResponseDto> {
-    return this.httpClient.get<TransactionResponseDto>(
+  getTransactionByCategoryType(categoryType: TransactionCategoryTypeEnum, date: string): Observable<TransactionResponseDto[]> {
+    return this.httpClient.get<TransactionResponseDto[]>(
       `${this.baseUrl +
       this.transactionControllerUrl +
       environment.api.backendEndpoints.getTransactionByCategoryType
-    }/${transactionCategoryType
-    }?date=${date}`
+      }/${categoryType
+      }?date=${date}`
     )
-    .pipe(
-      catchError((erroResponse) => {
-        return throwError(erroResponse);
-      })
-    );
+      .pipe(
+        catchError((erroResponse) => {
+          return throwError(erroResponse);
+        })
+      );
   }
 
-  createTransaction(transactionRequestDto: TransactionRequestDto): Observable<TransactionRequestDto> {
-    const body = transactionRequestDto;
+  createTransaction(transactionRequestDto: TransactionRequestDto) {
+    const url = this.baseUrl + this.transactionControllerUrl + environment.api.backendEndpoints.createTransaction;
+    const body = JSON.stringify(transactionRequestDto);
+    const headers = { 'Content-Type': 'application/json' };
 
-    console.log("body", body)
+    console.log(body)
 
-    return this.httpClient.post<TransactionRequestDto>(
-      `${this.baseUrl +
-      this.transactionControllerUrl +
-      environment.api.backendEndpoints.createTransaction}`, JSON.stringify(body), this.httpOptions)
-      .pipe(
-        retry(2),
-        catchError(this.handleError)
-      )
+    return this.httpClient.post(url, body, { headers }).pipe(
+      map(result => {
+        return result;
+      })
+    );
   }
 
   getTransactionsInMonth(date: string): Observable<MonthlyResponseDto> {
@@ -97,47 +96,47 @@ export class TransactionsService {
       `${this.baseUrl +
       this.transactionControllerUrl +
       environment.api.backendEndpoints.getTransactionsInMonth
-    }?date=${date}`
+      }?date=${date}`
     )
-    .pipe(
-      catchError((erroResponse) => {
-        return throwError(erroResponse);
-      })
-    );
+      .pipe(
+        catchError((erroResponse) => {
+          return throwError(erroResponse);
+        })
+      );
   }
 
   updateTransaction(updateTransactionRequestDto: UpdateTransactionRequestDto): Observable<UpdateTransactionResponseDto> {
-    const headers = {'content-type': 'application/json'};
+    const headers = { 'content-type': 'application/json' };
     const body = updateTransactionRequestDto;
 
     return this.httpClient.put<UpdateTransactionResponseDto>(
       this.baseUrl +
       this.transactionControllerUrl +
-      environment.api.backendEndpoints.updateTransaction, body, {'headers': headers})
+      environment.api.backendEndpoints.updateTransaction, body, { 'headers': headers })
   }
 
   updateTransactionPatch(payTransactionRequestDto: PayTransactionRequestDto) {
-    const headers = {'content-type': 'application/json'};
+    const headers = { 'content-type': 'application/json' };
     const body = payTransactionRequestDto;
 
     return this.httpClient.patch(
       this.baseUrl +
       this.transactionControllerUrl +
-      environment.api.backendEndpoints.updateTransactionPatch, body, {'headers': headers})
+      environment.api.backendEndpoints.updateTransactionPatch, body, { 'headers': headers })
   }
 
-    // Manipulação de erros
-    handleError(error: HttpErrorResponse) {
-      let errorMessage = '';
-      if (error.error instanceof ErrorEvent) {
-        // Erro ocorreu no lado do client
-        errorMessage = error.error.message;
-      } else {
-        // Erro ocorreu no lado do servidor
-        errorMessage = `Código do erro: ${error.status}, ` + `menssagem: ${error.message}`;
-      }
-      console.log(errorMessage);
-      return throwError(errorMessage);
-    };
+  // Manipulação de erros
+  handleError(error: HttpErrorResponse) {
+    let errorMessage = '';
+    if (error.error instanceof ErrorEvent) {
+      // Erro ocorreu no lado do client
+      errorMessage = error.error.message;
+    } else {
+      // Erro ocorreu no lado do servidor
+      errorMessage = `Código do erro: ${error.status}, ` + `menssagem: ${error.message}`;
+    }
+    console.log(errorMessage);
+    return throwError(errorMessage);
+  };
 
 }
