@@ -10,7 +10,9 @@ import org.mapstruct.ReportingPolicy;
 @Mapper(componentModel = "spring", unmappedTargetPolicy = ReportingPolicy.IGNORE)
 public interface FixTransactionMapper {
     TransactionRequestDto fromFixTransactionToTransactionRequestDto(FixTransaction fixTransaction);
+
     FixTransaction fromTransactionRequestDtoToFixTransaction(TransactionRequestDto transactionRequestDto);
+
     @Mapping(source = "id", target = "fixTransactionId")
     @Mapping(source = "transaction.id", target = "transactionId")
     TransactionResponseDto fromFixTransactionToTransactionResponseDto(FixTransaction fixTransaction);
