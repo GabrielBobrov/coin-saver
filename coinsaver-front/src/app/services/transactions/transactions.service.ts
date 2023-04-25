@@ -1,8 +1,8 @@
 import { TransactionResponseDto } from '../../dtos/transactions/response/transaction.response.dto';
 import { environment } from './../../environments/environments';
-import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { HttpClient, HttpErrorResponse, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { catchError, map, Observable, throwError } from 'rxjs';
+import { catchError, retry, map, Observable, throwError } from 'rxjs';
 import { PayTransactionRequestDto } from 'src/app/dtos/transactions/request/pay-transaction.request.dto';
 import { TransactionRequestDto } from 'src/app/dtos/transactions/request/transaction.request.dto';
 import { UpdateTransactionRequestDto } from 'src/app/dtos/transactions/request/update-transaction.request.dto';
@@ -21,9 +21,7 @@ export class TransactionsService {
   ) { }
 
   httpOptions = {
-    headers: new HttpHeaders(
-      { 'Content-Type': 'application/json' }
-    )
+    headers: new HttpHeaders({ 'Content-Type': 'application/json' })
   };
 
   baseUrl = environment.api.hostBackend;
@@ -79,14 +77,19 @@ export class TransactionsService {
     );
   }
 
-  createTransaction(transactionRequestDto: TransactionRequestDto): Observable<TransactionResponseDto> {
-    const headers = {'content-type': 'application/json'};
+  createTransaction(transactionRequestDto: TransactionRequestDto): Observable<TransactionRequestDto> {
     const body = transactionRequestDto;
 
-    return this.httpClient.post<TransactionResponseDto>(
-      this.baseUrl +
+    console.log("body", body)
+
+    return this.httpClient.post<TransactionRequestDto>(
+      `${this.baseUrl +
       this.transactionControllerUrl +
-      environment.api.backendEndpoints.createTransaction, body, {'headers': headers})
+      environment.api.backendEndpoints.createTransaction}`, JSON.stringify(body), this.httpOptions)
+      .pipe(
+        retry(2),
+        catchError(this.handleError)
+      )
   }
 
   getTransactionsInMonth(date: string): Observable<MonthlyResponseDto> {
@@ -122,5 +125,19 @@ export class TransactionsService {
       this.transactionControllerUrl +
       environment.api.backendEndpoints.updateTransactionPatch, body, {'headers': headers})
   }
+
+    // Manipulação de erros
+    handleError(error: HttpErrorResponse) {
+      let errorMessage = '';
+      if (error.error instanceof ErrorEvent) {
+        // Erro ocorreu no lado do client
+        errorMessage = error.error.message;
+      } else {
+        // Erro ocorreu no lado do servidor
+        errorMessage = `Código do erro: ${error.status}, ` + `menssagem: ${error.message}`;
+      }
+      console.log(errorMessage);
+      return throwError(errorMessage);
+    };
 
 }

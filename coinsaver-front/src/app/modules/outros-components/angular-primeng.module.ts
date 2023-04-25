@@ -1,5 +1,6 @@
 import { CommonModule } from "@angular/common";
 import { NgModule } from "@angular/core";
+import { HttpClientModule } from '@angular/common/http';
 import { DynamicDialogModule, DialogService } from 'primeng/dynamicdialog';
 import { DialogModule } from 'primeng/dialog';
 import { TableModule } from 'primeng/table';
@@ -38,6 +39,7 @@ const ANGULAR_PRIMENG_MODULES = [
   declarations: [],
   imports: [
     CommonModule,
+    HttpClientModule,
     ANGULAR_PRIMENG_MODULES,
   ],
   exports: [

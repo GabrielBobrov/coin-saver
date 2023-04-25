@@ -3,21 +3,19 @@ import { StatusTypeEnum } from '../../../enums/status-type.enum';
 
 export class TransactionRequestDto {
   constructor(
-    public id: number,
+    public id?: number,
 
-    public amount: number,
+    public amount?: number,
 
-    public payDay: string,
+    public payDay?: string,
 
-    public description: string,
+    public description?: string,
 
-    public status: StatusTypeEnum,
-    public category: TransactionCategoryTypeEnum,
+    public status?: StatusTypeEnum,
+    public category?: TransactionCategoryTypeEnum,
 
-    public fixedExpense: boolean,
+    public fixedExpense?: boolean,
 
-    public paid: boolean,
-
-    public repeat: number,
+    public repeat?: number,
   ) {}
 }

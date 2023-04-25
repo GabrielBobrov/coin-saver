@@ -1,5 +1,6 @@
 import { CommonModule } from "@angular/common";
 import { NgModule } from "@angular/core";
+import { HttpClientModule } from '@angular/common/http';
 import { FormsModule, ReactiveFormsModule } from "@angular/forms";
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatSelectModule } from '@angular/material/select';
@@ -25,6 +26,7 @@ const ANGULAR_MATERIAL_MODULES = [
   declarations: [],
   imports: [
     CommonModule,
+    HttpClientModule,
     ANGULAR_MATERIAL_MODULES,
   ],
   exports: [
