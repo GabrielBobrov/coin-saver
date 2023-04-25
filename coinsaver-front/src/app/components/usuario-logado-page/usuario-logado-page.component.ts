@@ -14,6 +14,7 @@ import { Router } from '@angular/router';
 export class UsuarioLogadoPageComponent implements OnInit {
 
   transaction: TransactionResponseDto | undefined;
+  listTransaction: TransactionResponseDto[] | undefined;
   transactionId: number = 0;
   transactionType: TransactionTypeEnum | undefined;
   transactionCategoryType: TransactionCategoryTypeEnum | undefined;
@@ -48,9 +49,12 @@ export class UsuarioLogadoPageComponent implements OnInit {
 
     this.transactionsService.getTransactionByCategoryType(this.transactionCategoryType, this.date)
       .subscribe((res) => {
-        this.transaction = res;
+        this.listTransaction = res;
 
-        console.log('transaction cat type', this.transaction)
+        this.listTransaction?.forEach((transaction) => {
+        })
+
+        console.log('listTransaction cat type', this.listTransaction)
       });
   }
 

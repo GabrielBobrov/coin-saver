@@ -82,8 +82,6 @@ export class TransactionsService {
     const body = JSON.stringify(transactionRequestDto);
     const headers = { 'Content-Type': 'application/json' };
 
-    console.log(body)
-
     return this.httpClient.post(url, body, { headers }).pipe(
       map(result => {
         return result;
