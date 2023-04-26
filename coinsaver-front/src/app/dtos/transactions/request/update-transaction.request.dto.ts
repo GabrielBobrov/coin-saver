@@ -5,24 +5,24 @@ import { UpdateTransactionTypeEnum } from 'src/app/enums/update-transaction-type
 
 export class UpdateTransactionRequestDto {
   constructor(
-    public amount: number,
+    public amount?: number,
 
-    public payDay: string,
+    public payDay?: string,
 
-    public description: string,
+    public description?: string,
 
-    public status: StatusTypeEnum,
-    public category: TransactionCategoryTypeEnum,
+    public status?: StatusTypeEnum,
+    public category?: TransactionCategoryTypeEnum,
 
-    public fixedExpense: boolean,
+    public fixedExpense?: boolean,
 
-    public repeat: number,
+    public repeat?: number,
 
-    public updateTransactionType: UpdateTransactionTypeEnum,
-    public transactionType: TransactionTypeEnum,
+    public updateTransactionType?: UpdateTransactionTypeEnum,
+    public transactionType?: TransactionTypeEnum,
 
-    public transactionId: number,
-    public installmentTransactionId: number,
-    public fixTransactionId: number,
+    public transactionId?: number,
+    public installmentTransactionId?: number,
+    public fixTransactionId?: number,
   ) {}
 }

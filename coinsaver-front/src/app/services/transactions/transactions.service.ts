@@ -114,13 +114,26 @@ export class TransactionsService {
   }
 
   updateTransactionPatch(payTransactionRequestDto: PayTransactionRequestDto) {
-    const headers = { 'content-type': 'application/json' };
-    const body = payTransactionRequestDto;
+    const url = this.baseUrl + this.transactionControllerUrl + environment.api.backendEndpoints.updateTransactionPatch;
+    const body = JSON.stringify(payTransactionRequestDto);
+    const headers = { 'Content-Type': 'application/json' };
 
-    return this.httpClient.patch(
-      this.baseUrl +
-      this.transactionControllerUrl +
-      environment.api.backendEndpoints.updateTransactionPatch, body, { 'headers': headers })
+    return this.httpClient.patch(url, body, { headers }).pipe(
+      map(result => {
+        return result;
+      })
+    );
+  }
+
+  deleteTransaction(transactionId: number) {
+    const url = this.baseUrl + this.transactionControllerUrl + environment.api.backendEndpoints.deleteTransaction;
+    const headers = { 'Content-Type': 'application/json' };
+
+    return this.httpClient.delete(`${url}/${transactionId}`, { headers }).pipe(
+      map(result => {
+        return result;
+      })
+    );
   }
 
   // Manipulação de erros

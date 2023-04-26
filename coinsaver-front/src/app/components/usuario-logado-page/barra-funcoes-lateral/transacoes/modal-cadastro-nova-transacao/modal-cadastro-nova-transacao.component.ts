@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { FormControl } from '@angular/forms';
+import { Router } from '@angular/router';
 import { TransactionRequestDto } from 'src/app/dtos/transactions/request/transaction.request.dto';
 import { TransactionsService } from 'src/app/services/transactions/transactions.service';
 
@@ -12,6 +13,7 @@ export class ModalCadastroNovaTransacaoComponent {
 
   constructor(
     private transactionsService: TransactionsService,
+    public router: Router,
   ) { }
 
   categoryTypeControl = new FormControl();
@@ -42,6 +44,7 @@ export class ModalCadastroNovaTransacaoComponent {
         }
       );
     this.cleanObject();
+    this.retornaPaginaInicialUsuarioLogado();
   }
 
   cleanObject() {
@@ -55,5 +58,13 @@ export class ModalCadastroNovaTransacaoComponent {
       fixedExpense: undefined,
       repeat: undefined
     }
+  }
+
+  retornaPaginaInicialUsuarioLogado() {
+    this.router.navigateByUrl('usuario-logado-page', {
+      state: {
+        data: {},
+      },
+    });
   }
 }
