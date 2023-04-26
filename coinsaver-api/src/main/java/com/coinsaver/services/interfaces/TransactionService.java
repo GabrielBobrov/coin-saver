@@ -24,4 +24,6 @@ public interface TransactionService {
     UpdateTransactionResponseDto updateTransaction(UpdateTransactionRequestDto transactionRequestDto);
 
     void payTransaction(PayTransactionRequestDto payTransactionRequestDto);
+
+    void deleteByTransactionId(Long transactionId);
 }

@@ -333,6 +333,12 @@ public class TransactionServiceImpl implements TransactionService {
         }
     }
 
+    @Transactional
+    @Override
+    public void deleteByTransactionId(Long transactionId) {
+        transactionRepository.deleteById(transactionId);
+    }
+
 
     private int getMonthDifference(LocalDate startOfMonth, LocalDate payDay) {
         return (startOfMonth.getYear() - payDay.getYear()) * 12 + (startOfMonth.getMonthValue() - payDay.getMonthValue());
