@@ -40,6 +40,20 @@ import { ModalCadastroNovaTransacaoComponent } from '../../components/usuario-lo
     AngularPrimeNgModule,
     CommonModule
   ],
+  bootstrap: [
+    InitialPageComponent,
+    ModalCadastroUsuarioComponent,
+    CadastroUsuarioPageComponent,
+    LoginPageComponent,
+    ModalRedefinirSenhaComponent,
+    UsuarioLogadoPageComponent,
+    BarraFuncoesLateralComponent,
+    GeralComponent,
+    MensalComponent,
+    TableMensalComponent,
+    TableGeralComponent,
+    ModalCadastroNovaTransacaoComponent,
+  ],
   providers: []
 })
 
