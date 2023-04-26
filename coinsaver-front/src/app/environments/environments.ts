@@ -19,7 +19,7 @@ export const environment = {
 
       updateTransactionPatch: '/pay',
 
-      deleteTransaction: '',
+      deleteByTransactionId: '',
 
     }
   }

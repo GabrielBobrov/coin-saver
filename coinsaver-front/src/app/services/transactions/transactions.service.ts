@@ -125,8 +125,8 @@ export class TransactionsService {
     );
   }
 
-  deleteTransaction(transactionId: number) {
-    const url = this.baseUrl + this.transactionControllerUrl + environment.api.backendEndpoints.deleteTransaction;
+  deleteByTransactionId(transactionId: number) {
+    const url = this.baseUrl + this.transactionControllerUrl + environment.api.backendEndpoints.deleteByTransactionId;
     const headers = { 'Content-Type': 'application/json' };
 
     return this.httpClient.delete(`${url}/${transactionId}`, { headers }).pipe(

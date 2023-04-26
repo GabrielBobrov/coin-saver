@@ -86,7 +86,7 @@ export class TableMensalComponent implements OnInit {
   deletarTransacao(transaction: MonthlyTransactionResponseDto) {
     console.log("deletar", transaction)
 
-    this.transactionsService.deleteTransaction(transaction.transactionId).subscribe(
+    this.transactionsService.deleteByTransactionId(transaction.transactionId).subscribe(
       (res) => {
         this.messageService.add({ severity: 'success', summary: 'Success', detail: 'Transação APAGADA com sucesso' });
         this.ngOnInit();
