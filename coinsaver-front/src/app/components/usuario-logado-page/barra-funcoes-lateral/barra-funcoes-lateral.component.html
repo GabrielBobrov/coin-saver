@@ -9,11 +9,16 @@
 
     <div>
       <p (click)="showFillerTransacoes = !showFillerTransacoes" mat-raised-button style="cursor: pointer; font-weight: bold;">CONTROLE TRANSAÇÕES</p>
-      <!-- <p *ngIf="showFillerTransacoes" (click)="abrirTransacoesGeral()" style="cursor: pointer;"> icone > Geral</p> -->
-      <p *ngIf="showFillerTransacoes" (click)="abrirTransacoesMensal()" style="cursor: pointer;"> icone > Mensal</p>
-      <p *ngIf="showFillerTransacoes" (click)="abrirModalCadastroNovaTransacao()" style="cursor: pointer;"> icone > Nova Transação</p>
-      <p (click)="retornaPaginaInicialUsuarioLogado()" mat-raised-button style="cursor: pointer; font-weight: bold;">PÁGINA INICIAL USUÁRIO</p>
-      <p (click)="sairLoginUsuario()" mat-raised-button style="cursor: pointer; font-weight: bold;">SAIR</p>
+      <p *ngIf="showFillerTransacoes" (click)="abrirTransacoesGeral()" style="cursor: pointer;">
+        <p-button icon="pi pi-server" styleClass="p-button-rounded p-button-secondary"></p-button></p>
+      <p *ngIf="showFillerTransacoes" (click)="abrirTransacoesMensal()" style="cursor: pointer;">
+        <p-button icon="pi pi-calendar" styleClass="p-button-rounded p-button-success"></p-button></p>
+      <p *ngIf="showFillerTransacoes" (click)="abrirModalCadastroNovaTransacao()" style="cursor: pointer;">
+        <p-button icon="pi pi-plus" styleClass="p-button-rounded"></p-button></p>
+      <p (click)="retornaPaginaInicialUsuarioLogado()" mat-raised-button style="cursor: pointer; font-weight: bold;">
+        <p-button icon="pi pi-user" styleClass="p-button-rounded p-button-warning"></p-button></p>
+      <p (click)="sairLoginUsuario()" mat-raised-button style="cursor: pointer; font-weight: bold;">
+        <p-button icon="pi pi-sign-out" styleClass="p-button-rounded p-button-danger"></p-button></p>
       <!-- <p *ngIf="showFillerTransacoes"> icone > Nova Transação</p>
       <p *ngIf="showFillerTransacoes"> icone > Editar Transação</p>
       <p *ngIf="showFillerTransacoes"> icone > Pagar Transação</p>
@@ -22,9 +27,9 @@
   </mat-drawer>
 
   <div class="example-sidenav-content">
-    <button type="button" mat-button (click)="drawer.toggle()">
-      Menu lateral
-    </button>
+    <!-- <button type="button" mat-button (click)="drawer.toggle()"> -->
+      <p-button (click)="drawer.toggle()" icon="pi pi-angle-double-right" styleClass="p-button-rounded p-button-warning"></p-button>
+    <!-- </button> -->
   </div>
 
 </mat-drawer-container>
