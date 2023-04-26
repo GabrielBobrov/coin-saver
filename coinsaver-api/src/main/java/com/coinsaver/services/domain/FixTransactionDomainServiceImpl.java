@@ -11,12 +11,11 @@ import com.coinsaver.domain.entities.Transaction;
 import com.coinsaver.domain.exceptions.BusinessException;
 import com.coinsaver.domain.mapper.FixTransactionMapper;
 import com.coinsaver.infra.repositories.FixTransactionRepository;
+import com.coinsaver.infra.repositories.TransactionRepository;
 import com.coinsaver.services.domain.interfaces.FixTransactionDomainService;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDate;
-import java.time.LocalDateTime;
-import java.time.temporal.TemporalAdjusters;
 import java.util.Optional;
 
 @Service
@@ -26,7 +25,8 @@ public class FixTransactionDomainServiceImpl implements FixTransactionDomainServ
 
     private final FixTransactionMapper fixTransactionMapper;
 
-    public FixTransactionDomainServiceImpl(FixTransactionRepository fixTransactionRepository, FixTransactionMapper fixTransactionMapper) {
+    public FixTransactionDomainServiceImpl(FixTransactionRepository fixTransactionRepository,
+                                           FixTransactionMapper fixTransactionMapper) {
         this.fixTransactionRepository = fixTransactionRepository;
         this.fixTransactionMapper = fixTransactionMapper;
     }

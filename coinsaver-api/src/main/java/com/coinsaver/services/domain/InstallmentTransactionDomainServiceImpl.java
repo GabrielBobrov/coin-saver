@@ -9,6 +9,7 @@ import com.coinsaver.domain.entities.InstallmentTransaction;
 import com.coinsaver.domain.entities.Transaction;
 import com.coinsaver.domain.exceptions.BusinessException;
 import com.coinsaver.infra.repositories.InstallmentTransactionRepository;
+import com.coinsaver.infra.repositories.TransactionRepository;
 import com.coinsaver.services.domain.interfaces.InstallmentTransactionDomainService;
 import org.springframework.stereotype.Service;
 

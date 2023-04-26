@@ -58,5 +58,10 @@ public interface TransactionsControllerOpenApi {
     @Operation(summary = "Pagar transação", responses = {
             @ApiResponse(responseCode = "204"),
     })
-    void updateTransaction(@RequestBody( description = "Representação de uma requisição de pagamento") PayTransactionRequestDto payTransactionRequestDto);
+    void updateTransaction(@RequestBody(description = "Representação de uma requisição de pagamento") PayTransactionRequestDto payTransactionRequestDto);
+
+    @Operation(summary = "Deletar transação", responses = {
+            @ApiResponse(responseCode = "200")
+    })
+    void deleteByTransactionId(@PathVariable Long transactionId);
 }

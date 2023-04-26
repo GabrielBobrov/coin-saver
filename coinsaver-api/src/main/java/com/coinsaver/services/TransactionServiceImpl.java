@@ -336,7 +336,11 @@ public class TransactionServiceImpl implements TransactionService {
     @Transactional
     @Override
     public void deleteByTransactionId(Long transactionId) {
-        transactionRepository.deleteById(transactionId);
+
+        Transaction transaction = transactionRepository.findById(transactionId)
+                .orElseThrow(() -> new BusinessException(ErrorMessages.getErrorMessage("TRANSACTION_NOT_FOUND")));
+
+        transactionRepository.deleteById(transaction.getId());
     }
 
 

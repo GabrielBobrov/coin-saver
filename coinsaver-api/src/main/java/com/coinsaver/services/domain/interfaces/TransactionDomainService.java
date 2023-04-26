@@ -16,4 +16,5 @@ public interface TransactionDomainService {
     void payTransaction(PayTransactionRequestDto payTransactionRequestDto);
 
     Transaction createTransaction(TransactionRequestDto transactionRequestDto);
+
 }

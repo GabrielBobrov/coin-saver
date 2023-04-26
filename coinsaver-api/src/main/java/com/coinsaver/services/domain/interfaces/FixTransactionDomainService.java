@@ -13,4 +13,5 @@ public interface FixTransactionDomainService {
     void updateAllFixTransactions(Transaction transaction, UpdateTransactionRequestDto updateTransactionRequestDto);
 
     void payTransaction(PayTransactionRequestDto payTransactionRequestDto);
+
 }
