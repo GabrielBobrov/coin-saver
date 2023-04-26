@@ -57,15 +57,11 @@ public interface TransactionsControllerOpenApi {
     })
     UpdateTransactionResponseDto updateTransaction(@org.springframework.web.bind.annotation.RequestBody @Valid UpdateTransactionRequestDto transactionRequestDto);
 
-    @Operation(summary = "Pagar transação", responses = {
-            @ApiResponse(responseCode = "204"),
-    })
-    void updateTransaction(@RequestBody(description = "Representação de uma requisição de pagamento") PayTransactionRequestDto payTransactionRequestDto);
-
     @Operation(summary = "Deletar transação", responses = {
             @ApiResponse(responseCode = "200")
     })
     void deleteByTransactionId(@PathVariable Long transactionId);
+
     void payTransaction(@RequestBody(description = "Representação de uma requisição de pagamento") PayTransactionRequestDto payTransactionRequestDto);
 
     @Operation(summary = "Receber transação", responses = {

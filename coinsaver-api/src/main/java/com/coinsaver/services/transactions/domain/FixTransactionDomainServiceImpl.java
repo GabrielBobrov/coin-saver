@@ -13,8 +13,6 @@ import com.coinsaver.domain.exceptions.BusinessException;
 import com.coinsaver.domain.mapper.FixTransactionMapper;
 import com.coinsaver.infra.repositories.FixTransactionRepository;
 import com.coinsaver.services.transactions.domain.interfaces.FixTransactionDomainService;
-import com.coinsaver.infra.repositories.TransactionRepository;
-import com.coinsaver.services.domain.interfaces.FixTransactionDomainService;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDate;
