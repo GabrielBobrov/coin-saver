@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { MessageService } from 'primeng/api';
 import { PayTransactionRequestDto } from 'src/app/dtos/transactions/request/pay-transaction.request.dto';
 import { UpdateTransactionRequestDto } from 'src/app/dtos/transactions/request/update-transaction.request.dto';
 import { MonthlyTransactionResponseDto } from 'src/app/dtos/transactions/response/monthly-transactions.response.dto';
@@ -23,6 +24,7 @@ export class TableMensalComponent implements OnInit {
 
   constructor(
     private transactionsService: TransactionsService,
+    private messageService: MessageService,
   ) { }
 
   ngOnInit() {
@@ -86,9 +88,11 @@ export class TableMensalComponent implements OnInit {
 
     this.transactionsService.deleteTransaction(transaction.transactionId).subscribe(
       (res) => {
+        this.messageService.add({ severity: 'success', summary: 'Success', detail: 'Transação APAGADA com sucesso' });
+        this.ngOnInit();
       },
       (error) => {
-
+        this.messageService.add({ severity: 'error', summary: 'Error', detail: 'Erro ao tentar APAGAR transação' });
       }
     );
   }

@@ -1,6 +1,8 @@
+import { DynamicDialogRef } from 'primeng/dynamicdialog';
 import { Component } from '@angular/core';
 import { FormControl } from '@angular/forms';
 import { Router } from '@angular/router';
+import { MessageService } from 'primeng/api';
 import { TransactionRequestDto } from 'src/app/dtos/transactions/request/transaction.request.dto';
 import { TransactionsService } from 'src/app/services/transactions/transactions.service';
 
@@ -14,6 +16,8 @@ export class ModalCadastroNovaTransacaoComponent {
   constructor(
     private transactionsService: TransactionsService,
     public router: Router,
+    private messageService: MessageService,
+    private ref: DynamicDialogRef
   ) { }
 
   categoryTypeControl = new FormControl();
@@ -37,10 +41,10 @@ export class ModalCadastroNovaTransacaoComponent {
   createTransaction(transactionRequestDto: TransactionRequestDto) {
       this.transactionsService.createTransaction(transactionRequestDto).subscribe(
         (res) => {
-          console.log(res)
+          this.messageService.add({ severity: 'success', summary: 'Success', detail: 'Transação CRIADA com sucesso' });
         },
         (error) => {
-
+          this.messageService.add({ severity: 'error', summary: 'Error', detail: 'Erro ao tentar CRIAR transação' });
         }
       );
     this.cleanObject();
@@ -66,5 +70,9 @@ export class ModalCadastroNovaTransacaoComponent {
         data: {},
       },
     });
+  }
+
+  fecharModal() {
+    this.ref.close();
   }
 }

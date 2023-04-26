@@ -1,9 +1,13 @@
+<p-toast></p-toast>
 <body class="ng-scope">
   <div id="container">
     <div>
       <!-- <a class="logomd"><img src="../../../../assets/images/coinsaver_logo-removebg-preview.png"></a> -->
       <div class="ng-scope">
-        <h2 class="container-title">Cadastrar Nova Transação</h2>
+        <div class="header-modal">
+          <h2 class="container-title">Cadastrar Nova Transação</h2>
+          <p-button (onClick)="fecharModal()" icon="pi pi-times" styleClass="p-button-rounded p-button-danger"></p-button>
+        </div>
 
         <div class="formulario-nova-transacao">
 
@@ -107,9 +111,9 @@
 
         </div>
 
-        <div id="acoes" class="ng-scope">
+        <!-- <div id="acoes" class="ng-scope">
           <a href="/usuario-logado-page">Sair</a>
-        </div>
+        </div> -->
       </div>
     </div>
   </div>

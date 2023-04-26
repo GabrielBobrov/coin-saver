@@ -15,6 +15,7 @@ import { InputTextModule } from 'primeng/inputtext';
 import { TimelineModule } from 'primeng/timeline';
 import { CardModule } from 'primeng/card';
 import { ButtonModule } from 'primeng/button';
+import { MessageService } from "primeng/api";
 
 
 
@@ -47,6 +48,7 @@ const ANGULAR_PRIMENG_MODULES = [
   ],
   providers: [
     DialogService,
+    MessageService
   ]
 })
 
