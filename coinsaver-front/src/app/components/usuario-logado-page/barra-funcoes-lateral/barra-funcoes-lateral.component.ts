@@ -13,10 +13,20 @@ export class BarraFuncoesLateralComponent {
   showFillerTransacoes = false;
   showFillerNovaTransacao = false;
 
+  isOpen = false;
+
   constructor(
     public router: Router,
     private dialogService: DialogService,
   ) {}
+
+  abrirMenuLateral() {
+    this.isOpen = true;
+  }
+
+  fecharMenuLateral() {
+    this.isOpen = false;
+  }
 
   abrirTransacoesGeral() {
     this.router.navigateByUrl('transacoes-gerais-page', {

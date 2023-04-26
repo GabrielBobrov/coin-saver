@@ -27,9 +27,10 @@
   </mat-drawer>
 
   <div class="example-sidenav-content">
-    <!-- <button type="button" mat-button (click)="drawer.toggle()"> -->
-      <p-button (click)="drawer.toggle()" icon="pi pi-angle-double-right" styleClass="p-button-rounded p-button-warning"></p-button>
-    <!-- </button> -->
+      <div (click)="drawer.toggle()">
+        <p-button *ngIf="!isOpen" (onClick)="abrirMenuLateral()" icon="pi pi-angle-double-right" styleClass="p-button-rounded p-button-warning"></p-button>
+        <p-button *ngIf="isOpen" (onClick)="fecharMenuLateral()" icon="pi pi-angle-double-left" styleClass="p-button-rounded p-button-warning"></p-button>
+      </div>
   </div>
 
 </mat-drawer-container>
