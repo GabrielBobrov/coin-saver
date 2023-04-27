@@ -47,14 +47,23 @@ export class TableMensalComponent implements OnInit {
   }
 
   pagarTransacao(transaction: MonthlyTransactionResponseDto) {
-    this.payTransactionRequestDto.transactionId = transaction.fixTransactionId;
-    this.payTransactionRequestDto.transactionType = transaction.transactionType;
+
+    if (transaction.transactionType == "INSTALLMENT") {
+      this.payTransactionRequestDto.transactionId = transaction.installmentTransactionId;
+      this.payTransactionRequestDto.transactionType = transaction.transactionType;
+    } else if (transaction.transactionType == "FIX") {
+      this.payTransactionRequestDto.transactionId = transaction.fixTransactionId;
+      this.payTransactionRequestDto.transactionType = transaction.transactionType;
+    } else if (transaction.transactionType == "IN_CASH") {
+      this.payTransactionRequestDto.transactionId = transaction.transactionId;
+      this.payTransactionRequestDto.transactionType = transaction.transactionType;
+    }
 
     this.transactionsService.updateTransactionPatch(this.payTransactionRequestDto).subscribe(
       (res) => {
         this.messageService.add({ severity: 'success', summary: 'Success', detail: 'Transação PAGA com sucesso' });
         setTimeout(() => {
-          this.ngOnInit();
+          this.getTransactionsInMonth();
         }, 1500);
       },
       (error) => {
@@ -83,7 +92,7 @@ export class TableMensalComponent implements OnInit {
       (res) => {
         this.messageService.add({ severity: 'success', summary: 'Success', detail: 'Transação ATUALIZADA com sucesso' });
         setTimeout(() => {
-          this.ngOnInit();
+          this.getTransactionsInMonth();
         }, 1500);
       },
       (error) => {
@@ -97,7 +106,7 @@ export class TableMensalComponent implements OnInit {
       (res) => {
         this.messageService.add({ severity: 'success', summary: 'Success', detail: 'Transação APAGADA com sucesso' });
         setTimeout(() => {
-          this.ngOnInit();
+          this.getTransactionsInMonth();
         }, 1500);
       },
       (error) => {
