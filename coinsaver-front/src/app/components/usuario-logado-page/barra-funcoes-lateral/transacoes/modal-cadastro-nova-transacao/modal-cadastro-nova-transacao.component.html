@@ -53,22 +53,31 @@
             <mat-form-field class="mat-form-field" appearance="fill">
               <mat-label>Categoria Tipo Transação</mat-label>
               <mat-select type="text" [formControl]="transactionCategoryTypeControl"
-                [(ngModel)]="transactionRequestDto.category" name="category">
+                [(ngModel)]="transactionRequestDto.category" name="category"
+                (selectionChange)="defineCategoria(transactionRequestDto.category)">
                 <mat-option value="INCOME">Recebido</mat-option>
                 <mat-option value="EXPENSE">Despesa</mat-option>
               </mat-select>
             </mat-form-field>
           </div>
 
-          <div>
+          <div *ngIf="isStatusIncome">
+            <mat-form-field class="mat-form-field" appearance="fill">
+              <mat-label>Status da Transação</mat-label>
+              <mat-select type="text" [formControl]="statusTypeControl"
+                [(ngModel)]="transactionRequestDto.status" name="status">
+                   <mat-option value="RECEIVED">Recebida</mat-option>
+                <mat-option value="NOT_RECEIVED">Não Recebida</mat-option>
+              </mat-select>
+            </mat-form-field>
+          </div>
+          <div *ngIf="isStatusExpense">
             <mat-form-field class="mat-form-field" appearance="fill">
               <mat-label>Status da Transação</mat-label>
               <mat-select type="text" [formControl]="statusTypeControl"
                 [(ngModel)]="transactionRequestDto.status" name="status">
                 <mat-option value="PAID">Paga</mat-option>
                 <mat-option value="NOT_PAID">Não Paga</mat-option>
-                <mat-option value="RECEIVED">Recebida</mat-option>
-                <mat-option value="NOT_RECEIVED">Não Recebida</mat-option>
               </mat-select>
             </mat-form-field>
           </div>

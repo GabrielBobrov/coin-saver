@@ -38,6 +38,9 @@ export class ModalCadastroNovaTransacaoComponent {
     repeat: undefined
   };
 
+  isStatusIncome?: boolean;
+  isStatusExpense?: boolean;
+
   createTransaction(transactionRequestDto: TransactionRequestDto) {
     this.transactionsService.createTransaction(transactionRequestDto).subscribe(
       (res) => {
@@ -50,6 +53,16 @@ export class ModalCadastroNovaTransacaoComponent {
         this.messageService.add({ severity: 'error', summary: 'Error', detail: 'Erro ao tentar CRIAR transação' });
       }
     );
+  }
+
+  defineCategoria(category: any) {
+    if (category == "INCOME") {
+      this.isStatusIncome = true;
+      this.isStatusExpense = false;
+    } else if (category == "EXPENSE") {
+      this.isStatusIncome = false;
+      this.isStatusExpense = true;
+    }
   }
 
   cleanObject() {
