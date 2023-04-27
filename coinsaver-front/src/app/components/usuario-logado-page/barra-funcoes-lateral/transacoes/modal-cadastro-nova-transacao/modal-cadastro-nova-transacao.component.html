@@ -27,7 +27,7 @@
             </mat-form-field>
           </div>
 
-          <div>
+          <!-- <div>
             <mat-form-field class="mat-form-field" appearance="fill">
               <mat-label>Tipo Categoria</mat-label>
               <mat-select type="text" [formControl]="categoryTypeControl"
@@ -39,15 +39,15 @@
                 <mat-option value="OTHER">Outras</mat-option>
               </mat-select>
             </mat-form-field>
-          </div>
+          </div> -->
 
-          <!-- <div>
+          <div>
             <mat-form-field class="mat-form-field" appearance="fill">
               <mat-label>Descrição</mat-label>
               <input type="text" matInput placeholder="Descrição"
                 [(ngModel)]="transactionRequestDto.description" name="description">
             </mat-form-field>
-          </div> -->
+          </div>
 
           <div>
             <mat-form-field class="mat-form-field" appearance="fill">
@@ -86,7 +86,7 @@
 
           <div>
             <mat-form-field class="mat-form-field" appearance="fill">
-              <mat-label>Repete quantas vezes?</mat-label>
+              <mat-label>Repete quantas vezes? Deve ser acima de 1.</mat-label>
               <input matInput type="number" class="example-right-align"
                 [(ngModel)]="transactionRequestDto.repeat" name="repeat">
             </mat-form-field>

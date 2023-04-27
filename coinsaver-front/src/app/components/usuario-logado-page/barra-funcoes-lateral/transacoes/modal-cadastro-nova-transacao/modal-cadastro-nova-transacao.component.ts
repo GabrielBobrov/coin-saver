@@ -39,16 +39,17 @@ export class ModalCadastroNovaTransacaoComponent {
   };
 
   createTransaction(transactionRequestDto: TransactionRequestDto) {
-      this.transactionsService.createTransaction(transactionRequestDto).subscribe(
-        (res) => {
-          this.messageService.add({ severity: 'success', summary: 'Success', detail: 'Transação CRIADA com sucesso' });
-        },
-        (error) => {
-          this.messageService.add({ severity: 'error', summary: 'Error', detail: 'Erro ao tentar CRIAR transação' });
-        }
-      );
-    this.cleanObject();
-    this.retornaPaginaInicialUsuarioLogado();
+    this.transactionsService.createTransaction(transactionRequestDto).subscribe(
+      (res) => {
+        this.messageService.add({ severity: 'success', summary: 'Success', detail: 'Transação CRIADA com sucesso' });
+        this.cleanObject();
+        this.fecharModal();
+        this.retornaPaginaInicialUsuarioLogado();
+      },
+      (error) => {
+        this.messageService.add({ severity: 'error', summary: 'Error', detail: 'Erro ao tentar CRIAR transação' });
+      }
+    );
   }
 
   cleanObject() {
