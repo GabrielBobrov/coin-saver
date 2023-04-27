@@ -40,14 +40,17 @@ export class ModalCadastroNovaTransacaoComponent {
 
   isStatusIncome?: boolean;
   isStatusExpense?: boolean;
+  isRepeticao?: boolean;
 
   createTransaction(transactionRequestDto: TransactionRequestDto) {
     this.transactionsService.createTransaction(transactionRequestDto).subscribe(
       (res) => {
         this.messageService.add({ severity: 'success', summary: 'Success', detail: 'Transação CRIADA com sucesso' });
-        this.cleanObject();
-        this.fecharModal();
-        this.retornaPaginaInicialUsuarioLogado();
+        setTimeout(() => {
+          this.cleanObject();
+          this.fecharModal();
+          this.retornaPaginaInicialUsuarioLogado();
+        }, 1500);
       },
       (error) => {
         this.messageService.add({ severity: 'error', summary: 'Error', detail: 'Erro ao tentar CRIAR transação' });
@@ -62,6 +65,14 @@ export class ModalCadastroNovaTransacaoComponent {
     } else if (category == "EXPENSE") {
       this.isStatusIncome = false;
       this.isStatusExpense = true;
+    }
+  }
+
+  defineRepeticao(fixedExpense: any) {
+    if (fixedExpense == "true") {
+      this.isRepeticao = false;
+    } else if (fixedExpense == "false") {
+      this.isRepeticao = true;
     }
   }
 
