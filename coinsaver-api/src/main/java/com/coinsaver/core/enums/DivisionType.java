@@ -5,10 +5,15 @@ package com.coinsaver.core.enums;
  * @author Gabriel
  *
  */
-public enum CategoryType {
+public enum DivisionType {
 	HEALTH,
 	HOME,
 	ELECTRONIC,
 	RESTAURANT,
-	OTHER
+	GYM,
+	SALARY,
+	RENT,
+	BONUS,
+	MARKET,
+	INVESTMENT
 }

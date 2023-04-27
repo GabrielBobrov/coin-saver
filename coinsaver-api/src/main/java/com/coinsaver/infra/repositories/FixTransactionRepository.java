@@ -1,6 +1,5 @@
 package com.coinsaver.infra.repositories;
 
-import com.coinsaver.core.enums.CategoryType;
 import com.coinsaver.core.enums.StatusType;
 import com.coinsaver.core.enums.TransactionCategoryType;
 import com.coinsaver.domain.entities.FixTransaction;
@@ -12,7 +11,6 @@ import org.springframework.stereotype.Repository;
 
 import java.math.BigDecimal;
 import java.time.LocalDate;
-import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Optional;
 
