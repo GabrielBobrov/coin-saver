@@ -37,27 +37,28 @@ export class TableMensalComponent implements OnInit {
     this.transactionsService.getTransactionsInMonth(this.date)
       .subscribe((res) => {
         this.monthlyResponseDto = res;
-
-        this.monthlyResponseDto.transactions?.forEach((transaction) => {
-        })
-
         this.monthlyTransactionsResponseDtoList = this.monthlyResponseDto.transactions;
 
-        console.log('month', this.monthlyResponseDto)
-      });
+        this.monthlyTransactionsResponseDtoList.forEach((transaction) => {
+          console.log(transaction)
+        })
+      }
+    );
   }
 
   pagarTransacao(transaction: MonthlyTransactionResponseDto) {
-    console.log("pagar", transaction)
-
-    this.payTransactionRequestDto.transactionId = transaction.transactionId;
+    this.payTransactionRequestDto.transactionId = transaction.fixTransactionId;
     this.payTransactionRequestDto.transactionType = transaction.transactionType;
 
     this.transactionsService.updateTransactionPatch(this.payTransactionRequestDto).subscribe(
       (res) => {
+        this.messageService.add({ severity: 'success', summary: 'Success', detail: 'Transação PAGA com sucesso' });
+        setTimeout(() => {
+          this.ngOnInit();
+        }, 1500);
       },
       (error) => {
-
+        this.messageService.add({ severity: 'error', summary: 'Error', detail: 'Erro ao tentar PAGAR transação' });
       }
     );
   }
@@ -78,9 +79,17 @@ export class TableMensalComponent implements OnInit {
     // this.updateTransactionRequestDto.installmentTransactionId = transaction.amount;
     // this.updateTransactionRequestDto.fixTransactionId = transaction.amount;
 
-    this.transactionsService.updateTransaction(this.updateTransactionRequestDto)
-    .subscribe((res) => {
-    });
+    this.transactionsService.updateTransaction(this.updateTransactionRequestDto).subscribe(
+      (res) => {
+        this.messageService.add({ severity: 'success', summary: 'Success', detail: 'Transação ATUALIZADA com sucesso' });
+        setTimeout(() => {
+          this.ngOnInit();
+        }, 1500);
+      },
+      (error) => {
+        this.messageService.add({ severity: 'error', summary: 'Error', detail: 'Erro ao tentar ATUALIZADA transação' });
+      }
+    );
   }
 
   deletarTransacao(transaction: MonthlyTransactionResponseDto) {

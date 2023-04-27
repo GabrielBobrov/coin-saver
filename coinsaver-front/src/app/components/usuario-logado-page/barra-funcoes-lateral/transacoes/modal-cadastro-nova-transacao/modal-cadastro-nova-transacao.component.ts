@@ -1,3 +1,4 @@
+import { DataUtils } from './../../../../../shared/utils/DataUtils.class';
 import { DynamicDialogRef } from 'primeng/dynamicdialog';
 import { Component } from '@angular/core';
 import { FormControl } from '@angular/forms';
@@ -38,11 +39,17 @@ export class ModalCadastroNovaTransacaoComponent {
     repeat: undefined
   };
 
+  dataUtils = new DataUtils();
+
   isStatusIncome?: boolean;
   isStatusExpense?: boolean;
   isRepeticao?: boolean;
 
   createTransaction(transactionRequestDto: TransactionRequestDto) {
+    this.transactionRequestDto.payDay = this.dataUtils.transformaDataInput(transactionRequestDto.payDay);
+
+    transactionRequestDto.payDay = this.transactionRequestDto.payDay;
+
     this.transactionsService.createTransaction(transactionRequestDto).subscribe(
       (res) => {
         this.messageService.add({ severity: 'success', summary: 'Success', detail: 'Transação CRIADA com sucesso' });

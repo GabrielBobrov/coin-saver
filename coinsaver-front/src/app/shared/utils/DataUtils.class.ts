@@ -24,4 +24,11 @@ export class DataUtils {
       return param;
      }
   }
+
+  transformaDataInput(dataInput: any) {
+    var dataPartes = dataInput.split("/");
+    var dataConvertida = new Date(+dataPartes[2], dataPartes[1] - 1, dataPartes[0]);
+
+    return dataConvertida;
+  }
 }
