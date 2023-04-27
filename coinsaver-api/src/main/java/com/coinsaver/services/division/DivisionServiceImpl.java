@@ -1,4 +1,4 @@
-package com.coinsaver.services;
+package com.coinsaver.services.division;
 
 import com.coinsaver.api.dtos.response.DivisionResponseDto;
 import com.coinsaver.core.enums.TransactionCategoryType;
@@ -7,7 +7,7 @@ import com.coinsaver.domain.entities.Division;
 import com.coinsaver.domain.exceptions.BusinessException;
 import com.coinsaver.domain.mapper.DivisionMapper;
 import com.coinsaver.infra.repositories.DivisionRepository;
-import com.coinsaver.services.interfaces.DivisionService;
+import com.coinsaver.services.division.interfaces.DivisionService;
 import org.springframework.stereotype.Service;
 
 import java.util.List;

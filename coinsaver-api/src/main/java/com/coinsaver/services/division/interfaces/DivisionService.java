@@ -1,4 +1,4 @@
-package com.coinsaver.services.interfaces;
+package com.coinsaver.services.division.interfaces;
 
 import com.coinsaver.api.dtos.response.DivisionResponseDto;
 import com.coinsaver.core.enums.TransactionCategoryType;

@@ -3,7 +3,7 @@ package com.coinsaver.api.controllers;
 import com.coinsaver.api.dtos.response.DivisionResponseDto;
 import com.coinsaver.api.openapi.controller.DivisionsControllerOpenApi;
 import com.coinsaver.core.enums.TransactionCategoryType;
-import com.coinsaver.services.interfaces.DivisionService;
+import com.coinsaver.services.division.interfaces.DivisionService;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
