@@ -54,9 +54,9 @@ public class TransactionsController implements TransactionsControllerOpenApi {
 
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
-    public TransactionResponseDto createTransaction(@RequestBody @Valid TransactionRequestDto transactionRequestDto) {
+    public void createTransaction(@RequestBody @Valid TransactionRequestDto transactionRequestDto) {
 
-        return transactionService.createTransaction(transactionRequestDto);
+        transactionService.createTransaction(transactionRequestDto);
     }
 
     @GetMapping("/month")
