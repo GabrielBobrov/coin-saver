@@ -29,4 +29,5 @@ public class TransactionResponseDto {
     private Boolean fixedExpense;
     private Integer repeat;
     private TransactionType transactionType;
+    private DivisionResponseDto division;
 }
