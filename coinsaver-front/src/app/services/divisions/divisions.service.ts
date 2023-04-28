@@ -19,7 +19,7 @@ export class DivisionsService {
   };
 
   baseUrl = environment.api.hostBackend;
-  divisionControllerUrl = environment.api.divisionsBackendEndpoints;
+  divisionControllerUrl = environment.api.divisionsControllerBackend;
 
   getDivisionByCategoryType(categoryType: TransactionCategoryTypeEnum): Observable<DivisionResponseDto[]> {
     return this.httpClient.get<DivisionResponseDto[]>(

@@ -6,6 +6,10 @@ import { Router } from '@angular/router';
 import { MessageService } from 'primeng/api';
 import { TransactionRequestDto } from 'src/app/dtos/transactions/request/transaction.request.dto';
 import { TransactionsService } from 'src/app/services/transactions/transactions.service';
+import { DivisionsService } from 'src/app/services/divisions/divisions.service';
+import { DivisionTypeEnum } from 'src/app/enums/division-type.enum copy';
+import { TransactionCategoryTypeEnum } from 'src/app/enums/transaction-category-type.enum';
+import { DivisionResponseDto } from 'src/app/dtos/transactions/response/division.response.dto';
 
 @Component({
   selector: 'app-modal-cadastro-nova-transacao',
@@ -16,6 +20,7 @@ export class ModalCadastroNovaTransacaoComponent {
 
   constructor(
     private transactionsService: TransactionsService,
+    private divisionsService: DivisionsService,
     public router: Router,
     private messageService: MessageService,
     private ref: DynamicDialogRef
@@ -23,7 +28,6 @@ export class ModalCadastroNovaTransacaoComponent {
 
   divisionType = new FormControl();
   transactionTypeControl = new FormControl();
-
   statusTypeControl = new FormControl();
   transactionCategoryTypeControl = new FormControl();
   fixedExpenseControl = new FormControl();
@@ -45,6 +49,9 @@ export class ModalCadastroNovaTransacaoComponent {
   isStatusIncome?: boolean;
   isStatusExpense?: boolean;
   isRepeticao?: boolean;
+
+  transactionCategoryType: TransactionCategoryTypeEnum | undefined;
+  listDivision: DivisionResponseDto[] | undefined;
 
   createTransaction(transactionRequestDto: TransactionRequestDto) {
     this.transactionRequestDto.payDay = this.dataUtils.transformaDataInput(transactionRequestDto.payDay);
@@ -72,10 +79,27 @@ export class ModalCadastroNovaTransacaoComponent {
     if (category == "INCOME") {
       this.isStatusIncome = true;
       this.isStatusExpense = false;
+      this.getDivisionByCategoryType(TransactionCategoryTypeEnum.INCOME);
+
     } else if (category == "EXPENSE") {
       this.isStatusIncome = false;
       this.isStatusExpense = true;
+      this.getDivisionByCategoryType(TransactionCategoryTypeEnum.EXPENSE);
     }
+  }
+
+  private getDivisionByCategoryType(transactionCategoryType: TransactionCategoryTypeEnum) {
+
+    console.log(transactionCategoryType)
+
+    this.divisionsService.getDivisionByCategoryType(transactionCategoryType).subscribe(
+      (res) => {
+        this.listDivision = res;
+
+        this.listDivision?.forEach((division) => {
+        })
+      }
+    );
   }
 
   defineRepeticao(fixedExpense: any) {
