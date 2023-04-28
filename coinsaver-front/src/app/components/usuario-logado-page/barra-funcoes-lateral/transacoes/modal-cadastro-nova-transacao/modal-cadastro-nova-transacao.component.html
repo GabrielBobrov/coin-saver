@@ -28,7 +28,7 @@
               <mat-label>Divisão Categoria</mat-label>
               <mat-select type="text" [formControl]="divisionType"
                 [(ngModel)]="transactionRequestDto.divisionId" name="divisionId">
-                <mat-option *ngFor="let division of listDivision">
+                <mat-option *ngFor="let division of listDivision" value="division.name">
                   {{division.name}}
                 </mat-option>
               </mat-select>
