@@ -201,7 +201,6 @@ public class TransactionServiceImpl implements TransactionService {
                         TransactionResponseDto responseDto = transactionMapper.fromTransactionToTransactionRequestDto(transaction);
                         responseDto.setTransactionType(TransactionType.IN_CASH);
                         responseDto.setTransactionId(transaction.getId());
-                        responseDto.setDivision(divisionMapper.fromDivisionToDivisionResponseDto(transaction.getDivision()));
                         return responseDto;
                     })
                     .toList());
@@ -213,7 +212,6 @@ public class TransactionServiceImpl implements TransactionService {
                     .map(installmentTransaction -> {
                         TransactionResponseDto responseDto = installmentTransactionMapper.fromInstallmentTransactionToTransactionResponseDto(installmentTransaction);
                         responseDto.setTransactionType(TransactionType.INSTALLMENT);
-                        responseDto.setDivision(divisionMapper.fromDivisionToDivisionResponseDto(installmentTransaction.getDivision()));
                         return responseDto;
                     })
                     .toList());
@@ -225,7 +223,6 @@ public class TransactionServiceImpl implements TransactionService {
                     .map(fixTransaction -> {
                         TransactionResponseDto responseDto = fixTransactionMapper.fromFixTransactionToTransactionResponseDto(fixTransaction);
                         responseDto.setTransactionType(TransactionType.FIX);
-                        responseDto.setDivision(divisionMapper.fromDivisionToDivisionResponseDto(fixTransaction.getDivision()));
                         return responseDto;
                     })
                     .toList());
@@ -310,7 +307,6 @@ public class TransactionServiceImpl implements TransactionService {
                         MonthlyTransactionResponseDto responseDto = transaction.convertEntityToMonthlyResponseDto();
                         responseDto.setTransactionType(TransactionType.IN_CASH);
                         responseDto.setTransactionId(transaction.getId());
-                        responseDto.setDivision(divisionMapper.fromDivisionToDivisionResponseDto(transaction.getDivision()));
                         return responseDto;
                     })
                     .toList());
@@ -333,7 +329,6 @@ public class TransactionServiceImpl implements TransactionService {
                         MonthlyTransactionResponseDto responseDto = installmentTransaction.convertEntityToMonthlyResponseDto();
                         responseDto.setTransactionType(TransactionType.INSTALLMENT);
                         responseDto.setInstallmentTransactionId(installmentTransaction.getId());
-                        responseDto.setDivision(divisionMapper.fromDivisionToDivisionResponseDto(installmentTransaction.getDivision()));
                         return responseDto;
                     })
                     .toList());
@@ -346,7 +341,6 @@ public class TransactionServiceImpl implements TransactionService {
                         MonthlyTransactionResponseDto responseDto = fixTransaction.convertEntityToMonthlyResponseDto();
                         responseDto.setTransactionType(TransactionType.FIX);
                         responseDto.setFixTransactionId(fixTransaction.getId());
-                        responseDto.setDivision(divisionMapper.fromDivisionToDivisionResponseDto(fixTransaction.getDivision()));
                         return responseDto;
                     })
                     .toList());
