@@ -8,22 +8,24 @@
   </ng-template>
   <ng-template pTemplate="header">
       <tr>
-          <th pSortableColumn="description">DESCRIÇÃO <p-sortIcon field="description"></p-sortIcon></th>
           <th pSortableColumn="transactionType">TIPO TRANSAÇÃO <p-sortIcon field="transactionType"></p-sortIcon></th>
-          <th pSortableColumn="amount">VALOR <p-sortIcon field="amount"></p-sortIcon></th>
+          <th pSortableColumn="description">DESCRIÇÃO <p-sortIcon field="description"></p-sortIcon></th>
           <th pSortableColumn="category">CATEGORIA <p-sortIcon field="category"></p-sortIcon></th>
+          <th pSortableColumn="category">DIVISÃO <p-sortIcon field="division"></p-sortIcon></th>
           <th pSortableColumn="payDay">DATA PAGAMENTO <p-sortIcon field="payDay"></p-sortIcon></th>
+          <th pSortableColumn="amount">VALOR <p-sortIcon field="amount"></p-sortIcon></th>
           <th pSortableColumn="status">STATUS <p-sortIcon field="status"></p-sortIcon></th>
           <th>AÇÕES</th>
       </tr>
   </ng-template>
   <ng-template pTemplate="body" let-transaction>
       <tr>
-          <td>{{transaction.description}}</td>
           <td>{{transaction.transactionType}}</td>
-          <td>{{transaction.amount | currency:'R$ '}}</td>
+          <td>{{transaction.description}}</td>
           <td>{{transaction.category}}</td>
+          <td>{{transaction.division.type}}</td>
           <td>{{transaction.payDay}}</td>
+          <td>{{transaction.amount | currency:'R$ '}}</td>
           <td>{{transaction.status}}</td>
           <td>
             <div class="flex justify-content-center flex-wrap gap-3 mb-4">

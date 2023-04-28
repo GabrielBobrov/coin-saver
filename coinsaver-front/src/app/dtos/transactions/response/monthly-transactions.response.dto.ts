@@ -1,6 +1,7 @@
 import { TransactionCategoryTypeEnum } from 'src/app/enums/transaction-category-type.enum';
 import { TransactionTypeEnum } from 'src/app/enums/transaction-type.enum';
 import { StatusTypeEnum } from '../../../enums/status-type.enum';
+import { DivisionResponseDto } from './division.response.dto';
 
 export class MonthlyTransactionResponseDto {
   constructor(
@@ -18,5 +19,7 @@ export class MonthlyTransactionResponseDto {
     public status: StatusTypeEnum,
     public category: TransactionCategoryTypeEnum,
     public transactionType: TransactionTypeEnum,
+
+    public division: DivisionResponseDto,
   ) {}
 }
