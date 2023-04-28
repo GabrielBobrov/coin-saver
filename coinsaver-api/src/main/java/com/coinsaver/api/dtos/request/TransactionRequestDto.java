@@ -40,6 +40,8 @@ public class TransactionRequestDto {
     private Boolean fixedExpense;
     @Min(2)
     private Integer repeat;
+    @NotNull
+    private Long divisionId;
 
     public InstallmentTransaction convertDtoToInstallmentTransactionEntity() {
         return new ModelMapper().map(this, InstallmentTransaction.class);

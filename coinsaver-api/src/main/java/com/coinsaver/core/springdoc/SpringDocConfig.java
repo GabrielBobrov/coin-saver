@@ -8,6 +8,7 @@ import io.swagger.v3.oas.models.tags.Tag;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
+import java.util.Arrays;
 import java.util.Collections;
 
 @Configuration
@@ -24,8 +25,9 @@ public class SpringDocConfig {
                                 .name("Apache 2.0")
                                 .url("http://springdoc.com")
                         )
-                ).tags(Collections.singletonList(
-                        new Tag().name("Transactions").description("Gerencia de transações")
-                )).components(new Components());
+                ).tags(Arrays.asList(
+                        new Tag().name("Transactions").description("Gerencia de transações"),
+                        new Tag().name("Divisions").description("Gerencia de divisões"))
+                ).components(new Components());
     }
 }

@@ -1,6 +1,7 @@
 package com.coinsaver.api.controllers;
 
 import com.coinsaver.api.dtos.response.DivisionResponseDto;
+import com.coinsaver.api.openapi.controller.DivisionsControllerOpenApi;
 import com.coinsaver.core.enums.TransactionCategoryType;
 import com.coinsaver.services.interfaces.DivisionService;
 import org.springframework.http.HttpStatus;
@@ -15,7 +16,7 @@ import java.util.List;
 
 @RestController
 @RequestMapping(value = "/divisions")
-public class DivisionsController  {
+public class DivisionsController implements DivisionsControllerOpenApi {
 
     private final DivisionService divisionService;
 
@@ -23,10 +24,17 @@ public class DivisionsController  {
         this.divisionService = divisionService;
     }
 
-    @GetMapping("/{categoryType}")
+    @GetMapping("/category/{categoryType}")
     @ResponseStatus(HttpStatus.OK)
     public List<DivisionResponseDto> getDivisionsByCategoryType(@PathVariable TransactionCategoryType categoryType) {
 
         return divisionService.getDivisionsByCategory(categoryType);
+    }
+
+    @GetMapping("/{divisionId}")
+    @ResponseStatus(HttpStatus.OK)
+    public DivisionResponseDto getDivisionsById(@PathVariable Long divisionId) {
+
+        return divisionService.getDivisionById(divisionId);
     }
 }

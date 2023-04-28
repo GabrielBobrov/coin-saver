@@ -1,5 +1,6 @@
 package com.coinsaver.domain.entities;
 
+import com.coinsaver.core.enums.DivisionType;
 import com.coinsaver.core.enums.StatusType;
 import com.coinsaver.core.enums.TransactionCategoryType;
 import jakarta.persistence.CascadeType;
@@ -11,7 +12,9 @@ import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
+import jakarta.persistence.ManyToMany;
 import jakarta.persistence.ManyToOne;
+import jakarta.persistence.OneToMany;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import org.hibernate.annotations.CreationTimestamp;
@@ -56,6 +59,10 @@ public class FixTransaction extends TransactionBase {
     @ManyToOne
     @JoinColumn(name = "transaction_id")
     private Transaction transaction;
+
+    @ManyToOne
+    @JoinColumn(name = "division_id")
+    private Division division;
 
     public void payTransaction() {
         this.setStatus(StatusType.PAID);

@@ -80,6 +80,10 @@ public class Transaction extends TransactionBase {
     @OneToMany(mappedBy = "transaction", cascade = CascadeType.ALL)
     private List<InstallmentTransaction> installmentTransactions;
 
+    @ManyToOne
+    @JoinColumn(name = "division_id")
+    private Division division;
+
     public void payTransaction() {
         this.setStatus(StatusType.PAID);
     }

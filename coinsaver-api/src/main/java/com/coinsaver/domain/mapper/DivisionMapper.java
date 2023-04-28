@@ -9,5 +9,7 @@ import java.util.List;
 
 @Mapper(componentModel = "spring", unmappedTargetPolicy = ReportingPolicy.IGNORE)
 public interface DivisionMapper {
-    List<DivisionResponseDto> fromDivisionToDivisionResponseDto(List<Division> divisions);
+    List<DivisionResponseDto> fromDivisionsToDivisionResponseDtos(List<Division> divisions);
+
+    DivisionResponseDto fromDivisionToDivisionResponseDto(Division divisions);
 }

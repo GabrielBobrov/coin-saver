@@ -7,4 +7,6 @@ import java.util.List;
 
 public interface DivisionService {
     List<DivisionResponseDto> getDivisionsByCategory(TransactionCategoryType transactionCategoryType);
+
+    DivisionResponseDto getDivisionById(Long divisionId);
 }

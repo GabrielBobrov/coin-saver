@@ -12,6 +12,7 @@ import com.coinsaver.core.enums.TransactionCategoryType;
 import com.coinsaver.core.enums.TransactionType;
 import com.coinsaver.core.enums.UpdateTransactionType;
 import com.coinsaver.core.validation.messages.ErrorMessages;
+import com.coinsaver.domain.entities.Division;
 import com.coinsaver.domain.entities.FixTransaction;
 import com.coinsaver.domain.entities.InstallmentTransaction;
 import com.coinsaver.domain.entities.Transaction;
@@ -20,6 +21,7 @@ import com.coinsaver.domain.exceptions.BusinessException;
 import com.coinsaver.domain.mapper.FixTransactionMapper;
 import com.coinsaver.domain.mapper.InstallmentTransactionMapper;
 import com.coinsaver.domain.mapper.TransactionMapper;
+import com.coinsaver.infra.repositories.DivisionRepository;
 import com.coinsaver.infra.repositories.FixTransactionRepository;
 import com.coinsaver.infra.repositories.InstallmentTransactionRepository;
 import com.coinsaver.infra.repositories.TransactionRepository;
@@ -32,9 +34,6 @@ import org.springframework.stereotype.Service;
 
 import java.math.BigDecimal;
 import java.time.LocalDate;
-import java.time.LocalDateTime;
-import java.time.LocalTime;
-import java.time.temporal.TemporalAdjusters;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -61,6 +60,8 @@ public class TransactionServiceImpl implements TransactionService {
 
     private final TransactionMapper transactionMapper;
 
+    private final DivisionRepository divisionRepository;
+
     public TransactionServiceImpl(TransactionRepository transactionRepository,
                                   InstallmentTransactionRepository installmentTransactionRepository,
                                   InstallmentTransactionDomainService installmentTransactionDomainService,
@@ -69,7 +70,8 @@ public class TransactionServiceImpl implements TransactionService {
                                   FixTransactionRepository fixTransactionRepository,
                                   InstallmentTransactionMapper installmentTransactionMapper,
                                   FixTransactionMapper fixTransactionMapper,
-                                  TransactionMapper transactionMapper) {
+                                  TransactionMapper transactionMapper,
+                                  DivisionRepository divisionRepository) {
         this.transactionRepository = transactionRepository;
         this.installmentTransactionRepository = installmentTransactionRepository;
         this.installmentTransactionDomainService = installmentTransactionDomainService;
@@ -79,6 +81,7 @@ public class TransactionServiceImpl implements TransactionService {
         this.installmentTransactionMapper = installmentTransactionMapper;
         this.fixTransactionMapper = fixTransactionMapper;
         this.transactionMapper = transactionMapper;
+        this.divisionRepository = divisionRepository;
     }
 
     @Override
@@ -396,6 +399,16 @@ public class TransactionServiceImpl implements TransactionService {
         if (StatusType.NOT_RECEIVED.equals(transactionRequestDto.getStatus()) &&
                 TransactionCategoryType.EXPENSE.equals(transactionRequestDto.getCategory())) {
             throw new BusinessException(ErrorMessages.getErrorMessage("INVALID_STATUS_NOT_RECEIVED_CATEGORY_EXPENSE"));
+        }
+
+        Division division = divisionRepository.findById(transactionRequestDto.getDivisionId())
+                .orElseThrow(() -> new BusinessException(ErrorMessages.getErrorMessage("TRANSACTION_NOT_FOUND")));
+
+        if (TransactionCategoryType.EXPENSE.equals(division.getCategory()) &&
+                TransactionCategoryType.INCOME.equals(transactionRequestDto.getCategory()) ||
+                TransactionCategoryType.INCOME.equals(division.getCategory()) &&
+                        TransactionCategoryType.EXPENSE.equals(transactionRequestDto.getCategory())) {
+            throw new BusinessException(ErrorMessages.getErrorMessage("INVALID_DIVISION"));
         }
     }
 

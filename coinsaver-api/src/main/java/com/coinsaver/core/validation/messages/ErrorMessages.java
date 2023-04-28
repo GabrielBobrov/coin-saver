@@ -18,6 +18,8 @@ public class ErrorMessages {
         messages.put("PAY_INCOME_TRANSACTION", "Não é possível pagar uma transação que nào é uma despesa.");
         messages.put("INVALID_STATUS_NOT_PAID_CATEGORY_INCOME", "Não é possível criar uma entrada com status não pago.");
         messages.put("INVALID_STATUS_NOT_RECEIVED_CATEGORY_EXPENSE", "Não é possível criar uma despesa com status não recebido.");
+        messages.put("INVALID_DIVISION", "Divisão inválida para categoria da transação.");
+        messages.put("DIVISION_NOT_FOUND", "Divisão não encontrada.");
     }
 
 

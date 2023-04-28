@@ -5,11 +5,12 @@ import com.coinsaver.api.dtos.request.TransactionRequestDto;
 import com.coinsaver.api.dtos.request.UpdateTransactionRequestDto;
 import com.coinsaver.core.enums.TransactionCategoryType;
 import com.coinsaver.core.validation.messages.ErrorMessages;
+import com.coinsaver.domain.entities.Division;
 import com.coinsaver.domain.entities.InstallmentTransaction;
 import com.coinsaver.domain.entities.Transaction;
 import com.coinsaver.domain.exceptions.BusinessException;
+import com.coinsaver.infra.repositories.DivisionRepository;
 import com.coinsaver.infra.repositories.InstallmentTransactionRepository;
-import com.coinsaver.infra.repositories.TransactionRepository;
 import com.coinsaver.services.domain.interfaces.InstallmentTransactionDomainService;
 import org.springframework.stereotype.Service;
 
@@ -19,9 +20,11 @@ import java.time.LocalDate;
 public class InstallmentTransactionDomainServiceImpl implements InstallmentTransactionDomainService {
 
     private final InstallmentTransactionRepository installmentTransactionRepository;
+    private final DivisionRepository divisionRepository;
 
-    public InstallmentTransactionDomainServiceImpl(InstallmentTransactionRepository installmentTransactionRepository) {
+    public InstallmentTransactionDomainServiceImpl(InstallmentTransactionRepository installmentTransactionRepository, DivisionRepository divisionRepository) {
         this.installmentTransactionRepository = installmentTransactionRepository;
+        this.divisionRepository = divisionRepository;
     }
 
 

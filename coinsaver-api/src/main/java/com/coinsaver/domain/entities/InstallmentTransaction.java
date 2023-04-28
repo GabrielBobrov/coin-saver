@@ -53,6 +53,10 @@ public class InstallmentTransaction extends TransactionBase {
     @JoinColumn(name = "transaction_id")
     private Transaction transaction;
 
+    @ManyToOne
+    @JoinColumn(name = "division_id")
+    private Division division;
+
     public void payTransaction() {
         this.setStatus(StatusType.PAID);
     }
