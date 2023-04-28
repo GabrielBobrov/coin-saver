@@ -122,6 +122,7 @@ public class FixTransactionDomainServiceImpl implements FixTransactionDomainServ
             fixTransactionEdited.setId(null);
             fixTransactionEdited.setEdited(Boolean.TRUE);
             fixTransactionEdited.setTransaction(fixTransaction.getTransaction());
+            fixTransactionEdited.setDivision(fixTransaction.getDivision());
 
             fixTransactionRepository.save(fixTransactionEdited);
         } else {
