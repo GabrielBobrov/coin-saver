@@ -199,23 +199,19 @@ public class TransactionServiceImpl implements TransactionService {
 
     @Transactional
     @Override
-    public TransactionResponseDto createTransaction(TransactionRequestDto transactionRequestDto) {
+    public void createTransaction(TransactionRequestDto transactionRequestDto) {
 
         validate(transactionRequestDto);
 
         Transaction transaction = transactionDomainService.createTransaction(transactionRequestDto);
-        transactionRepository.flush();
 
         if (transactionRequestDto.getRepeat() != null) {
             createInstallmentTransaction(transactionRequestDto, transaction);
-            return transaction.convertEntityToResponseDto();
         }
 
         if (Boolean.TRUE.equals(transactionRequestDto.getFixedExpense())) {
             fixTransactionDomainService.createFixTransaction(transactionRequestDto, transaction);
-            return transaction.convertEntityToResponseDto();
         }
-        return transaction.convertEntityToResponseDto();
     }
 
     @Override
