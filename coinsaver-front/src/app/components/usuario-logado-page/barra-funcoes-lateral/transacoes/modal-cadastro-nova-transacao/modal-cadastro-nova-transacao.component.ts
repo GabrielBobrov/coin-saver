@@ -7,7 +7,6 @@ import { MessageService } from 'primeng/api';
 import { TransactionRequestDto } from 'src/app/dtos/transactions/request/transaction.request.dto';
 import { TransactionsService } from 'src/app/services/transactions/transactions.service';
 import { DivisionsService } from 'src/app/services/divisions/divisions.service';
-import { DivisionTypeEnum } from 'src/app/enums/division-type.enum copy';
 import { TransactionCategoryTypeEnum } from 'src/app/enums/transaction-category-type.enum';
 import { DivisionResponseDto } from 'src/app/dtos/transactions/response/division.response.dto';
 
@@ -54,10 +53,8 @@ export class ModalCadastroNovaTransacaoComponent {
   listDivision: DivisionResponseDto[] | undefined;
 
   createTransaction(transactionRequestDto: TransactionRequestDto) {
-    this.transactionRequestDto.payDay = this.dataUtils.transformaDataInput(transactionRequestDto.payDay);
-    transactionRequestDto.payDay = this.transactionRequestDto.payDay;
-
-    console.log(transactionRequestDto)
+    var payDayFormated = this.dataUtils.transformaDataInput(transactionRequestDto.payDay);
+    transactionRequestDto.payDay = payDayFormated;
 
     this.transactionsService.createTransaction(transactionRequestDto).subscribe(
       (res) => {
@@ -89,9 +86,6 @@ export class ModalCadastroNovaTransacaoComponent {
   }
 
   private getDivisionByCategoryType(transactionCategoryType: TransactionCategoryTypeEnum) {
-
-    console.log(transactionCategoryType)
-
     this.divisionsService.getDivisionByCategoryType(transactionCategoryType).subscribe(
       (res) => {
         this.listDivision = res;
