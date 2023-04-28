@@ -28,4 +28,5 @@ public class MonthlyTransactionResponseDto {
     private StatusType status;
     private TransactionCategoryType category;
     private TransactionType transactionType;
+    private DivisionResponseDto division;
 }

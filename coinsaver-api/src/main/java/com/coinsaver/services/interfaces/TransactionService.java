@@ -17,7 +17,7 @@ public interface TransactionService {
 
     List<TransactionResponseDto> getTransactionByCategory(TransactionCategoryType categoryType, LocalDate date);
 
-    TransactionResponseDto createTransaction(TransactionRequestDto transactionRequestDto);
+    void createTransaction(TransactionRequestDto transactionRequestDto);
 
     MonthlyResponseDto getMonthlyTransactions(LocalDate date);
 

@@ -43,7 +43,7 @@ public interface TransactionsControllerOpenApi {
             responses = {
                     @ApiResponse(responseCode = "201", content = @Content(schema = @Schema(implementation = TransactionResponseDto.class))),
             })
-    TransactionResponseDto createTransaction(@RequestBody(description = "Representação de uma nova transação", required = true) TransactionRequestDto transactionRequestDto);
+    void createTransaction(@RequestBody(description = "Representação de uma nova transação", required = true) TransactionRequestDto transactionRequestDto);
 
     @Operation(summary = "Buscar transações do mês", responses = {
             @ApiResponse(responseCode = "200", content = @Content(schema = @Schema(implementation = MonthlyResponseDto.class))),
