@@ -59,7 +59,6 @@ import { MAT_FORM_FIELD_DEFAULT_OPTIONS } from '@angular/material/form-field';
     ModalCadastroNovaTransacaoComponent,
   ],
   providers: [
-    {provide: LOCALE_ID, useValue: 'pt'},
     {provide: MAT_FORM_FIELD_DEFAULT_OPTIONS, useValue: {appearence: 'fill'}},
   ]
 })
