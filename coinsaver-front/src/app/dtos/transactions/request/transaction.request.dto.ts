@@ -17,5 +17,6 @@ export class TransactionRequestDto {
     public fixedExpense?: boolean,
 
     public repeat?: number,
+    public divisionId?: number,
   ) {}
 }

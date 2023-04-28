@@ -3,7 +3,7 @@ import { AngularMaterialModule } from './../outros-components/angular-material.m
 import { HttpClientModule } from '@angular/common/http';
 import { InitialPageRoutingModule } from './initial-page-routing.module';
 import { InitialPageComponent } from './../../components/initial-page/initial-page.component';
-import { NgModule } from '@angular/core';
+import { NgModule, LOCALE_ID } from '@angular/core';
 import { platformBrowserDynamic } from '@angular/platform-browser-dynamic';
 import { ModalCadastroUsuarioComponent } from '../../components/modal-cadastro-usuario/modal-cadastro-usuario.component';
 import { CadastroUsuarioPageComponent } from '../../components/modal-cadastro-usuario/cadastro-usuario-page/cadastro-usuario-page.component';
@@ -17,6 +17,7 @@ import { MensalComponent } from '../../components/usuario-logado-page/barra-func
 import { TableMensalComponent } from '../../components/usuario-logado-page/barra-funcoes-lateral/transacoes/mensal/table-mensal/table-mensal.component';
 import { TableGeralComponent } from '../../components/usuario-logado-page/barra-funcoes-lateral/transacoes/geral/table-geral/table-geral.component';
 import { ModalCadastroNovaTransacaoComponent } from '../../components/usuario-logado-page/barra-funcoes-lateral/transacoes/modal-cadastro-nova-transacao/modal-cadastro-nova-transacao.component';
+import { MAT_FORM_FIELD_DEFAULT_OPTIONS } from '@angular/material/form-field';
 
 @NgModule({
   declarations: [
@@ -40,6 +41,9 @@ import { ModalCadastroNovaTransacaoComponent } from '../../components/usuario-lo
     AngularPrimeNgModule,
     CommonModule
   ],
+  entryComponents: [
+
+  ],
   bootstrap: [
     InitialPageComponent,
     ModalCadastroUsuarioComponent,
@@ -54,7 +58,10 @@ import { ModalCadastroNovaTransacaoComponent } from '../../components/usuario-lo
     TableGeralComponent,
     ModalCadastroNovaTransacaoComponent,
   ],
-  providers: []
+  providers: [
+    {provide: LOCALE_ID, useValue: 'pt'},
+    {provide: MAT_FORM_FIELD_DEFAULT_OPTIONS, useValue: {appearence: 'fill'}},
+  ]
 })
 
 export class InitialPageModule {}

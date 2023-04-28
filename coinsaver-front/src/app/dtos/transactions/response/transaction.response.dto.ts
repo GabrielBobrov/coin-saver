@@ -10,7 +10,7 @@ export class TransactionResponseDto {
 
     public amount: number,
 
-    public payDay: string,
+    public payDay: string | Date,
 
     public description: string,
 

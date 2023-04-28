@@ -27,7 +27,7 @@ export class UsuarioLogadoPageComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
-    this.getTransaction();
+    // this.getTransaction();
     this.getTransactionByCategoryType();
   }
 

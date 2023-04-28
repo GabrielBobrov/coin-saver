@@ -7,7 +7,8 @@ export class UpdateTransactionRequestDto {
   constructor(
     public amount?: number,
 
-    public payDay?: string,
+    public payDay?: string | Date,
+
 
     public description?: string,
 

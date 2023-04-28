@@ -7,6 +7,11 @@ import { MonthlyResponseDto } from 'src/app/dtos/transactions/response/monthly.r
 import { TransactionsService } from 'src/app/services/transactions/transactions.service';
 import { DataUtils } from 'src/app/shared/utils/DataUtils.class';
 
+interface DataFromDatePickerObj {
+  mesNumber: number,
+  anoNumber: number
+}
+
 @Component({
   selector: 'app-table-mensal',
   templateUrl: './table-mensal.component.html',
@@ -21,6 +26,7 @@ export class TableMensalComponent implements OnInit {
 
   date: string = '';
   dataUtils = new DataUtils();
+  objetoData?: DataFromDatePickerObj;
 
   constructor(
     private transactionsService: TransactionsService,
@@ -37,10 +43,10 @@ export class TableMensalComponent implements OnInit {
     this.transactionsService.getTransactionsInMonth(this.date)
       .subscribe((res) => {
         this.monthlyResponseDto = res;
+        console.log(this.monthlyResponseDto)
         this.monthlyTransactionsResponseDtoList = this.monthlyResponseDto.transactions;
 
         this.monthlyTransactionsResponseDtoList.forEach((transaction) => {
-          console.log(transaction)
         })
       }
     );
