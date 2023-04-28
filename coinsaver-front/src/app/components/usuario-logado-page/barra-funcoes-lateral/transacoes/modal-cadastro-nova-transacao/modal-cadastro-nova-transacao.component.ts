@@ -21,7 +21,7 @@ export class ModalCadastroNovaTransacaoComponent {
     private ref: DynamicDialogRef
   ) { }
 
-  categoryTypeControl = new FormControl();
+  divisionType = new FormControl();
   transactionTypeControl = new FormControl();
 
   statusTypeControl = new FormControl();
@@ -36,7 +36,8 @@ export class ModalCadastroNovaTransacaoComponent {
     status: undefined,
     category: undefined,
     fixedExpense: undefined,
-    repeat: undefined
+    repeat: undefined,
+    divisionId: undefined
   };
 
   dataUtils = new DataUtils();
@@ -47,8 +48,9 @@ export class ModalCadastroNovaTransacaoComponent {
 
   createTransaction(transactionRequestDto: TransactionRequestDto) {
     this.transactionRequestDto.payDay = this.dataUtils.transformaDataInput(transactionRequestDto.payDay);
-
     transactionRequestDto.payDay = this.transactionRequestDto.payDay;
+
+    console.log(transactionRequestDto)
 
     this.transactionsService.createTransaction(transactionRequestDto).subscribe(
       (res) => {
@@ -61,6 +63,7 @@ export class ModalCadastroNovaTransacaoComponent {
       },
       (error) => {
         this.messageService.add({ severity: 'error', summary: 'Error', detail: 'Erro ao tentar CRIAR transação' });
+        this.transactionRequestDto.payDay = undefined;
       }
     );
   }
@@ -92,7 +95,8 @@ export class ModalCadastroNovaTransacaoComponent {
       status: undefined,
       category: undefined,
       fixedExpense: undefined,
-      repeat: undefined
+      repeat: undefined,
+      divisionId: undefined
     }
   }
 

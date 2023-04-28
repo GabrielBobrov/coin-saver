@@ -2,7 +2,7 @@ import { TransactionResponseDto } from '../../dtos/transactions/response/transac
 import { environment } from './../../environments/environments';
 import { HttpClient, HttpErrorResponse, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { catchError, retry, map, Observable, throwError } from 'rxjs';
+import { catchError, map, Observable, throwError } from 'rxjs';
 import { PayTransactionRequestDto } from 'src/app/dtos/transactions/request/pay-transaction.request.dto';
 import { TransactionRequestDto } from 'src/app/dtos/transactions/request/transaction.request.dto';
 import { UpdateTransactionRequestDto } from 'src/app/dtos/transactions/request/update-transaction.request.dto';
@@ -31,7 +31,7 @@ export class TransactionsService {
     return this.httpClient.get<TransactionResponseDto[]>(
       `${this.baseUrl +
       this.transactionControllerUrl +
-      environment.api.backendEndpoints.getAllTransactions
+      environment.api.transactionsBackendEndpoints.getAllTransactions
       }`
     )
       .pipe(
@@ -51,7 +51,7 @@ export class TransactionsService {
     return this.httpClient.get<TransactionResponseDto>(
       `${this.baseUrl +
       this.transactionControllerUrl +
-      environment.api.backendEndpoints.getTransaction
+      environment.api.transactionsBackendEndpoints.getTransaction
       }/${transactionId
       }?transactionType=${transactionType}`
     )
@@ -66,7 +66,7 @@ export class TransactionsService {
     return this.httpClient.get<TransactionResponseDto[]>(
       `${this.baseUrl +
       this.transactionControllerUrl +
-      environment.api.backendEndpoints.getTransactionByCategoryType
+      environment.api.transactionsBackendEndpoints.getTransactionByCategoryType
       }/${categoryType
       }?date=${date}`
     )
@@ -78,7 +78,7 @@ export class TransactionsService {
   }
 
   createTransaction(transactionRequestDto: TransactionRequestDto) {
-    const url = this.baseUrl + this.transactionControllerUrl + environment.api.backendEndpoints.createTransaction;
+    const url = this.baseUrl + this.transactionControllerUrl + environment.api.transactionsBackendEndpoints.createTransaction;
     const body = JSON.stringify(transactionRequestDto);
     const headers = { 'Content-Type': 'application/json' };
 
@@ -93,7 +93,7 @@ export class TransactionsService {
     return this.httpClient.get<MonthlyResponseDto>(
       `${this.baseUrl +
       this.transactionControllerUrl +
-      environment.api.backendEndpoints.getTransactionsInMonth
+      environment.api.transactionsBackendEndpoints.getTransactionsInMonth
       }?date=${date}`
     )
       .pipe(
@@ -110,11 +110,11 @@ export class TransactionsService {
     return this.httpClient.put<UpdateTransactionResponseDto>(
       this.baseUrl +
       this.transactionControllerUrl +
-      environment.api.backendEndpoints.updateTransaction, body, { 'headers': headers })
+      environment.api.transactionsBackendEndpoints.updateTransaction, body, { 'headers': headers })
   }
 
   updateTransactionPatch(payTransactionRequestDto: PayTransactionRequestDto) {
-    const url = this.baseUrl + this.transactionControllerUrl + environment.api.backendEndpoints.updateTransactionPatch;
+    const url = this.baseUrl + this.transactionControllerUrl + environment.api.transactionsBackendEndpoints.updateTransactionPatch;
     const body = JSON.stringify(payTransactionRequestDto);
     const headers = { 'Content-Type': 'application/json' };
 
@@ -126,7 +126,7 @@ export class TransactionsService {
   }
 
   deleteByTransactionId(transactionId: number) {
-    const url = this.baseUrl + this.transactionControllerUrl + environment.api.backendEndpoints.deleteByTransactionId;
+    const url = this.baseUrl + this.transactionControllerUrl + environment.api.transactionsBackendEndpoints.deleteByTransactionId;
     const headers = { 'Content-Type': 'application/json' };
 
     return this.httpClient.delete(`${url}/${transactionId}`, { headers }).pipe(

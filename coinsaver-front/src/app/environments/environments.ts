@@ -5,21 +5,22 @@ export const environment = {
 
     transactionsControllerBackend: '/transactions',
 
-    backendEndpoints: {
+    transactionsBackendEndpoints: {
       getAllTransactions: '',
-
       getTransaction: '',
       getTransactionByCategoryType: '/category',
-
       createTransaction: '',
-
       getTransactionsInMonth: '/month',
-
       updateTransaction: '',
-
       updateTransactionPatch: '/pay',
-
       deleteByTransactionId: '',
+    },
+
+    divisionsControllerBackend: '/divisions',
+
+    divisionsBackendEndpoints: {
+      getDivisionByCategoryType: '/category',
+      getDivisionById: '',
 
     }
   }

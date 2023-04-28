@@ -11,19 +11,24 @@
 
         <div class="formulario-nova-transacao">
 
-          <!-- <div>
+          <div>
             <mat-form-field class="mat-form-field" appearance="fill">
-              <mat-label>Tipo Categoria</mat-label>
-              <mat-select type="text" [formControl]="categoryTypeControl"
-                [(ngModel)]="transactionRequestDto.description" name="description">
-                <mat-option value="ELECTRONIC">Eletrônicos</mat-option>
+              <mat-label>Tipo Categoria (divisionType)</mat-label>
+              <mat-select type="text" [formControl]="divisionType"
+                [(ngModel)]="transactionRequestDto.divisionId" name="divisionId">
                 <mat-option value="HEALTH">Saúde</mat-option>
                 <mat-option value="HOME">Casa</mat-option>
+                <mat-option value="ELECTRONIC">Eletrônicos</mat-option>
                 <mat-option value="RESTAURANT">Restaurante</mat-option>
-                <mat-option value="OTHER">Outras</mat-option>
+                <mat-option value="GYM">Academia</mat-option>
+                <mat-option value="SALARY">Salário</mat-option>
+                <mat-option value="RENT">Aluguel</mat-option>
+                <mat-option value="BONUS">Bônus</mat-option>
+                <mat-option value="MARKET">Mercado</mat-option>
+                <mat-option value="INVESTMENT">Investimento</mat-option>
               </mat-select>
             </mat-form-field>
-          </div> -->
+          </div>
 
           <div>
             <mat-form-field class="mat-form-field" appearance="fill">

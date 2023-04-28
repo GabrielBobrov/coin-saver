@@ -1,0 +1,12 @@
+export enum DivisionTypeEnum {
+  HEALTH = "HEALTH",
+  HOME = "HOME",
+  ELECTRONIC = "ELECTRONIC",
+  RESTAURANT = "RESTAURANT",
+  GYM = "GYM",
+  SALARY = "SALARY",
+  RENT = "RENT",
+  BONUS = "BONUS",
+  MARKET = "MARKET",
+  INVESTMNET = "INVESTMNET",
+}
