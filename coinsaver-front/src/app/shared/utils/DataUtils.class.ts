@@ -29,7 +29,7 @@ export class DataUtils {
     var dataPartes = dataInput.split("/");
     var dataConvertida = new Date(+dataPartes[2], dataPartes[1] - 1, dataPartes[0]);
 
-    var dataFormatada = ((dataConvertida.getFullYear() )) + "-" + (this.acrescentaZeroEsquerda(dataConvertida.getMonth() + 1)) + "-" + dataConvertida.getDate();
+    var dataFormatada = ((dataConvertida.getFullYear() )) + "-" + (this.acrescentaZeroEsquerda(dataConvertida.getMonth() + 1)) + "-" + this.acrescentaZeroEsquerda(dataConvertida.getDate());
 
     return dataFormatada;
   }

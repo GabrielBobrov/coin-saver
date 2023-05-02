@@ -1,12 +1,14 @@
 <p-toast></p-toast>
+
 <body class="ng-scope">
   <div id="container">
     <div>
-      <!-- <a class="logomd"><img src="../../../../assets/images/coinsaver_logo-removebg-preview.png"></a> -->
+
       <div class="ng-scope">
         <div class="header-modal">
           <h2 class="container-title">Cadastrar Nova Transação</h2>
-          <p-button (onClick)="fecharModal()" icon="pi pi-times" styleClass="p-button-rounded p-button-danger"></p-button>
+          <p-button (onClick)="fecharModal()" icon="pi pi-times"
+            styleClass="p-button-rounded p-button-danger"></p-button>
         </div>
 
         <div class="formulario-nova-transacao">
@@ -26,8 +28,8 @@
           <div>
             <mat-form-field class="mat-form-field" appearance="fill">
               <mat-label>Divisão Categoria</mat-label>
-              <mat-select type="text" [formControl]="divisionType"
-                [(ngModel)]="transactionRequestDto.divisionId" name="divisionId">
+              <mat-select type="text" [formControl]="divisionType" [(ngModel)]="transactionRequestDto.divisionId"
+                name="divisionId">
                 <mat-option *ngFor="let division of listDivision" value={{division.id}}>
                   {{division.name}}
                 </mat-option>
@@ -38,9 +40,9 @@
           <div *ngIf="isStatusIncome">
             <mat-form-field class="mat-form-field" appearance="fill">
               <mat-label>Status da Transação</mat-label>
-              <mat-select type="text" [formControl]="statusTypeControl"
-                [(ngModel)]="transactionRequestDto.status" name="status">
-                   <mat-option value="RECEIVED">Recebida</mat-option>
+              <mat-select type="text" [formControl]="statusTypeControl" [(ngModel)]="transactionRequestDto.status"
+                name="status">
+                <mat-option value="RECEIVED">Recebida</mat-option>
                 <mat-option value="NOT_RECEIVED">Não Recebida</mat-option>
               </mat-select>
             </mat-form-field>
@@ -57,22 +59,22 @@
 
             <mat-form-field *ngIf="isRepeticao" class="mat-form-field" appearance="fill">
               <mat-label>Repete quantas vezes? Deve ser acima de 1.</mat-label>
-              <input matInput type="number" class="example-right-align"
-                [(ngModel)]="transactionRequestDto.repeat" name="repeat">
+              <input matInput type="number" class="example-right-align" [(ngModel)]="transactionRequestDto.repeat"
+                name="repeat">
             </mat-form-field>
 
             <mat-form-field class="mat-form-field" appearance="fill">
               <mat-label>Data Inicial do Recebimento</mat-label>
-              <input type="text" matInput placeholder="DD/MM/AAAA"
-                [(ngModel)]="transactionRequestDto.payDay" name="payDay">
+              <input type="text" matInput placeholder="DD/MM/AAAA" [(ngModel)]="transactionRequestDto.payDay"
+                name="payDay">
             </mat-form-field>
           </div>
 
           <div *ngIf="isStatusExpense">
             <mat-form-field class="mat-form-field" appearance="fill">
               <mat-label>Status da Transação</mat-label>
-              <mat-select type="text" [formControl]="statusTypeControl"
-                [(ngModel)]="transactionRequestDto.status" name="status">
+              <mat-select type="text" [formControl]="statusTypeControl" [(ngModel)]="transactionRequestDto.status"
+                name="status">
                 <mat-option value="PAID">Paga</mat-option>
                 <mat-option value="NOT_PAID">Não Paga</mat-option>
               </mat-select>
@@ -90,30 +92,22 @@
 
             <mat-form-field *ngIf="isRepeticao" class="mat-form-field" appearance="fill">
               <mat-label>Repete quantas vezes? Deve ser acima de 1.</mat-label>
-              <input matInput type="number" class="example-right-align"
-                [(ngModel)]="transactionRequestDto.repeat" name="repeat">
+              <input matInput type="number" class="example-right-align" [(ngModel)]="transactionRequestDto.repeat"
+                name="repeat">
             </mat-form-field>
 
             <mat-form-field class="mat-form-field" appearance="fill">
               <mat-label>Data Inicial do Pagamento</mat-label>
-              <input type="text" matInput placeholder="DD/MM/AAAA"
-                [(ngModel)]="transactionRequestDto.payDay" name="payDay">
+              <input type="text" matInput placeholder="DD/MM/AAAA" [(ngModel)]="transactionRequestDto.payDay"
+                name="payDay">
             </mat-form-field>
           </div>
-
-          <!-- <div *ngIf="isRepeticao">
-            <mat-form-field class="mat-form-field" appearance="fill">
-              <mat-label>Repete quantas vezes? Deve ser acima de 1.</mat-label>
-              <input matInput type="number" class="example-right-align"
-                [(ngModel)]="transactionRequestDto.repeat" name="repeat">
-            </mat-form-field>
-          </div> -->
 
           <div>
             <mat-form-field class="mat-form-field" appearance="fill">
               <mat-label>Descrição</mat-label>
-              <input type="text" matInput placeholder="Descrição"
-                [(ngModel)]="transactionRequestDto.description" name="description">
+              <input type="text" matInput placeholder="Descrição" [(ngModel)]="transactionRequestDto.description"
+                name="description">
             </mat-form-field>
           </div>
 
@@ -125,21 +119,6 @@
             </mat-form-field>
           </div>
 
-          <div>
-
-          </div>
-
-          <!-- <div>
-            <mat-form-field class="mat-form-field" appearance="fill">
-              <mat-label>Tipo Transação</mat-label>
-              <mat-select [formControl]="transactionTypeControl">
-                <mat-option value="INSTALLMENT">A prazo</mat-option>
-                <mat-option value="IN_CASH">Dinheiro</mat-option>
-                <mat-option value="FIX">Fixa Mensal</mat-option>
-              </mat-select>
-            </mat-form-field>
-          </div> -->
-
           <div class="input-container ng-scope" style="margin-top: 20px">
             <button type="submit" class="btn ng-binding" (click)="createTransaction(transactionRequestDto)">
               Cadastrar
@@ -148,9 +127,6 @@
 
         </div>
 
-        <!-- <div id="acoes" class="ng-scope">
-          <a href="/usuario-logado-page">Sair</a>
-        </div> -->
       </div>
     </div>
   </div>

@@ -56,6 +56,14 @@ export class ModalCadastroNovaTransacaoComponent {
     var payDayFormated = this.dataUtils.transformaDataInput(transactionRequestDto.payDay);
     transactionRequestDto.payDay = payDayFormated;
 
+    this.transactionRequestDto.repeat = transactionRequestDto.repeat;
+
+    if (this.transactionRequestDto.repeat == 0 || this.transactionRequestDto.repeat == 1) {
+      transactionRequestDto.repeat == null;
+    }
+
+    console.log(transactionRequestDto.repeat)
+
     this.transactionsService.createTransaction(transactionRequestDto).subscribe(
       (res) => {
         this.messageService.add({ severity: 'success', summary: 'Success', detail: 'Transação CRIADA com sucesso' });
