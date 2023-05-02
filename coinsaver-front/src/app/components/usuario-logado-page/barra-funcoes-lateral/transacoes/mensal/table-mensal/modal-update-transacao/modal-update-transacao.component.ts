@@ -3,10 +3,11 @@ import { FormControl } from '@angular/forms';
 import { Router } from '@angular/router';
 import { MessageService } from 'primeng/api';
 import { DynamicDialogConfig, DynamicDialogRef } from 'primeng/dynamicdialog';
-import { TransactionRequestDto } from 'src/app/dtos/transactions/request/transaction.request.dto';
 import { UpdateTransactionRequestDto } from 'src/app/dtos/transactions/request/update-transaction.request.dto';
+import { DivisionResponseDto } from 'src/app/dtos/transactions/response/division.response.dto';
 import { MonthlyTransactionResponseDto } from 'src/app/dtos/transactions/response/monthly-transactions.response.dto';
 import { MonthlyResponseDto } from 'src/app/dtos/transactions/response/monthly.response.dto';
+import { TransactionCategoryTypeEnum } from 'src/app/enums/transaction-category-type.enum';
 import { DivisionsService } from 'src/app/services/divisions/divisions.service';
 import { TransactionsService } from 'src/app/services/transactions/transactions.service';
 import { DataUtils } from 'src/app/shared/utils/DataUtils.class';
@@ -23,51 +24,98 @@ export class ModalUpdateTransacaoComponent implements OnInit {
     public router: Router,
     public config: DynamicDialogConfig,
     private messageService: MessageService,
-    private ref: DynamicDialogRef
+    private ref: DynamicDialogRef,
+    private divisionsService: DivisionsService,
   ) { }
 
+  divisionType = new FormControl();
+  transactionTypeControl = new FormControl();
+  statusTypeControl = new FormControl();
   transactionCategoryTypeControl = new FormControl();
+  fixedExpenseControl = new FormControl();
+  updateTransactionTypeControl = new FormControl();
+
   updateTransactionRequestDto = new UpdateTransactionRequestDto();
 
   date: string = '';
   dataUtils = new DataUtils();
 
-  transactionRequestDto: TransactionRequestDto | undefined;
+  isStatusIncome?: boolean;
+  isStatusExpense?: boolean;
+  isRepeticao?: boolean;
+
   monthlyResponseDto: MonthlyResponseDto | undefined;
   monthlyTransactionsResponseDtoList: MonthlyTransactionResponseDto[] = [];
+  listDivision: DivisionResponseDto[] | undefined;
 
   ngOnInit(): void {
-    this.transactionRequestDto = this.config.data.row;
+    this.updateTransactionRequestDto = this.config.data.row;
+    this.defineCategoria(this.updateTransactionRequestDto.category);
+    this.defineRepeticao(this.updateTransactionRequestDto.fixedExpense);
 
-    console.log("transactionRequestDto", this.transactionRequestDto)
+    console.log("updateTransactionRequestDto", this.updateTransactionRequestDto)
 
   }
 
-  atualizarTransacao(transaction: MonthlyTransactionResponseDto) {
+  defineCategoria(category: any) {
+    if (category == "INCOME") {
+      this.isStatusIncome = true;
+      this.isStatusExpense = false;
+      this.getDivisionByCategoryType(TransactionCategoryTypeEnum.INCOME);
 
-    console.log("atualizar", transaction)
+    } else if (category == "EXPENSE") {
+      this.isStatusIncome = false;
+      this.isStatusExpense = true;
+      this.getDivisionByCategoryType(TransactionCategoryTypeEnum.EXPENSE);
+    }
+  }
 
-    this.updateTransactionRequestDto.amount = transaction.amount;
-    this.updateTransactionRequestDto.payDay = transaction.payDay;
-    this.updateTransactionRequestDto.description = transaction.description;
-    this.updateTransactionRequestDto.status = transaction.status;
-    this.updateTransactionRequestDto.category = transaction.category;
+  private getDivisionByCategoryType(transactionCategoryType: TransactionCategoryTypeEnum) {
+    this.divisionsService.getDivisionByCategoryType(transactionCategoryType).subscribe(
+      (res) => {
+        this.listDivision = res;
+
+        this.listDivision?.forEach((division) => {
+        })
+      }
+    );
+  }
+
+  defineRepeticao(fixedExpense: any) {
+    if (fixedExpense == "true") {
+      this.isRepeticao = false;
+      this.updateTransactionRequestDto.repeat == null;
+    } else if (fixedExpense == "false") {
+      this.isRepeticao = true;
+    }
+  }
+
+  atualizarTransacao(updateTransactionRequestDto: any) {
+
+    // this.updateTransactionRequestDto.amount = transaction.amount;
+    // this.updateTransactionRequestDto.payDay = transaction.payDay;
+    // this.updateTransactionRequestDto.description = transaction.description;
+    // this.updateTransactionRequestDto.status = transaction.status;
+    // this.updateTransactionRequestDto.category = transaction.category;
 
     // this.updateTransactionRequestDto.fixedExpense = transaction.
     // this.updateTransactionRequestDto.repeat = transaction.
     // this.updateTransactionRequestDto.updateTransactionType = transaction.
 
-    this.updateTransactionRequestDto.transactionType = transaction.transactionType;
-    this.updateTransactionRequestDto.transactionId = transaction.transactionId;
+    // this.updateTransactionRequestDto.transactionType = transaction.transactionType;
+    // this.updateTransactionRequestDto.transactionId = transaction.transactionId;
 
-    this.updateTransactionRequestDto.installmentTransactionId = transaction.installmentTransactionId;
-    this.updateTransactionRequestDto.fixTransactionId = transaction.fixTransactionId;
+    // this.updateTransactionRequestDto.installmentTransactionId = transaction.installmentTransactionId;
+    // this.updateTransactionRequestDto.fixTransactionId = transaction.fixTransactionId;
 
-    this.transactionsService.updateTransaction(this.updateTransactionRequestDto).subscribe(
+    console.log("updateTransactionRequestDto", updateTransactionRequestDto)
+
+    this.transactionsService.updateTransaction(updateTransactionRequestDto).subscribe(
       (res) => {
         this.messageService.add({ severity: 'success', summary: 'Success', detail: 'Transação ATUALIZADA com sucesso' });
         setTimeout(() => {
-          this.getTransactionsInMonth();
+          this.fecharModal();
+          this.retornaPaginaInicialUsuarioLogado();
         }, 1500);
       },
       (error) => {
@@ -89,6 +137,14 @@ export class ModalUpdateTransacaoComponent implements OnInit {
         })
       }
     );
+  }
+
+  retornaPaginaInicialUsuarioLogado() {
+    this.router.navigateByUrl('usuario-logado-page', {
+      state: {
+        data: {},
+      },
+    });
   }
 
   fecharModal() {
