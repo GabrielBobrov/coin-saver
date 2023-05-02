@@ -16,10 +16,9 @@ export class UpdateTransactionRequestDto {
     public category?: TransactionCategoryTypeEnum,
 
     public fixedExpense?: boolean,
-
     public repeat?: number,
-
     public updateTransactionType?: UpdateTransactionTypeEnum,
+
     public transactionType?: TransactionTypeEnum,
 
     public transactionId?: number,

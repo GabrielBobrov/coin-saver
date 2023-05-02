@@ -18,6 +18,7 @@ import { TableMensalComponent } from '../../components/usuario-logado-page/barra
 import { TableGeralComponent } from '../../components/usuario-logado-page/barra-funcoes-lateral/transacoes/geral/table-geral/table-geral.component';
 import { ModalCadastroNovaTransacaoComponent } from '../../components/usuario-logado-page/barra-funcoes-lateral/transacoes/modal-cadastro-nova-transacao/modal-cadastro-nova-transacao.component';
 import { MAT_FORM_FIELD_DEFAULT_OPTIONS } from '@angular/material/form-field';
+import { ModalUpdateTransacaoComponent } from '../../components/usuario-logado-page/barra-funcoes-lateral/transacoes/mensal/table-mensal/modal-update-transacao/modal-update-transacao.component';
 
 @NgModule({
   declarations: [
@@ -33,6 +34,7 @@ import { MAT_FORM_FIELD_DEFAULT_OPTIONS } from '@angular/material/form-field';
     TableMensalComponent,
     TableGeralComponent,
     ModalCadastroNovaTransacaoComponent,
+    ModalUpdateTransacaoComponent,
   ],
   imports: [
     InitialPageRoutingModule,
@@ -57,6 +59,7 @@ import { MAT_FORM_FIELD_DEFAULT_OPTIONS } from '@angular/material/form-field';
     TableMensalComponent,
     TableGeralComponent,
     ModalCadastroNovaTransacaoComponent,
+    ModalUpdateTransacaoComponent,
   ],
   providers: [
     {provide: MAT_FORM_FIELD_DEFAULT_OPTIONS, useValue: {appearence: 'fill'}},
