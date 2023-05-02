@@ -37,6 +37,7 @@ import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 @Service
 public class TransactionServiceImpl implements TransactionService {
@@ -388,7 +389,7 @@ public class TransactionServiceImpl implements TransactionService {
     }
 
     private void validate(UpdateTransactionRequestDto updateTransactionRequestDto) {
-        if (Boolean.TRUE.equals(updateTransactionRequestDto.getFixedExpense()) && updateTransactionRequestDto.getRepeat() > 0) {
+        if (Boolean.TRUE.equals(updateTransactionRequestDto.getFixedExpense()) && Objects.nonNull(updateTransactionRequestDto.getRepeat())) {
             throw new BusinessException(ErrorMessages.getInvalidFixedExpenseMessage("atualizar"));
         }
 
