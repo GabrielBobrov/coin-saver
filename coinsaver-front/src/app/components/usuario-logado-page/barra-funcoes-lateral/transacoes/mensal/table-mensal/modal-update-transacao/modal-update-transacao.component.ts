@@ -28,7 +28,7 @@ export class ModalUpdateTransacaoComponent implements OnInit {
     private messageService: MessageService,
     private ref: DynamicDialogRef,
     private divisionsService: DivisionsService
-  ) {}
+  ) { }
 
   divisionType = new FormControl();
   transactionTypeControl = new FormControl();
@@ -70,7 +70,7 @@ export class ModalUpdateTransacaoComponent implements OnInit {
     if (
       category == 'ALL_EXPENSES' &&
       this.updateTransactionRequestDto.transactionType ==
-        TransactionTypeEnum.INSTALLMENT
+      TransactionTypeEnum.INSTALLMENT
     ) {
       this.isAtualizarTodas = true;
     }
@@ -137,7 +137,7 @@ export class ModalUpdateTransacaoComponent implements OnInit {
       .subscribe((res) => {
         this.listDivision = res;
 
-        this.listDivision?.forEach((division) => {});
+        this.listDivision?.forEach((division) => { });
       });
   }
 
@@ -199,7 +199,7 @@ export class ModalUpdateTransacaoComponent implements OnInit {
         this.monthlyTransactionsResponseDtoList =
           this.monthlyResponseDto.transactions;
 
-        this.monthlyTransactionsResponseDtoList.forEach((transaction) => {});
+        this.monthlyTransactionsResponseDtoList.forEach((transaction) => { });
       });
   }
 
