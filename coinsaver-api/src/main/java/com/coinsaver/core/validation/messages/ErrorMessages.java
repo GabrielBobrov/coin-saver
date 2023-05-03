@@ -20,6 +20,7 @@ public class ErrorMessages {
         messages.put("INVALID_STATUS_NOT_RECEIVED_CATEGORY_EXPENSE", "Não é possível criar uma despesa com status não recebido.");
         messages.put("INVALID_DIVISION", "Divisão inválida para categoria da transação.");
         messages.put("DIVISION_NOT_FOUND", "Divisão não encontrada.");
+        messages.put("TRANSACTION_WITHOUT_REPEAT", "Transação parcelada sem repeat.");
     }
 
 
