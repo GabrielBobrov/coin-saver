@@ -34,9 +34,9 @@
 
 <div class="card">
 	<h5>Balanço de Transações Gerais</h5>
-	<p-timeline [value]="events1" align="alternate">
-		<ng-template pTemplate="content" let-event>
-			&#123;&#123;event.status&#125;&#125;
+	<p-timeline [value]="timeLineList" align="alternate">
+		<ng-template pTemplate="content" let-timeLineList>
+			{{timeLineList}}
 		</ng-template>
 	</p-timeline>
 </div>

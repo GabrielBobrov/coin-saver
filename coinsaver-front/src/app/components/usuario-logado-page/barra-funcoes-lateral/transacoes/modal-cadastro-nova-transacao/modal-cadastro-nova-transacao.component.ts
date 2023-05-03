@@ -62,8 +62,6 @@ export class ModalCadastroNovaTransacaoComponent {
       transactionRequestDto.repeat == null;
     }
 
-    console.log(transactionRequestDto.repeat)
-
     this.transactionsService.createTransaction(transactionRequestDto).subscribe(
       (res) => {
         this.messageService.add({ severity: 'success', summary: 'Success', detail: 'Transação CRIADA com sucesso' });

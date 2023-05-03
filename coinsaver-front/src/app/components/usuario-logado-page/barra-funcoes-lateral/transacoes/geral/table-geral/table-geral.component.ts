@@ -3,6 +3,7 @@ import { PrimeIcons } from 'primeng/api';
 import { MonthlyTransactionResponseDto } from 'src/app/dtos/transactions/response/monthly-transactions.response.dto';
 import { MonthlyResponseDto } from 'src/app/dtos/transactions/response/monthly.response.dto';
 import { TransactionsService } from 'src/app/services/transactions/transactions.service';
+import { DataUtils } from 'src/app/shared/utils/DataUtils.class';
 
 @Component({
   selector: 'app-table-geral',
@@ -11,17 +12,28 @@ import { TransactionsService } from 'src/app/services/transactions/transactions.
 })
 export class TableGeralComponent implements OnInit {
 
-  monthlyResponseDto: MonthlyResponseDto | undefined;
+  monthlyResponseDto: MonthlyResponseDto = {
+    monthlyBalance: 0,
+    transactions: []
+  };
   monthlyTransactionsResponseDtoList: MonthlyTransactionResponseDto[] = [];
 
   events1: any[] = [];
+  timeLineList: any[] = [];
+
+  date: string = '';
+  dataUtils = new DataUtils();
 
   constructor(
     private transactionsService: TransactionsService,
     ) {}
 
   ngOnInit() {
-      this.getAllTransactions();
+    this.getTransactionsInMonth();
+
+    this.timeLineList = [
+
+    ];
 
       this.events1 = [
         {
@@ -52,12 +64,25 @@ export class TableGeralComponent implements OnInit {
       ];
   }
 
-  getAllTransactions() {
-    this.transactionsService.getAllTransactions()
-      .subscribe((res) => {
+    getTransactionsInMonth() {
+    this.date = this.dataUtils.transformaToLocalDateFormat('US');
 
-        console.log('all', res)
-      });
+    this.transactionsService.getTransactionsInMonth(this.date)
+      .subscribe((res) => {
+        this.monthlyResponseDto = res;
+
+        console.log(this.monthlyResponseDto)
+
+        this.timeLineList.push(this.monthlyResponseDto.monthlyBalance)
+
+        console.log(this.timeLineList)
+
+        // this.monthlyTransactionsResponseDtoList = this.monthlyResponseDto.transactions;
+
+        // this.monthlyTransactionsResponseDtoList.forEach((transaction) => {
+        // })
+      }
+    );
   }
 
 }
