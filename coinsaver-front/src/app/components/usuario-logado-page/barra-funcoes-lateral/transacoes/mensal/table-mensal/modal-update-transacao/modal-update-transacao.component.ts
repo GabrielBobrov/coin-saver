@@ -43,6 +43,7 @@ export class ModalUpdateTransacaoComponent implements OnInit {
   isStatusIncome?: boolean;
   isStatusExpense?: boolean;
   isRepeticao?: boolean;
+  isFix?: boolean;
 
   monthlyResponseDto: MonthlyResponseDto | undefined;
   monthlyTransactionsResponseDtoList: MonthlyTransactionResponseDto[] = [];
@@ -50,11 +51,19 @@ export class ModalUpdateTransacaoComponent implements OnInit {
 
   ngOnInit(): void {
     this.updateTransactionRequestDto = this.config.data.row;
+    this.verificaTipoTransacao(this.updateTransactionRequestDto.transactionType);
     this.defineCategoria(this.updateTransactionRequestDto.category);
     this.defineRepeticao(this.updateTransactionRequestDto.fixedExpense);
 
     console.log("updateTransactionRequestDto", this.updateTransactionRequestDto)
 
+  }
+
+  verificaTipoTransacao(transactionType: any) {
+    if (transactionType == 'FIX') {
+      this.updateTransactionRequestDto.fixedExpense == true;
+      this.isFix = true;
+    }
   }
 
   defineCategoria(category: any) {
@@ -90,27 +99,11 @@ export class ModalUpdateTransacaoComponent implements OnInit {
     }
   }
 
-  atualizarTransacao(updateTransactionRequestDto: any) {
+  atualizarTransacao() {
 
-    // this.updateTransactionRequestDto.amount = transaction.amount;
-    // this.updateTransactionRequestDto.payDay = transaction.payDay;
-    // this.updateTransactionRequestDto.description = transaction.description;
-    // this.updateTransactionRequestDto.status = transaction.status;
-    // this.updateTransactionRequestDto.category = transaction.category;
+    console.log("updateTransactionRequestDto", this.updateTransactionRequestDto)
 
-    // this.updateTransactionRequestDto.fixedExpense = transaction.
-    // this.updateTransactionRequestDto.repeat = transaction.
-    // this.updateTransactionRequestDto.updateTransactionType = transaction.
-
-    // this.updateTransactionRequestDto.transactionType = transaction.transactionType;
-    // this.updateTransactionRequestDto.transactionId = transaction.transactionId;
-
-    // this.updateTransactionRequestDto.installmentTransactionId = transaction.installmentTransactionId;
-    // this.updateTransactionRequestDto.fixTransactionId = transaction.fixTransactionId;
-
-    console.log("updateTransactionRequestDto", updateTransactionRequestDto)
-
-    this.transactionsService.updateTransaction(updateTransactionRequestDto).subscribe(
+    this.transactionsService.updateTransaction(this.updateTransactionRequestDto).subscribe(
       (res) => {
         this.messageService.add({ severity: 'success', summary: 'Success', detail: 'Transação ATUALIZADA com sucesso' });
         setTimeout(() => {

@@ -15,33 +15,24 @@
 
           <div>
             <mat-form-field class="mat-form-field" appearance="fill">
+              <mat-label>Tipo de Transação</mat-label>
+              <input disabled matInput type="text" class="example-right-align" [(ngModel)]="updateTransactionRequestDto.transactionType" name="transactionType">
+            </mat-form-field>
+
+            <mat-form-field class="mat-form-field" appearance="fill">
               <mat-label>Categoria Tipo Transação</mat-label>
               <mat-select type="text" [formControl]="transactionCategoryTypeControl"
-                [(ngModel)]="updateTransactionRequestDto.category" name="category"
-                (selectionChange)="defineCategoria(updateTransactionRequestDto.category)">
-                <mat-option value="INCOME">Recebido</mat-option>
-                <mat-option value="EXPENSE">Despesa</mat-option>
+                [(ngModel)]="updateTransactionRequestDto.category" name="category">
+                <mat-option disabled value="INCOME">Recebido</mat-option>
+                <mat-option disabled value="EXPENSE">Despesa</mat-option>
               </mat-select>
             </mat-form-field>
           </div>
 
-          <!-- <div>
-            <mat-form-field class="mat-form-field" appearance="fill">
-              <mat-label>Divisão Categoria</mat-label>
-              <mat-select type="text" [formControl]="divisionType" [(ngModel)]="updateTransactionRequestDto.division.id"
-                name="divisionId">
-                <mat-option *ngFor="let division of listDivision" value={{division.id}}>
-                  {{division.name}}
-                </mat-option>
-              </mat-select>
-            </mat-form-field>
-          </div> -->
-
           <div *ngIf="isStatusIncome">
             <mat-form-field class="mat-form-field" appearance="fill">
               <mat-label>Status da Transação</mat-label>
-              <mat-select type="text" [formControl]="statusTypeControl" [(ngModel)]="updateTransactionRequestDto.status"
-                name="status">
+              <mat-select type="text" [formControl]="statusTypeControl" [(ngModel)]="updateTransactionRequestDto.status" name="status">
                 <mat-option value="RECEIVED">Recebida</mat-option>
                 <mat-option value="NOT_RECEIVED">Não Recebida</mat-option>
               </mat-select>
@@ -59,22 +50,19 @@
 
             <mat-form-field *ngIf="isRepeticao" class="mat-form-field" appearance="fill">
               <mat-label>Repete quantas vezes? Deve ser acima de 1.</mat-label>
-              <input matInput type="number" class="example-right-align" [(ngModel)]="updateTransactionRequestDto.repeat"
-                name="repeat">
+              <input matInput type="number" class="example-right-align" [(ngModel)]="updateTransactionRequestDto.repeat" name="repeat">
             </mat-form-field>
 
             <mat-form-field class="mat-form-field" appearance="fill">
               <mat-label>Data Inicial do Recebimento</mat-label>
-              <input type="text" matInput placeholder="DD/MM/AAAA" [(ngModel)]="updateTransactionRequestDto.payDay"
-                name="payDay">
+              <input type="text" matInput placeholder="DD/MM/AAAA" [(ngModel)]="updateTransactionRequestDto.payDay" name="payDay">
             </mat-form-field>
           </div>
 
           <div *ngIf="isStatusExpense">
             <mat-form-field class="mat-form-field" appearance="fill">
               <mat-label>Status da Transação</mat-label>
-              <mat-select type="text" [formControl]="statusTypeControl" [(ngModel)]="updateTransactionRequestDto.status"
-                name="status">
+              <mat-select type="text" [formControl]="statusTypeControl" [(ngModel)]="updateTransactionRequestDto.status" name="status">
                 <mat-option value="PAID">Paga</mat-option>
                 <mat-option value="NOT_PAID">Não Paga</mat-option>
               </mat-select>
@@ -92,22 +80,19 @@
 
             <mat-form-field *ngIf="isRepeticao" class="mat-form-field" appearance="fill">
               <mat-label>Repete quantas vezes? Deve ser acima de 1.</mat-label>
-              <input matInput type="number" class="example-right-align" [(ngModel)]="updateTransactionRequestDto.repeat"
-                name="repeat">
+              <input matInput type="number" class="example-right-align" [(ngModel)]="updateTransactionRequestDto.repeat" name="repeat">
             </mat-form-field>
 
             <mat-form-field class="mat-form-field" appearance="fill">
               <mat-label>Data Inicial do Pagamento</mat-label>
-              <input type="text" matInput placeholder="DD/MM/AAAA" [(ngModel)]="updateTransactionRequestDto.payDay"
-                name="payDay">
+              <input type="text" matInput placeholder="DD/MM/AAAA" [(ngModel)]="updateTransactionRequestDto.payDay" name="payDay">
             </mat-form-field>
           </div>
 
           <div>
             <mat-form-field class="mat-form-field" appearance="fill">
               <mat-label>Descrição</mat-label>
-              <input type="text" matInput placeholder="Descrição" [(ngModel)]="updateTransactionRequestDto.description"
-                name="description">
+              <input type="text" matInput placeholder="Descrição" [(ngModel)]="updateTransactionRequestDto.description" name="description">
             </mat-form-field>
           </div>
 
@@ -133,7 +118,7 @@
           </div>
 
           <div class="input-container ng-scope" style="margin-top: 20px">
-            <button type="submit" class="btn ng-binding" (click)="atualizarTransacao(updateTransactionRequestDto)">
+            <button type="submit" class="btn ng-binding" (click)="atualizarTransacao()">
               Atualizar
             </button>
           </div>
