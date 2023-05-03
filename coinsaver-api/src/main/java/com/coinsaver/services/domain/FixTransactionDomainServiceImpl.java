@@ -54,9 +54,10 @@ public class FixTransactionDomainServiceImpl implements FixTransactionDomainServ
                         updateTransactionRequestDto.getDescription(),
                         fixTransactionEdited.getId());
             } else {
-                FixTransaction fixTransactionEntity = updateTransactionRequestDto.convertDtoToFixTransactionEntity();
+                FixTransaction fixTransactionEntity = fixTransactionMapper.fromUpdateTransactionRequestDtoToFixTransaction(updateTransactionRequestDto);
                 fixTransactionEntity.setEdited(Boolean.TRUE);
                 fixTransactionEntity.setTransaction(transaction);
+                fixTransactionEntity.setDivision(transaction.getDivision());
 
                 fixTransactionRepository.save(fixTransactionEntity);
             }
