@@ -63,6 +63,7 @@ public class InstallmentTransactionDomainServiceImpl implements InstallmentTrans
         installmentTransaction.setPayDay(updateTransactionRequestDto.getPayDay());
         installmentTransaction.setStatus(updateTransactionRequestDto.getStatus());
         installmentTransaction.setDescription(transaction.getDescription() + "(" + installment + "/" + repeat + ")");
+        installmentTransaction.setDivision(transaction.getDivision());
 
         if (monthQuantity > 0) {
             installmentTransaction.setPayDay(updateTransactionRequestDto.getPayDay().plusMonths(monthQuantity));

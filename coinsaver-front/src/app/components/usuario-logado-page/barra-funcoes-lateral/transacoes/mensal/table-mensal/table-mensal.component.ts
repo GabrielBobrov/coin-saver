@@ -6,6 +6,8 @@ import { MonthlyTransactionResponseDto } from 'src/app/dtos/transactions/respons
 import { MonthlyResponseDto } from 'src/app/dtos/transactions/response/monthly.response.dto';
 import { TransactionsService } from 'src/app/services/transactions/transactions.service';
 import { DataUtils } from 'src/app/shared/utils/DataUtils.class';
+import { ModalUpdateTransacaoComponent } from './modal-update-transacao/modal-update-transacao.component';
+import { DialogService } from 'primeng/dynamicdialog';
 
 interface DataFromDatePickerObj {
   mesNumber: number,
@@ -31,6 +33,7 @@ export class TableMensalComponent implements OnInit {
   constructor(
     private transactionsService: TransactionsService,
     private messageService: MessageService,
+    private dialogService: DialogService,
   ) { }
 
   ngOnInit() {
@@ -78,33 +81,11 @@ export class TableMensalComponent implements OnInit {
     );
   }
 
-  atualizarTransacao(transaction: MonthlyTransactionResponseDto) {
-    console.log("atualizar", transaction)
-
-    this.updateTransactionRequestDto.amount = transaction.amount;
-    this.updateTransactionRequestDto.payDay = transaction.payDay;
-    this.updateTransactionRequestDto.description = transaction.description;
-    this.updateTransactionRequestDto.status = transaction.status;
-    this.updateTransactionRequestDto.category = transaction.category;
-    // this.updateTransactionRequestDto.fixedExpense = transaction.amount;
-    // this.updateTransactionRequestDto.repeat = transaction.amount;
-    // this.updateTransactionRequestDto.updateTransactionType = transaction.amount;
-    this.updateTransactionRequestDto.transactionType = transaction.transactionType;
-    this.updateTransactionRequestDto.transactionId = transaction.transactionId;
-    // this.updateTransactionRequestDto.installmentTransactionId = transaction.amount;
-    // this.updateTransactionRequestDto.fixTransactionId = transaction.amount;
-
-    this.transactionsService.updateTransaction(this.updateTransactionRequestDto).subscribe(
-      (res) => {
-        this.messageService.add({ severity: 'success', summary: 'Success', detail: 'Transação ATUALIZADA com sucesso' });
-        setTimeout(() => {
-          this.getTransactionsInMonth();
-        }, 1500);
-      },
-      (error) => {
-        this.messageService.add({ severity: 'error', summary: 'Error', detail: 'Erro ao tentar ATUALIZADA transação' });
-      }
-    );
+  abrirModalUpdateTransacao(transaction: MonthlyTransactionResponseDto) {
+    this.dialogService.open(ModalUpdateTransacaoComponent, {
+      data: {row: transaction},
+      showHeader: false
+    });
   }
 
   deletarTransacao(transaction: MonthlyTransactionResponseDto) {

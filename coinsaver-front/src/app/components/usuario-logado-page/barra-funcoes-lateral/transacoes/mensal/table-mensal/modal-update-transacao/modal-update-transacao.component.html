@@ -1,0 +1,127 @@
+<p-toast></p-toast>
+
+<body class="ng-scope">
+  <div id="container">
+    <div>
+      <div class="ng-scope">
+        <div class="header-modal">
+          <h2 class="container-title">Atualizar Transação</h2>
+          <p-button (onClick)="fecharModal()" icon="pi pi-times"
+            styleClass="p-button-rounded p-button-danger"></p-button>
+        </div>
+
+        <div class="formulario-nova-transacao">
+          <div>
+            <mat-form-field class="mat-form-field" appearance="fill">
+              <mat-label>Tipo de Transação</mat-label>
+              <input disabled matInput type="text" class="example-right-align"
+                [(ngModel)]="updateTransactionRequestDto.transactionType" name="transactionType" />
+            </mat-form-field>
+
+            <mat-form-field class="mat-form-field" appearance="fill">
+              <mat-label>Categoria Tipo Transação</mat-label>
+              <mat-select type="text" [formControl]="transactionCategoryTypeControl"
+                [(ngModel)]="updateTransactionRequestDto.category" name="category">
+                <mat-option disabled value="INCOME">Recebido</mat-option>
+                <mat-option disabled value="EXPENSE">Despesa</mat-option>
+              </mat-select>
+            </mat-form-field>
+          </div>
+
+          <div *ngIf="isStatusIncome">
+            <mat-form-field class="mat-form-field" appearance="fill">
+              <mat-label>Status da Transação</mat-label>
+              <mat-select type="text" [formControl]="statusTypeControl" [(ngModel)]="updateTransactionRequestDto.status"
+                name="status">
+                <mat-option value="RECEIVED">Recebida</mat-option>
+                <mat-option value="NOT_RECEIVED">Não Recebida</mat-option>
+              </mat-select>
+            </mat-form-field>
+
+            <mat-form-field *ngIf="isRepeticao" class="mat-form-field" appearance="fill">
+              <mat-label>Repete quantas vezes? Deve ser acima de 1.</mat-label>
+              <input matInput type="number" class="example-right-align" [(ngModel)]="updateTransactionRequestDto.repeat"
+                name="repeat" />
+            </mat-form-field>
+
+            <mat-form-field class="mat-form-field" appearance="fill">
+              <mat-label>Data Inicial do Recebimento</mat-label>
+              <input type="text" matInput placeholder="DD/MM/AAAA" [(ngModel)]="updateTransactionRequestDto.payDay"
+                name="payDay" />
+            </mat-form-field>
+          </div>
+
+          <div *ngIf="isStatusExpense">
+            <mat-form-field class="mat-form-field" appearance="fill">
+              <mat-label>Status da Transação</mat-label>
+              <mat-select type="text" [formControl]="statusTypeControl" [(ngModel)]="updateTransactionRequestDto.status"
+                name="status">
+                <mat-option value="PAID">Paga</mat-option>
+                <mat-option value="NOT_PAID">Não Paga</mat-option>
+              </mat-select>
+            </mat-form-field>
+
+            <mat-form-field *ngIf="isRepeticao" class="mat-form-field" appearance="fill">
+              <mat-label>Repete quantas vezes? Deve ser acima de 1.</mat-label>
+              <input matInput type="number" class="example-right-align" [(ngModel)]="updateTransactionRequestDto.repeat"
+                name="repeat" />
+            </mat-form-field>
+
+            <mat-form-field class="mat-form-field" appearance="fill">
+              <mat-label>Data Inicial do Pagamento</mat-label>
+              <input type="text" matInput placeholder="DD/MM/AAAA" [(ngModel)]="updateTransactionRequestDto.payDay"
+                name="payDay" />
+            </mat-form-field>
+          </div>
+
+          <div>
+            <mat-form-field class="mat-form-field" appearance="fill">
+              <mat-label>Descrição</mat-label>
+              <input type="text" matInput placeholder="Descrição" [(ngModel)]="updateTransactionRequestDto.description"
+                name="description" />
+            </mat-form-field>
+          </div>
+
+          <div>
+            <mat-form-field class="mat-form-field" appearance="fill">
+              <mat-label>Valor</mat-label>
+              <input matInput type="number" class="example-right-align" placeholder="R$ 0,00"
+                [(ngModel)]="updateTransactionRequestDto.amount" name="amount" />
+            </mat-form-field>
+          </div>
+
+          <div>
+            <mat-form-field class="mat-form-field" appearance="fill">
+              <mat-label>Atualizar Transação</mat-label>
+              <mat-select type="text" [formControl]="updateTransactionTypeControl"
+                [(ngModel)]="updateTransactionRequestDto.updateTransactionType" name="updateTransactionType"
+                (selectionChange)="
+                  validateTodasTransacoes(
+                    updateTransactionRequestDto.updateTransactionType
+                  )
+                ">
+                <mat-option *ngFor="let updateType of listUpdateTypes" value="{{ updateType.updateTransactionType }}">
+                  {{ updateType.name }}
+                </mat-option>
+              </mat-select>
+            </mat-form-field>
+          </div>
+
+          <div>
+            <mat-form-field *ngIf="isAtualizarTodas" class="mat-form-field" appearance="fill">
+              <mat-label>Repete quantas vezes? Deve ser acima de 1.</mat-label>
+              <input matInput type="number" class="example-right-align" [(ngModel)]="updateTransactionRequestDto.repeat"
+                name="repeat" />
+            </mat-form-field>
+          </div>
+
+          <div class="input-container ng-scope" style="margin-top: 20px">
+            <button type="submit" class="btn ng-binding" (click)="atualizarTransacao()">
+              Atualizar
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</body>

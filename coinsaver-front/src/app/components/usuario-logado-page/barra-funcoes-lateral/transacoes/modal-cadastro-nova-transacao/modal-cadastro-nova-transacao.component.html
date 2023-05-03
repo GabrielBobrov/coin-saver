@@ -3,7 +3,6 @@
 <body class="ng-scope">
   <div id="container">
     <div>
-
       <div class="ng-scope">
         <div class="header-modal">
           <h2 class="container-title">Cadastrar Nova Transação</h2>
@@ -12,13 +11,13 @@
         </div>
 
         <div class="formulario-nova-transacao">
-
           <div>
             <mat-form-field class="mat-form-field" appearance="fill">
               <mat-label>Categoria Tipo Transação</mat-label>
               <mat-select type="text" [formControl]="transactionCategoryTypeControl"
-                [(ngModel)]="transactionRequestDto.category" name="category"
-                (selectionChange)="defineCategoria(transactionRequestDto.category)">
+                [(ngModel)]="transactionRequestDto.category" name="category" (selectionChange)="
+                  defineCategoria(transactionRequestDto.category)
+                ">
                 <mat-option value="INCOME">Recebido</mat-option>
                 <mat-option value="EXPENSE">Despesa</mat-option>
               </mat-select>
@@ -30,8 +29,8 @@
               <mat-label>Divisão Categoria</mat-label>
               <mat-select type="text" [formControl]="divisionType" [(ngModel)]="transactionRequestDto.divisionId"
                 name="divisionId">
-                <mat-option *ngFor="let division of listDivision" value={{division.id}}>
-                  {{division.name}}
+                <mat-option *ngFor="let division of listDivision" value="{{ division.id }}">
+                  {{ division.name }}
                 </mat-option>
               </mat-select>
             </mat-form-field>
@@ -50,23 +49,24 @@
             <mat-form-field class="mat-form-field" appearance="fill">
               <mat-label>Recebimentos Fixos? (infinitas repetições)</mat-label>
               <mat-select type="text" [formControl]="fixedExpenseControl"
-                [(ngModel)]="transactionRequestDto.fixedExpense" name="fixedExpense"
-                (selectionChange)="defineRepeticao(transactionRequestDto.fixedExpense)">
+                [(ngModel)]="transactionRequestDto.fixedExpense" name="fixedExpense" (selectionChange)="
+                  defineRepeticao(transactionRequestDto.fixedExpense)
+                ">
                 <mat-option value="true">Sim</mat-option>
                 <mat-option value="false">Não</mat-option>
               </mat-select>
             </mat-form-field>
 
             <mat-form-field *ngIf="isRepeticao" class="mat-form-field" appearance="fill">
-              <mat-label>Repete quantas vezes? Deve ser acima de 1.</mat-label>
+              <mat-label>Repete quantas vezes?</mat-label>
               <input matInput type="number" class="example-right-align" [(ngModel)]="transactionRequestDto.repeat"
-                name="repeat">
+                name="repeat" />
             </mat-form-field>
 
             <mat-form-field class="mat-form-field" appearance="fill">
               <mat-label>Data Inicial do Recebimento</mat-label>
               <input type="text" matInput placeholder="DD/MM/AAAA" [(ngModel)]="transactionRequestDto.payDay"
-                name="payDay">
+                name="payDay" />
             </mat-form-field>
           </div>
 
@@ -83,23 +83,24 @@
             <mat-form-field class="mat-form-field" appearance="fill">
               <mat-label>Despesa Fixa? (infinitas repetições)</mat-label>
               <mat-select type="text" [formControl]="fixedExpenseControl"
-                [(ngModel)]="transactionRequestDto.fixedExpense" name="fixedExpense"
-                (selectionChange)="defineRepeticao(transactionRequestDto.fixedExpense)">
+                [(ngModel)]="transactionRequestDto.fixedExpense" name="fixedExpense" (selectionChange)="
+                  defineRepeticao(transactionRequestDto.fixedExpense)
+                ">
                 <mat-option value="true">Sim</mat-option>
                 <mat-option value="false">Não</mat-option>
               </mat-select>
             </mat-form-field>
 
             <mat-form-field *ngIf="isRepeticao" class="mat-form-field" appearance="fill">
-              <mat-label>Repete quantas vezes? Deve ser acima de 1.</mat-label>
+              <mat-label>Repete quantas vezes?</mat-label>
               <input matInput type="number" class="example-right-align" [(ngModel)]="transactionRequestDto.repeat"
-                name="repeat">
+                name="repeat" />
             </mat-form-field>
 
             <mat-form-field class="mat-form-field" appearance="fill">
               <mat-label>Data Inicial do Pagamento</mat-label>
               <input type="text" matInput placeholder="DD/MM/AAAA" [(ngModel)]="transactionRequestDto.payDay"
-                name="payDay">
+                name="payDay" />
             </mat-form-field>
           </div>
 
@@ -107,7 +108,7 @@
             <mat-form-field class="mat-form-field" appearance="fill">
               <mat-label>Descrição</mat-label>
               <input type="text" matInput placeholder="Descrição" [(ngModel)]="transactionRequestDto.description"
-                name="description">
+                name="description" />
             </mat-form-field>
           </div>
 
@@ -115,7 +116,7 @@
             <mat-form-field class="mat-form-field" appearance="fill">
               <mat-label>Valor</mat-label>
               <input matInput type="number" class="example-right-align" placeholder="R$ 0,00"
-                [(ngModel)]="transactionRequestDto.amount" name="amount">
+                [(ngModel)]="transactionRequestDto.amount" name="amount" />
             </mat-form-field>
           </div>
 
@@ -124,9 +125,7 @@
               Cadastrar
             </button>
           </div>
-
         </div>
-
       </div>
     </div>
   </div>

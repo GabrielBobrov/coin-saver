@@ -57,9 +57,10 @@ export class ModalCadastroNovaTransacaoComponent {
     transactionRequestDto.payDay = payDayFormated;
 
     this.transactionRequestDto.repeat = transactionRequestDto.repeat;
+    this.transactionRequestDto.fixedExpense = transactionRequestDto.fixedExpense;
 
-    if (this.transactionRequestDto.repeat == 0 || this.transactionRequestDto.repeat == 1) {
-      transactionRequestDto.repeat == null;
+    if (transactionRequestDto.repeat == 0 || transactionRequestDto.repeat == 1) {
+      transactionRequestDto.repeat = null;
     }
 
     this.transactionsService.createTransaction(transactionRequestDto).subscribe(

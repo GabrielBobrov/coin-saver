@@ -448,6 +448,9 @@ public class TransactionServiceImpl implements TransactionService {
         transactionDomainService.updateTransactionFields(transaction, updateTransactionRequestDto, updateTransactionType);
 
         if (TransactionType.INSTALLMENT.equals(updateTransactionRequestDto.getTransactionType())) {
+            if (Objects.isNull(updateTransactionRequestDto.getRepeat())) {
+                throw new BusinessException(ErrorMessages.getErrorMessage("TRANSACTION_WITHOUT_REPEAT"));
+            }
             installmentTransactionRepository.deleteByTransactionId(transaction.getId());
             updateInstallmentTransaction(transaction, updateTransactionRequestDto);
         }
