@@ -26,6 +26,8 @@ export class TableMensalComponent implements OnInit {
   updateTransactionRequestDto = new UpdateTransactionRequestDto();
   payTransactionRequestDto = new PayTransactionRequestDto();
 
+  dataDatepicker: any;
+
   date: string = '';
   dataUtils = new DataUtils();
   objetoData?: DataFromDatePickerObj;
@@ -37,22 +39,36 @@ export class TableMensalComponent implements OnInit {
   ) { }
 
   ngOnInit() {
-    this.getTransactionsInMonth();
+    this.formataDataInicialTabelaMensal();
   }
 
-  getTransactionsInMonth() {
+  recebeDataMontadaDatepicker(dataMontadaDatepicker: any) {
+    this.dataDatepicker = dataMontadaDatepicker;
+    this.atualizaTabelaMesComNovaData();
+  }
+
+  formataDataInicialTabelaMensal() {
     this.date = this.dataUtils.transformaToLocalDateFormat('US');
+    this.getTransactionsInMonth(this.date);
+  }
 
-    this.transactionsService.getTransactionsInMonth(this.date)
-      .subscribe((res) => {
+  private getTransactionsInMonth(date: any) {
+    this.transactionsService.getTransactionsInMonth(date).subscribe(
+      (res) => {
         this.monthlyResponseDto = res;
-        console.log(this.monthlyResponseDto)
-        this.monthlyTransactionsResponseDtoList = this.monthlyResponseDto.transactions;
 
+        console.log(this.monthlyResponseDto);
+
+        this.monthlyTransactionsResponseDtoList = this.monthlyResponseDto.transactions;
         this.monthlyTransactionsResponseDtoList.forEach((transaction) => {
-        })
+        });
       }
     );
+  }
+
+  atualizaTabelaMesComNovaData() {
+    this.date = this.dataUtils.transformaDataInput(this.dataDatepicker);
+    this.getTransactionsInMonth(this.date);
   }
 
   pagarTransacao(transaction: MonthlyTransactionResponseDto) {
@@ -72,7 +88,7 @@ export class TableMensalComponent implements OnInit {
       (res) => {
         this.messageService.add({ severity: 'success', summary: 'Success', detail: 'Transação PAGA com sucesso' });
         setTimeout(() => {
-          this.getTransactionsInMonth();
+          this.atualizaTabelaMesComNovaData();
         }, 1500);
       },
       (error) => {
@@ -83,7 +99,7 @@ export class TableMensalComponent implements OnInit {
 
   abrirModalUpdateTransacao(transaction: MonthlyTransactionResponseDto) {
     this.dialogService.open(ModalUpdateTransacaoComponent, {
-      data: {row: transaction},
+      data: { row: transaction },
       showHeader: false
     });
   }
@@ -93,7 +109,7 @@ export class TableMensalComponent implements OnInit {
       (res) => {
         this.messageService.add({ severity: 'success', summary: 'Success', detail: 'Transação APAGADA com sucesso' });
         setTimeout(() => {
-          this.getTransactionsInMonth();
+          this.atualizaTabelaMesComNovaData();
         }, 1500);
       },
       (error) => {

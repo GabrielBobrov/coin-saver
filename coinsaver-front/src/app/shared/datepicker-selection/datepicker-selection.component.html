@@ -1,7 +1,7 @@
 <mat-form-field appearance="fill">
-  <mat-label>Month and Year</mat-label>
+  <mat-label>Mês e Ano</mat-label>
   <input matInput [matDatepicker]="dp" [formControl]="date">
-  <mat-hint>MM/YYYY</mat-hint>
+  <mat-hint></mat-hint>
   <mat-datepicker-toggle matIconSuffix [for]="dp"></mat-datepicker-toggle>
   <mat-datepicker #dp startView="multi-year" (monthSelected)="setMonthAndYear($event, dp)"
     panelClass="example-month-picker">

@@ -1,11 +1,13 @@
 <p-toast></p-toast>
 
-<app-datepicker-selection></app-datepicker-selection>
+<app-datepicker-selection
+  (setMesAnoEvent)="recebeDataMontadaDatepicker($event)">
+</app-datepicker-selection>
 
 <p-table [value]="monthlyTransactionsResponseDtoList" [tableStyle]="{'min-width': '60rem'}">
   <ng-template pTemplate="caption">
       <div class="flex align-items-center justify-content-between">
-          TRANSAÇÕES DO MÊS
+          TRANSAÇÕES DO MÊS {{dataUtils.formataTextoTabelaMensal(date)}}
       </div>
       <!-- <app-datepicker-selection (dataEvent)="objetoData = $event"></app-datepicker-selection> -->
   </ng-template>

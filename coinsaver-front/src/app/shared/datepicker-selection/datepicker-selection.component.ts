@@ -1,4 +1,4 @@
-import {Component, ViewEncapsulation} from '@angular/core';
+import {Component, EventEmitter, Output, ViewEncapsulation} from '@angular/core';
 import {FormControl} from '@angular/forms';
 import {MomentDateAdapter, MAT_MOMENT_DATE_ADAPTER_OPTIONS} from '@angular/material-moment-adapter';
 import {DateAdapter, MAT_DATE_FORMATS, MAT_DATE_LOCALE} from '@angular/material/core';
@@ -11,6 +11,7 @@ import {MatDatepicker} from '@angular/material/datepicker';
 import * as _moment from 'moment';
 // tslint:disable-next-line:no-duplicate-imports
 import {default as _rollupMoment, Moment} from 'moment';
+import { DataUtils } from '../utils/DataUtils.class';
 
 const moment = _rollupMoment || _moment;
 
@@ -48,6 +49,10 @@ export const MY_FORMATS = {
   encapsulation: ViewEncapsulation.None,
 })
 export class DatepickerSelectionComponent {
+  @Output() setMesAnoEvent = new EventEmitter();
+
+  dataUtils = new DataUtils();
+
   date = new FormControl(moment());
 
   setMonthAndYear(normalizedMonthAndYear: Moment, datepicker: MatDatepicker<Moment>) {
@@ -56,5 +61,11 @@ export class DatepickerSelectionComponent {
     ctrlValue.year(normalizedMonthAndYear.year());
     this.date.setValue(ctrlValue);
     datepicker.close();
+
+    const ajustaMes = normalizedMonthAndYear.month() + 1;
+
+    const dataMontadaDatepicker = "01/" + this.dataUtils.acrescentaZeroEsquerda(ajustaMes) + "/" + normalizedMonthAndYear.year() + "";
+
+    this.setMesAnoEvent.emit(dataMontadaDatepicker)
   }
 }
