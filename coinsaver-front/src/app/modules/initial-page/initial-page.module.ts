@@ -19,6 +19,7 @@ import { TableGeralComponent } from '../../components/usuario-logado-page/barra-
 import { ModalCadastroNovaTransacaoComponent } from '../../components/usuario-logado-page/barra-funcoes-lateral/transacoes/modal-cadastro-nova-transacao/modal-cadastro-nova-transacao.component';
 import { MAT_FORM_FIELD_DEFAULT_OPTIONS } from '@angular/material/form-field';
 import { ModalUpdateTransacaoComponent } from '../../components/usuario-logado-page/barra-funcoes-lateral/transacoes/mensal/table-mensal/modal-update-transacao/modal-update-transacao.component';
+import { DatepickerComponent } from 'src/app/shared/datepicker/datepicker.component';
 
 @NgModule({
   declarations: [
@@ -35,6 +36,7 @@ import { ModalUpdateTransacaoComponent } from '../../components/usuario-logado-p
     TableGeralComponent,
     ModalCadastroNovaTransacaoComponent,
     ModalUpdateTransacaoComponent,
+    DatepickerComponent,
   ],
   imports: [
     InitialPageRoutingModule,
@@ -60,6 +62,7 @@ import { ModalUpdateTransacaoComponent } from '../../components/usuario-logado-p
     TableGeralComponent,
     ModalCadastroNovaTransacaoComponent,
     ModalUpdateTransacaoComponent,
+    DatepickerComponent,
   ],
   providers: [
     {provide: MAT_FORM_FIELD_DEFAULT_OPTIONS, useValue: {appearence: 'fill'}},
