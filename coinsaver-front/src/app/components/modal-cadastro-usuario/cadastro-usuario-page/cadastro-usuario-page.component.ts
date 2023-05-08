@@ -3,6 +3,7 @@ import { FormControl, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { MessageService } from 'primeng/api';
 import { DynamicDialogRef } from 'primeng/dynamicdialog';
+import { AuthenticationRequestDto } from 'src/app/dtos/transactions/request/authentication.request.dto';
 import { RegisterRequestDto } from 'src/app/dtos/transactions/request/register.request.dto';
 import { AuthenticationResponseDto } from 'src/app/dtos/transactions/response/authentication.response.dto';
 import { AuthenticationService } from 'src/app/services/authentication/authentication.service';
@@ -31,7 +32,10 @@ export class CadastroUsuarioPageComponent {
   isContraEmailValido?: boolean;
   isContraPasswordValido?: boolean;
 
-  authenticationResponseDto?: AuthenticationResponseDto;
+  authenticationRequestDto: AuthenticationRequestDto = {
+    email: undefined,
+    password: undefined,
+  };
 
   registerRequestDto: RegisterRequestDto = {
     id: undefined,
@@ -55,13 +59,27 @@ export class CadastroUsuarioPageComponent {
 
     this.autheticationService.register(registerRequestDto).subscribe(
       (res) => {
-        console.log("res", res);
+
+        this.authenticationRequestDto.email = registerRequestDto.email;
+        this.authenticationRequestDto.password = registerRequestDto.password;
+
+        this.autheticationService.authenticate(this.authenticationRequestDto).subscribe(
+          (res) => {
+            this.messageService.add({ severity: 'success', summary: 'Success', detail: 'Usuário LOGADO com sucesso' });
+            setTimeout(() => {
+              this.cleanObjectAuthenticationRequestDto();
+              this.fecharModal();
+              this.retornaLoginPage();
+            }, 1500);
+          },
+          (error) => {
+            this.messageService.add({ severity: 'error', summary: 'Error', detail: 'Erro ao tentar LOGAR usuário' });
+          }
+        );
 
         this.messageService.add({ severity: 'success', summary: 'Success', detail: 'Usuário CRIADO com sucesso' });
         setTimeout(() => {
-          this.cleanObject();
-          this.fecharModal();
-          this.retornaLoginPage();
+          this.cleanObjectRegisterRequestDto();
         }, 1500);
       },
       (error) => {
@@ -86,7 +104,7 @@ export class CadastroUsuarioPageComponent {
     }
   }
 
-  cleanObject() {
+  cleanObjectRegisterRequestDto() {
     this.registerRequestDto = {
       id: undefined,
       name: undefined,
@@ -97,12 +115,19 @@ export class CadastroUsuarioPageComponent {
     }
   }
 
+  cleanObjectAuthenticationRequestDto() {
+    this.authenticationRequestDto = {
+      email: undefined,
+      password: undefined,
+    }
+  }
+
   fecharModal() {
     this.ref.close();
   }
 
   retornaLoginPage() {
-    this.router.navigateByUrl('login-page', {
+    this.router.navigateByUrl('usuario-logado-page', {
       state: {
         data: {},
       },
