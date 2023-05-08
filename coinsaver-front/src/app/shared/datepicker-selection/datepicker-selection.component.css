@@ -5,3 +5,19 @@
 .example-month-picker .mat-calendar-arrow {
   display: none;
 }
+
+/* CUSTOMIZACAO */
+/* .mat-calendar-body-selected {
+  background-color: #fe801f;
+}
+
+.mat-calendar-body-cell:not(.mat-calendar-body-disabled):hover>.mat-calendar-body-cell-content:not(.mat-calendar-body-selected):not(.mat-calendar-body-comparison-identical) {
+  background-color: #fe801fa1;
+}
+
+.mat-mdc-icon-button.mat-mdc-button-base {
+  width: 48px;
+  height: 48px;
+  padding: 12px;
+  color: #fe801f;
+} */
