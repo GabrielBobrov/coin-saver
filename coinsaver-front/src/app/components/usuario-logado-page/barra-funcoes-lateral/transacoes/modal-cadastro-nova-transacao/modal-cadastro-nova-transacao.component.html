@@ -60,13 +60,13 @@
             <mat-form-field *ngIf="isRepeticao" class="mat-form-field" appearance="fill">
               <mat-label>Repete quantas vezes?</mat-label>
               <input matInput type="number" class="example-right-align" [(ngModel)]="transactionRequestDto.repeat"
-                name="repeat" />
+                name="repeat">
             </mat-form-field>
 
             <mat-form-field class="mat-form-field" appearance="fill">
               <mat-label>Data Inicial do Recebimento</mat-label>
               <input type="text" matInput placeholder="DD/MM/AAAA" [(ngModel)]="transactionRequestDto.payDay"
-                name="payDay" />
+                name="payDay">
             </mat-form-field>
           </div>
 
@@ -94,13 +94,13 @@
             <mat-form-field *ngIf="isRepeticao" class="mat-form-field" appearance="fill">
               <mat-label>Repete quantas vezes?</mat-label>
               <input matInput type="number" class="example-right-align" [(ngModel)]="transactionRequestDto.repeat"
-                name="repeat" />
+                name="repeat">
             </mat-form-field>
 
             <mat-form-field class="mat-form-field" appearance="fill">
               <mat-label>Data Inicial do Pagamento</mat-label>
               <input type="text" matInput placeholder="DD/MM/AAAA" [(ngModel)]="transactionRequestDto.payDay"
-                name="payDay" />
+                name="payDay">
             </mat-form-field>
           </div>
 
@@ -108,7 +108,7 @@
             <mat-form-field class="mat-form-field" appearance="fill">
               <mat-label>Descrição</mat-label>
               <input type="text" matInput placeholder="Descrição" [(ngModel)]="transactionRequestDto.description"
-                name="description" />
+                name="description">
             </mat-form-field>
           </div>
 
@@ -116,7 +116,7 @@
             <mat-form-field class="mat-form-field" appearance="fill">
               <mat-label>Valor</mat-label>
               <input matInput type="number" class="example-right-align" placeholder="R$ 0,00"
-                [(ngModel)]="transactionRequestDto.amount" name="amount" />
+                [(ngModel)]="transactionRequestDto.amount" name="amount">
             </mat-form-field>
           </div>
 
