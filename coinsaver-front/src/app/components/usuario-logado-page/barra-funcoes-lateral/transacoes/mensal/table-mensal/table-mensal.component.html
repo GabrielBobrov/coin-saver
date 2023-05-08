@@ -43,7 +43,11 @@
   </ng-template>
   <ng-template pTemplate="summary">
       <div class="flex align-items-center justify-content-between">
-          Total de registros no mês {{monthlyTransactionsResponseDtoList ? monthlyTransactionsResponseDtoList.length : 0 }}.
+        Total de registros no mês {{monthlyTransactionsResponseDtoList ? monthlyTransactionsResponseDtoList.length : 0 }}.
       </div>
+      <div class="flex align-items-center justify-content-between">
+        Saldo no mês: R$ {{monthlyResponseDto?.monthlyBalance}}
+        <i class="pi" [ngClass]="{'pi-thumbs-up': isSaldoPositivo, 'pi-thumbs-down': !isSaldoPositivo}"></i>
+    </div>
   </ng-template>
 </p-table>

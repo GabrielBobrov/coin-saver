@@ -28,6 +28,8 @@ export class TableMensalComponent implements OnInit {
 
   dataDatepicker: any;
 
+  isSaldoPositivo?: boolean;
+
   date: string = '';
   dataUtils = new DataUtils();
   objetoData?: DataFromDatePickerObj;
@@ -56,6 +58,10 @@ export class TableMensalComponent implements OnInit {
     this.transactionsService.getTransactionsInMonth(date).subscribe(
       (res) => {
         this.monthlyResponseDto = res;
+
+        if (this.monthlyResponseDto?.monthlyBalance > 0) {
+          this.isSaldoPositivo = true;
+        }
 
         console.log(this.monthlyResponseDto);
 
