@@ -5,8 +5,9 @@ import { MessageService } from 'primeng/api';
 import { DynamicDialogRef } from 'primeng/dynamicdialog';
 import { AuthenticationRequestDto } from 'src/app/dtos/transactions/request/authentication.request.dto';
 import { RegisterRequestDto } from 'src/app/dtos/transactions/request/register.request.dto';
-import { AuthenticationResponseDto } from 'src/app/dtos/transactions/response/authentication.response.dto';
 import { AuthenticationService } from 'src/app/services/authentication/authentication.service';
+import { DivisionsService } from 'src/app/services/divisions/divisions.service';
+import { TransactionsService } from 'src/app/services/transactions/transactions.service';
 
 @Component({
   selector: 'app-cadastro-usuario-page',
@@ -17,6 +18,8 @@ export class CadastroUsuarioPageComponent {
 
   constructor(
     private autheticationService: AuthenticationService,
+    private divisionService: DivisionsService,
+    private transactionService: TransactionsService,
     public router: Router,
     public ref: DynamicDialogRef,
     private messageService: MessageService,
@@ -60,26 +63,13 @@ export class CadastroUsuarioPageComponent {
     this.autheticationService.register(registerRequestDto).subscribe(
       (res) => {
 
-        this.authenticationRequestDto.email = registerRequestDto.email;
-        this.authenticationRequestDto.password = registerRequestDto.password;
-
-        this.autheticationService.authenticate(this.authenticationRequestDto).subscribe(
-          (res) => {
-            this.messageService.add({ severity: 'success', summary: 'Success', detail: 'Usuário LOGADO com sucesso' });
-            setTimeout(() => {
-              this.cleanObjectAuthenticationRequestDto();
-              this.fecharModal();
-              this.retornaLoginPage();
-            }, 1500);
-          },
-          (error) => {
-            this.messageService.add({ severity: 'error', summary: 'Error', detail: 'Erro ao tentar LOGAR usuário' });
-          }
-        );
+        this.enviaTokenParaServices(res);
 
         this.messageService.add({ severity: 'success', summary: 'Success', detail: 'Usuário CRIADO com sucesso' });
         setTimeout(() => {
           this.cleanObjectRegisterRequestDto();
+          this.fecharModal();
+          this.retornaLoginPage();
         }, 1500);
       },
       (error) => {
@@ -132,6 +122,12 @@ export class CadastroUsuarioPageComponent {
         data: {},
       },
     });
+  }
+
+  enviaTokenParaServices(token: any) {
+    this.autheticationService.recebeToken(token);
+    this.divisionService.recebeToken(token);
+    this.transactionService.recebeToken(token);
   }
 
 }

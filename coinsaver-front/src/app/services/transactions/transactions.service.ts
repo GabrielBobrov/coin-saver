@@ -1,7 +1,7 @@
 import { TransactionResponseDto } from '../../dtos/transactions/response/transaction.response.dto';
 import { environment } from './../../environments/environments';
 import { HttpClient, HttpErrorResponse, HttpHeaders } from '@angular/common/http';
-import { Injectable } from '@angular/core';
+import { Injectable, OnInit } from '@angular/core';
 import { catchError, map, Observable, throwError } from 'rxjs';
 import { PayTransactionRequestDto } from 'src/app/dtos/transactions/request/pay-transaction.request.dto';
 import { TransactionRequestDto } from 'src/app/dtos/transactions/request/transaction.request.dto';
@@ -20,19 +20,29 @@ export class TransactionsService {
     private httpClient: HttpClient,
   ) { }
 
-  httpOptions = {
-    headers: new HttpHeaders({ 'Content-Type': 'application/json' })
-  };
-
   baseUrl = environment.api.hostBackend;
   transactionControllerUrl = environment.api.transactionsControllerBackend;
 
+  token?: string;
+
+  recebeToken(token: any) {
+    this.token = JSON.stringify(token.token).replaceAll('"', '');
+  }
+
   getAllTransactions(): Observable<TransactionResponseDto[]> {
+
+    const headerDict  = {'Content-Type': 'application/json', 'Authorization': `Bearer ${(this.token)}`};
+    const httpOptions = {
+      headers: new HttpHeaders(headerDict)
+    };
+
+    console.log(httpOptions)
+
     return this.httpClient.get<TransactionResponseDto[]>(
-      `${this.baseUrl +
+      (`${this.baseUrl +
       this.transactionControllerUrl +
       environment.api.transactionsBackendEndpoints.getAllTransactions
-      }`
+      }`), httpOptions
     )
       .pipe(
         map((transactions: TransactionResponseDto[]) => {
@@ -48,12 +58,18 @@ export class TransactionsService {
   }
 
   getTransaction(transactionId: number, transactionType: TransactionTypeEnum): Observable<TransactionResponseDto> {
+
+    const headerDict  = {'Content-Type': 'application/json', 'Authorization': `Bearer ${(this.token)}`};
+    const httpOptions = {
+      headers: new HttpHeaders(headerDict)
+    };
+
     return this.httpClient.get<TransactionResponseDto>(
-      `${this.baseUrl +
+      (`${this.baseUrl +
       this.transactionControllerUrl +
       environment.api.transactionsBackendEndpoints.getTransaction
       }/${transactionId
-      }?transactionType=${transactionType}`
+      }?transactionType=${transactionType}`), httpOptions
     )
       .pipe(
         catchError((erroResponse) => {
@@ -63,12 +79,20 @@ export class TransactionsService {
   }
 
   getTransactionByCategoryType(categoryType: TransactionCategoryTypeEnum, date: string): Observable<TransactionResponseDto[]> {
+
+    const headerDict  = {'Content-Type': 'application/json', 'Authorization': `Bearer ${(this.token)}`};
+    const httpOptions = {
+      headers: new HttpHeaders(headerDict)
+    };
+
+    console.log(httpOptions)
+
     return this.httpClient.get<TransactionResponseDto[]>(
-      `${this.baseUrl +
+      (`${this.baseUrl +
       this.transactionControllerUrl +
       environment.api.transactionsBackendEndpoints.getTransactionByCategoryType
       }/${categoryType
-      }?date=${date}`
+      }?date=${date}`), httpOptions
     )
       .pipe(
         catchError((erroResponse) => {
@@ -79,8 +103,8 @@ export class TransactionsService {
 
   createTransaction(transactionRequestDto: TransactionRequestDto) {
     const url = this.baseUrl + this.transactionControllerUrl + environment.api.transactionsBackendEndpoints.createTransaction;
-    const body = JSON.stringify(transactionRequestDto);
-    const headers = { 'Content-Type': 'application/json' };
+    const body = (transactionRequestDto);
+    const headers = { 'Content-Type': 'application/json', 'Authorization': `Bearer ${(this.token)}` };
 
     return this.httpClient.post(url, body, { headers }).pipe(
       map(result => {
@@ -90,11 +114,17 @@ export class TransactionsService {
   }
 
   getTransactionsInMonth(date: string): Observable<MonthlyResponseDto> {
+
+    const headerDict  = {'Content-Type': 'application/json', 'Authorization': `Bearer ${(this.token)}`};
+    const httpOptions = {
+      headers: new HttpHeaders(headerDict)
+    };
+
     return this.httpClient.get<MonthlyResponseDto>(
-      `${this.baseUrl +
+      (`${this.baseUrl +
       this.transactionControllerUrl +
       environment.api.transactionsBackendEndpoints.getTransactionsInMonth
-      }?date=${date}`
+      }?date=${date}`), httpOptions
     )
       .pipe(
         catchError((erroResponse) => {
@@ -104,7 +134,7 @@ export class TransactionsService {
   }
 
   updateTransaction(updateTransactionRequestDto: UpdateTransactionRequestDto): Observable<UpdateTransactionResponseDto> {
-    const headers = { 'content-type': 'application/json' };
+    const headers = { 'Content-Type': 'application/json', 'Authorization': `Bearer ${(this.token)}` };
     const body = updateTransactionRequestDto;
 
     return this.httpClient.put<UpdateTransactionResponseDto>(
@@ -116,7 +146,7 @@ export class TransactionsService {
   updateTransactionPatch(payTransactionRequestDto: PayTransactionRequestDto) {
     const url = this.baseUrl + this.transactionControllerUrl + environment.api.transactionsBackendEndpoints.updateTransactionPatch;
     const body = JSON.stringify(payTransactionRequestDto);
-    const headers = { 'Content-Type': 'application/json' };
+    const headers = { 'Content-Type': 'application/json', 'Authorization': `Bearer ${(this.token)}` };
 
     return this.httpClient.patch(url, body, { headers }).pipe(
       map(result => {
@@ -127,7 +157,7 @@ export class TransactionsService {
 
   deleteByTransactionId(transactionId: number) {
     const url = this.baseUrl + this.transactionControllerUrl + environment.api.transactionsBackendEndpoints.deleteByTransactionId;
-    const headers = { 'Content-Type': 'application/json' };
+    const headers = { 'Content-Type': 'application/json', 'Authorization': `Bearer ${(this.token)}` };
 
     return this.httpClient.delete(`${url}/${transactionId}`, { headers }).pipe(
       map(result => {

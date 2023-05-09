@@ -17,6 +17,12 @@ export class AuthenticationService {
   baseUrl = environment.api.hostBackend;
   authenticationControllerUrl = environment.api.authenticationControllerBackend;
 
+  token?: string;
+
+  recebeToken(token: any) {
+    this.token = JSON.stringify(token.token).replaceAll('"', '');
+  }
+
   register(registerRequestDto: RegisterRequestDto) {
     const url = this.baseUrl + this.authenticationControllerUrl + environment.api.authenticationBackendEndpoints.register;
     const body = JSON.stringify(registerRequestDto);

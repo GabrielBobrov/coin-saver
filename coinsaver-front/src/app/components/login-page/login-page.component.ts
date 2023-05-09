@@ -1,16 +1,13 @@
 import { ModalRedefinirSenhaComponent } from './modal-redefinir-senha/modal-redefinir-senha.component';
 import { Component } from '@angular/core';
 import { Router } from '@angular/router';
-import { DialogService } from 'primeng/dynamicdialog';
-import { ErrorStateMatcher } from '@angular/material/core';
-import { FormControl, FormGroupDirective, NgForm, Validators } from '@angular/forms';
-
-export class MyErrorStateMatcher implements ErrorStateMatcher {
-  isErrorState(control: FormControl | null, form: FormGroupDirective | NgForm | null): boolean {
-    const isSubmitted = form && form.submitted;
-    return !!(control && control.invalid && (control.dirty || control.touched || isSubmitted));
-  }
-}
+import { DialogService, DynamicDialogRef } from 'primeng/dynamicdialog';
+import { FormControl, Validators } from '@angular/forms';
+import { AuthenticationRequestDto } from 'src/app/dtos/transactions/request/authentication.request.dto';
+import { MessageService } from 'primeng/api';
+import { AuthenticationService } from 'src/app/services/authentication/authentication.service';
+import { DivisionsService } from 'src/app/services/divisions/divisions.service';
+import { TransactionsService } from 'src/app/services/transactions/transactions.service';
 
 @Component({
   selector: 'app-login-page',
@@ -19,21 +16,24 @@ export class MyErrorStateMatcher implements ErrorStateMatcher {
 })
 export class LoginPageComponent {
 
-  emailFormControl = new FormControl('', [Validators.required, Validators.email]);
-  matcher = new MyErrorStateMatcher();
-
   constructor(
+    private autheticationService: AuthenticationService,
+    private divisionService: DivisionsService,
+    private transactionService: TransactionsService,
     public router: Router,
+    public ref: DynamicDialogRef,
+    private messageService: MessageService,
     private dialogService: DialogService,
   ) {}
 
-  abrirCadastroPage() {
-    this.router.navigateByUrl('cadastro-page', {
-      state: {
-        data: {},
-      },
-    });
-  }
+  emailFormControl = new FormControl('', [Validators.required, Validators.email]);
+
+  hideSenha = true;
+
+  authenticationRequestDto: AuthenticationRequestDto = {
+    email: undefined,
+    password: undefined,
+  };
 
   showModalRedefinirSenha() {
     this.dialogService.open(ModalRedefinirSenhaComponent, {
@@ -42,12 +42,48 @@ export class LoginPageComponent {
     });
   }
 
-  abrirUsuarioLogadoPage() {
+  fazerLoginUsuarioPage(authenticationRequestDto: AuthenticationRequestDto) {
+    this.autheticationService.authenticate(authenticationRequestDto).subscribe(
+      (res) => {
+
+        this.enviaTokenParaServices(res);
+
+        this.messageService.add({ severity: 'success', summary: 'Success', detail: 'Usuário LOGADO com sucesso' });
+        setTimeout(() => {
+          this.cleanObjectAuthenticationRequestDto();
+          this.fecharModal();
+          this.retornaLoginPage();
+        }, 1500);
+      },
+      (error) => {
+        this.messageService.add({ severity: 'error', summary: 'Error', detail: 'Erro ao tentar LOGAR usuário' });
+      }
+    );
+  }
+
+  cleanObjectAuthenticationRequestDto() {
+    this.authenticationRequestDto = {
+      email: undefined,
+      password: undefined,
+    }
+  }
+
+  fecharModal() {
+    this.ref.close();
+  }
+
+  retornaLoginPage() {
     this.router.navigateByUrl('usuario-logado-page', {
       state: {
         data: {},
       },
     });
+  }
+
+  enviaTokenParaServices(token: any) {
+    this.autheticationService.recebeToken(token);
+    this.divisionService.recebeToken(token);
+    this.transactionService.recebeToken(token);
   }
 
 }
