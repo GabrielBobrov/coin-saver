@@ -4,6 +4,7 @@ import com.coinsaver.api.dtos.request.PayTransactionRequestDto;
 import com.coinsaver.api.dtos.request.ReceiveTransactionRequestDto;
 import com.coinsaver.api.dtos.request.TransactionRequestDto;
 import com.coinsaver.api.dtos.request.UpdateTransactionRequestDto;
+import com.coinsaver.api.dtos.response.MonthlyChartDivisionDto;
 import com.coinsaver.api.dtos.response.MonthlyChartDto;
 import com.coinsaver.api.dtos.response.MonthlyResponseDto;
 import com.coinsaver.api.dtos.response.MonthlyTransactionResponseDto;
@@ -439,6 +440,63 @@ public class TransactionServiceImpl implements TransactionService {
 
         return monthlyChartData;
     }
+
+    @Override
+    public List<MonthlyChartDivisionDto> getTransactionsAmountByDivision(LocalDate date) {
+
+        LocalDate startOfMonth = date.withDayOfMonth(1);
+        LocalDate endOfMonth = date.withDayOfMonth(date.lengthOfMonth());
+        Client client = SecurityUtil.getClientFromJwt();
+
+        List<Transaction> allTransactions = transactionRepository.findTransactionByPayDayBetweenAndClient(startOfMonth, endOfMonth, client);
+
+        List<Transaction> transactions = allTransactions
+                .stream()
+                .filter(t -> t.getTransactionType() == TransactionType.IN_CASH)
+                .toList();
+
+        Map<String, BigDecimal> map = new HashMap<>();
+
+
+        List<InstallmentTransaction> installmentTransactions = installmentTransactionRepository.findByPayDayBetweenAndTransactions(startOfMonth, endOfMonth, null, client);
+        List<FixTransaction> fixTransactionsEdited = fixTransactionRepository.findFixTransactionByPayDayBetween(startOfMonth, endOfMonth, Boolean.TRUE, allTransactions, null);
+        List<FixTransaction> fixTransactions = fixTransactionRepository.findFixTransactionByEditedFalse(client, null);
+
+        for (InstallmentTransaction it : installmentTransactions) {
+            String divisionName = it.getDivision().getName();
+            BigDecimal installmentTotal = it.getAmount();
+            map.merge(divisionName, installmentTotal, BigDecimal::add);
+        }
+
+        for (FixTransaction ft : fixTransactions) {
+            String divisionName = ft.getDivision().getName();
+            BigDecimal fixTotal = ft.getAmount();
+            map.merge(divisionName, fixTotal, BigDecimal::add);
+        }
+
+        for (FixTransaction ft : fixTransactionsEdited) {
+            String divisionName = ft.getDivision().getName();
+            BigDecimal fixTotal = ft.getAmount();
+            map.merge(divisionName, fixTotal, BigDecimal::add);
+        }
+
+        for (Transaction transaction : transactions) {
+            String divisionName = transaction.getDivision().getName();
+            BigDecimal fixTotal = transaction.getAmount();
+            map.merge(divisionName, fixTotal, BigDecimal::add);
+        }
+
+        List<MonthlyChartDivisionDto> resultList = new ArrayList<>();
+        for (Map.Entry<String, BigDecimal> entry : map.entrySet()) {
+            resultList.add(MonthlyChartDivisionDto.builder()
+                    .divisionName(entry.getKey())
+                    .totalAmount(entry.getValue())
+                    .build());
+        }
+
+        return resultList;
+    }
+
 
     private void getMapValues(List<TransactionResponseDto> transactionResponseDtos, Map<String, BigDecimal> map) {
 
