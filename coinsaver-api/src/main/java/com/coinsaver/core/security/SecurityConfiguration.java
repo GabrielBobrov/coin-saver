@@ -29,6 +29,10 @@ public class SecurityConfiguration implements WebMvcConfigurer {
         http
                 .cors()
                 .and()
+                .headers()
+                .frameOptions()
+                .disable()
+                .and()
                 .csrf()
                 .disable()
                 .authorizeHttpRequests()
