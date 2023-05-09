@@ -2,10 +2,20 @@
 
 
 
-INSERT INTO division(NAME, TYPE, CATEGORY, CREATED_AT) VALUES ('Academia', 'GYM', 'EXPENSE', CURRENT_TIMESTAMP()),
-                                                              ('Salário', 'SALARY', 'INCOME', CURRENT_TIMESTAMP()),
-                                                              ('Aluguel', 'RENT', 'EXPENSE', CURRENT_TIMESTAMP()),
-                                                              ('Bônus', 'BONUS', 'INCOME', CURRENT_TIMESTAMP()),
-                                                              ('Supermercado', 'MARKET', 'EXPENSE', CURRENT_TIMESTAMP()),
-                                                              ('Investimento', 'INVESTMENT', 'INCOME', CURRENT_TIMESTAMP());
+INSERT INTO division(NAME, TYPE, CATEGORY, CREATED_AT) VALUES
+    ('Saude', 'HEALTH', 'EXPENSE', CURRENT_TIMESTAMP()),
+    ('Casa', 'HOME', 'EXPENSE', CURRENT_TIMESTAMP()),
+    ('Electronic', 'ELECTRONIC', 'EXPENSE', CURRENT_TIMESTAMP()),
+    ('Restaurante', 'RESTAURANT', 'EXPENSE', CURRENT_TIMESTAMP()),
+    ('Academia', 'GYM', 'EXPENSE', CURRENT_TIMESTAMP()),
+    ('Aluguel', 'RENT', 'EXPENSE', CURRENT_TIMESTAMP()),
+    ('Supermercado', 'MARKET', 'EXPENSE', CURRENT_TIMESTAMP()),
+    ('Lazer', 'LEISURE', 'EXPENSE', CURRENT_TIMESTAMP()),
+    ('Combustivel', 'FUEL', 'EXPENSE', CURRENT_TIMESTAMP()),
+    ('Delivery', 'DELIVERY', 'EXPENSE', CURRENT_TIMESTAMP()),
+    ('BadBet', 'BADBET', 'EXPENSE', CURRENT_TIMESTAMP()),
+    ('Salário', 'SALARY', 'INCOME', CURRENT_TIMESTAMP()),
+    ('Bônus', 'BONUS', 'INCOME', CURRENT_TIMESTAMP()),
+    ('GoodBet', 'GOODBET', 'INCOME', CURRENT_TIMESTAMP()),
+    ('Investimento', 'INVESTMENT', 'INCOME', CURRENT_TIMESTAMP());
 
