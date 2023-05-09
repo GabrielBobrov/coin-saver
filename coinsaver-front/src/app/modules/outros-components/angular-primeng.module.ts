@@ -16,6 +16,7 @@ import { TimelineModule } from 'primeng/timeline';
 import { CardModule } from 'primeng/card';
 import { ButtonModule } from 'primeng/button';
 import { MessageService } from "primeng/api";
+import { ChartModule } from 'primeng/chart';
 
 
 
@@ -33,7 +34,8 @@ const ANGULAR_PRIMENG_MODULES = [
   InputTextModule,
   ButtonModule,
   TimelineModule,
-  CardModule
+  CardModule,
+  ChartModule
 ]
 
 @NgModule({

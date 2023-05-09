@@ -43,11 +43,16 @@
   <app-barra-funcoes-lateral></app-barra-funcoes-lateral>
 
   <div>
-    <h2>PAGINA INICIAL USUARIO LOGADO</h2>
-    <div class="navbar-brand d-sm-flex logo-fundo-paginas">
-      <a>
-        <img alt="" class="img-fluid logo-pessoal" src="../../../assets/images/coinsaver_logo-removebg-preview - BIG.png">
-      </a>
+    <div class="navbar-brand d-sm-flex grafico">
+
+      <div class="card flex justify-content-center">
+        <p-chart type="pie" [data]="dataPie" [options]="optionsPie"></p-chart>
+      </div>
+
+      <div class="card">
+        <p-chart type="line" [data]="dataLine" [options]="optionsLine"></p-chart>
+    </div>
+
     </div>
   </div>
 
