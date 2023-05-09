@@ -16,9 +16,9 @@ public enum DivisionType {
 	LEISURE,
 	FUEL,
 	DELIVERY,
-	BADBET,
+	BAD_BET,
 	SALARY,
 	BONUS,
-	GOODBET,
+	GOOD_BET,
 	INVESTMENT
 }
