@@ -21,6 +21,9 @@ export class UsuarioLogadoPageComponent implements OnInit {
   date: string = '';
   dataUtils = new DataUtils();
 
+  expenseCategoryAmount?: number;
+  incomeCategoryAmount?: number;
+
   dataPie: any;
   optionsPie: any;
 
@@ -35,8 +38,6 @@ export class UsuarioLogadoPageComponent implements OnInit {
   ngOnInit(): void {
     // this.getTransaction();
     this.getTransactionByCategoryType();
-    this.graficoPieTransactionByCategoryType();
-    this.graficoLineTransactionByCategoryType();
   }
 
   getTransaction() {
@@ -59,14 +60,32 @@ export class UsuarioLogadoPageComponent implements OnInit {
       .subscribe((res) => {
         this.listTransaction = res;
 
-        this.listTransaction?.forEach((transaction) => {
-        })
-
         console.log('listTransaction cat type', this.listTransaction)
+
+        if (this.listTransaction.length == 0) {
+          this.expenseCategoryAmount = 1;
+          this.incomeCategoryAmount = 1;
+        } else {
+          this.listTransaction?.forEach((transaction) => {
+
+            if (transaction.category == 'EXPENSE') {
+              this.expenseCategoryAmount =+ transaction.amount;
+            } else if (transaction.category == 'INCOME') {
+              this.incomeCategoryAmount =+ transaction.amount;
+            }
+          })
+        }
+
+        this.graficoPieTransactionByCategoryType(this.expenseCategoryAmount, this.incomeCategoryAmount);
+        this.graficoLineTransactionByCategoryType();
       });
   }
 
-  graficoPieTransactionByCategoryType() {
+  graficoPieTransactionByCategoryType(expenseCategoryAmount: any, incomeCategoryAmount: any) {
+
+    console.log(expenseCategoryAmount)
+    console.log(incomeCategoryAmount)
+
     const documentStyle = getComputedStyle(document.documentElement);
     const textColor = documentStyle.getPropertyValue('--text-color');
 
