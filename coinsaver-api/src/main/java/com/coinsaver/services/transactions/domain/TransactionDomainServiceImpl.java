@@ -9,10 +9,8 @@ import com.coinsaver.core.enums.TransactionType;
 import com.coinsaver.core.enums.UpdateTransactionType;
 import com.coinsaver.core.utils.SecurityUtil;
 import com.coinsaver.core.validation.messages.ErrorMessages;
-import com.coinsaver.domain.entities.Division;
 import com.coinsaver.domain.entities.Transaction;
 import com.coinsaver.domain.exceptions.BusinessException;
-import com.coinsaver.infra.repositories.DivisionRepository;
 import com.coinsaver.infra.repositories.TransactionRepository;
 import com.coinsaver.services.transactions.domain.interfaces.TransactionDomainService;
 import org.springframework.stereotype.Service;
@@ -21,11 +19,9 @@ import org.springframework.stereotype.Service;
 public class TransactionDomainServiceImpl implements TransactionDomainService {
 
     private final TransactionRepository transactionRepository;
-    private final DivisionRepository divisionRepository;
 
-    public TransactionDomainServiceImpl(TransactionRepository transactionRepository, DivisionRepository divisionRepository) {
+    public TransactionDomainServiceImpl(TransactionRepository transactionRepository) {
         this.transactionRepository = transactionRepository;
-        this.divisionRepository = divisionRepository;
     }
 
     public void updateTransactionFields(Transaction transaction,
