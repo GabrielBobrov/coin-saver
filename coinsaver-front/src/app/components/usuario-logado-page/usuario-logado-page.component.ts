@@ -70,7 +70,9 @@ export class UsuarioLogadoPageComponent implements OnInit {
 
             if (transaction.category == 'EXPENSE') {
               this.expenseCategoryAmount =+ transaction.amount;
-            } else if (transaction.category == 'INCOME') {
+            }
+
+            if (transaction.category == 'INCOME') {
               this.incomeCategoryAmount =+ transaction.amount;
             }
           })
@@ -90,12 +92,16 @@ export class UsuarioLogadoPageComponent implements OnInit {
     const textColor = documentStyle.getPropertyValue('--text-color');
 
     this.dataPie = {
-      labels: ['A', 'B', 'C'],
+      labels: ['EXPENSE', 'INCOME'],
       datasets: [
         {
-          data: [540, 325, 702],
-          backgroundColor: [documentStyle.getPropertyValue('--blue-500'), documentStyle.getPropertyValue('--yellow-500'), documentStyle.getPropertyValue('--green-500')],
-          hoverBackgroundColor: [documentStyle.getPropertyValue('--blue-400'), documentStyle.getPropertyValue('--yellow-400'), documentStyle.getPropertyValue('--green-400')]
+          data: [expenseCategoryAmount, incomeCategoryAmount],
+          backgroundColor: [
+            documentStyle.getPropertyValue('--red-500'),
+            documentStyle.getPropertyValue('--green-500')],
+          hoverBackgroundColor: [
+            documentStyle.getPropertyValue('--red-400'),
+            documentStyle.getPropertyValue('--green-400')]
         }
       ]
     };
