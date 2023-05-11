@@ -9,6 +9,7 @@ import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.Valid;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestParam;
 
 @Tag(name = "Clients")
 public interface ClientsControllerOpenApi {
@@ -17,7 +18,7 @@ public interface ClientsControllerOpenApi {
                     @ApiResponse(responseCode = "201"),
                     @ApiResponse(responseCode = "400", description = "Dados inválidos", content = @Content(schema = @Schema(implementation = Problem.class)))
             })
-    void recoverPassword();
+    void recoverPassword(@RequestParam String email);
 
     @Operation(summary = "Altera senha atual do cliente",
             responses = {

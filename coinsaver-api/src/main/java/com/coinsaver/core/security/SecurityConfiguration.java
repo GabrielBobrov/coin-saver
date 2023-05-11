@@ -38,6 +38,8 @@ public class SecurityConfiguration implements WebMvcConfigurer {
                 .authorizeHttpRequests()
                 .requestMatchers("/auth/**")
                 .permitAll()
+                .requestMatchers("/clients/recover-password")
+                .permitAll()
                 .requestMatchers(new AntPathRequestMatcher("/h2-console/**"))
                 .permitAll()
                 .requestMatchers(new AntPathRequestMatcher("/swagger-ui/**"))

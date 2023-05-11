@@ -28,8 +28,6 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.util.Collections;
-import java.util.HashSet;
-import java.util.Set;
 
 @Slf4j
 @Service
@@ -87,8 +85,9 @@ public class AuthenticationServiceImpl implements AuthenticationService {
     }
 
     @Override
-    public void recoverPassword() {
-        Client client = SecurityUtil.getClientFromJwt();
+    public void recoverPassword(String email) {
+        Client client = clientRepository.findByEmail(email)
+                .orElseThrow(() -> new BusinessException(ErrorMessages.getErrorMessage("USER_NOT_FOUND_BY_EMAIL")));
 
         EmailMessage emailMessage = EmailMessage.builder()
                 .subject("Recuperação de senha")

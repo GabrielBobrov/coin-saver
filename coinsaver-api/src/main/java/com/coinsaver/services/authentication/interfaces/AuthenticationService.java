@@ -10,7 +10,7 @@ public interface AuthenticationService {
 
     AuthenticationResponseDto authenticate(AuthenticationRequestDto request);
 
-    void recoverPassword();
+    void recoverPassword(String email);
 
     void changePassword(ChangePasswordRequestDto changePasswordRequestDto);
 }
