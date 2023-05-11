@@ -13,8 +13,8 @@ import java.math.BigDecimal;
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
-public class MonthlyChartDto {
+public class MonthlyChartDivisionResponseDto {
 
-    String categoryName;
+    String divisionName;
     BigDecimal totalAmount;
 }

@@ -4,8 +4,8 @@ import com.coinsaver.api.dtos.request.PayTransactionRequestDto;
 import com.coinsaver.api.dtos.request.ReceiveTransactionRequestDto;
 import com.coinsaver.api.dtos.request.TransactionRequestDto;
 import com.coinsaver.api.dtos.request.UpdateTransactionRequestDto;
-import com.coinsaver.api.dtos.response.MonthlyChartDivisionDto;
-import com.coinsaver.api.dtos.response.MonthlyChartDto;
+import com.coinsaver.api.dtos.response.MonthlyChartDivisionResponseDto;
+import com.coinsaver.api.dtos.response.MonthlyChartResponseDto;
 import com.coinsaver.api.dtos.response.MonthlyResponseDto;
 import com.coinsaver.api.dtos.response.TransactionResponseDto;
 import com.coinsaver.api.dtos.response.UpdateTransactionResponseDto;
@@ -32,7 +32,7 @@ public interface TransactionService {
 
     void receiveTransaction(ReceiveTransactionRequestDto receiveTransactionRequestDto);
 
-    List<MonthlyChartDto> getTransactionsAmountByCategory(LocalDate date);
+    List<MonthlyChartResponseDto> getTransactionsAmountByCategory(LocalDate date);
 
-    List<MonthlyChartDivisionDto> getTransactionsAmountByDivision(LocalDate date);
+    List<MonthlyChartDivisionResponseDto> getTransactionsAmountByDivision(LocalDate date);
 }

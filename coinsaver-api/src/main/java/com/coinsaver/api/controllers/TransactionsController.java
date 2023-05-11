@@ -4,8 +4,8 @@ import com.coinsaver.api.dtos.request.PayTransactionRequestDto;
 import com.coinsaver.api.dtos.request.ReceiveTransactionRequestDto;
 import com.coinsaver.api.dtos.request.TransactionRequestDto;
 import com.coinsaver.api.dtos.request.UpdateTransactionRequestDto;
-import com.coinsaver.api.dtos.response.MonthlyChartDivisionDto;
-import com.coinsaver.api.dtos.response.MonthlyChartDto;
+import com.coinsaver.api.dtos.response.MonthlyChartDivisionResponseDto;
+import com.coinsaver.api.dtos.response.MonthlyChartResponseDto;
 import com.coinsaver.api.dtos.response.MonthlyResponseDto;
 import com.coinsaver.api.dtos.response.TransactionResponseDto;
 import com.coinsaver.api.dtos.response.UpdateTransactionResponseDto;
@@ -99,14 +99,14 @@ public class TransactionsController implements TransactionsControllerOpenApi {
 
     @GetMapping("/chart/category")
     @ResponseStatus(HttpStatus.OK)
-    public List<MonthlyChartDto> getTransactionsAmountByCategory(@RequestParam LocalDate date) {
+    public List<MonthlyChartResponseDto> getTransactionsAmountByCategory(@RequestParam LocalDate date) {
 
         return transactionService.getTransactionsAmountByCategory(date);
     }
 
     @GetMapping("/chart/division")
     @ResponseStatus(HttpStatus.OK)
-    public List<MonthlyChartDivisionDto> getChartDivisions(@RequestParam LocalDate date) {
+    public List<MonthlyChartDivisionResponseDto> getChartDivisions(@RequestParam LocalDate date) {
 
         return transactionService.getTransactionsAmountByDivision(date);
     }

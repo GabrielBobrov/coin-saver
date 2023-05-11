@@ -4,8 +4,8 @@ import com.coinsaver.api.dtos.request.PayTransactionRequestDto;
 import com.coinsaver.api.dtos.request.ReceiveTransactionRequestDto;
 import com.coinsaver.api.dtos.request.TransactionRequestDto;
 import com.coinsaver.api.dtos.request.UpdateTransactionRequestDto;
-import com.coinsaver.api.dtos.response.MonthlyChartDivisionDto;
-import com.coinsaver.api.dtos.response.MonthlyChartDto;
+import com.coinsaver.api.dtos.response.MonthlyChartDivisionResponseDto;
+import com.coinsaver.api.dtos.response.MonthlyChartResponseDto;
 import com.coinsaver.api.dtos.response.MonthlyResponseDto;
 import com.coinsaver.api.dtos.response.MonthlyTransactionResponseDto;
 import com.coinsaver.api.dtos.response.TransactionResponseDto;
@@ -375,7 +375,7 @@ public class TransactionServiceImpl implements TransactionService {
     }
 
     @Override
-    public List<MonthlyChartDto> getTransactionsAmountByCategory(LocalDate date) {
+    public List<MonthlyChartResponseDto> getTransactionsAmountByCategory(LocalDate date) {
         List<TransactionResponseDto> expenses = this.getTransactionByCategory(TransactionCategoryType.EXPENSE, date);
         List<TransactionResponseDto> incomes = this.getTransactionByCategory(TransactionCategoryType.INCOME, date);
 
@@ -385,33 +385,33 @@ public class TransactionServiceImpl implements TransactionService {
         getMapValues(expenses, expenseMap);
         getMapValues(incomes, incomeMap);
 
-        List<MonthlyChartDto> monthlyChartData = new ArrayList<>();
+        List<MonthlyChartResponseDto> monthlyChartData = new ArrayList<>();
 
         expenseMap.forEach((categoryName, amount) -> {
 
-            MonthlyChartDto monthlyChartDto = MonthlyChartDto.builder()
+            MonthlyChartResponseDto monthlyChartResponseDto = MonthlyChartResponseDto.builder()
                     .categoryName(categoryName)
                     .totalAmount(amount.negate())
                     .build();
 
-            monthlyChartData.add(monthlyChartDto);
+            monthlyChartData.add(monthlyChartResponseDto);
         });
 
         incomeMap.forEach((categoryName, amount) -> {
 
-            MonthlyChartDto monthlyChartDto = MonthlyChartDto.builder()
+            MonthlyChartResponseDto monthlyChartResponseDto = MonthlyChartResponseDto.builder()
                     .categoryName(categoryName)
                     .totalAmount(amount)
                     .build();
 
-            monthlyChartData.add(monthlyChartDto);
+            monthlyChartData.add(monthlyChartResponseDto);
         });
 
         return monthlyChartData;
     }
 
     @Override
-    public List<MonthlyChartDivisionDto> getTransactionsAmountByDivision(LocalDate date) {
+    public List<MonthlyChartDivisionResponseDto> getTransactionsAmountByDivision(LocalDate date) {
 
         LocalDate startOfMonth = date.withDayOfMonth(1);
         LocalDate endOfMonth = date.withDayOfMonth(date.lengthOfMonth());
@@ -454,9 +454,9 @@ public class TransactionServiceImpl implements TransactionService {
             map.merge(divisionName, fixTotal, BigDecimal::add);
         }
 
-        List<MonthlyChartDivisionDto> resultList = new ArrayList<>();
+        List<MonthlyChartDivisionResponseDto> resultList = new ArrayList<>();
         for (Map.Entry<String, BigDecimal> entry : map.entrySet()) {
-            resultList.add(MonthlyChartDivisionDto.builder()
+            resultList.add(MonthlyChartDivisionResponseDto.builder()
                     .divisionName(entry.getKey())
                     .totalAmount(entry.getValue())
                     .build());
