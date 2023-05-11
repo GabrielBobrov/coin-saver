@@ -5,6 +5,7 @@ import { Component, OnInit } from '@angular/core';
 import { DataUtils } from 'src/app/shared/utils/DataUtils.class';
 import { TransactionCategoryTypeEnum } from 'src/app/enums/transaction-category-type.enum';
 import { Router } from '@angular/router';
+import { MonthlyChartResponseDto } from 'src/app/dtos/transactions/response/monthly-chart.response.dto';
 
 @Component({
   selector: 'app-usuario-logado-page',
@@ -18,6 +19,12 @@ export class UsuarioLogadoPageComponent implements OnInit {
   transactionId: number = 0;
   transactionType: TransactionTypeEnum | undefined;
   transactionCategoryType: TransactionCategoryTypeEnum | undefined;
+
+  listMonthlyChartCategory: MonthlyChartResponseDto[] = [];
+  monthlyChartCategory!: MonthlyChartResponseDto;
+  totalAmountCategory?: number;
+  categoryNameCategory?: string;
+
   date: string = '';
   dataUtils = new DataUtils();
 
@@ -36,63 +43,50 @@ export class UsuarioLogadoPageComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
-    // this.getTransaction();
-    this.getTransactionByCategoryType();
+    this.formataDataInicialTabelaMensal();
   }
 
-  getTransaction() {
-    this.transactionId = 1;
-    this.transactionType = TransactionTypeEnum.IN_CASH;
-
-    this.transactionsService.getTransaction(this.transactionId, this.transactionType)
-      .subscribe((res) => {
-        this.transaction = res;
-
-        console.log('id cat type', this.transaction)
-      });
-  }
-
-  getTransactionByCategoryType() {
-    this.transactionCategoryType = TransactionCategoryTypeEnum.EXPENSE;
+  formataDataInicialTabelaMensal() {
     this.date = this.dataUtils.transformaToLocalDateFormat('US');
+    this.getTransactionsAmountByCategory(this.date);
+  }
 
-    this.transactionsService.getTransactionByCategoryType(this.transactionCategoryType, this.date)
-      .subscribe((res) => {
-        this.listTransaction = res;
+  private getTransactionsAmountByCategory(date: any) {
+    this.transactionsService.getTransactionsAmountByCategory(date)
+    .subscribe((res) => {
+      let novoArray = this.montaNovoArray(res);
 
-        console.log('listTransaction cat type', this.listTransaction)
+      if (novoArray.length == 0) {
+        this.expenseCategoryAmount = 1;
+        this.incomeCategoryAmount = 1;
+      } else {
+        novoArray?.forEach((monthlyChartCategory: any) => {
 
-        if (this.listTransaction.length == 0) {
-          this.expenseCategoryAmount = 1;
-          this.incomeCategoryAmount = 1;
-        } else {
-          this.listTransaction?.forEach((transaction) => {
+          if (monthlyChartCategory.categoryName == "Despesa") {
+            this.expenseCategoryAmount =+ monthlyChartCategory.totalAmount;
+          }
 
-            if (transaction.category == 'EXPENSE') {
-              this.expenseCategoryAmount =+ transaction.amount;
-            }
+          if (monthlyChartCategory.categoryName == "Entrada") {
+            this.incomeCategoryAmount =+ monthlyChartCategory.totalAmount;
+          }
 
-            if (transaction.category == 'INCOME') {
-              this.incomeCategoryAmount =+ transaction.amount;
-            }
-          })
-        }
+          this.graficoPieTransactionByCategoryType(this.expenseCategoryAmount, this.incomeCategoryAmount);
+        })
+      }
+    });
+  }
 
-        this.graficoPieTransactionByCategoryType(this.expenseCategoryAmount, this.incomeCategoryAmount);
-        this.graficoLineTransactionByCategoryType();
-      });
+  montaNovoArray(novoArray: any) {
+    return novoArray;
   }
 
   graficoPieTransactionByCategoryType(expenseCategoryAmount: any, incomeCategoryAmount: any) {
-
-    console.log(expenseCategoryAmount)
-    console.log(incomeCategoryAmount)
 
     const documentStyle = getComputedStyle(document.documentElement);
     const textColor = documentStyle.getPropertyValue('--text-color');
 
     this.dataPie = {
-      labels: ['EXPENSE', 'INCOME'],
+      labels: ['Despesas', 'Entradas'],
       datasets: [
         {
           data: [expenseCategoryAmount, incomeCategoryAmount],

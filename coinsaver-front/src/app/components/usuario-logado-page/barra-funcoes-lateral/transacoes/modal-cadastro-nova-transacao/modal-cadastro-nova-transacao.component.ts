@@ -69,7 +69,7 @@ export class ModalCadastroNovaTransacaoComponent {
         setTimeout(() => {
           this.cleanObject();
           this.fecharModal();
-          this.retornaPaginaInicialUsuarioLogado();
+          this.atualizaTabelaMensal();
         }, 1500);
       },
       (error) => {
@@ -125,8 +125,8 @@ export class ModalCadastroNovaTransacaoComponent {
     }
   }
 
-  retornaPaginaInicialUsuarioLogado() {
-    this.router.navigateByUrl('usuario-logado-page', {
+  atualizaTabelaMensal() {
+    this.router.navigateByUrl('transacoes-mensais-page', {
       state: {
         data: {},
       },

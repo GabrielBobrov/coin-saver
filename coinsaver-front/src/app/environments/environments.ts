@@ -13,6 +13,7 @@ export const environment = {
       updateTransaction: '',
       updateTransactionPatch: '/pay',
       deleteByTransactionId: '',
+      getTransactionsAmountByCategory: '/chart/category',
     },
 
     divisionsControllerBackend: '/divisions',

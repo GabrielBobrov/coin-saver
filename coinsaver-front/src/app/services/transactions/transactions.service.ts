@@ -6,6 +6,7 @@ import { catchError, map, Observable, throwError } from 'rxjs';
 import { PayTransactionRequestDto } from 'src/app/dtos/transactions/request/pay-transaction.request.dto';
 import { TransactionRequestDto } from 'src/app/dtos/transactions/request/transaction.request.dto';
 import { UpdateTransactionRequestDto } from 'src/app/dtos/transactions/request/update-transaction.request.dto';
+import { MonthlyChartResponseDto } from 'src/app/dtos/transactions/response/monthly-chart.response.dto';
 import { MonthlyResponseDto } from 'src/app/dtos/transactions/response/monthly.response.dto';
 import { UpdateTransactionResponseDto } from 'src/app/dtos/transactions/response/update-transaction.response.dto';
 import { TransactionCategoryTypeEnum } from 'src/app/enums/transaction-category-type.enum';
@@ -84,8 +85,6 @@ export class TransactionsService {
     const httpOptions = {
       headers: new HttpHeaders(headerDict)
     };
-
-    console.log(httpOptions)
 
     return this.httpClient.get<TransactionResponseDto[]>(
       (`${this.baseUrl +
@@ -166,18 +165,24 @@ export class TransactionsService {
     );
   }
 
-  // Manipulação de erros
-  handleError(error: HttpErrorResponse) {
-    let errorMessage = '';
-    if (error.error instanceof ErrorEvent) {
-      // Erro ocorreu no lado do client
-      errorMessage = error.error.message;
-    } else {
-      // Erro ocorreu no lado do servidor
-      errorMessage = `Código do erro: ${error.status}, ` + `menssagem: ${error.message}`;
-    }
-    console.log(errorMessage);
-    return throwError(errorMessage);
-  };
+  getTransactionsAmountByCategory(date: string): Observable<MonthlyChartResponseDto> {
+
+    const headerDict  = {'Content-Type': 'application/json', 'Authorization': `Bearer ${(this.token)}`};
+    const httpOptions = {
+      headers: new HttpHeaders(headerDict)
+    };
+
+    return this.httpClient.get<MonthlyChartResponseDto>(
+      (`${this.baseUrl +
+      this.transactionControllerUrl +
+      environment.api.transactionsBackendEndpoints.getTransactionsAmountByCategory
+      }?date=${date}`), httpOptions
+    )
+      .pipe(
+        catchError((erroResponse) => {
+          return throwError(erroResponse);
+        })
+      );
+  }
 
 }
