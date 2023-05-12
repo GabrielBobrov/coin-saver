@@ -52,8 +52,6 @@ export class DivisionsService {
       headers: new HttpHeaders(headerDict)
     };
 
-    console.log(httpOptions)
-
     return this.httpClient.get<DivisionResponseDto>(
       (`${this.baseUrl +
       this.divisionControllerUrl +

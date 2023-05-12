@@ -57,7 +57,7 @@ export class UsuarioLogadoPageComponent implements OnInit {
       let novoArray = this.montaNovoArray(res);
 
       if (novoArray.length == 0) {
-        this.expenseCategoryAmount = 1;
+        this.expenseCategoryAmount = -1;
         this.incomeCategoryAmount = 1;
       } else {
         novoArray?.forEach((monthlyChartCategory: any) => {
@@ -69,10 +69,9 @@ export class UsuarioLogadoPageComponent implements OnInit {
           if (monthlyChartCategory.categoryName == "Entrada") {
             this.incomeCategoryAmount =+ monthlyChartCategory.totalAmount;
           }
-
-          this.graficoPieTransactionByCategoryType(this.expenseCategoryAmount, this.incomeCategoryAmount);
         })
       }
+      this.graficoPieTransactionByCategoryType(this.expenseCategoryAmount, this.incomeCategoryAmount);
     });
   }
 
@@ -106,72 +105,6 @@ export class UsuarioLogadoPageComponent implements OnInit {
           labels: {
             usePointStyle: true,
             color: textColor
-          }
-        }
-      }
-    };
-  }
-
-  graficoLineTransactionByCategoryType() {
-    const documentStyle = getComputedStyle(document.documentElement);
-    const textColor = documentStyle.getPropertyValue('--text-color');
-    const textColorSecondary = documentStyle.getPropertyValue('--text-color-secondary');
-    const surfaceBorder = documentStyle.getPropertyValue('--surface-border');
-
-    this.dataLine = {
-      labels: ['January', 'February', 'March', 'April', 'May', 'June', 'July'],
-      datasets: [
-        {
-          type: 'line',
-          label: 'Dataset 1',
-          borderColor: documentStyle.getPropertyValue('--blue-500'),
-          borderWidth: 2,
-          fill: false,
-          tension: 0.4,
-          data: [50, 25, 12, 48, 56, 76, 42]
-        },
-        {
-          type: 'bar',
-          label: 'Dataset 2',
-          backgroundColor: documentStyle.getPropertyValue('--green-500'),
-          data: [21, 84, 24, 75, 37, 65, 34],
-          borderColor: 'white',
-          borderWidth: 2
-        },
-        {
-          type: 'bar',
-          label: 'Dataset 3',
-          backgroundColor: documentStyle.getPropertyValue('--orange-500'),
-          data: [41, 52, 24, 74, 23, 21, 32]
-        }
-      ]
-    };
-
-    this.optionsLine = {
-      maintainAspectRatio: false,
-      aspectRatio: 0.6,
-      plugins: {
-        legend: {
-          labels: {
-            color: textColor
-          }
-        }
-      },
-      scales: {
-        x: {
-          ticks: {
-            color: textColorSecondary
-          },
-          grid: {
-            color: surfaceBorder
-          }
-        },
-        y: {
-          ticks: {
-            color: textColorSecondary
-          },
-          grid: {
-            color: surfaceBorder
           }
         }
       }
