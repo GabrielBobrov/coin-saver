@@ -34,5 +34,5 @@ public interface TransactionService {
 
     List<MonthlyChartResponseDto> getTransactionsAmountByCategory(LocalDate date);
 
-    List<MonthlyChartDivisionResponseDto> getTransactionsAmountByDivision(LocalDate date);
+    List<MonthlyChartDivisionResponseDto> getTransactionsAmountByDivision(LocalDate date, TransactionCategoryType categoryType);
 }

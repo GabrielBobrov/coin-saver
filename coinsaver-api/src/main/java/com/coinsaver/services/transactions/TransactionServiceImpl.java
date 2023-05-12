@@ -411,13 +411,13 @@ public class TransactionServiceImpl implements TransactionService {
     }
 
     @Override
-    public List<MonthlyChartDivisionResponseDto> getTransactionsAmountByDivision(LocalDate date) {
+    public List<MonthlyChartDivisionResponseDto> getTransactionsAmountByDivision(LocalDate date, TransactionCategoryType categoryType) {
 
         LocalDate startOfMonth = date.withDayOfMonth(1);
         LocalDate endOfMonth = date.withDayOfMonth(date.lengthOfMonth());
         Client client = SecurityUtil.getClientFromJwt();
 
-        List<Transaction> allTransactions = transactionRepository.findTransactionByPayDayBetweenAndClient(startOfMonth, endOfMonth, client);
+        List<Transaction> allTransactions = transactionRepository.findTransactionByPayDayBetweenAndClientAndCategory(startOfMonth, endOfMonth, client, categoryType);
 
         List<Transaction> transactions = allTransactions
                 .stream()
@@ -426,9 +426,9 @@ public class TransactionServiceImpl implements TransactionService {
 
         Map<String, BigDecimal> map = new HashMap<>();
 
-        List<InstallmentTransaction> installmentTransactions = installmentTransactionRepository.findByPayDayBetweenAndTransactions(startOfMonth, endOfMonth, null, client);
-        List<FixTransaction> fixTransactionsEdited = fixTransactionRepository.findFixTransactionByPayDayBetween(startOfMonth, endOfMonth, Boolean.TRUE, allTransactions, null);
-        List<FixTransaction> fixTransactions = fixTransactionRepository.findFixTransactionByEditedFalse(client, null);
+        List<InstallmentTransaction> installmentTransactions = installmentTransactionRepository.findByPayDayBetweenAndTransactions(startOfMonth, endOfMonth, categoryType, client);
+        List<FixTransaction> fixTransactionsEdited = fixTransactionRepository.findFixTransactionByPayDayBetween(startOfMonth, endOfMonth, Boolean.TRUE, allTransactions, categoryType);
+        List<FixTransaction> fixTransactions = fixTransactionRepository.findFixTransactionByEditedFalse(client, categoryType);
 
         for (InstallmentTransaction it : installmentTransactions) {
             String divisionName = it.getDivision().getName();

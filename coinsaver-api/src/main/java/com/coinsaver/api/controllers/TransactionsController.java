@@ -104,10 +104,10 @@ public class TransactionsController implements TransactionsControllerOpenApi {
         return transactionService.getTransactionsAmountByCategory(date);
     }
 
-    @GetMapping("/chart/division")
+    @GetMapping("/chart/category/{categoryType}/divisions")
     @ResponseStatus(HttpStatus.OK)
-    public List<MonthlyChartDivisionResponseDto> getChartDivisions(@RequestParam LocalDate date) {
+    public List<MonthlyChartDivisionResponseDto> getChartDivisions(@PathVariable TransactionCategoryType categoryType, @RequestParam LocalDate date) {
 
-        return transactionService.getTransactionsAmountByDivision(date);
+        return transactionService.getTransactionsAmountByDivision(date, categoryType);
     }
 }

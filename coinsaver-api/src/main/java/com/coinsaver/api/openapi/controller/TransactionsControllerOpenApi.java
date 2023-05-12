@@ -78,5 +78,5 @@ public interface TransactionsControllerOpenApi {
     @Operation(summary = "Buscar valores de transações agrupadas por divisão", responses = {
             @ApiResponse(responseCode = "200"),
     })
-    List<MonthlyChartDivisionResponseDto> getChartDivisions(@RequestParam LocalDate date);
+    List<MonthlyChartDivisionResponseDto> getChartDivisions(@PathVariable TransactionCategoryType categoryType,@RequestParam LocalDate date);
 }
