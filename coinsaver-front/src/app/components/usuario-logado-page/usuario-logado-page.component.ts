@@ -31,11 +31,10 @@ export class UsuarioLogadoPageComponent implements OnInit {
   expenseCategoryAmount?: number;
   incomeCategoryAmount?: number;
 
-  dataPie: any;
-  optionsPie: any;
-
-  dataLine: any;
-  optionsLine: any;
+  dataPieCategory: any;
+  dataPieDivision: any;
+  optionsPieCategory: any;
+  optionsPieDivision: any;
 
   constructor(
     private transactionsService: TransactionsService,
@@ -49,6 +48,7 @@ export class UsuarioLogadoPageComponent implements OnInit {
   formataDataInicialTabelaMensal() {
     this.date = this.dataUtils.transformaToLocalDateFormat('US');
     this.getTransactionsAmountByCategory(this.date);
+    this.getTransactionsAmountByDivision(this.date);
   }
 
   private getTransactionsAmountByCategory(date: any) {
@@ -75,6 +75,32 @@ export class UsuarioLogadoPageComponent implements OnInit {
     });
   }
 
+  private getTransactionsAmountByDivision(date: any) {
+    this.transactionsService.getTransactionsAmountByDivision(date)
+    .subscribe((res) => {
+
+      console.log(res)
+      // let novoArray = this.montaNovoArray(res);
+
+      // if (novoArray.length == 0) {
+      //   this.expenseCategoryAmount = -1;
+      //   this.incomeCategoryAmount = 1;
+      // } else {
+      //   novoArray?.forEach((monthlyChartCategory: any) => {
+
+      //     if (monthlyChartCategory.categoryName == "Despesa") {
+      //       this.expenseCategoryAmount =+ monthlyChartCategory.totalAmount;
+      //     }
+
+      //     if (monthlyChartCategory.categoryName == "Entrada") {
+      //       this.incomeCategoryAmount =+ monthlyChartCategory.totalAmount;
+      //     }
+      //   })
+      // }
+      this.graficoPieTransactionByDivisionType(this.expenseCategoryAmount, this.incomeCategoryAmount);
+    });
+  }
+
   montaNovoArray(novoArray: any) {
     return novoArray;
   }
@@ -84,7 +110,7 @@ export class UsuarioLogadoPageComponent implements OnInit {
     const documentStyle = getComputedStyle(document.documentElement);
     const textColor = documentStyle.getPropertyValue('--text-color');
 
-    this.dataPie = {
+    this.dataPieCategory = {
       labels: ['Despesas', 'Entradas'],
       datasets: [
         {
@@ -99,7 +125,39 @@ export class UsuarioLogadoPageComponent implements OnInit {
       ]
     };
 
-    this.optionsPie = {
+    this.optionsPieCategory = {
+      plugins: {
+        legend: {
+          labels: {
+            usePointStyle: true,
+            color: textColor
+          }
+        }
+      }
+    };
+  }
+
+  graficoPieTransactionByDivisionType(expenseCategoryAmount: any, incomeCategoryAmount: any) {
+
+    const documentStyle = getComputedStyle(document.documentElement);
+    const textColor = documentStyle.getPropertyValue('--text-color');
+
+    this.dataPieDivision = {
+      labels: ['Despesas', 'Entradas'],
+      datasets: [
+        {
+          data: [expenseCategoryAmount, incomeCategoryAmount],
+          backgroundColor: [
+            documentStyle.getPropertyValue('--red-500'),
+            documentStyle.getPropertyValue('--green-500')],
+          hoverBackgroundColor: [
+            documentStyle.getPropertyValue('--red-400'),
+            documentStyle.getPropertyValue('--green-400')]
+        }
+      ]
+    };
+
+    this.optionsPieDivision = {
       plugins: {
         legend: {
           labels: {

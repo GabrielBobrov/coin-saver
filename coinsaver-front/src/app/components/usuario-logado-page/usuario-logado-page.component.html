@@ -43,11 +43,19 @@
   <app-barra-funcoes-lateral></app-barra-funcoes-lateral>
 
   <div>
-    <div class="navbar-brand d-sm-flex grafico">
+    <div class="navbar-brand d-sm-flex grafico-category">
 
       <h2>Gráfico Despesas X Entradas (category type)</h2>
       <div class="card flex justify-content-center">
-        <p-chart type="pie" [data]="dataPie" [options]="optionsPie"></p-chart>
+        <p-chart type="pie" [data]="dataPieCategory" [options]="optionsPieCategory"></p-chart>
+      </div>
+
+    </div>
+    <div class="navbar-brand d-sm-flex grafico-division">
+
+      <h2>Gráfico Despesas X Entradas (division type)</h2>
+      <div class="card flex justify-content-center">
+        <p-chart type="pie" [data]="dataPieDivision" [options]="optionsPieDivision"></p-chart>
       </div>
 
     </div>

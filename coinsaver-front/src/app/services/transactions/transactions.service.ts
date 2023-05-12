@@ -6,6 +6,7 @@ import { catchError, map, Observable, throwError } from 'rxjs';
 import { PayTransactionRequestDto } from 'src/app/dtos/transactions/request/pay-transaction.request.dto';
 import { TransactionRequestDto } from 'src/app/dtos/transactions/request/transaction.request.dto';
 import { UpdateTransactionRequestDto } from 'src/app/dtos/transactions/request/update-transaction.request.dto';
+import { MonthlyChartDivisionResponseDto } from 'src/app/dtos/transactions/response/monthly-chart-division.response.dto';
 import { MonthlyChartResponseDto } from 'src/app/dtos/transactions/response/monthly-chart.response.dto';
 import { MonthlyResponseDto } from 'src/app/dtos/transactions/response/monthly.response.dto';
 import { UpdateTransactionResponseDto } from 'src/app/dtos/transactions/response/update-transaction.response.dto';
@@ -176,6 +177,26 @@ export class TransactionsService {
       (`${this.baseUrl +
       this.transactionControllerUrl +
       environment.api.transactionsBackendEndpoints.getTransactionsAmountByCategory
+      }?date=${date}`), httpOptions
+    )
+      .pipe(
+        catchError((erroResponse) => {
+          return throwError(erroResponse);
+        })
+      );
+  }
+
+  getTransactionsAmountByDivision(date: string): Observable<MonthlyChartDivisionResponseDto> {
+
+    const headerDict  = {'Content-Type': 'application/json', 'Authorization': `Bearer ${(this.token)}`};
+    const httpOptions = {
+      headers: new HttpHeaders(headerDict)
+    };
+
+    return this.httpClient.get<MonthlyChartDivisionResponseDto>(
+      (`${this.baseUrl +
+      this.transactionControllerUrl +
+      environment.api.transactionsBackendEndpoints.getTransactionsAmountByDivision
       }?date=${date}`), httpOptions
     )
       .pipe(
