@@ -29,21 +29,21 @@ public class TransactionDomainServiceImpl implements TransactionDomainService {
                                         UpdateTransactionType updateTransactionType) {
 
         if (UpdateTransactionType.ALL_EXPENSES.equals(updateTransactionType)) {
-            transaction.setRepeat(updateTransactionRequestDto.getRepeat());
+            transaction.setRepeat_(updateTransactionRequestDto.getRepeat());
         }
         transactionRepository.updateTransaction(updateTransactionRequestDto.getAmount(),
                 updateTransactionRequestDto.getCategory(),
                 updateTransactionRequestDto.getPayDay(),
                 updateTransactionRequestDto.getStatus(),
                 updateTransactionRequestDto.getDescription(),
-                transaction.getRepeat(),
+                transaction.getRepeat_(),
                 transaction.getId());
     }
 
     @Override
     public void updateThisTransaction(Transaction transaction, UpdateTransactionRequestDto updateTransactionRequestDto) {
 
-        if (transaction.getRepeat() != null && transaction.getRepeat() > 0) {
+        if (transaction.getRepeat_() != null && transaction.getRepeat_() > 0) {
             throw new BusinessException(ErrorMessages.getErrorMessage("TRANSACTION_WITH_REPEAT"));
         }
 
@@ -52,7 +52,7 @@ public class TransactionDomainServiceImpl implements TransactionDomainService {
                 updateTransactionRequestDto.getPayDay(),
                 updateTransactionRequestDto.getStatus(),
                 updateTransactionRequestDto.getDescription(),
-                transaction.getRepeat(),
+                transaction.getRepeat_(),
                 transaction.getId());
     }
 

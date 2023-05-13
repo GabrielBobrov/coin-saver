@@ -1,8 +1,6 @@
-INSERT INTO client (name, email, created_at, password, password_verification, role) VALUES
-('Fulano', 'fulano@example.com', CURRENT_TIMESTAMP(), '$2a$10$qvkN2RGg1mg8IOlwWWuOnunwtMfWTGBXY5usiFJa5UJ.JVqWxYYim', 'Ul9UnIc9V5hejN/PFg3yo2Un/+mk0SKT', 'USER');
 
 
-INSERT INTO division(NAME, TYPE, CATEGORY, CREATED_AT) VALUES
+INSERT INTO `coin-saver`.division(NAME, TYPE, CATEGORY, CREATED_AT) VALUES
     ('Saude', 'HEALTH', 'EXPENSE', CURRENT_TIMESTAMP()),
     ('Casa', 'HOME', 'EXPENSE', CURRENT_TIMESTAMP()),
     ('Electronic', 'ELECTRONIC', 'EXPENSE', CURRENT_TIMESTAMP()),

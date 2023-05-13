@@ -27,7 +27,7 @@ public class TransactionResponseDto {
     private StatusType status;
     private TransactionCategoryType category;
     private Boolean fixedExpense;
-    private Integer repeat;
+    private Integer repeat_;
     private TransactionType transactionType;
     private DivisionResponseDto division;
 }

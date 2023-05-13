@@ -68,7 +68,7 @@ public class Transaction extends TransactionBase {
     private Boolean fixedExpense;
 
     @Column
-    private Integer repeat;
+    private Integer repeat_;
 
     @ManyToOne
     @JoinColumn(name = "client_id")
