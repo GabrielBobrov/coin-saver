@@ -186,7 +186,7 @@ export class TransactionsService {
       );
   }
 
-  getTransactionsAmountByDivision(date: string): Observable<MonthlyChartDivisionResponseDto> {
+  getTransactionsAmountByDivision(date: string, categoryType: string): Observable<MonthlyChartDivisionResponseDto> {
 
     const headerDict  = {'Content-Type': 'application/json', 'Authorization': `Bearer ${(this.token)}`};
     const httpOptions = {
@@ -196,8 +196,8 @@ export class TransactionsService {
     return this.httpClient.get<MonthlyChartDivisionResponseDto>(
       (`${this.baseUrl +
       this.transactionControllerUrl +
-      environment.api.transactionsBackendEndpoints.getTransactionsAmountByDivision
-      }?date=${date}`), httpOptions
+      environment.api.transactionsBackendEndpoints.getTransactionsAmountByCategory
+      }/${categoryType}/divisions?date=${date}`), httpOptions
     )
       .pipe(
         catchError((erroResponse) => {

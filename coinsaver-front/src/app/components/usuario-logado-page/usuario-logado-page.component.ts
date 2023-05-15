@@ -30,11 +30,20 @@ export class UsuarioLogadoPageComponent implements OnInit {
 
   expenseCategoryAmount?: number;
   incomeCategoryAmount?: number;
+  divisionName?: string;
 
   dataPieCategory: any;
-  dataPieDivision: any;
   optionsPieCategory: any;
-  optionsPieDivision: any;
+
+  dataPieDivisionExpense: any;
+  optionsPieDivisionExpense: any;
+  divisionArrayAmoutExpense: any = []
+  divisionArrayNameExpense: any = [];
+
+  dataPieDivisionIncome: any;
+  optionsPieDivisionIncome: any;
+  divisionArrayAmoutIncome: any = []
+  divisionArrayNameIncome: any = [];
 
   constructor(
     private transactionsService: TransactionsService,
@@ -48,7 +57,8 @@ export class UsuarioLogadoPageComponent implements OnInit {
   formataDataInicialTabelaMensal() {
     this.date = this.dataUtils.transformaToLocalDateFormat('US');
     this.getTransactionsAmountByCategory(this.date);
-    this.getTransactionsAmountByDivision(this.date);
+    this.getTransactionsAmountByDivisionExpense(this.date);
+    this.getTransactionsAmountByDivisionIncome(this.date);
   }
 
   private getTransactionsAmountByCategory(date: any) {
@@ -75,29 +85,41 @@ export class UsuarioLogadoPageComponent implements OnInit {
     });
   }
 
-  private getTransactionsAmountByDivision(date: any) {
-    this.transactionsService.getTransactionsAmountByDivision(date)
+  private getTransactionsAmountByDivisionExpense(date: any) {
+
+    this.transactionsService.getTransactionsAmountByDivision(date, 'EXPENSE')
     .subscribe((res) => {
 
-      console.log(res)
-      // let novoArray = this.montaNovoArray(res);
+      let novoArray = this.montaNovoArray(res);
 
-      // if (novoArray.length == 0) {
-      //   this.expenseCategoryAmount = -1;
-      //   this.incomeCategoryAmount = 1;
-      // } else {
-      //   novoArray?.forEach((monthlyChartCategory: any) => {
+      console.log(novoArray)
 
-      //     if (monthlyChartCategory.categoryName == "Despesa") {
-      //       this.expenseCategoryAmount =+ monthlyChartCategory.totalAmount;
-      //     }
+      novoArray?.forEach((monthlyChartCategory: any) => {
+        this.expenseCategoryAmount = monthlyChartCategory.totalAmount;
+        this.divisionArrayAmoutExpense.push(this.expenseCategoryAmount);
+        this.divisionName = monthlyChartCategory.divisionName;
+        this.divisionArrayNameExpense.push(this.divisionName);
+      })
+      this.graficoPieTransactionByDivisionTypeExpense(this.divisionArrayAmoutExpense, this.divisionArrayNameExpense);
+    });
+  }
 
-      //     if (monthlyChartCategory.categoryName == "Entrada") {
-      //       this.incomeCategoryAmount =+ monthlyChartCategory.totalAmount;
-      //     }
-      //   })
-      // }
-      this.graficoPieTransactionByDivisionType(this.expenseCategoryAmount, this.incomeCategoryAmount);
+  private getTransactionsAmountByDivisionIncome(date: any) {
+
+    this.transactionsService.getTransactionsAmountByDivision(date, 'INCOME')
+    .subscribe((res) => {
+
+      let novoArray = this.montaNovoArray(res);
+
+      console.log(novoArray)
+
+      novoArray?.forEach((monthlyChartCategory: any) => {
+        this.incomeCategoryAmount = monthlyChartCategory.totalAmount;
+        this.divisionArrayAmoutIncome.push(this.incomeCategoryAmount);
+        this.divisionName = monthlyChartCategory.divisionName;
+        this.divisionArrayNameIncome.push(this.divisionName);
+      })
+      this.graficoPieTransactionByDivisionTypeIncome(this.divisionArrayAmoutIncome, this.divisionArrayNameIncome);
     });
   }
 
@@ -137,27 +159,155 @@ export class UsuarioLogadoPageComponent implements OnInit {
     };
   }
 
-  graficoPieTransactionByDivisionType(expenseCategoryAmount: any, incomeCategoryAmount: any) {
+  graficoPieTransactionByDivisionTypeExpense(divisionArrayAmoutExpense: any, divisionArrayNameExpense: any) {
 
     const documentStyle = getComputedStyle(document.documentElement);
     const textColor = documentStyle.getPropertyValue('--text-color');
 
-    this.dataPieDivision = {
-      labels: ['Despesas', 'Entradas'],
+    console.log(divisionArrayNameExpense)
+    console.log(divisionArrayAmoutExpense)
+
+    this.dataPieDivisionExpense = {
+      // labels: ['Saude', 'Casa', 'Electronic', 'Restaurante', 'Academia', 'Aluguel', 'Supermercado', 'Lazer', 'Combustivel', 'Delivery', 'BadBet'],
+      labels: [
+        divisionArrayNameExpense[0],
+        divisionArrayNameExpense[1],
+        divisionArrayNameExpense[2],
+        divisionArrayNameExpense[3],
+        divisionArrayNameExpense[4],
+        divisionArrayNameExpense[5],
+        divisionArrayNameExpense[6],
+        divisionArrayNameExpense[7],
+        divisionArrayNameExpense[8],
+        divisionArrayNameExpense[9],
+        divisionArrayNameExpense[10],
+        divisionArrayNameExpense[11],
+        divisionArrayNameExpense[12],
+        divisionArrayNameExpense[13],
+        divisionArrayNameExpense[14],
+        divisionArrayNameExpense[15]
+      ],
       datasets: [
         {
-          data: [expenseCategoryAmount, incomeCategoryAmount],
+          data: [
+            divisionArrayAmoutExpense[0],
+            divisionArrayAmoutExpense[1],
+            divisionArrayAmoutExpense[2],
+            divisionArrayAmoutExpense[3],
+            divisionArrayAmoutExpense[4],
+            divisionArrayAmoutExpense[5],
+            divisionArrayAmoutExpense[6],
+            divisionArrayAmoutExpense[7],
+            divisionArrayAmoutExpense[8],
+            divisionArrayAmoutExpense[9],
+            divisionArrayAmoutExpense[10],
+            divisionArrayAmoutExpense[11],
+            divisionArrayAmoutExpense[12],
+            divisionArrayAmoutExpense[13],
+            divisionArrayAmoutExpense[14],
+            divisionArrayAmoutExpense[15]
+          ],
           backgroundColor: [
+            documentStyle.getPropertyValue('--blue-500'),
+            documentStyle.getPropertyValue('--yellow-500'),
+            documentStyle.getPropertyValue('--pink-500'),
+            documentStyle.getPropertyValue('--bluegray-500'),
+            documentStyle.getPropertyValue('--orange-500'),
             documentStyle.getPropertyValue('--red-500'),
-            documentStyle.getPropertyValue('--green-500')],
+            documentStyle.getPropertyValue('--green-500'),],
           hoverBackgroundColor: [
+            documentStyle.getPropertyValue('--blue-400'),
+            documentStyle.getPropertyValue('--yellow-400'),
+            documentStyle.getPropertyValue('--pink-400'),
+            documentStyle.getPropertyValue('--bluegray-400'),
+            documentStyle.getPropertyValue('--orange-400'),
             documentStyle.getPropertyValue('--red-400'),
-            documentStyle.getPropertyValue('--green-400')]
+            documentStyle.getPropertyValue('--green-400'),]
         }
       ]
     };
 
-    this.optionsPieDivision = {
+    this.optionsPieDivisionExpense = {
+      plugins: {
+        legend: {
+          labels: {
+            usePointStyle: true,
+            color: textColor
+          }
+        }
+      }
+    };
+  }
+
+  graficoPieTransactionByDivisionTypeIncome(divisionArrayAmoutIncome: any, divisionArrayNameIncome: any) {
+
+    const documentStyle = getComputedStyle(document.documentElement);
+    const textColor = documentStyle.getPropertyValue('--text-color');
+
+    console.log(divisionArrayNameIncome)
+    console.log(divisionArrayAmoutIncome)
+
+    this.dataPieDivisionIncome = {
+      // labels: ['Salário', 'Bônus', 'GoodBet', 'Investimento'],
+      labels: [
+        divisionArrayNameIncome[0],
+        divisionArrayNameIncome[1],
+        divisionArrayNameIncome[2],
+        divisionArrayNameIncome[3],
+        divisionArrayNameIncome[4],
+        divisionArrayNameIncome[5],
+        divisionArrayNameIncome[6],
+        divisionArrayNameIncome[7],
+        divisionArrayNameIncome[8],
+        divisionArrayNameIncome[9],
+        divisionArrayNameIncome[10],
+        divisionArrayNameIncome[11],
+        divisionArrayNameIncome[12],
+        divisionArrayNameIncome[13],
+        divisionArrayNameIncome[14],
+        divisionArrayNameIncome[15]
+    ],
+      datasets: [
+        {
+          data: [
+            divisionArrayAmoutIncome[0],
+            divisionArrayAmoutIncome[1],
+            divisionArrayAmoutIncome[2],
+            divisionArrayAmoutIncome[3],
+            divisionArrayAmoutIncome[4],
+            divisionArrayAmoutIncome[5],
+            divisionArrayAmoutIncome[6],
+            divisionArrayAmoutIncome[7],
+            divisionArrayAmoutIncome[8],
+            divisionArrayAmoutIncome[9],
+            divisionArrayAmoutIncome[10],
+            divisionArrayAmoutIncome[11],
+            divisionArrayAmoutIncome[12],
+            divisionArrayAmoutIncome[13],
+            divisionArrayAmoutIncome[14],
+            divisionArrayAmoutIncome[15]
+          ],
+          backgroundColor: [
+            documentStyle.getPropertyValue('--yellow-500'),
+            documentStyle.getPropertyValue('--bluegray-500'),
+            documentStyle.getPropertyValue('--orange-500'),
+            documentStyle.getPropertyValue('--blue-500'),
+            documentStyle.getPropertyValue('--pink-500'),
+            documentStyle.getPropertyValue('--red-500'),
+            documentStyle.getPropertyValue('--green-500'),],
+          hoverBackgroundColor: [
+            documentStyle.getPropertyValue('--yellow-400'),
+            documentStyle.getPropertyValue('--bluegray-400'),
+            documentStyle.getPropertyValue('--orange-400'),
+            documentStyle.getPropertyValue('--blue-400'),
+            documentStyle.getPropertyValue('--pink-400'),
+            documentStyle.getPropertyValue('--red-400'),
+            documentStyle.getPropertyValue('--green-400'),]
+        }
+      ]
+    };
+
+    this.optionsPieDivisionIncome = {
       plugins: {
         legend: {
           labels: {

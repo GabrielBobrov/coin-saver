@@ -53,9 +53,17 @@
     </div>
     <div class="navbar-brand d-sm-flex grafico-division">
 
-      <h2>Gráfico Despesas X Entradas (division type)</h2>
+      <h2>Gráfico Division Type for EXPENSE</h2>
       <div class="card flex justify-content-center">
-        <p-chart type="pie" [data]="dataPieDivision" [options]="optionsPieDivision"></p-chart>
+        <p-chart type="pie" [data]="dataPieDivisionExpense" [options]="optionsPieDivisionExpense"></p-chart>
+      </div>
+
+    </div>
+    <div class="navbar-brand d-sm-flex grafico-division">
+
+      <h2>Gráfico Division Type for INCOME</h2>
+      <div class="card flex justify-content-center">
+        <p-chart type="pie" [data]="dataPieDivisionIncome" [options]="optionsPieDivisionIncome"></p-chart>
       </div>
 
     </div>
