@@ -1,6 +1,7 @@
 package com.coinsaver.api.exceptionhandler;
 
 import com.coinsaver.domain.exceptions.BusinessException;
+import com.coinsaver.domain.exceptions.EmailException;
 import com.fasterxml.jackson.databind.JsonMappingException.Reference;
 import com.fasterxml.jackson.databind.exc.InvalidFormatException;
 import com.fasterxml.jackson.databind.exc.PropertyBindingException;
@@ -15,6 +16,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.HttpStatusCode;
 import org.springframework.http.ResponseEntity;
 import org.springframework.http.converter.HttpMessageNotReadableException;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.FieldError;
 import org.springframework.web.HttpMediaTypeNotAcceptableException;
@@ -46,11 +48,25 @@ public class ApiExceptionHandler extends ResponseEntityExceptionHandler {
         this.messageSource = messageSource;
     }
 
-    @ExceptionHandler(BusinessException.class)
+    @ExceptionHandler({BusinessException.class, EmailException.class})
     public ResponseEntity<Object> handleBusiness(BusinessException ex, WebRequest request) {
 
         HttpStatus status = HttpStatus.BAD_REQUEST;
         ProblemType problemType = ProblemType.BUSINESS_ERROR;
+        String detail = ex.getMessage();
+
+        Problem problem = createProblemBuilder(status, problemType, detail)
+                .userMessage(detail)
+                .build();
+
+        return handleExceptionInternal(ex, problem, new HttpHeaders(), status, request);
+    }
+
+    @ExceptionHandler(UsernameNotFoundException.class)
+    public ResponseEntity<Object> handleBusiness(UsernameNotFoundException ex, WebRequest request) {
+
+        HttpStatus status = HttpStatus.BAD_REQUEST;
+        ProblemType problemType = ProblemType.INVALID_DATA;
         String detail = ex.getMessage();
 
         Problem problem = createProblemBuilder(status, problemType, detail)

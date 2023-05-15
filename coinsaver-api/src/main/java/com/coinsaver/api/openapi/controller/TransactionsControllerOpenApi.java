@@ -1,8 +1,11 @@
 package com.coinsaver.api.openapi.controller;
 
 import com.coinsaver.api.dtos.request.PayTransactionRequestDto;
+import com.coinsaver.api.dtos.request.ReceiveTransactionRequestDto;
 import com.coinsaver.api.dtos.request.TransactionRequestDto;
 import com.coinsaver.api.dtos.request.UpdateTransactionRequestDto;
+import com.coinsaver.api.dtos.response.MonthlyChartDivisionResponseDto;
+import com.coinsaver.api.dtos.response.MonthlyChartResponseDto;
 import com.coinsaver.api.dtos.response.MonthlyResponseDto;
 import com.coinsaver.api.dtos.response.TransactionResponseDto;
 import com.coinsaver.api.dtos.response.UpdateTransactionResponseDto;
@@ -36,7 +39,7 @@ public interface TransactionsControllerOpenApi {
             })
     TransactionResponseDto getTransaction(@PathVariable Long transactionId, @RequestParam TransactionType transactionType);
 
-    @Operation(summary = "Buscar uma transações por categoria", description = "Para buscar transações por categoria informe a cateogria que deseja e uma data para uma busca mensal")
+    @Operation(summary = "Buscar transações por categoria", description = "Para buscar transações por categoria informe a cateogria que deseja e uma data para uma busca mensal")
     List<TransactionResponseDto> getTransactionByCategoryType(@PathVariable TransactionCategoryType categoryType, @RequestParam LocalDate date);
 
     @Operation(summary = "Criar transação",
@@ -55,13 +58,25 @@ public interface TransactionsControllerOpenApi {
     })
     UpdateTransactionResponseDto updateTransaction(@org.springframework.web.bind.annotation.RequestBody @Valid UpdateTransactionRequestDto transactionRequestDto);
 
-    @Operation(summary = "Pagar transação", responses = {
-            @ApiResponse(responseCode = "204"),
-    })
-    void updateTransaction(@RequestBody(description = "Representação de uma requisição de pagamento") PayTransactionRequestDto payTransactionRequestDto);
-
     @Operation(summary = "Deletar transação", responses = {
             @ApiResponse(responseCode = "200")
     })
     void deleteByTransactionId(@PathVariable Long transactionId);
+
+    void payTransaction(@RequestBody(description = "Representação de uma requisição de pagamento") PayTransactionRequestDto payTransactionRequestDto);
+
+    @Operation(summary = "Receber transação", responses = {
+            @ApiResponse(responseCode = "204"),
+    })
+    void receiveTransaction(@RequestBody @Valid ReceiveTransactionRequestDto receiveTransactionRequestDto);
+
+    @Operation(summary = "Buscar valores de transações agrupadas por categoria", responses = {
+            @ApiResponse(responseCode = "200"),
+    })
+    List<MonthlyChartResponseDto> getTransactionsAmountByCategory(@RequestParam LocalDate date);
+
+    @Operation(summary = "Buscar valores de transações agrupadas por divisão", responses = {
+            @ApiResponse(responseCode = "200"),
+    })
+    List<MonthlyChartDivisionResponseDto> getChartDivisions(@PathVariable TransactionCategoryType categoryType,@RequestParam LocalDate date);
 }

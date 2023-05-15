@@ -32,3 +32,4 @@ ng add @ng-bootstrap/ng-bootstrap
 npm install primeng --save
 npm install primeicons --save
 npm i @material/dialog
+npm install chart.js --save

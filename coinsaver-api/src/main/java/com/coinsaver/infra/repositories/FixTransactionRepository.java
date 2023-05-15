@@ -2,6 +2,7 @@ package com.coinsaver.infra.repositories;
 
 import com.coinsaver.core.enums.StatusType;
 import com.coinsaver.core.enums.TransactionCategoryType;
+import com.coinsaver.domain.entities.Client;
 import com.coinsaver.domain.entities.FixTransaction;
 import com.coinsaver.domain.entities.Transaction;
 import org.springframework.data.jpa.repository.JpaRepository;
@@ -24,8 +25,8 @@ public interface FixTransactionRepository extends JpaRepository<FixTransaction, 
     @Query("UPDATE FixTransaction i set i.amount = :amount, i.category = :category, i.payDay = :payDay, i.status = :status, i.description = :description WHERE i.transaction = :transaction")
     void updateFixTransactionByTransaction(BigDecimal amount, TransactionCategoryType category, LocalDate payDay, StatusType status, String description, Transaction transaction);
 
-    @Query("SELECT ft FROM FixTransaction ft WHERE ft.payDay BETWEEN :startDate AND :endDate AND ft.edited = :edited")
-    List<FixTransaction> findFixTransactionByPayDayBetween(LocalDate startDate, LocalDate endDate, Boolean edited);
+    @Query("SELECT ft FROM FixTransaction ft WHERE ft.payDay BETWEEN :startDate AND :endDate AND ft.edited = :edited AND (:categoryType IS NULL OR ft.category = :categoryType) AND ft.transaction IN :transactions")
+    List<FixTransaction> findFixTransactionByPayDayBetween(LocalDate startDate, LocalDate endDate, Boolean edited, List<Transaction> transactions, TransactionCategoryType categoryType);
 
     Optional<FixTransaction> findFixTransactionByTransactionAndEditedIsFalse(Transaction transaction);
 
@@ -35,8 +36,8 @@ public interface FixTransactionRepository extends JpaRepository<FixTransaction, 
 
     List<FixTransaction> findByCategoryAndPayDayBetween(TransactionCategoryType categoryType, LocalDate startOfMonth, LocalDate endOfMonth);
 
-    @Query("SELECT ft FROM FixTransaction ft INNER JOIN ft.transaction t WHERE ft.edited = false AND (:categoryType IS NULL OR ft.category = :categoryType)")
-    List<FixTransaction> findFixTransactionByEditedFalse(TransactionCategoryType categoryType);
+    @Query("SELECT ft FROM FixTransaction ft INNER JOIN ft.transaction t WHERE ft.edited = false AND t.client = :client AND (:categoryType IS NULL OR ft.category = :categoryType)")
+    List<FixTransaction> findFixTransactionByEditedFalse(Client client, TransactionCategoryType categoryType);
 
     List<FixTransaction> findByCategoryAndPayDayBetweenAndEditedIsTrue(TransactionCategoryType categoryType, LocalDate startOfMonth, LocalDate endOfMonth);
 }

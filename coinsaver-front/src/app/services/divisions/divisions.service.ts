@@ -14,19 +14,29 @@ export class DivisionsService {
     private httpClient: HttpClient,
   ) { }
 
-  httpOptions = {
-    headers: new HttpHeaders({ 'Content-Type': 'application/json' })
-  };
-
   baseUrl = environment.api.hostBackend;
   divisionControllerUrl = environment.api.divisionsControllerBackend;
 
+  token?: string;
+
+  recebeToken(token: any) {
+    this.token = JSON.stringify(token.token).replaceAll('"', '');
+  }
+
   getDivisionByCategoryType(categoryType: TransactionCategoryTypeEnum): Observable<DivisionResponseDto[]> {
+
+    const headerDict  = {'Content-Type': 'application/json', 'Authorization': `Bearer ${(this.token)}`};
+    const httpOptions = {
+      headers: new HttpHeaders(headerDict)
+    };
+
+    console.log(httpOptions)
+
     return this.httpClient.get<DivisionResponseDto[]>(
-      `${this.baseUrl +
+      (`${this.baseUrl +
       this.divisionControllerUrl +
       environment.api.divisionsBackendEndpoints.getDivisionByCategoryType
-      }/${categoryType}`
+      }/${categoryType}`), httpOptions
     )
       .pipe(
         catchError((erroResponse) => {
@@ -36,11 +46,17 @@ export class DivisionsService {
   }
 
   getDivisionsById(divisionId: number): Observable<DivisionResponseDto> {
+
+    const headerDict  = {'Content-Type': 'application/json', 'Authorization': `Bearer ${(this.token)}`};
+    const httpOptions = {
+      headers: new HttpHeaders(headerDict)
+    };
+
     return this.httpClient.get<DivisionResponseDto>(
-      `${this.baseUrl +
+      (`${this.baseUrl +
       this.divisionControllerUrl +
       environment.api.divisionsBackendEndpoints.getDivisionById
-      }/${divisionId}`
+      }/${divisionId}`), httpOptions
     )
       .pipe(
         catchError((erroResponse) => {

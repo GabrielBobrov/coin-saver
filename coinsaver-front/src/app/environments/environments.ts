@@ -4,7 +4,6 @@ export const environment = {
     hostBackend: 'http://localhost:8080',
 
     transactionsControllerBackend: '/transactions',
-
     transactionsBackendEndpoints: {
       getAllTransactions: '',
       getTransaction: '',
@@ -14,14 +13,19 @@ export const environment = {
       updateTransaction: '',
       updateTransactionPatch: '/pay',
       deleteByTransactionId: '',
+      getTransactionsAmountByCategory: '/chart/category',
     },
 
     divisionsControllerBackend: '/divisions',
-
     divisionsBackendEndpoints: {
       getDivisionByCategoryType: '/category',
       getDivisionById: '',
+    },
 
+    authenticationControllerBackend: '/auth',
+    authenticationBackendEndpoints: {
+      register: '/register',
+      authenticate: '/authenticate',
     }
   }
 }

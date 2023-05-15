@@ -53,11 +53,11 @@ public class Transaction extends TransactionBase {
     @Column
     private String description;
 
-    @Enumerated(EnumType.ORDINAL)
+    @Enumerated(EnumType.STRING)
     @Column(nullable = false)
     private StatusType status;
 
-    @Enumerated(EnumType.ORDINAL)
+    @Enumerated(EnumType.STRING)
     @Column(nullable = false)
     private TransactionCategoryType category;
 
@@ -86,5 +86,9 @@ public class Transaction extends TransactionBase {
 
     public void payTransaction() {
         this.setStatus(StatusType.PAID);
+    }
+
+    public void receiveTransaction() {
+        this.setStatus(StatusType.RECEIVED);
     }
 }

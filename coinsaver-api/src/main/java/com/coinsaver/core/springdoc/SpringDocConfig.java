@@ -9,8 +9,8 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
 import java.util.Arrays;
+import java.util.Arrays;
 import java.util.Collections;
-
 @Configuration
 public class SpringDocConfig {
 
@@ -27,7 +27,9 @@ public class SpringDocConfig {
                         )
                 ).tags(Arrays.asList(
                         new Tag().name("Transactions").description("Gerencia de transações"),
-                        new Tag().name("Divisions").description("Gerencia de divisões"))
+                        new Tag().name("Authentication").description("Gerencia de autenticações"),
+                        new Tag().name("Divisions").description("Gerencia de divisões"),
+                        new Tag().name("Clients").description("Gerencia de clientes"))
                 ).components(new Components());
     }
 }

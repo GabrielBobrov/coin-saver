@@ -1,15 +1,18 @@
 package com.coinsaver.api.controllers;
 
 import com.coinsaver.api.dtos.request.PayTransactionRequestDto;
+import com.coinsaver.api.dtos.request.ReceiveTransactionRequestDto;
 import com.coinsaver.api.dtos.request.TransactionRequestDto;
 import com.coinsaver.api.dtos.request.UpdateTransactionRequestDto;
+import com.coinsaver.api.dtos.response.MonthlyChartDivisionResponseDto;
+import com.coinsaver.api.dtos.response.MonthlyChartResponseDto;
 import com.coinsaver.api.dtos.response.MonthlyResponseDto;
 import com.coinsaver.api.dtos.response.TransactionResponseDto;
 import com.coinsaver.api.dtos.response.UpdateTransactionResponseDto;
 import com.coinsaver.api.openapi.controller.TransactionsControllerOpenApi;
 import com.coinsaver.core.enums.TransactionCategoryType;
 import com.coinsaver.core.enums.TransactionType;
-import com.coinsaver.services.interfaces.TransactionService;
+import com.coinsaver.services.transactions.interfaces.TransactionService;
 import jakarta.validation.Valid;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -75,7 +78,7 @@ public class TransactionsController implements TransactionsControllerOpenApi {
 
     @PatchMapping("/pay")
     @ResponseStatus(HttpStatus.NO_CONTENT)
-    public void updateTransaction(@RequestBody @Valid PayTransactionRequestDto payTransactionRequestDto) {
+    public void payTransaction(@RequestBody @Valid PayTransactionRequestDto payTransactionRequestDto) {
 
         transactionService.payTransaction(payTransactionRequestDto);
     }
@@ -85,5 +88,26 @@ public class TransactionsController implements TransactionsControllerOpenApi {
     public void deleteByTransactionId(@PathVariable Long transactionId) {
 
         transactionService.deleteByTransactionId(transactionId);
+    }
+
+    @PatchMapping("/receive")
+    @ResponseStatus(HttpStatus.NO_CONTENT)
+    public void receiveTransaction(@RequestBody @Valid ReceiveTransactionRequestDto receiveTransactionRequestDto) {
+
+        transactionService.receiveTransaction(receiveTransactionRequestDto);
+    }
+
+    @GetMapping("/chart/category")
+    @ResponseStatus(HttpStatus.OK)
+    public List<MonthlyChartResponseDto> getTransactionsAmountByCategory(@RequestParam LocalDate date) {
+
+        return transactionService.getTransactionsAmountByCategory(date);
+    }
+
+    @GetMapping("/chart/category/{categoryType}/divisions")
+    @ResponseStatus(HttpStatus.OK)
+    public List<MonthlyChartDivisionResponseDto> getChartDivisions(@PathVariable TransactionCategoryType categoryType, @RequestParam LocalDate date) {
+
+        return transactionService.getTransactionsAmountByDivision(date, categoryType);
     }
 }

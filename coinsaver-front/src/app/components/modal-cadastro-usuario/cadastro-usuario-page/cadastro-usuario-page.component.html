@@ -1,3 +1,4 @@
+<p-toast></p-toast>
 <body class="ng-scope">
   <div id="container">
     <div>
@@ -11,44 +12,19 @@
           <div>
             <mat-form-field class="mat-form-field" appearance="fill">
               <mat-label>Nome</mat-label>
-              <input type="text" matInput placeholder="Digite seu nome">
+              <input type="text" matInput placeholder="Digite seu nome"
+                [(ngModel)]="registerRequestDto.name"
+                name="name">
             </mat-form-field>
           </div>
-
-          <!-- <div>
-            <mat-form-field class="mat-form-field" appearance="fill">
-              <mat-label>Gênero</mat-label>
-              <mat-select [formControl]="generoControl">
-                <mat-option value="masculino">Masculino</mat-option>
-                <mat-option value="feminino">Feminino</mat-option>
-                <mat-option value="outro">Outro</mat-option>
-              </mat-select>
-            </mat-form-field>
-          </div> -->
-
-          <!-- <div>
-            <form>
-              <mat-form-field class="mat-form-field">
-                <mat-label>Telefone</mat-label>
-                <input type="tel" matInput placeholder="(99)99999-9999">
-                <mat-icon matSuffix></mat-icon>
-              </mat-form-field>
-            </form>
-          </div> -->
 
           <div>
             <form>
               <mat-form-field class="mat-form-field" appearance="fill">
                 <mat-label>Email</mat-label>
-                <input type="email" matInput [formControl]="emailFormControl" [errorStateMatcher]="matcher"
-                  placeholder="email@example.com">
-                <mat-hint>Errors appear instantly!</mat-hint>
-                <mat-error *ngIf="emailFormControl.hasError('email') && !emailFormControl.hasError('required')">
-                  Please enter a valid email address
-                </mat-error>
-                <mat-error *ngIf="emailFormControl.hasError('required')">
-                  Email is <strong>required</strong>
-                </mat-error>
+                <input type="email" matInput [formControl]="emailFormControl"
+                  placeholder="email@example.com" [(ngModel)]="registerRequestDto.email"
+                  name="email">
               </mat-form-field>
             </form>
           </div>
@@ -57,15 +33,9 @@
             <form>
               <mat-form-field class="mat-form-field" appearance="fill">
                 <mat-label>Confirme seu Email</mat-label>
-                <input type="email" matInput [formControl]="emailFormControl" [errorStateMatcher]="matcher"
-                  placeholder="email@example.com">
-                <mat-hint>Errors appear instantly!</mat-hint>
-                <mat-error *ngIf="emailFormControl.hasError('email') && !emailFormControl.hasError('required')">
-                  Please enter a valid email address
-                </mat-error>
-                <mat-error *ngIf="emailFormControl.hasError('required')">
-                  Email is <strong>required</strong>
-                </mat-error>
+                <input type="email" matInput [formControl]="emailFormControl"
+                  placeholder="email@example.com" [(ngModel)]="registerRequestDto.contraEmail"
+                  name="contraEmail" (input)="validaContraEmail(registerRequestDto.email, registerRequestDto.contraEmail)">
               </mat-form-field>
             </form>
           </div>
@@ -73,7 +43,8 @@
           <div>
             <mat-form-field class="mat-form-field" appearance="fill">
               <mat-label>Senha</mat-label>
-              <input [type]="hideSenha ? 'password' : 'text'" matInput placeholder="Digite sua senha">
+              <input [type]="hideSenha ? 'password' : 'text'" matInput placeholder="Digite sua senha"
+                [(ngModel)]="registerRequestDto.password" name="password">
               <button mat-icon-button matSuffix (click)="hideSenha = !hideSenha" [attr.aria-label]="'HideSenha password'" [attr.aria-pressed]="hideSenha">
                 <mat-icon>{{hideSenha ? 'visibility_off' : 'visibility'}}</mat-icon>
               </button>
@@ -83,14 +54,18 @@
           <div>
             <mat-form-field class="mat-form-field" appearance="fill">
               <mat-label>Confirme sua senha</mat-label>
-              <input [type]="hideContraSenha ? 'password' : 'text'" matInput placeholder="Repita sua senha">
+              <input [type]="hideContraSenha ? 'password' : 'text'" matInput placeholder="Repita sua senha"
+                [(ngModel)]="registerRequestDto.contraPassword" name="contraPassword"
+                (input)="validaContraPassword(registerRequestDto.password, registerRequestDto.contraPassword)">
               <button mat-icon-button matSuffix (click)="hideContraSenha = !hideContraSenha" [attr.aria-label]="'HideContraSenha password'" [attr.aria-pressed]="hideContraSenha">
                 <mat-icon>{{hideContraSenha ? 'visibility_off' : 'visibility'}}</mat-icon>
               </button>
             </mat-form-field>
           </div>
 
-          <button type="submit" class="btn ng-binding">Cadastrar</button>
+          <button type="submit" class="btn ng-binding" (click)="createRegister(registerRequestDto)">
+            Cadastrar
+          </button>
         </div>
 
         <!-- <div id="acoes">
