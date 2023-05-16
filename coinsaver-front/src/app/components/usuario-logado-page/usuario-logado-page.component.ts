@@ -327,5 +327,13 @@ export class UsuarioLogadoPageComponent implements OnInit {
       this.isMostrarGraficoIncome = false;
     }
   }
+
+  retornaPaginaInicialUsuarioLogado() {
+    this.router.navigateByUrl('usuario-logado-page', {
+      state: {
+        data: {},
+      },
+    });
+  }
 }
 
