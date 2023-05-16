@@ -63,8 +63,6 @@ export class TableMensalComponent implements OnInit {
           this.isSaldoPositivo = true;
         }
 
-        console.log(this.monthlyResponseDto);
-
         this.monthlyTransactionsResponseDtoList = this.monthlyResponseDto.transactions;
         this.monthlyTransactionsResponseDtoList.forEach((transaction) => {
         });
@@ -94,7 +92,7 @@ export class TableMensalComponent implements OnInit {
       (res) => {
         this.messageService.add({ severity: 'success', summary: 'Success', detail: 'Transação PAGA com sucesso' });
         setTimeout(() => {
-          this.atualizaTabelaMesComNovaData();
+          this.formataDataInicialTabelaMensal();
         }, 1500);
       },
       (error) => {
@@ -115,7 +113,7 @@ export class TableMensalComponent implements OnInit {
       (res) => {
         this.messageService.add({ severity: 'success', summary: 'Success', detail: 'Transação APAGADA com sucesso' });
         setTimeout(() => {
-          this.atualizaTabelaMesComNovaData();
+          this.formataDataInicialTabelaMensal();
         }, 1500);
       },
       (error) => {
