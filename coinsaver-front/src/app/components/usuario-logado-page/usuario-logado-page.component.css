@@ -6,9 +6,17 @@
   margin-top: -600px;
   margin-left: 400px;
   position: static;
+  flex-direction: column;
 }
 
-.grafico-division {
+.grafico-division-expense {
   margin-left: 409px;
   position: static;
+  flex-direction: column;
+}
+
+.grafico-division-income {
+  margin-left: 409px;
+  position: static;
+  flex-direction: column;
 }
