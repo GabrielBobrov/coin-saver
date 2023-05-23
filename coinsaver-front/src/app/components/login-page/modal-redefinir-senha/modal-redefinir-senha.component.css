@@ -87,3 +87,7 @@ a {
   text-decoration: none;
   color: #fe801f
 }
+
+.mat-form-field {
+  width: 34%;
+}

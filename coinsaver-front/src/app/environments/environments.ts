@@ -26,6 +26,11 @@ export const environment = {
     authenticationBackendEndpoints: {
       register: '/register',
       authenticate: '/authenticate',
+    },
+
+    clientsControllerBackend: '/clients',
+    clientsBackendEndpoints: {
+      recoverPassword: '/recover-password',
     }
   }
 }
