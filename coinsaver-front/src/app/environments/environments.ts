@@ -31,6 +31,7 @@ export const environment = {
     clientsControllerBackend: '/clients',
     clientsBackendEndpoints: {
       recoverPassword: '/recover-password',
+      changePassword: '/change-password',
     }
   }
 }

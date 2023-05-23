@@ -2,9 +2,10 @@ import { Component } from '@angular/core';
 import { FormControl, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { MessageService } from 'primeng/api';
-import { DynamicDialogRef } from 'primeng/dynamicdialog';
+import { DialogService, DynamicDialogRef } from 'primeng/dynamicdialog';
 import { AuthenticationRequestDto } from 'src/app/dtos/transactions/request/authentication.request.dto';
 import { ClientsService } from 'src/app/services/clients/clients.service';
+import { ModalTrocarSenhaComponent } from '../modal-trocar-senha/modal-trocar-senha.component';
 
 @Component({
   selector: 'app-modal-redefinir-senha',
@@ -16,7 +17,7 @@ export class ModalRedefinirSenhaComponent {
   constructor(
     private clientsService: ClientsService,
     private messageService: MessageService,
-    public router: Router,
+    private dialogService: DialogService,
     public ref: DynamicDialogRef,
   ) {}
 
@@ -36,13 +37,11 @@ export class ModalRedefinirSenhaComponent {
     this.clientsService.recoverPassword(this.email).subscribe(
       (res) => {
 
-        console.log(res)
-
-        this.messageService.add({ severity: 'success', summary: 'Success', detail: 'EMAIL enviado com sucesso. Verifique sua caixa de entrada.' });
+        this.messageService.add({ severity: 'success', summary: 'Success', detail: 'EMAIL enviado com sucesso. Verifique sua caixa de entrada e troque sua senha antiga.' });
         setTimeout(() => {
           this.cleanObjectAuthenticationRequestDto();
           this.fecharModal();
-          this.retornaLoginPage();
+          this.modalTrocarSenha();
         }, 1500);
       },
       (error) => {
@@ -62,11 +61,10 @@ export class ModalRedefinirSenhaComponent {
     this.ref.close();
   }
 
-  retornaLoginPage() {
-    this.router.navigateByUrl('login-page', {
-      state: {
-        data: {},
-      },
+  modalTrocarSenha() {
+    this.dialogService.open(ModalTrocarSenhaComponent, {
+      data: {},
+      showHeader: false
     });
   }
 }

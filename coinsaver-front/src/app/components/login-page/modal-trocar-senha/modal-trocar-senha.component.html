@@ -1,0 +1,41 @@
+<p-toast></p-toast>
+<body class="ng-scope">
+ <div id="container">
+      <div>
+          <a class="logomd"><img src="../../../../assets/images/coinsaver_logo-removebg-preview.png"></a>
+          <h2 class="container-title">Trocar senha de acesso</h2>
+          <form name="form" autocomplete="off" class="ng-pristine ng-scope ng-valid-email ng-invalid ng-invalid-required">
+
+            <mat-form-field class="mat-form-field" appearance="fill">
+              <mat-label>Senha ANTIGA</mat-label>
+              <input [type]="hideSenhaAntiga ? 'password' : 'text'" matInput placeholder="Digite sua senha"
+                [(ngModel)]="changePasswordnRequestDto.oldPassword" name="password">
+              <button mat-icon-button matSuffix (click)="hideSenhaAntiga = !hideSenhaAntiga" [attr.aria-label]="'hideSenhaAntiga password'" [attr.aria-pressed]="hideSenhaAntiga">
+                <mat-icon>{{hideSenhaAntiga ? 'visibility_off' : 'visibility'}}</mat-icon>
+              </button>
+            </mat-form-field>
+
+            <mat-form-field class="mat-form-field" appearance="fill">
+              <mat-label>Senha NOVA</mat-label>
+              <input [type]="hideSenhaNova ? 'password' : 'text'" matInput placeholder="Digite sua senha"
+                [(ngModel)]="changePasswordnRequestDto.newPassword" name="password">
+              <button mat-icon-button matSuffix (click)="hideSenhaNova = !hideSenhaNova" [attr.aria-label]="'hideSenhaNova password'" [attr.aria-pressed]="hideSenhaNova">
+                <mat-icon>{{hideSenhaNova ? 'visibility_off' : 'visibility'}}</mat-icon>
+              </button>
+            </mat-form-field>
+
+            <mat-form-field class="mat-form-field" appearance="fill">
+              <mat-label>Senha CONFIRMACAO</mat-label>
+              <input [type]="hideSenhaConfirmacao ? 'password' : 'text'" matInput placeholder="Digite sua senha"
+                [(ngModel)]="changePasswordnRequestDto.newPasswordVerify" name="password">
+              <button mat-icon-button matSuffix (click)="hideSenhaConfirmacao = !hideSenhaConfirmacao" [attr.aria-label]="'hideSenhaConfirmacao password'" [attr.aria-pressed]="hideSenhaConfirmacao">
+                <mat-icon>{{hideSenhaConfirmacao ? 'visibility_off' : 'visibility'}}</mat-icon>
+              </button>
+            </mat-form-field>
+
+              <div class="input-container ng-scope" style="margin-top: 20px">
+                  <button type="submit" class="btn ng-binding" (click)="trocarSenha(changePasswordnRequestDto)">Trocar senha</button>
+              </div>
+          </form>
+      </div>
+  </div>
