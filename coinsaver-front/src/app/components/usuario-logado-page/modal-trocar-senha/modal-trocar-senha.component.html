@@ -2,8 +2,12 @@
 <body class="ng-scope">
  <div id="container">
       <div>
-          <a class="logomd"><img src="../../../../assets/images/coinsaver_logo-removebg-preview.png"></a>
+        <div class="header-modal">
           <h2 class="container-title">Trocar senha de acesso</h2>
+          <p-button (onClick)="fecharModal()" icon="pi pi-times"
+            styleClass="p-button-rounded p-button-danger"></p-button>
+        </div>
+
           <form name="form" autocomplete="off" class="ng-pristine ng-scope ng-valid-email ng-invalid ng-invalid-required">
 
             <mat-form-field class="mat-form-field" appearance="fill">

@@ -7,7 +7,7 @@ import { TransactionCategoryTypeEnum } from 'src/app/enums/transaction-category-
 import { Router } from '@angular/router';
 import { MonthlyChartResponseDto } from 'src/app/dtos/transactions/response/monthly-chart.response.dto';
 import { DialogService } from 'primeng/dynamicdialog';
-import { ModalTrocarSenhaComponent } from '../login-page/modal-trocar-senha/modal-trocar-senha.component';
+import { ModalTrocarSenhaComponent } from './modal-trocar-senha/modal-trocar-senha.component';
 
 @Component({
   selector: 'app-usuario-logado-page',

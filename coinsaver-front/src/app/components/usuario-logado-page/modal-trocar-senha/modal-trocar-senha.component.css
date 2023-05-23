@@ -47,6 +47,11 @@ body {
   margin-bottom: 10px
 }
 
+.header-modal {
+  display: flex;
+  justify-content: space-evenly;
+}
+
 #container>div .btn {
   border: none;
   border-radius: 5px;

@@ -5,7 +5,7 @@ import { MessageService } from 'primeng/api';
 import { DialogService, DynamicDialogRef } from 'primeng/dynamicdialog';
 import { AuthenticationRequestDto } from 'src/app/dtos/transactions/request/authentication.request.dto';
 import { ClientsService } from 'src/app/services/clients/clients.service';
-import { ModalTrocarSenhaComponent } from '../modal-trocar-senha/modal-trocar-senha.component';
+import { ModalTrocarSenhaComponent } from '../../usuario-logado-page/modal-trocar-senha/modal-trocar-senha.component';
 
 @Component({
   selector: 'app-modal-redefinir-senha',
