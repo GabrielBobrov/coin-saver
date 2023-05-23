@@ -16,6 +16,12 @@ export class ClientsService {
   baseUrl = environment.api.hostBackend;
   clientsControllerUrl = environment.api.clientsControllerBackend;
 
+  token?: string;
+
+  recebeToken(token: any) {
+    this.token = JSON.stringify(token.token).replaceAll('"', '');
+  }
+
   recoverPassword(email?: string) {
     const url = this.baseUrl + this.clientsControllerUrl + environment.api.clientsBackendEndpoints.recoverPassword
     const headers = { 'Content-Type': 'application/json' };
@@ -33,7 +39,7 @@ export class ClientsService {
   changePassword(changePasswordnRequestDto?: ChangePasswordRequestDto) {
     const url = this.baseUrl + this.clientsControllerUrl + environment.api.clientsBackendEndpoints.changePassword
     const body = JSON.stringify(changePasswordnRequestDto);
-    const headers = { 'Content-Type': 'application/json' };
+    const headers = { 'Content-Type': 'application/json', 'Authorization': `Bearer ${(this.token)}` };
 
     console.log(url)
     console.log(body)

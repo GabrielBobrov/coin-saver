@@ -17,7 +17,7 @@ export class ModalRedefinirSenhaComponent {
   constructor(
     private clientsService: ClientsService,
     private messageService: MessageService,
-    private dialogService: DialogService,
+    public router: Router,
     public ref: DynamicDialogRef,
   ) {}
 
@@ -37,11 +37,11 @@ export class ModalRedefinirSenhaComponent {
     this.clientsService.recoverPassword(this.email).subscribe(
       (res) => {
 
-        this.messageService.add({ severity: 'success', summary: 'Success', detail: 'EMAIL enviado com sucesso. Verifique sua caixa de entrada e troque sua senha antiga.' });
+        this.messageService.add({ severity: 'success', summary: 'Success', detail: 'EMAIL enviado com sucesso. Verifique sua caixa de entrada, faça login e troque sua senha antiga.' });
         setTimeout(() => {
           this.cleanObjectAuthenticationRequestDto();
           this.fecharModal();
-          this.modalTrocarSenha();
+          this.returnLoginPage();
         }, 1500);
       },
       (error) => {
@@ -61,10 +61,11 @@ export class ModalRedefinirSenhaComponent {
     this.ref.close();
   }
 
-  modalTrocarSenha() {
-    this.dialogService.open(ModalTrocarSenhaComponent, {
-      data: {},
-      showHeader: false
+  returnLoginPage() {
+    this.router.navigateByUrl('login-page', {
+      state: {
+        data: {},
+      },
     });
   }
 }

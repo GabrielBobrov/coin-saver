@@ -6,6 +6,8 @@ import { DataUtils } from 'src/app/shared/utils/DataUtils.class';
 import { TransactionCategoryTypeEnum } from 'src/app/enums/transaction-category-type.enum';
 import { Router } from '@angular/router';
 import { MonthlyChartResponseDto } from 'src/app/dtos/transactions/response/monthly-chart.response.dto';
+import { DialogService } from 'primeng/dynamicdialog';
+import { ModalTrocarSenhaComponent } from '../login-page/modal-trocar-senha/modal-trocar-senha.component';
 
 @Component({
   selector: 'app-usuario-logado-page',
@@ -51,6 +53,7 @@ export class UsuarioLogadoPageComponent implements OnInit {
   constructor(
     private transactionsService: TransactionsService,
     public router: Router,
+    private dialogService: DialogService,
   ) { }
 
   ngOnInit(): void {
@@ -333,6 +336,13 @@ export class UsuarioLogadoPageComponent implements OnInit {
       state: {
         data: {},
       },
+    });
+  }
+
+  modalTrocarSenha() {
+    this.dialogService.open(ModalTrocarSenhaComponent, {
+      data: {},
+      showHeader: false
     });
   }
 }

@@ -8,6 +8,7 @@ import { MessageService } from 'primeng/api';
 import { AuthenticationService } from 'src/app/services/authentication/authentication.service';
 import { DivisionsService } from 'src/app/services/divisions/divisions.service';
 import { TransactionsService } from 'src/app/services/transactions/transactions.service';
+import { ClientsService } from 'src/app/services/clients/clients.service';
 
 @Component({
   selector: 'app-login-page',
@@ -20,6 +21,7 @@ export class LoginPageComponent {
     private autheticationService: AuthenticationService,
     private divisionService: DivisionsService,
     private transactionService: TransactionsService,
+    private clientsService: ClientsService,
     public router: Router,
     public ref: DynamicDialogRef,
     private messageService: MessageService,
@@ -84,6 +86,7 @@ export class LoginPageComponent {
     this.autheticationService.recebeToken(token);
     this.divisionService.recebeToken(token);
     this.transactionService.recebeToken(token);
+    this.clientsService.recebeToken(token);
   }
 
 }
