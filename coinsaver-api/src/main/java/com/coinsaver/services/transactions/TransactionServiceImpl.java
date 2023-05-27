@@ -496,8 +496,8 @@ public class TransactionServiceImpl implements TransactionService {
         BigDecimal savedPercentagePreviousMonth = calculatePercentage(totalIncomePreviousMonth, totalExpensesPreviousMonth);
 
         PerformanceEconomyResponseDto economyResponseDto = PerformanceEconomyResponseDto.builder()
-                .actualMonth(formatPercentage(savedPercentageActualMonth))
-                .previousMonth(formatPercentage(savedPercentagePreviousMonth))
+                .actualMonthPercentage(formatPercentage(savedPercentageActualMonth))
+                .previousMonthPercentage(formatPercentage(savedPercentagePreviousMonth))
                 .build();
         responseDto.setEconomy(economyResponseDto);
 
@@ -506,7 +506,7 @@ public class TransactionServiceImpl implements TransactionService {
         PerformanceMonthlyBalanceResponseDto monthlyBalanceResponseDto = PerformanceMonthlyBalanceResponseDto.builder()
                 .actualMonthValue(currentMonthTransactions.getMonthlyBalance())
                 .actualMonthName(getMonthDisplayName(date))
-                .pastMonthComparison(formatPercentage(compare))
+                .pastMonthPercentageDifference(formatPercentage(compare))
                 .build();
         responseDto.setMonthlyBalance(monthlyBalanceResponseDto);
 

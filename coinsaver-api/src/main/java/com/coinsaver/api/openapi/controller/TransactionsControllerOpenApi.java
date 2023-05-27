@@ -7,6 +7,7 @@ import com.coinsaver.api.dtos.request.UpdateTransactionRequestDto;
 import com.coinsaver.api.dtos.response.MonthlyChartDivisionResponseDto;
 import com.coinsaver.api.dtos.response.MonthlyChartResponseDto;
 import com.coinsaver.api.dtos.response.MonthlyResponseDto;
+import com.coinsaver.api.dtos.response.PerformanceResponseDto;
 import com.coinsaver.api.dtos.response.TransactionResponseDto;
 import com.coinsaver.api.dtos.response.UpdateTransactionResponseDto;
 import com.coinsaver.api.exceptionhandler.Problem;
@@ -79,4 +80,9 @@ public interface TransactionsControllerOpenApi {
             @ApiResponse(responseCode = "200"),
     })
     List<MonthlyChartDivisionResponseDto> getChartDivisions(@PathVariable TransactionCategoryType categoryType,@RequestParam LocalDate date);
+
+    @Operation(summary = "Buscar valores de transações agrupadas por divisão", responses = {
+            @ApiResponse(responseCode = "200"),
+    })
+    PerformanceResponseDto getPerformance(@RequestParam LocalDate date);
 }

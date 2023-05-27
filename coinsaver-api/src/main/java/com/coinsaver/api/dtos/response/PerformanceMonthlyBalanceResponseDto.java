@@ -17,6 +17,6 @@ public class PerformanceMonthlyBalanceResponseDto {
 
     private BigDecimal actualMonthValue;
     private String actualMonthName;
-    private String pastMonthComparison;
+    private String pastMonthPercentageDifference;
 
 }

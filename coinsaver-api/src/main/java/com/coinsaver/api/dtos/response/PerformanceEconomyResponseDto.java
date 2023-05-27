@@ -12,7 +12,7 @@ import lombok.Setter;
 @AllArgsConstructor
 @Builder
 public class PerformanceEconomyResponseDto {
-    private String actualMonth;
-    private String previousMonth;
+    private String actualMonthPercentage;
+    private String previousMonthPercentage;
 
 }
