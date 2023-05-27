@@ -81,7 +81,7 @@ public interface TransactionsControllerOpenApi {
     })
     List<MonthlyChartDivisionResponseDto> getChartDivisions(@PathVariable TransactionCategoryType categoryType,@RequestParam LocalDate date);
 
-    @Operation(summary = "Buscar valores de transações agrupadas por divisão", responses = {
+    @Operation(summary = "Busca performance do mes", responses = {
             @ApiResponse(responseCode = "200"),
     })
     PerformanceResponseDto getPerformance(@RequestParam LocalDate date);
