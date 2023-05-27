@@ -8,6 +8,10 @@ import com.coinsaver.api.dtos.response.MonthlyChartDivisionResponseDto;
 import com.coinsaver.api.dtos.response.MonthlyChartResponseDto;
 import com.coinsaver.api.dtos.response.MonthlyResponseDto;
 import com.coinsaver.api.dtos.response.MonthlyTransactionResponseDto;
+import com.coinsaver.api.dtos.response.PerformanceDivisionsResponseDto;
+import com.coinsaver.api.dtos.response.PerformanceEconomyResponseDto;
+import com.coinsaver.api.dtos.response.PerformanceMonthlyBalanceResponseDto;
+import com.coinsaver.api.dtos.response.PerformanceResponseDto;
 import com.coinsaver.api.dtos.response.TransactionResponseDto;
 import com.coinsaver.api.dtos.response.UpdateTransactionResponseDto;
 import com.coinsaver.core.enums.StatusType;
@@ -38,10 +42,14 @@ import jakarta.transaction.Transactional;
 import org.springframework.stereotype.Service;
 
 import java.math.BigDecimal;
+import java.math.RoundingMode;
 import java.time.LocalDate;
+import java.time.format.TextStyle;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Locale;
 import java.util.Map;
 import java.util.Objects;
 
@@ -463,6 +471,113 @@ public class TransactionServiceImpl implements TransactionService {
         }
 
         return resultList;
+    }
+
+    @Override
+    public PerformanceResponseDto getPerformance(LocalDate date) {
+        PerformanceResponseDto responseDto = new PerformanceResponseDto();
+
+        MonthlyResponseDto currentMonthTransactions = getMonthlyTransactions(date);
+        MonthlyResponseDto previousMonthTransactions = getMonthlyTransactions(date.minusMonths(1));
+
+        List<MonthlyTransactionResponseDto> incomesActualMonth = getTransactionsByCategory(currentMonthTransactions, TransactionCategoryType.INCOME);
+        List<MonthlyTransactionResponseDto> incomesPreviousMonth = getTransactionsByCategory(previousMonthTransactions, TransactionCategoryType.INCOME);
+
+        List<MonthlyTransactionResponseDto> expensesActualMonth = getTransactionsByCategory(currentMonthTransactions, TransactionCategoryType.EXPENSE);
+        List<MonthlyTransactionResponseDto> expensesPreviousMonth = getTransactionsByCategory(previousMonthTransactions, TransactionCategoryType.EXPENSE);
+
+        BigDecimal totalExpensesActualMonth = getTotalAmount(expensesActualMonth);
+        BigDecimal totalExpensesPreviousMonth = getTotalAmount(expensesPreviousMonth);
+
+        BigDecimal totalIncomeActualMonth = getTotalAmount(incomesActualMonth);
+        BigDecimal totalIncomePreviousMonth = getTotalAmount(incomesPreviousMonth);
+
+        BigDecimal savedPercentageActualMonth = calculatePercentage(totalIncomeActualMonth, totalExpensesActualMonth);
+        BigDecimal savedPercentagePreviousMonth = calculatePercentage(totalIncomePreviousMonth, totalExpensesPreviousMonth);
+
+        PerformanceEconomyResponseDto economyResponseDto = PerformanceEconomyResponseDto.builder()
+                .actualMonth(formatPercentage(savedPercentageActualMonth))
+                .previousMonth(formatPercentage(savedPercentagePreviousMonth))
+                .build();
+        responseDto.setEconomy(economyResponseDto);
+
+        BigDecimal compare = calculatePercentage(currentMonthTransactions.getMonthlyBalance(), previousMonthTransactions.getMonthlyBalance());
+
+        PerformanceMonthlyBalanceResponseDto monthlyBalanceResponseDto = PerformanceMonthlyBalanceResponseDto.builder()
+                .actualMonthValue(currentMonthTransactions.getMonthlyBalance())
+                .actualMonthName(getMonthDisplayName(date))
+                .pastMonthComparison(formatPercentage(compare))
+                .build();
+        responseDto.setMonthlyBalance(monthlyBalanceResponseDto);
+
+        String divisionWithMostSpends = getDivisionWithMostSpends(expensesActualMonth);
+
+        PerformanceDivisionsResponseDto divisionsResponseDto = PerformanceDivisionsResponseDto.builder()
+                .divisionName(divisionWithMostSpends)
+                .divisionSpends(getTotalSpends(divisionWithMostSpends, expensesActualMonth).toString())
+                .build();
+        responseDto.setDivision(divisionsResponseDto);
+
+        return responseDto;
+    }
+
+    private List<MonthlyTransactionResponseDto> getTransactionsByCategory(MonthlyResponseDto monthlyTransactions, TransactionCategoryType category) {
+        return monthlyTransactions.getTransactions().stream()
+                .filter(t -> t.getCategory() == category)
+                .toList();
+    }
+
+    private BigDecimal getTotalAmount(List<MonthlyTransactionResponseDto> transactions) {
+        return transactions.stream()
+                .map(MonthlyTransactionResponseDto::getAmount)
+                .reduce(BigDecimal.ZERO, BigDecimal::add);
+    }
+
+    private String formatPercentage(BigDecimal percentage) {
+        return percentage.setScale(2, RoundingMode.HALF_UP) + "%";
+    }
+
+    private String getMonthDisplayName(LocalDate date) {
+        return date.getMonth().getDisplayName(TextStyle.FULL, Locale.getDefault());
+    }
+
+    private String getDivisionWithMostSpends(List<MonthlyTransactionResponseDto> expenses) {
+
+        if (expenses.isEmpty()) {
+            return null;
+        }
+
+        Map<String, BigDecimal> divisionSpends = new HashMap<>();
+        for (MonthlyTransactionResponseDto transaction : expenses) {
+            String divisionName = transaction.getDivision().getName();
+            BigDecimal transactionAmount = transaction.getAmount();
+            divisionSpends.put(divisionName, divisionSpends.getOrDefault(divisionName, BigDecimal.ZERO).add(transactionAmount));
+        }
+
+        Map.Entry<String, BigDecimal> divisionWithMostSpends = Collections.max(divisionSpends.entrySet(), Map.Entry.comparingByValue());
+
+        return divisionWithMostSpends.getKey();
+    }
+
+    private BigDecimal getTotalSpends(String divisionName, List<MonthlyTransactionResponseDto> expenses) {
+        BigDecimal totalSpends = BigDecimal.ZERO;
+        for (MonthlyTransactionResponseDto transaction : expenses) {
+            if (transaction.getDivision().getName().equals(divisionName)) {
+                totalSpends = totalSpends.add(transaction.getAmount());
+            }
+        }
+        return totalSpends;
+    }
+
+    public static BigDecimal calculatePercentage(BigDecimal incomes, BigDecimal expenses) {
+        BigDecimal difference = incomes.subtract(expenses);
+
+        if (incomes.compareTo(BigDecimal.ZERO) == 0) {
+            return BigDecimal.ZERO;
+        }
+
+        return difference.divide(incomes, 2, RoundingMode.HALF_UP)
+                .multiply(BigDecimal.valueOf(100));
     }
 
 

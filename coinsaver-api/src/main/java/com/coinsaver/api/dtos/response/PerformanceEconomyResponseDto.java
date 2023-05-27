@@ -13,6 +13,6 @@ import lombok.Setter;
 @Builder
 public class PerformanceEconomyResponseDto {
     private String actualMonth;
-    private String actualMonthComparison;
+    private String previousMonth;
 
 }

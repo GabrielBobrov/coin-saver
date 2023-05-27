@@ -7,6 +7,7 @@ import com.coinsaver.api.dtos.request.UpdateTransactionRequestDto;
 import com.coinsaver.api.dtos.response.MonthlyChartDivisionResponseDto;
 import com.coinsaver.api.dtos.response.MonthlyChartResponseDto;
 import com.coinsaver.api.dtos.response.MonthlyResponseDto;
+import com.coinsaver.api.dtos.response.PerformanceResponseDto;
 import com.coinsaver.api.dtos.response.TransactionResponseDto;
 import com.coinsaver.api.dtos.response.UpdateTransactionResponseDto;
 import com.coinsaver.core.enums.TransactionCategoryType;
@@ -35,4 +36,6 @@ public interface TransactionService {
     List<MonthlyChartResponseDto> getTransactionsAmountByCategory(LocalDate date);
 
     List<MonthlyChartDivisionResponseDto> getTransactionsAmountByDivision(LocalDate date, TransactionCategoryType categoryType);
+
+    PerformanceResponseDto getPerformance(LocalDate date);
 }

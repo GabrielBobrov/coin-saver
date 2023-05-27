@@ -22,6 +22,7 @@ public class ErrorMessages {
         messages.put("INVALID_DIVISION", "Divisão inválida para categoria da transação.");
         messages.put("DIVISION_NOT_FOUND", "Divisão não encontrada.");
         messages.put("TRANSACTION_WITHOUT_REPEAT", "Transação parcelada sem repeat.");
+        messages.put("MONTH_WITHOUT_INCOME", "Para fazer a performance é necessário ter entradas no mes atual e anterior.");
     }
 
     public static String getErrorMessage(String key) {

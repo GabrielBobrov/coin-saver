@@ -7,6 +7,7 @@ import com.coinsaver.api.dtos.request.UpdateTransactionRequestDto;
 import com.coinsaver.api.dtos.response.MonthlyChartDivisionResponseDto;
 import com.coinsaver.api.dtos.response.MonthlyChartResponseDto;
 import com.coinsaver.api.dtos.response.MonthlyResponseDto;
+import com.coinsaver.api.dtos.response.PerformanceResponseDto;
 import com.coinsaver.api.dtos.response.TransactionResponseDto;
 import com.coinsaver.api.dtos.response.UpdateTransactionResponseDto;
 import com.coinsaver.api.openapi.controller.TransactionsControllerOpenApi;
@@ -109,5 +110,12 @@ public class TransactionsController implements TransactionsControllerOpenApi {
     public List<MonthlyChartDivisionResponseDto> getChartDivisions(@PathVariable TransactionCategoryType categoryType, @RequestParam LocalDate date) {
 
         return transactionService.getTransactionsAmountByDivision(date, categoryType);
+    }
+
+    @GetMapping("/month/performance")
+    @ResponseStatus(HttpStatus.OK)
+    public PerformanceResponseDto getPerformance(@RequestParam LocalDate date) {
+
+        return transactionService.getPerformance(date);
     }
 }
