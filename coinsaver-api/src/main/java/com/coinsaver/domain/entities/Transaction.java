@@ -61,6 +61,7 @@ public class Transaction extends TransactionBase {
     @Column(nullable = false)
     private TransactionCategoryType category;
 
+    @Enumerated(EnumType.STRING)
     @Column(nullable = false)
     private TransactionType transactionType;
 

@@ -519,7 +519,7 @@ public class TransactionServiceImpl implements TransactionService {
                     .build();
             responseDto.setDivision(divisionsResponseDto);
         }
-        
+
         return responseDto;
     }
 
