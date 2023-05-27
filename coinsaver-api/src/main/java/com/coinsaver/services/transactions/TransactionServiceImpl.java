@@ -512,12 +512,14 @@ public class TransactionServiceImpl implements TransactionService {
 
         String divisionWithMostSpends = getDivisionWithMostSpends(expensesActualMonth);
 
-        PerformanceDivisionsResponseDto divisionsResponseDto = PerformanceDivisionsResponseDto.builder()
-                .divisionName(divisionWithMostSpends)
-                .divisionSpends(getTotalSpends(divisionWithMostSpends, expensesActualMonth).toString())
-                .build();
-        responseDto.setDivision(divisionsResponseDto);
-
+        if (Objects.nonNull(divisionWithMostSpends)) {
+            PerformanceDivisionsResponseDto divisionsResponseDto = PerformanceDivisionsResponseDto.builder()
+                    .divisionName(divisionWithMostSpends)
+                    .divisionSpends(getTotalSpends(divisionWithMostSpends, expensesActualMonth).toString())
+                    .build();
+            responseDto.setDivision(divisionsResponseDto);
+        }
+        
         return responseDto;
     }
 
