@@ -15,8 +15,8 @@ import java.math.BigDecimal;
 @Builder
 public class PerformanceMonthlyBalanceResponseDto {
 
-    private BigDecimal actualMonthValue;
+    private BigDecimal actualMonthBalance;
     private String actualMonthName;
-    private String pastMonthPercentageDifference;
+    private String previousMonthPercentageDifference;
 
 }

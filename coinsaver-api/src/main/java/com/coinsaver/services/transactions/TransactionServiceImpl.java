@@ -504,9 +504,9 @@ public class TransactionServiceImpl implements TransactionService {
         BigDecimal compare = calculatePercentage(currentMonthTransactions.getMonthlyBalance(), previousMonthTransactions.getMonthlyBalance());
 
         PerformanceMonthlyBalanceResponseDto monthlyBalanceResponseDto = PerformanceMonthlyBalanceResponseDto.builder()
-                .actualMonthValue(currentMonthTransactions.getMonthlyBalance())
+                .actualMonthBalance(currentMonthTransactions.getMonthlyBalance())
                 .actualMonthName(getMonthDisplayName(date))
-                .pastMonthPercentageDifference(formatPercentage(compare))
+                .previousMonthPercentageDifference(formatPercentage(compare))
                 .build();
         responseDto.setMonthlyBalance(monthlyBalanceResponseDto);
 
