@@ -438,6 +438,14 @@ public class TransactionServiceImpl implements TransactionService {
         List<FixTransaction> fixTransactionsEdited = fixTransactionRepository.findFixTransactionByPayDayBetween(startOfMonth, endOfMonth, Boolean.TRUE, allTransactions, categoryType);
         List<FixTransaction> fixTransactions = fixTransactionRepository.findFixTransactionByEditedFalse(client, categoryType);
 
+        List<Transaction> transactionsEdited = fixTransactionsEdited.stream()
+                .map(FixTransaction::getTransaction)
+                .toList();
+
+        fixTransactions = fixTransactions.stream()
+                .filter(fixTransaction -> !transactionsEdited.contains(fixTransaction.getTransaction()))
+                .toList();
+
         for (InstallmentTransaction it : installmentTransactions) {
             String divisionName = it.getDivision().getName();
             BigDecimal installmentTotal = it.getAmount();
