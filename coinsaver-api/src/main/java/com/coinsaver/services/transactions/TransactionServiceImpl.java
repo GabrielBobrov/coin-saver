@@ -340,6 +340,10 @@ public class TransactionServiceImpl implements TransactionService {
         Transaction transaction = transactionRepository.findById(updateTransactionRequestDto.getTransactionId())
                 .orElseThrow(() -> new BusinessException(ErrorMessages.getErrorMessage(TRANSACTION_NOT_FOUND)));
 
+        if (transaction.getTransactionType() == TransactionType.INSTALLMENT) {
+            updateTransactionRequestDto.setDescription(removeInstallmentFromDescription(updateTransactionRequestDto.getDescription()));
+        }
+
         UpdateTransactionType updateTransactionType = updateTransactionRequestDto.getUpdateTransactionType();
 
         switch (updateTransactionType) {
@@ -350,6 +354,10 @@ public class TransactionServiceImpl implements TransactionService {
         }
 
         return transaction.convertEntityToUpdateResponseDto();
+    }
+
+    private String removeInstallmentFromDescription(String description) {
+        return description.replaceAll("\\(\\d+/\\d+\\)", "");
     }
 
     @Transactional
