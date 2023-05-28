@@ -5,7 +5,7 @@ INSERT INTO client (name, email, created_at, password, password_verification, ro
 INSERT INTO division(NAME, TYPE, CATEGORY, CREATED_AT) VALUES
     ('Saude', 'HEALTH', 'EXPENSE', CURRENT_TIMESTAMP()),
     ('Casa', 'HOME', 'EXPENSE', CURRENT_TIMESTAMP()),
-    ('Electronic', 'ELECTRONIC', 'EXPENSE', CURRENT_TIMESTAMP()),
+    ('Eletrônico', 'ELECTRONIC', 'EXPENSE', CURRENT_TIMESTAMP()),
     ('Restaurante', 'RESTAURANT', 'EXPENSE', CURRENT_TIMESTAMP()),
     ('Academia', 'GYM', 'EXPENSE', CURRENT_TIMESTAMP()),
     ('Aluguel', 'RENT', 'EXPENSE', CURRENT_TIMESTAMP()),
