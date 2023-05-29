@@ -15,8 +15,11 @@ export class PerformancePageComponent implements OnInit {
   date: string = '';
   dataUtils = new DataUtils();
 
-  dataPerformance: any;
-  optionsPerformance: any;
+  expensePerformanceAmount?: number;
+  incomePerformanceAmount?: number;
+
+  dataLinePerformance: any;
+  optionsLinePerformance: any;
 
   constructor(
     private transactionsService: TransactionsService,
@@ -35,9 +38,32 @@ export class PerformancePageComponent implements OnInit {
 
   private getPerformance(date: any) {
     this.transactionsService.getTransactionsAmountByCategory(date)
-    .subscribe((res) => {
-      console.log(res)
-    });
+      .subscribe((res) => {
+        console.log(res)
+
+        let novoArray = this.montaNovoArray(res);
+
+        if (novoArray.length == 0) {
+          this.expensePerformanceAmount = 0;
+          this.incomePerformanceAmount = 0;
+        } else {
+          novoArray?.forEach((performance: any) => {
+
+            if (performance.categoryName == "Despesa") {
+              this.expensePerformanceAmount = Math.abs(+ performance.totalAmount);
+            }
+
+            if (performance.categoryName == "Entrada") {
+              this.incomePerformanceAmount = Math.abs(+ performance.totalAmount);
+            }
+          })
+        }
+        this.graficoLineTransactions(this.expensePerformanceAmount, this.incomePerformanceAmount);
+      });
+  }
+
+  montaNovoArray(novoArray: any) {
+    return novoArray;
   }
 
   retornaPaginaInicialUsuarioLogado() {
@@ -61,6 +87,66 @@ export class PerformancePageComponent implements OnInit {
       data: {},
       showHeader: false
     });
+  }
+
+  graficoLineTransactions(expensePerformanceAmount: any, incomePerformanceAmount: any) {
+    const documentStyle = getComputedStyle(document.documentElement);
+    const textColor = documentStyle.getPropertyValue('--text-color');
+    const textColorSecondary = documentStyle.getPropertyValue('--text-color-secondary');
+    const surfaceBorder = documentStyle.getPropertyValue('--surface-border');
+
+    this.dataLinePerformance = {
+      labels: ['Janeiro', 'Fevereiro', 'Março', 'Abril', 'Maio', 'Junho', 'Julho', 'Agosto', 'Setembro', 'Outubro', 'Novembro', 'Dezembro'],
+      datasets: [
+        {
+          label: 'Despesas',
+          backgroundColor: documentStyle.getPropertyValue('--red-500'),
+          borderColor: documentStyle.getPropertyValue('--red-500'),
+          data: [expensePerformanceAmount]
+        },
+        {
+          label: 'Entradas',
+          backgroundColor: documentStyle.getPropertyValue('--green-500'),
+          borderColor: documentStyle.getPropertyValue('--green-500'),
+          data: [incomePerformanceAmount]
+        }
+      ]
+    };
+
+    this.optionsLinePerformance = {
+      maintainAspectRatio: false,
+      aspectRatio: 0.8,
+      plugins: {
+        legend: {
+          labels: {
+            color: textColor
+          }
+        }
+      },
+      scales: {
+        x: {
+          ticks: {
+            color: textColorSecondary,
+            font: {
+              weight: 500
+            }
+          },
+          grid: {
+            color: surfaceBorder,
+            drawBorder: false
+          }
+        },
+        y: {
+          ticks: {
+            color: textColorSecondary
+          },
+          grid: {
+            color: surfaceBorder,
+            drawBorder: false
+          }
+        }
+      }
+    };
   }
 
 }
