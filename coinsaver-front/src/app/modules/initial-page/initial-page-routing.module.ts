@@ -6,6 +6,7 @@ import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { GeralComponent } from 'src/app/components/usuario-logado-page/barra-funcoes-lateral/transacoes/geral/geral.component';
 import { MensalComponent } from 'src/app/components/usuario-logado-page/barra-funcoes-lateral/transacoes/mensal/mensal.component';
+import { PerformancePageComponent } from 'src/app/components/usuario-logado-page/performance-page/performance-page.component';
 
 const routes: Routes = [
   {
@@ -32,6 +33,10 @@ const routes: Routes = [
   {
     path: 'transacoes-mensais-page',
     component: MensalComponent
+  },
+  {
+    path: 'performance-page',
+    component: PerformancePageComponent
   }
 ];
 

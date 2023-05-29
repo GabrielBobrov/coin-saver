@@ -11,7 +11,7 @@
           <form name="form" autocomplete="off" class="ng-pristine ng-scope ng-valid-email ng-invalid ng-invalid-required">
 
             <mat-form-field class="mat-form-field" appearance="fill">
-              <mat-label>Senha ANTIGA</mat-label>
+              <mat-label>Senha ATUAL</mat-label>
               <input [type]="hideSenhaAntiga ? 'password' : 'text'" matInput placeholder="Digite sua senha"
                 [(ngModel)]="changePasswordnRequestDto.oldPassword" name="password">
               <button mat-icon-button matSuffix (click)="hideSenhaAntiga = !hideSenhaAntiga" [attr.aria-label]="'hideSenhaAntiga password'" [attr.aria-pressed]="hideSenhaAntiga">

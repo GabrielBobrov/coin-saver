@@ -21,6 +21,7 @@ import { MAT_FORM_FIELD_DEFAULT_OPTIONS } from '@angular/material/form-field';
 import { ModalUpdateTransacaoComponent } from '../../components/usuario-logado-page/barra-funcoes-lateral/transacoes/mensal/table-mensal/modal-update-transacao/modal-update-transacao.component';
 import { DatepickerSelectionComponent } from 'src/app/shared/datepicker-selection/datepicker-selection.component';
 import { ModalTrocarSenhaComponent } from '../../components/usuario-logado-page/modal-trocar-senha/modal-trocar-senha.component';
+import { PerformancePageComponent } from '../../components/usuario-logado-page/performance-page/performance-page.component';
 
 @NgModule({
   declarations: [
@@ -39,6 +40,7 @@ import { ModalTrocarSenhaComponent } from '../../components/usuario-logado-page/
     ModalUpdateTransacaoComponent,
     DatepickerSelectionComponent,
     ModalTrocarSenhaComponent,
+    PerformancePageComponent,
   ],
   imports: [
     InitialPageRoutingModule,

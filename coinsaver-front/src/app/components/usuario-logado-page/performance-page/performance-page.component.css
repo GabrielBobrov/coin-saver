@@ -1,0 +1,10 @@
+.navbar {
+  background: linear-gradient(to right,#fe801f1a 0%,#f0fcfb 200%);
+}
+
+.grafico-category {
+  margin-top: -600px;
+  margin-left: 400px;
+  position: static;
+  flex-direction: column;
+}

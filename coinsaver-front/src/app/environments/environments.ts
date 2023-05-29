@@ -14,6 +14,7 @@ export const environment = {
       updateTransactionPatch: '/pay',
       deleteByTransactionId: '',
       getTransactionsAmountByCategory: '/chart/category',
+      getPerformance: '/month/performance',
     },
 
     divisionsControllerBackend: '/divisions',

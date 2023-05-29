@@ -1,7 +1,7 @@
 import { TransactionResponseDto } from '../../dtos/transactions/response/transaction.response.dto';
 import { environment } from './../../environments/environments';
-import { HttpClient, HttpErrorResponse, HttpHeaders } from '@angular/common/http';
-import { Injectable, OnInit } from '@angular/core';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { Injectable } from '@angular/core';
 import { catchError, map, Observable, throwError } from 'rxjs';
 import { PayTransactionRequestDto } from 'src/app/dtos/transactions/request/pay-transaction.request.dto';
 import { TransactionRequestDto } from 'src/app/dtos/transactions/request/transaction.request.dto';
@@ -9,7 +9,7 @@ import { UpdateTransactionRequestDto } from 'src/app/dtos/transactions/request/u
 import { MonthlyChartDivisionResponseDto } from 'src/app/dtos/transactions/response/monthly-chart-division.response.dto';
 import { MonthlyChartResponseDto } from 'src/app/dtos/transactions/response/monthly-chart.response.dto';
 import { MonthlyResponseDto } from 'src/app/dtos/transactions/response/monthly.response.dto';
-import { UpdateTransactionResponseDto } from 'src/app/dtos/transactions/response/update-transaction.response.dto';
+import { PerformanceResponseDto } from 'src/app/dtos/transactions/response/performance.response.dto';
 import { TransactionCategoryTypeEnum } from 'src/app/enums/transaction-category-type.enum';
 import { TransactionTypeEnum } from 'src/app/enums/transaction-type.enum';
 
@@ -196,6 +196,25 @@ export class TransactionsService {
       this.transactionControllerUrl +
       environment.api.transactionsBackendEndpoints.getTransactionsAmountByCategory
       }/${categoryType}/divisions?date=${date}`), httpOptions
+    )
+      .pipe(
+        catchError((erroResponse) => {
+          return throwError(erroResponse);
+        })
+      );
+  }
+
+  getPerformance(date: string): Observable<PerformanceResponseDto> {
+    const headerDict  = {'Content-Type': 'application/json', 'Authorization': `Bearer ${(this.token)}`};
+    const httpOptions = {
+      headers: new HttpHeaders(headerDict)
+    };
+
+    return this.httpClient.get<PerformanceResponseDto>(
+      (`${this.baseUrl +
+      this.transactionControllerUrl +
+      environment.api.transactionsBackendEndpoints.getPerformance
+      }?date=${date}`), httpOptions
     )
       .pipe(
         catchError((erroResponse) => {

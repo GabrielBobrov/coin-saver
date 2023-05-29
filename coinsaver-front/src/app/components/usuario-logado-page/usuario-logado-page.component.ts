@@ -345,5 +345,13 @@ export class UsuarioLogadoPageComponent implements OnInit {
       showHeader: false
     });
   }
+
+  abrirPerformancePage() {
+    this.router.navigateByUrl('performance-page', {
+      state: {
+        data: {},
+      },
+    });
+  }
 }
 
