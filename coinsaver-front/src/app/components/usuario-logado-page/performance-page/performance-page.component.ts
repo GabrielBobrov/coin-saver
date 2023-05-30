@@ -45,6 +45,8 @@ export class PerformancePageComponent implements OnInit {
 
         let novoArray = this.montaNovoArray(res);
 
+        console.log(novoArray)
+
         if (novoArray.length == 0) {
           this.expensePerformanceAmount = 0;
           this.incomePerformanceAmount = 0;
@@ -99,7 +101,8 @@ export class PerformancePageComponent implements OnInit {
     const surfaceBorder = documentStyle.getPropertyValue('--surface-border');
 
     this.dataLinePerformance = {
-      labels: ['Janeiro', 'Fevereiro', 'Março', 'Abril', 'Maio', 'Junho', 'Julho', 'Agosto', 'Setembro', 'Outubro', 'Novembro', 'Dezembro'],
+      // labels: ['Janeiro', 'Fevereiro', 'Março', 'Abril', 'Maio', 'Junho', 'Julho', 'Agosto', 'Setembro', 'Outubro', 'Novembro', 'Dezembro'],
+      labels: [this.dataUtils.formataTextoTabelaMensal(this.date)],
       datasets: [
         {
           label: 'Despesas',
