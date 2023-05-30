@@ -2,8 +2,15 @@
   background: linear-gradient(to right,#fe801f1a 0%,#f0fcfb 200%);
 }
 
-.grafico-category {
+.grafico-performance {
   margin-top: -600px;
+  margin-left: 400px;
+  position: static;
+  flex-direction: column;
+}
+
+.texto-performance {
+  margin-top: -515px;
   margin-left: 400px;
   position: static;
   flex-direction: column;

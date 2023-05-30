@@ -44,11 +44,15 @@
 
   <div>
 
-    <div class="navbar-brand d-sm-flex grafico-category">
+    <div class="navbar-brand d-sm-flex grafico-performance">
       <h2>Gráfico PERFORMANCE</h2>
       <div class="card flex justify-content-center">
         <p-chart type="bar" width="400" height="400" [data]="dataLinePerformance" [options]="optionsLinePerformance"></p-chart>
       </div>
+    </div>
+
+    <div *ngIf="this.isCalculavel" class="navbar-brand d-sm-flex texto-performance">
+      <h2>Neste mês, suas DESPESAS representam {{this.calculaPerformanceMes(this.expensePerformanceAmount, this.incomePerformanceAmount)}}% de um total R$ {{this.incomePerformanceAmount}} recebidos.</h2>
     </div>
 
   </div>

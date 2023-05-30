@@ -15,6 +15,9 @@ export class PerformancePageComponent implements OnInit {
   date: string = '';
   dataUtils = new DataUtils();
 
+  percentualDespesasMes: number = 0;
+  isCalculavel?: boolean = true;
+
   expensePerformanceAmount?: number;
   incomePerformanceAmount?: number;
 
@@ -39,7 +42,6 @@ export class PerformancePageComponent implements OnInit {
   private getPerformance(date: any) {
     this.transactionsService.getTransactionsAmountByCategory(date)
       .subscribe((res) => {
-        console.log(res)
 
         let novoArray = this.montaNovoArray(res);
 
@@ -59,6 +61,7 @@ export class PerformancePageComponent implements OnInit {
           })
         }
         this.graficoLineTransactions(this.expensePerformanceAmount, this.incomePerformanceAmount);
+        // this.calculaPerformanceMes(this.expensePerformanceAmount, this.incomePerformanceAmount);
       });
   }
 
@@ -147,6 +150,24 @@ export class PerformancePageComponent implements OnInit {
         }
       }
     };
+  }
+
+  calculaPerformanceMes(expensePerformanceAmount: any, incomePerformanceAmount: any) {
+
+    if (expensePerformanceAmount == 0 && incomePerformanceAmount == 0 ||
+      expensePerformanceAmount != 0 && incomePerformanceAmount == 0) {
+      this.isCalculavel = false;
+      return null;
+
+    } else if (expensePerformanceAmount == 0 && incomePerformanceAmount != 0) {
+      return this.percentualDespesasMes = 0;
+
+    } else if (expensePerformanceAmount != 0 && incomePerformanceAmount != 0) {
+      this.percentualDespesasMes = (Math.abs(expensePerformanceAmount) / Math.abs(incomePerformanceAmount)) * 100;
+      return this.percentualDespesasMes.toFixed(2);
+    }
+
+    return 9999;
   }
 
 }
