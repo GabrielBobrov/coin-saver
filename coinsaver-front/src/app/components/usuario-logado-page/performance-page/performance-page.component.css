@@ -9,8 +9,15 @@
   flex-direction: column;
 }
 
+.calendario {
+  margin-top: -600px;
+  margin-left: 400px;
+  position: static;
+  flex-direction: column;
+}
+
 .texto-performance {
-  margin-top: -515px;
+  /* margin-top: -600px; */
   margin-left: 400px;
   position: static;
   flex-direction: column;

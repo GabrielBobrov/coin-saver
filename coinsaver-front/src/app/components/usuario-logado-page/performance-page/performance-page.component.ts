@@ -4,6 +4,7 @@ import { TransactionsService } from 'src/app/services/transactions/transactions.
 import { DataUtils } from 'src/app/shared/utils/DataUtils.class';
 import { ModalTrocarSenhaComponent } from '../modal-trocar-senha/modal-trocar-senha.component';
 import { DialogService } from 'primeng/dynamicdialog';
+import { PerformanceResponseDto } from 'src/app/dtos/transactions/response/performance.response.dto';
 
 @Component({
   selector: 'app-performance-page',
@@ -21,8 +22,15 @@ export class PerformancePageComponent implements OnInit {
   expensePerformanceAmount?: number;
   incomePerformanceAmount?: number;
 
-  dataLinePerformance: any;
-  optionsLinePerformance: any;
+  dataBarPerformance: any;
+  optionsBarPerformance: any;
+
+  performance?: PerformanceResponseDto;
+
+  gasto?: boolean = false;
+  economia?: boolean = false;
+
+  dataDatepicker: any;
 
   constructor(
     private transactionsService: TransactionsService,
@@ -34,37 +42,65 @@ export class PerformancePageComponent implements OnInit {
     this.formataDataInicialTabelaMensal();
   }
 
+  recebeDataMontadaDatepicker(dataMontadaDatepicker: any) {
+    this.dataDatepicker = dataMontadaDatepicker;
+    this.atualizaTabelaMesComNovaData();
+  }
+
+  atualizaTabelaMesComNovaData() {
+    this.date = this.dataUtils.transformaDataInput(this.dataDatepicker);
+    this.getPerformance(this.date);
+  }
+
   formataDataInicialTabelaMensal() {
     this.date = this.dataUtils.transformaToLocalDateFormat('US');
     this.getPerformance(this.date);
   }
 
   private getPerformance(date: any) {
-    this.transactionsService.getTransactionsAmountByCategory(date)
+    this.transactionsService.getPerformance(date)
       .subscribe((res) => {
 
-        let novoArray = this.montaNovoArray(res);
+        this.performance = res;
 
-        console.log(novoArray)
+        console.log(this.performance)
 
-        if (novoArray.length == 0) {
-          this.expensePerformanceAmount = 0;
-          this.incomePerformanceAmount = 0;
-        } else {
-          novoArray?.forEach((performance: any) => {
+        this.verificaGastoOuEconomia(this.performance.monthlyBalance.previousMonthPercentageDifference);
 
-            if (performance.categoryName == "Despesa") {
-              this.expensePerformanceAmount = Math.abs(+ performance.totalAmount);
-            }
+        // let novoArray = this.montaNovoArray(res);
 
-            if (performance.categoryName == "Entrada") {
-              this.incomePerformanceAmount = Math.abs(+ performance.totalAmount);
-            }
-          })
-        }
-        this.graficoLineTransactions(this.expensePerformanceAmount, this.incomePerformanceAmount);
+        // console.log(novoArray)
+
+        // if (novoArray.length == 0) {
+        //   this.expensePerformanceAmount = 0;
+        //   this.incomePerformanceAmount = 0;
+        // } else {
+        //   novoArray?.forEach((performance: any) => {
+
+        //     if (performance.categoryName == "Despesa") {
+        //       this.expensePerformanceAmount = Math.abs(+ performance.totalAmount);
+        //     }
+
+        //     if (performance.categoryName == "Entrada") {
+        //       this.incomePerformanceAmount = Math.abs(+ performance.totalAmount);
+        //     }
+        //   })
+        // }
+        // this.graficoBarTransactions(this.expensePerformanceAmount, this.incomePerformanceAmount);
         // this.calculaPerformanceMes(this.expensePerformanceAmount, this.incomePerformanceAmount);
       });
+  }
+
+  verificaGastoOuEconomia(previousMonthPercentageDifference: string) {
+    console.log(previousMonthPercentageDifference)
+
+    if (previousMonthPercentageDifference.includes('-')) {
+      this.economia = false;
+      return this.gasto = true;
+    } else {
+      this.gasto = false;
+      return this.economia = true;
+    }
   }
 
   montaNovoArray(novoArray: any) {
@@ -94,13 +130,13 @@ export class PerformancePageComponent implements OnInit {
     });
   }
 
-  graficoLineTransactions(expensePerformanceAmount: any, incomePerformanceAmount: any) {
+  graficoBarTransactions(expensePerformanceAmount: any, incomePerformanceAmount: any) {
     const documentStyle = getComputedStyle(document.documentElement);
     const textColor = documentStyle.getPropertyValue('--text-color');
     const textColorSecondary = documentStyle.getPropertyValue('--text-color-secondary');
     const surfaceBorder = documentStyle.getPropertyValue('--surface-border');
 
-    this.dataLinePerformance = {
+    this.dataBarPerformance = {
       // labels: ['Janeiro', 'Fevereiro', 'Março', 'Abril', 'Maio', 'Junho', 'Julho', 'Agosto', 'Setembro', 'Outubro', 'Novembro', 'Dezembro'],
       labels: [this.dataUtils.formataTextoTabelaMensal(this.date)],
       datasets: [
@@ -119,7 +155,7 @@ export class PerformancePageComponent implements OnInit {
       ]
     };
 
-    this.optionsLinePerformance = {
+    this.optionsBarPerformance = {
       maintainAspectRatio: false,
       aspectRatio: 0.8,
       plugins: {
