@@ -50,47 +50,58 @@ export class CadastroUsuarioPageComponent {
   };
 
   createRegister(registerRequestDto: RegisterRequestDto) {
+    if (registerRequestDto.name != undefined) {
+      this.validaContraEmail(registerRequestDto.email, registerRequestDto.contraEmail);
+      if (this.isContraEmailValido) {
+        this.validaContraPassword(registerRequestDto.password, registerRequestDto.contraPassword);
+        if (this.isContraPasswordValido) {
+          this.autheticationService.register(registerRequestDto).subscribe(
+            (res) => {
+              this.enviaTokenParaServices(res);
 
-    console.log(registerRequestDto)
-
-    console.log("email",this.isContraEmailValido)
-    console.log("pass",this.isContraPasswordValido)
-
-    if (!this.isContraPasswordValido && !this.isContraEmailValido) {
-
-    }
-
-    this.autheticationService.register(registerRequestDto).subscribe(
-      (res) => {
-
-        this.enviaTokenParaServices(res);
-
-        this.messageService.add({ severity: 'success', summary: 'Success', detail: 'Usuário CRIADO com sucesso' });
-        setTimeout(() => {
-          this.cleanObjectRegisterRequestDto();
-          this.fecharModal();
-          this.retornaLoginPage();
-        }, 1500);
-      },
-      (error) => {
-        this.messageService.add({ severity: 'error', summary: 'Error', detail: 'Erro ao tentar CRIAR usuário' });
+              this.messageService.add({ severity: 'success', summary: 'Success', detail: 'Usuário CRIADO com sucesso' });
+              setTimeout(() => {
+                this.cleanObjectRegisterRequestDto();
+                this.fecharModal();
+                this.retornaLoginPage();
+              }, 1500);
+            },
+            (error) => {
+              if (error.error.detail) {
+                this.messageService.add({ severity: 'error', summary: 'Error', detail: error.error.detail });
+              }
+            }
+          );
+        }
       }
-    );
+    } else {
+      this.messageService.add({ severity: 'error', summary: 'Error', detail: 'Erro ao tentar CRIAR usuário. Preencha todos os campos.' });
+    }
   }
 
   validaContraEmail(email: any, contraEmail: any) {
-    if (email != contraEmail) {
-      this.isContraEmailValido = false;
+    if (email != undefined || contraEmail != undefined) {
+      if (email != contraEmail) {
+        this.isContraEmailValido = false;
+        this.messageService.add({ severity: 'error', summary: 'Error', detail: 'O EMAIL digitado não confere com a confirmação.' });
+      } else {
+        this.isContraEmailValido = true;
+      }
     } else {
-      this.isContraEmailValido = true;
+      this.messageService.add({ severity: 'error', summary: 'Error', detail: 'Erro ao tentar CRIAR usuário. Preencha todos os campos.' });
     }
   }
 
   validaContraPassword(password: any, contraPassword: any) {
-    if (password != contraPassword) {
-      this.isContraPasswordValido = false;
+    if (password != undefined || contraPassword != undefined) {
+      if (password != contraPassword) {
+        this.isContraPasswordValido = false;
+        this.messageService.add({ severity: 'error', summary: 'Error', detail: 'A SENHA digitada não confere com a confirmação.' });
+      } else {
+        this.isContraPasswordValido = true;
+      }
     } else {
-      this.isContraPasswordValido = true;
+      this.messageService.add({ severity: 'error', summary: 'Error', detail: 'Erro ao tentar CRIAR usuário. Preencha todos os campos.' });
     }
   }
 

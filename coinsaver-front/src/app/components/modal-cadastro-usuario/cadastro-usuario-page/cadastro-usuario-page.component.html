@@ -24,7 +24,7 @@
                 <mat-label>Email</mat-label>
                 <input type="email" matInput [formControl]="emailFormControl"
                   placeholder="email@example.com" [(ngModel)]="registerRequestDto.email"
-                  name="email">
+                  name="email" required>
               </mat-form-field>
             </form>
           </div>
@@ -34,8 +34,7 @@
               <mat-form-field class="mat-form-field" appearance="fill">
                 <mat-label>Confirme seu Email</mat-label>
                 <input type="email" matInput [formControl]="emailFormControl"
-                  placeholder="email@example.com" [(ngModel)]="registerRequestDto.contraEmail"
-                  name="contraEmail" (input)="validaContraEmail(registerRequestDto.email, registerRequestDto.contraEmail)">
+                  placeholder="email@example.com" [(ngModel)]="registerRequestDto.contraEmail" name="contraEmail">
               </mat-form-field>
             </form>
           </div>
@@ -55,8 +54,7 @@
             <mat-form-field class="mat-form-field" appearance="fill">
               <mat-label>Confirme sua senha</mat-label>
               <input [type]="hideContraSenha ? 'password' : 'text'" matInput placeholder="Repita sua senha"
-                [(ngModel)]="registerRequestDto.contraPassword" name="contraPassword"
-                (input)="validaContraPassword(registerRequestDto.password, registerRequestDto.contraPassword)">
+                [(ngModel)]="registerRequestDto.contraPassword" name="contraPassword">
               <button mat-icon-button matSuffix (click)="hideContraSenha = !hideContraSenha" [attr.aria-label]="'HideContraSenha password'" [attr.aria-pressed]="hideContraSenha">
                 <mat-icon>{{hideContraSenha ? 'visibility_off' : 'visibility'}}</mat-icon>
               </button>
