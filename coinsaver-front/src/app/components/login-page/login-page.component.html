@@ -15,7 +15,7 @@
                 <mat-label>Email</mat-label>
                 <input type="email" matInput [formControl]="emailFormControl"
                   placeholder="email@example.com" [(ngModel)]="authenticationRequestDto.email"
-                  name="email">
+                  name="email" required>
               </mat-form-field>
             </form>
           </div>
@@ -24,7 +24,7 @@
             <mat-form-field class="mat-form-field" appearance="fill">
               <mat-label>Senha</mat-label>
               <input [type]="hideSenha ? 'password' : 'text'" matInput placeholder="Digite sua senha"
-                [(ngModel)]="authenticationRequestDto.password" name="password">
+                [(ngModel)]="authenticationRequestDto.password" name="password" required>
               <button mat-icon-button matSuffix (click)="hideSenha = !hideSenha" [attr.aria-label]="'HideSenha password'" [attr.aria-pressed]="hideSenha">
                 <mat-icon>{{hideSenha ? 'visibility_off' : 'visibility'}}</mat-icon>
               </button>

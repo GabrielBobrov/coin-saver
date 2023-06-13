@@ -45,22 +45,30 @@ export class LoginPageComponent {
   }
 
   fazerLoginUsuarioPage(authenticationRequestDto: AuthenticationRequestDto) {
-    this.autheticationService.authenticate(authenticationRequestDto).subscribe(
-      (res) => {
-
-        this.enviaTokenParaServices(res);
-
-        this.messageService.add({ severity: 'success', summary: 'Success', detail: 'Usuário LOGADO com sucesso' });
-        setTimeout(() => {
-          this.cleanObjectAuthenticationRequestDto();
-          this.fecharModal();
-          this.retornaLoginPage();
-        }, 1500);
-      },
-      (error) => {
-        this.messageService.add({ severity: 'error', summary: 'Error', detail: 'Erro ao tentar LOGAR usuário' });
-      }
-    );
+    if (authenticationRequestDto.email == undefined || authenticationRequestDto.password == undefined ||
+      authenticationRequestDto.email == '' || authenticationRequestDto.password == '') {
+      this.messageService.add({ severity: 'error', summary: 'Error', detail: 'Erro ao tentar LOGAR usuário. Preencha todos os campos.' });
+    } else {
+      this.autheticationService.authenticate(authenticationRequestDto).subscribe(
+        (res) => {
+          this.enviaTokenParaServices(res);
+          this.messageService.add({ severity: 'success', summary: 'Success', detail: 'Usuário LOGADO com sucesso' });
+          setTimeout(() => {
+            this.cleanObjectAuthenticationRequestDto();
+            this.fecharModal();
+            this.retornaLoginPage();
+          }, 1500);
+        },
+        (error) => {
+          console.log(error.error)
+          if (error.error.status == 500) {
+            this.messageService.add({ severity: 'error', summary: 'Error', detail: 'Erro ao tentar LOGAR usuário. Email ou senha incorretos.' });
+          } else {
+            this.messageService.add({ severity: 'error', summary: 'Error', detail: error.error.detail });
+          }
+        }
+      );
+    }
   }
 
   cleanObjectAuthenticationRequestDto() {
