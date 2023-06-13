@@ -1,10 +1,10 @@
-<p-toast></p-toast>
+<p-toast *ngIf="isRedefinirSenha"></p-toast>
 <body class="ng-scope">
  <div id="container">
       <div>
           <a class="logomd"><img src="../../../../assets/images/coinsaver_logo-removebg-preview.png"></a>
           <h2 class="container-title">Redefinir senha de acesso</h2>
-          <form name="form" autocomplete="off" ng-submit="vm.enviarEmail()" ng-if="!vm.enviado &amp;&amp; !vm.redefinir" class="ng-pristine ng-scope ng-valid-email ng-invalid ng-invalid-required">
+          <form name="form" autocomplete="off" class="ng-pristine ng-scope ng-valid-email ng-invalid ng-invalid-required">
             <mat-form-field class="mat-form-field" appearance="fill">
               <mat-label>Email Cadastrado</mat-label>
               <input type="email" matInput [formControl]="emailFormControl"

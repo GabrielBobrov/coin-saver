@@ -2,10 +2,9 @@ import { Component } from '@angular/core';
 import { FormControl, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { MessageService } from 'primeng/api';
-import { DialogService, DynamicDialogRef } from 'primeng/dynamicdialog';
+import { DynamicDialogRef } from 'primeng/dynamicdialog';
 import { AuthenticationRequestDto } from 'src/app/dtos/transactions/request/authentication.request.dto';
 import { ClientsService } from 'src/app/services/clients/clients.service';
-import { ModalTrocarSenhaComponent } from '../../usuario-logado-page/modal-trocar-senha/modal-trocar-senha.component';
 
 @Component({
   selector: 'app-modal-redefinir-senha',
@@ -25,29 +24,33 @@ export class ModalRedefinirSenhaComponent {
 
   email: string | undefined;
 
+  isRedefinirSenha: boolean = false;
+
   authenticationRequestDto: AuthenticationRequestDto = {
     email: undefined,
     password: undefined,
   };
 
   redefinirSenha(authenticationRequestDto: AuthenticationRequestDto) {
-
     this.email = authenticationRequestDto.email;
-
-    this.clientsService.recoverPassword(this.email).subscribe(
-      (res) => {
-
-        this.messageService.add({ severity: 'success', summary: 'Success', detail: 'EMAIL enviado com sucesso. Verifique sua caixa de entrada, faça login e troque sua senha antiga.' });
-        setTimeout(() => {
-          this.cleanObjectAuthenticationRequestDto();
-          this.fecharModal();
-          this.returnLoginPage();
-        }, 1500);
-      },
-      (error) => {
-        this.messageService.add({ severity: 'error', summary: 'Error', detail: 'Erro ao tentar redefinir senha.' });
-      }
-    );
+    if (this.email == undefined || this.email == '') {
+      this.messageService.add({ severity: 'error', summary: 'Error', detail: 'Erro ao tentar redefinir senha. Verifique o email digitado.' });
+    } else {
+      this.clientsService.recoverPassword(this.email).subscribe(
+        (res) => {
+          this.messageService.add({ severity: 'success', summary: 'Success', detail: 'EMAIL enviado com sucesso.' });
+          this.messageService.add({ severity: 'success', summary: 'Success', detail: 'Verifique sua caixa de entrada e span, faça login e troque sua senha antiga.' });
+          setTimeout(() => {
+            this.cleanObjectAuthenticationRequestDto();
+            this.fecharModal();
+            this.returnLoginPage();
+          }, 5000);
+        },
+        (error) => {
+          this.messageService.add({ severity: 'error', summary: 'Error', detail: error.error.detail });
+        }
+      );
+    }
   }
 
   cleanObjectAuthenticationRequestDto() {
