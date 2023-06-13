@@ -53,30 +53,39 @@ export class ModalCadastroNovaTransacaoComponent {
   listDivision: DivisionResponseDto[] | undefined;
 
   createTransaction(transactionRequestDto: TransactionRequestDto) {
-    var payDayFormated = this.dataUtils.transformaDataInput(transactionRequestDto.payDay);
-    transactionRequestDto.payDay = payDayFormated;
 
-    this.transactionRequestDto.repeat = transactionRequestDto.repeat;
-    this.transactionRequestDto.fixedExpense = transactionRequestDto.fixedExpense;
+    console.log(transactionRequestDto)
 
-    if (transactionRequestDto.repeat == 0 || transactionRequestDto.repeat == 1) {
-      transactionRequestDto.repeat = null;
-    }
+    if (transactionRequestDto.amount == undefined || transactionRequestDto.category == undefined || transactionRequestDto.description == undefined ||
+      transactionRequestDto.divisionId == undefined || transactionRequestDto.fixedExpense == undefined || transactionRequestDto.payDay == undefined ||
+      transactionRequestDto.status == undefined) {
+      this.messageService.add({ severity: 'error', summary: 'Error', detail: 'Erro ao tentar CRIAR transação. Todos os campos são obrigatórios.' });
+    } else {
+      var payDayFormated = this.dataUtils.transformaDataInput(transactionRequestDto.payDay);
+      transactionRequestDto.payDay = payDayFormated;
 
-    this.transactionsService.createTransaction(transactionRequestDto).subscribe(
-      (res) => {
-        this.messageService.add({ severity: 'success', summary: 'Success', detail: 'Transação CRIADA com sucesso' });
-        setTimeout(() => {
-          this.cleanObject();
-          this.fecharModal();
-          this.atualizaTabelaMensal();
-        }, 1500);
-      },
-      (error) => {
-        this.messageService.add({ severity: 'error', summary: 'Error', detail: 'Erro ao tentar CRIAR transação' });
-        this.transactionRequestDto.payDay = undefined;
+      this.transactionRequestDto.repeat = transactionRequestDto.repeat;
+      this.transactionRequestDto.fixedExpense = transactionRequestDto.fixedExpense;
+
+      if (transactionRequestDto.repeat == 0 || transactionRequestDto.repeat == 1) {
+        transactionRequestDto.repeat = null;
       }
-    );
+
+      this.transactionsService.createTransaction(transactionRequestDto).subscribe(
+        (res) => {
+          this.messageService.add({ severity: 'success', summary: 'Success', detail: 'Transação CRIADA com sucesso' });
+          setTimeout(() => {
+            this.cleanObject();
+            this.fecharModal();
+            this.atualizaTabelaMensal();
+          }, 1500);
+        },
+        (error) => {
+          this.messageService.add({ severity: 'error', summary: 'Error', detail: 'Erro ao tentar CRIAR transação. Todos os campos são obrigatórios.' });
+          this.transactionRequestDto.payDay = undefined;
+        }
+      );
+    }
   }
 
   defineCategoria(category: any) {
