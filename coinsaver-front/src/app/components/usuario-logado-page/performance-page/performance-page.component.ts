@@ -92,8 +92,6 @@ export class PerformancePageComponent implements OnInit {
   }
 
   verificaGastoOuEconomia(previousMonthPercentageDifference: string) {
-    console.log(previousMonthPercentageDifference)
-
     if (previousMonthPercentageDifference.includes('-')) {
       this.economia = false;
       return this.gasto = true;

@@ -135,16 +135,16 @@ export class UsuarioLogadoPageComponent implements OnInit {
     const textColor = documentStyle.getPropertyValue('--text-color');
 
     this.dataPieCategory = {
-      labels: ['Despesas', 'Entradas'],
+      labels: ['Gastos', 'Recebidos'],
       datasets: [
         {
           data: [expenseCategoryAmount, incomeCategoryAmount],
           backgroundColor: [
-            documentStyle.getPropertyValue('--red-500'),
-            documentStyle.getPropertyValue('--green-500')],
-          hoverBackgroundColor: [
             documentStyle.getPropertyValue('--red-400'),
-            documentStyle.getPropertyValue('--green-400')]
+            documentStyle.getPropertyValue('--blue-400')],
+          hoverBackgroundColor: [
+            documentStyle.getPropertyValue('--red-500'),
+            documentStyle.getPropertyValue('--blue-500')]
         }
       ]
     };
@@ -211,21 +211,21 @@ export class UsuarioLogadoPageComponent implements OnInit {
               divisionArrayAmoutExpense[15]
             ],
             backgroundColor: [
-              documentStyle.getPropertyValue('--blue-500'),
-              documentStyle.getPropertyValue('--yellow-500'),
-              documentStyle.getPropertyValue('--pink-500'),
-              documentStyle.getPropertyValue('--bluegray-500'),
-              documentStyle.getPropertyValue('--orange-500'),
-              documentStyle.getPropertyValue('--red-500'),
-              documentStyle.getPropertyValue('--green-500'),],
-            hoverBackgroundColor: [
-              documentStyle.getPropertyValue('--blue-400'),
-              documentStyle.getPropertyValue('--yellow-400'),
-              documentStyle.getPropertyValue('--pink-400'),
-              documentStyle.getPropertyValue('--bluegray-400'),
-              documentStyle.getPropertyValue('--orange-400'),
               documentStyle.getPropertyValue('--red-400'),
-              documentStyle.getPropertyValue('--green-400'),]
+              documentStyle.getPropertyValue('--orange-400'),
+              documentStyle.getPropertyValue('--yellow-400'),
+              documentStyle.getPropertyValue('--darkred-400'),
+              documentStyle.getPropertyValue('--indianred-400'),
+              documentStyle.getPropertyValue('--orangered-400'),
+            ],
+            hoverBackgroundColor: [
+              documentStyle.getPropertyValue('--red-500'),
+              documentStyle.getPropertyValue('--orange-500'),
+              documentStyle.getPropertyValue('--yellow-500'),
+              documentStyle.getPropertyValue('--darkred-500'),
+              documentStyle.getPropertyValue('--indianred-500'),
+              documentStyle.getPropertyValue('--orangered-500'),
+            ]
           }
         ]
       };
@@ -296,21 +296,23 @@ export class UsuarioLogadoPageComponent implements OnInit {
               divisionArrayAmoutIncome[15]
             ],
             backgroundColor: [
-              documentStyle.getPropertyValue('--yellow-500'),
-              documentStyle.getPropertyValue('--bluegray-500'),
-              documentStyle.getPropertyValue('--orange-500'),
-              documentStyle.getPropertyValue('--blue-500'),
-              documentStyle.getPropertyValue('--pink-500'),
-              documentStyle.getPropertyValue('--red-500'),
-              documentStyle.getPropertyValue('--green-500'),],
-            hoverBackgroundColor: [
-              documentStyle.getPropertyValue('--yellow-400'),
-              documentStyle.getPropertyValue('--bluegray-400'),
-              documentStyle.getPropertyValue('--orange-400'),
               documentStyle.getPropertyValue('--blue-400'),
-              documentStyle.getPropertyValue('--pink-400'),
-              documentStyle.getPropertyValue('--red-400'),
-              documentStyle.getPropertyValue('--green-400'),]
+              documentStyle.getPropertyValue('--bluegray-400'),
+              documentStyle.getPropertyValue('--teal-400'),
+              documentStyle.getPropertyValue('--navy-400'),
+              documentStyle.getPropertyValue('--darkslateblue-400'),
+              documentStyle.getPropertyValue('--dodgerblue-400'),
+              documentStyle.getPropertyValue('--cyan-400'),
+            ],
+            hoverBackgroundColor: [
+              documentStyle.getPropertyValue('--blue-500'),
+              documentStyle.getPropertyValue('--bluegray-500'),
+              documentStyle.getPropertyValue('--teal-500'),
+              documentStyle.getPropertyValue('--navy-500'),
+              documentStyle.getPropertyValue('--darkslateblue-500'),
+              documentStyle.getPropertyValue('--dodgerblue-500'),
+              documentStyle.getPropertyValue('--cyan-500'),
+            ]
           }
         ]
       };

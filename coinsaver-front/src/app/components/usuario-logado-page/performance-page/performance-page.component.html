@@ -56,6 +56,10 @@
       <h2 *ngIf="economia && !gasto">Este valor representa uma ECONOMIA de {{performance?.monthlyBalance?.previousMonthPercentageDifference}} em relação ao mês anterior.</h2>
     </div>
 
+    <div class="navbar-brand d-sm-flex texto-performance">
+      <h2>Seu maior GASTO é com {{performance?.division?.divisionName}} com um total de R$ {{performance?.division?.divisionSpends}}.</h2>
+    </div>
+
     <!-- <div class="navbar-brand d-sm-flex grafico-performance">
       <div class="card flex justify-content-center">
         <p-chart type="bar" width="400" height="400" [data]="dataBarPerformance" [options]="optionsBarPerformance"></p-chart>

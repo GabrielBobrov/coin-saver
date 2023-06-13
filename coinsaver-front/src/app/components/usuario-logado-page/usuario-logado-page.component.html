@@ -45,21 +45,21 @@
   <div>
 
     <div class="navbar-brand d-sm-flex grafico-category">
-      <h2>Gráfico Despesas X Entradas (category type)</h2>
+      <h2>Gráfico Divisão GASTOS X RECEBIDOS</h2>
       <div class="card flex justify-content-center">
         <p-chart type="doughnut" width="400" height="400" [data]="dataPieCategory" [options]="optionsPieCategory"></p-chart>
       </div>
     </div>
 
     <div class="navbar-brand d-sm-flex grafico-division-expense" *ngIf="isMostrarGraficoExpense">
-      <h2>Gráfico Division Type for EXPENSE</h2>
+      <h2>Gráfico Divisão de GASTOS</h2>
       <div class="card flex justify-content-center">
         <p-chart type="pie" width="400" height="400" [data]="dataPieDivisionExpense" [options]="optionsPieDivisionExpense"></p-chart>
       </div>
     </div>
 
     <div class="navbar-brand d-sm-flex grafico-division-income" *ngIf="isMostrarGraficoIncome">
-      <h2>Gráfico Division Type for INCOME</h2>
+      <h2>Gráfico Divisão de RECEBIDOS</h2>
       <div class="card flex justify-content-center">
         <p-chart type="pie" width="400" height="400" [data]="dataPieDivisionIncome" [options]="optionsPieDivisionIncome"></p-chart>
       </div>
