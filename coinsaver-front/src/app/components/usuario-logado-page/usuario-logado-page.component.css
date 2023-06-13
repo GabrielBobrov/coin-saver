@@ -3,20 +3,22 @@
 }
 
 .grafico-category {
-  margin-top: -600px;
+  margin-top: -735px;
   margin-left: 400px;
   position: static;
   flex-direction: column;
 }
 
 .grafico-division-expense {
-  margin-left: 409px;
+  margin-top: -474px;
+  margin-left: 860px;
   position: static;
   flex-direction: column;
 }
 
 .grafico-division-income {
-  margin-left: 409px;
+  margin-top: -474px;
+  margin-left: 1320px;
   position: static;
   flex-direction: column;
 }
