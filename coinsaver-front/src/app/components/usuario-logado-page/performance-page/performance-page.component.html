@@ -51,24 +51,26 @@
     </div>
 
     <div class="navbar-brand d-sm-flex texto-performance">
-      <h2>Neste mês de {{performance?.monthlyBalance?.actualMonthName}}, seu balanço esta em R$ {{performance?.monthlyBalance?.actualMonthBalance}}.</h2>
+      <h1>BALANÇO MENSAL</h1>
+      <h2>No mês de {{performance?.monthlyBalance?.actualMonthName}}, você teve um balanço de R$ {{performance?.monthlyBalance?.actualMonthBalance}}.</h2>
       <h2 *ngIf="gasto && !economia">Este valor representa um GASTO de {{performance?.monthlyBalance?.previousMonthPercentageDifference}} em relação ao mês anterior.</h2>
       <h2 *ngIf="economia && !gasto">Este valor representa uma ECONOMIA de {{performance?.monthlyBalance?.previousMonthPercentageDifference}} em relação ao mês anterior.</h2>
+      <br>
+      <br>
     </div>
 
     <div class="navbar-brand d-sm-flex texto-performance">
-      <h2>Seu maior GASTO é com {{performance?.division?.divisionName}} com um total de R$ {{performance?.division?.divisionSpends}}.</h2>
+      <h1>ECONOMIA</h1>
+      <h2 *ngIf="gasto && !economia">Você GASTOU {{economy?.actualMonthPercentage}} da sua renda, já no mês anterior, você obteve {{economy?.actualMonthPercentage}}.</h2>
+      <h2 *ngIf="economia && !gasto">Você SALVOU {{economy?.previousMonthPercentage}} da sua renda, já no mês anterior, você obteve {{economy?.previousMonthPercentage}}.</h2>
+      <br>
+      <br>
     </div>
 
-    <!-- <div class="navbar-brand d-sm-flex grafico-performance">
-      <div class="card flex justify-content-center">
-        <p-chart type="bar" width="400" height="400" [data]="dataBarPerformance" [options]="optionsBarPerformance"></p-chart>
-      </div>
+    <div class="navbar-brand d-sm-flex texto-performance">
+      <h1>DIVISÃO DE GASTOS</h1>
+      <h2>Sua categoria mais usada este mês foi {{performance?.division?.divisionName}}, onde GASTOU R$ {{performance?.division?.divisionSpends}}.</h2>
     </div>
-
-    <div *ngIf="this.isCalculavel" class="navbar-brand d-sm-flex texto-performance">
-      <h2>Neste mês, suas DESPESAS representam {{this.calculaPerformanceMes(this.expensePerformanceAmount, this.incomePerformanceAmount)}}% de um total R$ {{this.incomePerformanceAmount}} recebidos.</h2>
-    </div> -->
 
   </div>
 

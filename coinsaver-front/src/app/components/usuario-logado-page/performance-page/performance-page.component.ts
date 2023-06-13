@@ -5,6 +5,7 @@ import { DataUtils } from 'src/app/shared/utils/DataUtils.class';
 import { ModalTrocarSenhaComponent } from '../modal-trocar-senha/modal-trocar-senha.component';
 import { DialogService } from 'primeng/dynamicdialog';
 import { PerformanceResponseDto } from 'src/app/dtos/transactions/response/performance.response.dto';
+import { PerformanceEconomyResponseDto } from 'src/app/dtos/transactions/response/performance-economy.response.dto';
 
 @Component({
   selector: 'app-performance-page',
@@ -26,6 +27,8 @@ export class PerformancePageComponent implements OnInit {
   optionsBarPerformance: any;
 
   performance?: PerformanceResponseDto;
+
+  economy?: PerformanceEconomyResponseDto;
 
   gasto?: boolean = false;
   economia?: boolean = false;
@@ -67,27 +70,7 @@ export class PerformancePageComponent implements OnInit {
 
         this.verificaGastoOuEconomia(this.performance.monthlyBalance.previousMonthPercentageDifference);
 
-        // let novoArray = this.montaNovoArray(res);
-
-        // console.log(novoArray)
-
-        // if (novoArray.length == 0) {
-        //   this.expensePerformanceAmount = 0;
-        //   this.incomePerformanceAmount = 0;
-        // } else {
-        //   novoArray?.forEach((performance: any) => {
-
-        //     if (performance.categoryName == "Despesa") {
-        //       this.expensePerformanceAmount = Math.abs(+ performance.totalAmount);
-        //     }
-
-        //     if (performance.categoryName == "Entrada") {
-        //       this.incomePerformanceAmount = Math.abs(+ performance.totalAmount);
-        //     }
-        //   })
-        // }
-        // this.graficoBarTransactions(this.expensePerformanceAmount, this.incomePerformanceAmount);
-        // this.calculaPerformanceMes(this.expensePerformanceAmount, this.incomePerformanceAmount);
+        this.economy = this.performance.economy;
       });
   }
 
