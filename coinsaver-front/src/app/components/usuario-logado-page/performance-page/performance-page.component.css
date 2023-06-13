@@ -10,7 +10,7 @@
 }
 
 .calendario {
-  margin-top: -685px;
+  margin-top: -730px;
   margin-left: 400px;
   position: static;
   flex-direction: column;
@@ -25,7 +25,7 @@
 
 .example-card {
   max-width: 75%;
-  font-size: 20px;
+  font-size: 25px;
   background-color: wheat;
   opacity: 0.8;
 }
