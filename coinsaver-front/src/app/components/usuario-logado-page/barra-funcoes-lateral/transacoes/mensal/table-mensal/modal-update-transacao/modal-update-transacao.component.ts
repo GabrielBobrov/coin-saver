@@ -42,6 +42,8 @@ export class ModalUpdateTransacaoComponent implements OnInit {
   date: string = '';
   dataUtils = new DataUtils();
 
+  isModalUpdate: boolean = false;
+
   isStatusIncome?: boolean;
   isStatusExpense?: boolean;
   isRepeticao?: boolean;
@@ -55,23 +57,12 @@ export class ModalUpdateTransacaoComponent implements OnInit {
 
   ngOnInit(): void {
     this.updateTransactionRequestDto = this.config.data.row;
-    this.verificaTipoTransacao(
-      this.updateTransactionRequestDto.transactionType
-    );
+    this.verificaTipoTransacao(this.updateTransactionRequestDto.transactionType);
     this.defineCategoria(this.updateTransactionRequestDto.category);
     this.defineRepeticao(this.updateTransactionRequestDto.fixedExpense);
-
-    console.log(
-      'updateTransactionRequestDto',
-      this.updateTransactionRequestDto
-    );
   }
   validateTodasTransacoes(category: any) {
-    if (
-      category == 'ALL_EXPENSES' &&
-      this.updateTransactionRequestDto.transactionType ==
-      TransactionTypeEnum.INSTALLMENT
-    ) {
+    if (category == 'ALL_EXPENSES' && this.updateTransactionRequestDto.transactionType == TransactionTypeEnum.INSTALLMENT) {
       this.isAtualizarTodas = true;
     }
   }
@@ -81,10 +72,7 @@ export class ModalUpdateTransacaoComponent implements OnInit {
       this.updateTransactionRequestDto.fixedExpense == true;
       this.isFix = true;
       this.listUpdateTypes = [
-        new UpdateTypeDto(
-          'Esta apenas',
-          UpdateTransactionTypeEnum.ONLY_THIS_EXPENSE
-        ),
+        new UpdateTypeDto('Esta apenas', UpdateTransactionTypeEnum.ONLY_THIS_EXPENSE),
         new UpdateTypeDto('Todas', UpdateTransactionTypeEnum.ALL_EXPENSES),
       ];
     }
@@ -93,15 +81,9 @@ export class ModalUpdateTransacaoComponent implements OnInit {
       this.updateTransactionRequestDto.fixedExpense == false;
       this.isFix = false;
       this.listUpdateTypes = [
-        new UpdateTypeDto(
-          'Esta apenas',
-          UpdateTransactionTypeEnum.ONLY_THIS_EXPENSE
-        ),
+        new UpdateTypeDto('Esta apenas', UpdateTransactionTypeEnum.ONLY_THIS_EXPENSE),
         new UpdateTypeDto('Todas', UpdateTransactionTypeEnum.ALL_EXPENSES),
-        new UpdateTypeDto(
-          'Esta e as próximas',
-          UpdateTransactionTypeEnum.THIS_EXPENSE_AND_FUTURE_ONES
-        ),
+        new UpdateTypeDto('Esta e as próximas', UpdateTransactionTypeEnum.THIS_EXPENSE_AND_FUTURE_ONES),
       ];
     }
 
@@ -109,10 +91,7 @@ export class ModalUpdateTransacaoComponent implements OnInit {
       this.updateTransactionRequestDto.fixedExpense == false;
       this.isFix = false;
       this.listUpdateTypes = [
-        new UpdateTypeDto(
-          'Esta apenas',
-          UpdateTransactionTypeEnum.ONLY_THIS_EXPENSE
-        ),
+        new UpdateTypeDto('Esta apenas', UpdateTransactionTypeEnum.ONLY_THIS_EXPENSE),
       ];
     }
   }
@@ -151,18 +130,13 @@ export class ModalUpdateTransacaoComponent implements OnInit {
   }
 
   atualizarTransacao() {
-    if (
-      this.updateTransactionRequestDto.transactionType !=
-      TransactionTypeEnum.FIX
-    ) {
+    if (this.updateTransactionRequestDto.transactionType != TransactionTypeEnum.FIX) {
       this.updateTransactionRequestDto.fixedExpense = false;
     } else {
       this.updateTransactionRequestDto.fixedExpense = true;
     }
-    console.log(
-      'updateTransactionRequestDto',
-      this.updateTransactionRequestDto
-    );
+
+    this.updateTransactionRequestDto.payDay = this.dataUtils.transformaDataInput(this.updateTransactionRequestDto.payDay);
 
     this.transactionsService
       .updateTransaction(this.updateTransactionRequestDto)
@@ -182,7 +156,7 @@ export class ModalUpdateTransacaoComponent implements OnInit {
           this.messageService.add({
             severity: 'error',
             summary: 'Error',
-            detail: 'Erro ao tentar ATUALIZADA transação',
+            detail: 'Erro ao tentar ATUALIZADA transação. Todos os campos são obrigatórios.',
           });
         }
       );
