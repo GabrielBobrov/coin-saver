@@ -1,6 +1,6 @@
 export const environment = {
   api: {
-    hostBackend: 'https://coin-saver-production.up.railway.app',
+    hostBackend: 'http://localhost:8080',
 
     transactionsControllerBackend: '/transactions',
     transactionsBackendEndpoints: {
