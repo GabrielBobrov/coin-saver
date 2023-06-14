@@ -29,7 +29,7 @@
           <td>{{transaction.description}}</td>
           <td>{{transaction.category}}</td>
           <td>{{transaction.division.name}}</td>
-          <td>{{transaction.payDay}}</td>
+          <td>{{transaction.payDay | date: 'dd/MM/yyyy'}}</td>
           <td>{{transaction.amount | currency:'R$ '}}</td>
           <td>{{transaction.status}}</td>
           <td>
