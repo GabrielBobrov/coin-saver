@@ -33,6 +33,6 @@ export const environment = {
     clientsBackendEndpoints: {
       recoverPassword: '/recover-password',
       changePassword: '/change-password',
-    }
-  }
-}
+    },
+  },
+};
