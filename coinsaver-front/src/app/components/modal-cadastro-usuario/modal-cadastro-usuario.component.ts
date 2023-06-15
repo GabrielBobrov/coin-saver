@@ -23,4 +23,7 @@ export class ModalCadastroUsuarioComponent {
     this.ref.close();
   }
 
+  fecharModal() {
+    this.ref.close();
+  }
 }
