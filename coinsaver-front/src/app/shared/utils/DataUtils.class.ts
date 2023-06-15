@@ -103,7 +103,7 @@ export class DataUtils {
       case 'December':
         return "DEZEMBRO";
       default:
-        return;
+        return mes;
     }
   }
 }
