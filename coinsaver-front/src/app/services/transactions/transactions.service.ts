@@ -38,8 +38,6 @@ export class TransactionsService {
       headers: new HttpHeaders(headerDict)
     };
 
-    console.log(httpOptions)
-
     return this.httpClient.get<TransactionResponseDto[]>(
       (`${this.baseUrl +
       this.transactionControllerUrl +
@@ -147,8 +145,6 @@ export class TransactionsService {
     const body = JSON.stringify(payTransactionRequestDto);
     const headers = { 'Content-Type': 'application/json', 'Authorization': `Bearer ${(this.token)}` };
 
-    console.log(url, body, { headers })
-
     return this.httpClient.patch(url, body, { headers }).pipe(
       map(result => {
         return result;
@@ -160,8 +156,6 @@ export class TransactionsService {
     const url = this.baseUrl + this.transactionControllerUrl + environment.api.transactionsBackendEndpoints.updateTransactionPatchReceive;
     const body = JSON.stringify(receiveTransactionRequestDto);
     const headers = { 'Content-Type': 'application/json', 'Authorization': `Bearer ${(this.token)}` };
-
-    console.log(url, body, { headers })
 
     return this.httpClient.patch(url, body, { headers }).pipe(
       map(result => {

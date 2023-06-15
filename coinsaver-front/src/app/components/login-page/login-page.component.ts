@@ -60,7 +60,6 @@ export class LoginPageComponent {
           }, 1500);
         },
         (error) => {
-          console.log(error.error)
           if (error.error.status == 500) {
             this.messageService.add({ severity: 'error', summary: 'Error', detail: 'Erro ao tentar LOGAR usuário. Email ou senha incorretos.' });
           } else {

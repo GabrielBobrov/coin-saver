@@ -40,11 +40,6 @@ export class ClientsService {
     const url = this.baseUrl + this.clientsControllerUrl + environment.api.clientsBackendEndpoints.changePassword
     const body = JSON.stringify(changePasswordnRequestDto);
     const headers = { 'Content-Type': 'application/json', 'Authorization': `Bearer ${(this.token)}` };
-
-    console.log(url)
-    console.log(body)
-    console.log(headers)
-
     return this.httpClient.post(url, body, { headers }).pipe(
       map(result => {
         return result;

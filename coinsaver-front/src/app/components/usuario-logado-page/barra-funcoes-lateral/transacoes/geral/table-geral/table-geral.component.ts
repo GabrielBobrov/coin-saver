@@ -70,17 +70,7 @@ export class TableGeralComponent implements OnInit {
     this.transactionsService.getTransactionsInMonth(this.date)
       .subscribe((res) => {
         this.monthlyResponseDto = res;
-
-        console.log(this.monthlyResponseDto)
-
         this.timeLineList.push(this.monthlyResponseDto.monthlyBalance)
-
-        console.log(this.timeLineList)
-
-        // this.monthlyTransactionsResponseDtoList = this.monthlyResponseDto.transactions;
-
-        // this.monthlyTransactionsResponseDtoList.forEach((transaction) => {
-        // })
       }
     );
   }

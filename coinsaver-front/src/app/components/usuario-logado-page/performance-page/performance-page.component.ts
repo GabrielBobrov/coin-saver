@@ -63,13 +63,8 @@ export class PerformancePageComponent implements OnInit {
   private getPerformance(date: any) {
     this.transactionsService.getPerformance(date)
       .subscribe((res) => {
-
         this.performance = res;
-
-        console.log(this.performance)
-
         this.verificaGastoOuEconomia(this.performance.monthlyBalance.previousMonthPercentageDifference);
-
         this.economy = this.performance.economy;
       });
   }

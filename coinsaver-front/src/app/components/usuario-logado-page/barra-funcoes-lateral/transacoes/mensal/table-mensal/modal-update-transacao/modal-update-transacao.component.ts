@@ -169,11 +169,10 @@ export class ModalUpdateTransacaoComponent implements OnInit {
       .getTransactionsInMonth(this.date)
       .subscribe((res) => {
         this.monthlyResponseDto = res;
-        console.log(this.monthlyResponseDto);
-        this.monthlyTransactionsResponseDtoList =
-          this.monthlyResponseDto.transactions;
+        this.monthlyTransactionsResponseDtoList = this.monthlyResponseDto.transactions;
+        this.monthlyTransactionsResponseDtoList.forEach((transaction) => {
 
-        this.monthlyTransactionsResponseDtoList.forEach((transaction) => { });
+        });
       });
   }
 
