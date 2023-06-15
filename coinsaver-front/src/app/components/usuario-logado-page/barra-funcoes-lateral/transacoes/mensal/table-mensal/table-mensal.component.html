@@ -25,13 +25,13 @@
   </ng-template>
   <ng-template pTemplate="body" let-transaction>
       <tr>
-          <td>{{transaction.transactionType}}</td>
+          <td>{{transaction.transactionType == 'INSTALLMENT' ? 'Parceladas' : transaction.transactionType == 'IN_CASH' ? 'Avulsas' : 'Fixas'}}</td>
           <td>{{transaction.description}}</td>
-          <td>{{transaction.category}}</td>
+          <td>{{transaction.category == 'INCOME' ? 'Recebido' : 'Gasto'}}</td>
           <td>{{transaction.division.name}}</td>
           <td>{{transaction.payDay | date: 'dd/MM/yyyy'}}</td>
           <td>{{transaction.amount | currency:'R$ '}}</td>
-          <td>{{transaction.status}}</td>
+          <td>{{transaction.status == 'PAID' ? 'Paga' : transaction.status == 'NOT_PAID' ? 'Não paga' : transaction.status == 'RECEIVED' ? 'Recebida' : 'Não recebida'}}</td>
           <td>
             <div class="flex justify-content-center flex-wrap gap-3 mb-4" style="display: flex;">
               <p-button (onClick)="pagarReceberTransacao(transaction)" *ngIf="transaction.status == 'NOT_PAID' || transaction.status == 'NOT_RECEIVED'"  icon="pi pi-money-bill" styleClass="p-button-rounded p-button-success"></p-button>
