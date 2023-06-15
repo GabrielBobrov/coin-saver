@@ -8,6 +8,7 @@ import { TransactionsService } from 'src/app/services/transactions/transactions.
 import { DataUtils } from 'src/app/shared/utils/DataUtils.class';
 import { ModalUpdateTransacaoComponent } from './modal-update-transacao/modal-update-transacao.component';
 import { DialogService } from 'primeng/dynamicdialog';
+import { ReceiveTransactionRequestDto } from 'src/app/dtos/transactions/request/receive-transaction.request.dto';
 
 interface DataFromDatePickerObj {
   mesNumber: number,
@@ -25,6 +26,7 @@ export class TableMensalComponent implements OnInit {
   monthlyTransactionsResponseDtoList: MonthlyTransactionResponseDto[] = [];
   updateTransactionRequestDto = new UpdateTransactionRequestDto();
   payTransactionRequestDto = new PayTransactionRequestDto();
+  receiveTransactionRequestDto = new ReceiveTransactionRequestDto();
 
   dataDatepicker: any;
 
@@ -75,30 +77,56 @@ export class TableMensalComponent implements OnInit {
     this.getTransactionsInMonth(this.date);
   }
 
-  pagarTransacao(transaction: MonthlyTransactionResponseDto) {
+  pagarReceberTransacao(transaction: MonthlyTransactionResponseDto) {
 
-    if (transaction.transactionType == "INSTALLMENT") {
-      this.payTransactionRequestDto.transactionId = transaction.installmentTransactionId;
-      this.payTransactionRequestDto.transactionType = transaction.transactionType;
-    } else if (transaction.transactionType == "FIX") {
-      this.payTransactionRequestDto.transactionId = transaction.fixTransactionId;
-      this.payTransactionRequestDto.transactionType = transaction.transactionType;
-    } else if (transaction.transactionType == "IN_CASH") {
-      this.payTransactionRequestDto.transactionId = transaction.transactionId;
-      this.payTransactionRequestDto.transactionType = transaction.transactionType;
-    }
-
-    this.transactionsService.updateTransactionPatch(this.payTransactionRequestDto).subscribe(
-      (res) => {
-        this.messageService.add({ severity: 'success', summary: 'Success', detail: 'Transação PAGA com sucesso' });
-        setTimeout(() => {
-          this.formataDataInicialTabelaMensal();
-        }, 1500);
-      },
-      (error) => {
-        this.messageService.add({ severity: 'error', summary: 'Error', detail: 'Erro ao tentar PAGAR transação' });
+    if (transaction.status == 'NOT_RECEIVED') {
+      if (transaction.transactionType == "INSTALLMENT") {
+        this.receiveTransactionRequestDto.transactionId = transaction.installmentTransactionId;
+        this.receiveTransactionRequestDto.transactionType = transaction.transactionType;
+      } else if (transaction.transactionType == "FIX") {
+        this.receiveTransactionRequestDto.transactionId = transaction.fixTransactionId;
+        this.receiveTransactionRequestDto.transactionType = transaction.transactionType;
+      } else if (transaction.transactionType == "IN_CASH") {
+        this.receiveTransactionRequestDto.transactionId = transaction.transactionId;
+        this.receiveTransactionRequestDto.transactionType = transaction.transactionType;
       }
-    );
+
+      this.transactionsService.updateTransactionPatchReceive(this.receiveTransactionRequestDto).subscribe(
+        (res) => {
+          this.messageService.add({ severity: 'success', summary: 'Success', detail: 'Transação RECEBIDA com sucesso' });
+          setTimeout(() => {
+            this.formataDataInicialTabelaMensal();
+          }, 1500);
+        },
+        (error) => {
+          this.messageService.add({ severity: 'error', summary: 'Error', detail: 'Erro ao tentar RECEBER transação' });
+        }
+      );
+    } else {
+
+      if (transaction.transactionType == "INSTALLMENT") {
+        this.payTransactionRequestDto.transactionId = transaction.installmentTransactionId;
+        this.payTransactionRequestDto.transactionType = transaction.transactionType;
+      } else if (transaction.transactionType == "FIX") {
+        this.payTransactionRequestDto.transactionId = transaction.fixTransactionId;
+        this.payTransactionRequestDto.transactionType = transaction.transactionType;
+      } else if (transaction.transactionType == "IN_CASH") {
+        this.payTransactionRequestDto.transactionId = transaction.transactionId;
+        this.payTransactionRequestDto.transactionType = transaction.transactionType;
+      }
+
+      this.transactionsService.updateTransactionPatchPay(this.payTransactionRequestDto).subscribe(
+        (res) => {
+          this.messageService.add({ severity: 'success', summary: 'Success', detail: 'Transação PAGA com sucesso' });
+          setTimeout(() => {
+            this.formataDataInicialTabelaMensal();
+          }, 1500);
+        },
+        (error) => {
+          this.messageService.add({ severity: 'error', summary: 'Error', detail: 'Erro ao tentar PAGAR transação' });
+        }
+      );
+    }
   }
 
   abrirModalUpdateTransacao(transaction: MonthlyTransactionResponseDto) {

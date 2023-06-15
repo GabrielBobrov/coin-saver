@@ -4,6 +4,7 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { catchError, map, Observable, throwError } from 'rxjs';
 import { PayTransactionRequestDto } from 'src/app/dtos/transactions/request/pay-transaction.request.dto';
+import { ReceiveTransactionRequestDto } from 'src/app/dtos/transactions/request/receive-transaction.request.dto';
 import { TransactionRequestDto } from 'src/app/dtos/transactions/request/transaction.request.dto';
 import { UpdateTransactionRequestDto } from 'src/app/dtos/transactions/request/update-transaction.request.dto';
 import { MonthlyChartDivisionResponseDto } from 'src/app/dtos/transactions/response/monthly-chart-division.response.dto';
@@ -141,9 +142,23 @@ export class TransactionsService {
     );
   }
 
-  updateTransactionPatch(payTransactionRequestDto: PayTransactionRequestDto) {
-    const url = this.baseUrl + this.transactionControllerUrl + environment.api.transactionsBackendEndpoints.updateTransactionPatch;
+  updateTransactionPatchPay(payTransactionRequestDto: PayTransactionRequestDto) {
+    const url = this.baseUrl + this.transactionControllerUrl + environment.api.transactionsBackendEndpoints.updateTransactionPatchPay;
     const body = JSON.stringify(payTransactionRequestDto);
+    const headers = { 'Content-Type': 'application/json', 'Authorization': `Bearer ${(this.token)}` };
+
+    console.log(url, body, { headers })
+
+    return this.httpClient.patch(url, body, { headers }).pipe(
+      map(result => {
+        return result;
+      })
+    );
+  }
+
+  updateTransactionPatchReceive(receiveTransactionRequestDto: ReceiveTransactionRequestDto) {
+    const url = this.baseUrl + this.transactionControllerUrl + environment.api.transactionsBackendEndpoints.updateTransactionPatchReceive;
+    const body = JSON.stringify(receiveTransactionRequestDto);
     const headers = { 'Content-Type': 'application/json', 'Authorization': `Bearer ${(this.token)}` };
 
     console.log(url, body, { headers })

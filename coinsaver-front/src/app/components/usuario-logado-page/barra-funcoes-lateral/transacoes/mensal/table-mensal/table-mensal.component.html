@@ -34,7 +34,7 @@
           <td>{{transaction.status}}</td>
           <td>
             <div class="flex justify-content-center flex-wrap gap-3 mb-4">
-              <p-button (onClick)="pagarTransacao(transaction)" *ngIf="transaction.status == 'NOT_PAID'"  icon="pi pi-money-bill" styleClass="p-button-rounded p-button-success"></p-button>
+              <p-button (onClick)="pagarReceberTransacao(transaction)" *ngIf="transaction.status == 'NOT_PAID' || transaction.status == 'NOT_RECEIVED'"  icon="pi pi-money-bill" styleClass="p-button-rounded p-button-success"></p-button>
               <p-button (onClick)="abrirModalUpdateTransacao(transaction)" icon="pi pi-pencil" styleClass="p-button-rounded p-button-warning"></p-button>
               <p-button (onClick)="deletarTransacao(transaction)" icon="pi pi-trash" styleClass="p-button-rounded p-button-danger"></p-button>
           </div>
