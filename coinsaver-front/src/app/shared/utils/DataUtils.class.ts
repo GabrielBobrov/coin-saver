@@ -75,4 +75,35 @@ export class DataUtils {
         return;
     }
   }
+
+  retornaMesPortugues(mes: any) {
+    switch(mes) {
+      case 'January':
+        return "JANEIRO";
+      case 'February':
+        return "FEVEREIRO";
+      case 'March':
+        return "MARÇO";
+      case 'April':
+        return "ABRIL";
+      case 'May':
+        return "MAIO";
+      case 'June':
+        return "JUNHO";
+      case 'July':
+        return "JULHO";
+      case 'August':
+        return "AGOSTO";
+      case 'September':
+        return "SETEMBRO";
+      case 'October':
+        return "OUTUBRO";
+      case 'November':
+        return "NOVEMBRO";
+      case 'December':
+        return "DEZEMBRO";
+      default:
+        return;
+    }
+  }
 }

@@ -55,32 +55,22 @@
         <mat-card-header>
           <mat-card-title-group>
             <mat-card-title style="font-size: 30px;">BALANÇO MENSAL</mat-card-title>
-            <!-- <mat-card-subtitle>Medium</mat-card-subtitle> -->
             <img mat-card-md-image src="../../../../assets/images/balanco-mensal-imagem2.png"  alt="Logo CoinSaver">
           </mat-card-title-group>
         </mat-card-header>
         <mat-card-content>No mês de {{performance?.monthlyBalance?.actualMonthName}}, você teve um balanço de R$ {{performance?.monthlyBalance?.actualMonthBalance}}.</mat-card-content>
+        <!-- <mat-card-content>No mês de {{dataUtils.retornaMesPortugues(performance?.monthlyBalance?.actualMonthName)}}, você teve um balanço de R$ {{performance?.monthlyBalance?.actualMonthBalance}}.</mat-card-content> -->
         <mat-card-content *ngIf="gasto && !economia">Este valor representa um GASTO de {{performance?.monthlyBalance?.previousMonthPercentageDifference}} em relação ao mês anterior.</mat-card-content>
         <mat-card-content *ngIf="economia && !gasto">Este valor representa uma ECONOMIA de {{performance?.monthlyBalance?.previousMonthPercentageDifference}} em relação ao mês anterior.</mat-card-content>
       </mat-card>
       <br>
     </div>
 
-    <!-- <div class="navbar-brand d-sm-flex texto-performance">
-      <h1>BALANÇO MENSAL</h1>
-      <h2>No mês de {{performance?.monthlyBalance?.actualMonthName}}, você teve um balanço de R$ {{performance?.monthlyBalance?.actualMonthBalance}}.</h2>
-      <h2 *ngIf="gasto && !economia">Este valor representa um GASTO de {{performance?.monthlyBalance?.previousMonthPercentageDifference}} em relação ao mês anterior.</h2>
-      <h2 *ngIf="economia && !gasto">Este valor representa uma ECONOMIA de {{performance?.monthlyBalance?.previousMonthPercentageDifference}} em relação ao mês anterior.</h2>
-      <br>
-      <br>
-    </div> -->
-
     <div class="navbar-brand d-sm-flex texto-performance">
       <mat-card class="example-card">
         <mat-card-header>
           <mat-card-title-group>
             <mat-card-title style="font-size: 30px;">ECONOMIA</mat-card-title>
-            <!-- <mat-card-subtitle>Medium</mat-card-subtitle> -->
             <img mat-card-md-image src="../../../../assets/images/economia-imagem.png"  alt="Logo CoinSaver">
           </mat-card-title-group>
         </mat-card-header>
@@ -90,31 +80,17 @@
       <br>
     </div>
 
-    <!-- <div class="navbar-brand d-sm-flex texto-performance">
-      <h1>ECONOMIA</h1>
-      <h2 *ngIf="gasto && !economia">Você GASTOU {{economy?.actualMonthPercentage}} da sua renda, já no mês anterior, você obteve {{economy?.actualMonthPercentage}}.</h2>
-      <h2 *ngIf="economia && !gasto">Você SALVOU {{economy?.previousMonthPercentage}} da sua renda, já no mês anterior, você obteve {{economy?.previousMonthPercentage}}.</h2>
-      <br>
-      <br>
-    </div> -->
-
-    <div class="navbar-brand d-sm-flex texto-performance">
+    <div *ngIf="performance?.division != null" class="navbar-brand d-sm-flex texto-performance">
       <mat-card class="example-card">
         <mat-card-header>
           <mat-card-title-group>
             <mat-card-title style="font-size: 30px;">DIVISÃO DE GASTOS</mat-card-title>
-            <!-- <mat-card-subtitle>Medium</mat-card-subtitle> -->
             <img mat-card-md-image src="../../../../assets/images/divisao-gastos-imagem.png"  alt="Logo CoinSaver">
           </mat-card-title-group>
         </mat-card-header>
         <mat-card-content>Sua categoria mais usada este mês foi {{performance?.division?.divisionName}}, onde GASTOU R$ {{performance?.division?.divisionSpends}}.</mat-card-content>
       </mat-card>
     </div>
-
-    <!-- <div class="navbar-brand d-sm-flex texto-performance">
-      <h1>DIVISÃO DE GASTOS</h1>
-      <h2>Sua categoria mais usada este mês foi {{performance?.division?.divisionName}}, onde GASTOU R$ {{performance?.division?.divisionSpends}}.</h2>
-    </div> -->
 
   </div>
 
