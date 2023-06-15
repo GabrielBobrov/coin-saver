@@ -19,7 +19,7 @@
 }
 
 ::ng-deep .mat-drawer-inner-container {
-  width: 120px !important;
+  width: 121px !important;
   height: 100%;
   overflow: auto;
   -webkit-overflow-scrolling: touch;

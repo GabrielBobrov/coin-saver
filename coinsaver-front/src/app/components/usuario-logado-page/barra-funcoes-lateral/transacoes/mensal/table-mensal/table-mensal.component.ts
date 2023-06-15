@@ -36,6 +36,8 @@ export class TableMensalComponent implements OnInit {
   dataUtils = new DataUtils();
   objetoData?: DataFromDatePickerObj;
 
+  balanceExibicaoTabela: any;
+
   constructor(
     private transactionsService: TransactionsService,
     private messageService: MessageService,
@@ -61,15 +63,21 @@ export class TableMensalComponent implements OnInit {
       (res) => {
         this.monthlyResponseDto = res;
 
-        if (this.monthlyResponseDto?.monthlyBalance > 0) {
+        if (this.monthlyResponseDto?.monthlyBalance >= 0) {
           this.isSaldoPositivo = true;
         }
+
+        this.balanceExibicaoTabela = this.monthlyResponseDto.monthlyBalance;
 
         this.monthlyTransactionsResponseDtoList = this.monthlyResponseDto.transactions;
         this.monthlyTransactionsResponseDtoList.forEach((transaction) => {
         });
       }
     );
+  }
+
+  public formataExibicaoMoeda(value: number): string {
+    return new Intl.NumberFormat('pt-BR', { style: 'currency', currency: 'BRL' }).format(value);
   }
 
   atualizaTabelaMesComNovaData() {

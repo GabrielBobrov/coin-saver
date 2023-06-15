@@ -17,20 +17,24 @@
           <th pSortableColumn="description">DESCRIÇÃO <p-sortIcon field="description"></p-sortIcon></th>
           <th pSortableColumn="category">CATEGORIA <p-sortIcon field="category"></p-sortIcon></th>
           <th pSortableColumn="category">DIVISÃO <p-sortIcon field="division"></p-sortIcon></th>
-          <th pSortableColumn="payDay">DATA PAGAMENTO <p-sortIcon field="payDay"></p-sortIcon></th>
-          <th pSortableColumn="amount">VALOR <p-sortIcon field="amount"></p-sortIcon></th>
+          <th pSortableColumn="payDay" style="width: 210px;">DATA PAGAMENTO <p-sortIcon field="payDay"></p-sortIcon></th>
+          <th pSortableColumn="amount" style="display: flex; justify-content: end;">VALOR <p-sortIcon field="amount"></p-sortIcon></th>
           <th pSortableColumn="status">STATUS <p-sortIcon field="status"></p-sortIcon></th>
           <th style="display: flex; justify-content: center;">AÇÕES</th>
       </tr>
   </ng-template>
   <ng-template pTemplate="body" let-transaction>
       <tr>
-          <td>{{transaction.transactionType == 'INSTALLMENT' ? 'Parceladas' : transaction.transactionType == 'IN_CASH' ? 'Avulsas' : 'Fixas'}}</td>
+          <td>{{transaction.transactionType == 'INSTALLMENT' ? 'Parcelada' : transaction.transactionType == 'IN_CASH' ? 'Avulsa' : 'Fixa'}}</td>
           <td>{{transaction.description}}</td>
           <td>{{transaction.category == 'INCOME' ? 'Recebido' : 'Gasto'}}</td>
           <td>{{transaction.division.name}}</td>
           <td>{{transaction.payDay | date: 'dd/MM/yyyy'}}</td>
-          <td>{{transaction.amount | currency:'R$ '}}</td>
+          <td>
+            <div style="display: flex; justify-content: end;">
+              {{this.formataExibicaoMoeda(transaction.amount)}}
+            </div>
+          </td>
           <td>{{transaction.status == 'PAID' ? 'Paga' : transaction.status == 'NOT_PAID' ? 'Não paga' : transaction.status == 'RECEIVED' ? 'Recebida' : 'Não recebida'}}</td>
           <td>
             <div class="flex justify-content-center flex-wrap gap-3 mb-4" style="display: flex;">
@@ -43,11 +47,11 @@
   </ng-template>
   <ng-template pTemplate="summary">
       <div class="flex align-items-center justify-content-between">
-        Total de registros no mês {{monthlyTransactionsResponseDtoList ? monthlyTransactionsResponseDtoList.length : 0 }}.
+        Total de transações no mês {{monthlyTransactionsResponseDtoList ? monthlyTransactionsResponseDtoList.length : 0 }}.
       </div>
       <div class="flex align-items-center justify-content-between">
-        Saldo no mês: R$ {{monthlyResponseDto?.monthlyBalance}}
-        <i class="pi" [ngClass]="{'pi-thumbs-up': isSaldoPositivo, 'pi-thumbs-down': !isSaldoPositivo}"></i>
+        Saldo no mês: {{this.formataExibicaoMoeda(this.balanceExibicaoTabela)}}
+        <i class="pi" [ngClass]="{'pi-thumbs-up': isSaldoPositivo, 'pi-thumbs-down': !isSaldoPositivo}" style="margin-left: 5px;"></i>
     </div>
   </ng-template>
 </p-table>
