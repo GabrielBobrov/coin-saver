@@ -3,7 +3,7 @@ import { Injectable } from '@angular/core';
 import { Observable, catchError, throwError } from 'rxjs';
 import { DivisionResponseDto } from 'src/app/dtos/transactions/response/division.response.dto';
 import { TransactionCategoryTypeEnum } from 'src/app/enums/transaction-category-type.enum';
-import { environment } from 'src/app/environments/environments';
+import { environment } from 'src/app/environments/environment';
 
 @Injectable({
   providedIn: 'root'

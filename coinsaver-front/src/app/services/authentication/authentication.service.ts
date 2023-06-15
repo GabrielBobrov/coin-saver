@@ -3,7 +3,7 @@ import { Injectable } from '@angular/core';
 import { map } from 'rxjs';
 import { AuthenticationRequestDto } from 'src/app/dtos/transactions/request/authentication.request.dto';
 import { RegisterRequestDto } from 'src/app/dtos/transactions/request/register.request.dto';
-import { environment } from 'src/app/environments/environments';
+import { environment } from 'src/app/environments/environment';
 
 @Injectable({
   providedIn: 'root'

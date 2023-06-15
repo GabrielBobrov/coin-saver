@@ -33,3 +33,9 @@ npm install primeng --save
 npm install primeicons --save
 npm i @material/dialog
 npm install chart.js --save
+
+
+ng serve # sobe aplicacao LOCAL
+ng serve --configuration production # sobe aplicacao PRODUCTION
+
+ng build --configuration production # cria BUILD PRODUCTION (pasta dist)

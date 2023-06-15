@@ -2,7 +2,7 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { catchError, map, throwError } from 'rxjs';
 import { ChangePasswordRequestDto } from 'src/app/dtos/transactions/request/change-password.request.dto copy';
-import { environment } from 'src/app/environments/environments';
+import { environment } from 'src/app/environments/environment';
 
 @Injectable({
   providedIn: 'root'
