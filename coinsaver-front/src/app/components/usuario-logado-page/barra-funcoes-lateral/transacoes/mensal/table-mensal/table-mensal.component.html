@@ -20,7 +20,7 @@
           <th pSortableColumn="payDay">DATA PAGAMENTO <p-sortIcon field="payDay"></p-sortIcon></th>
           <th pSortableColumn="amount">VALOR <p-sortIcon field="amount"></p-sortIcon></th>
           <th pSortableColumn="status">STATUS <p-sortIcon field="status"></p-sortIcon></th>
-          <th>AÇÕES</th>
+          <th style="display: flex; justify-content: center;">AÇÕES</th>
       </tr>
   </ng-template>
   <ng-template pTemplate="body" let-transaction>
@@ -33,7 +33,7 @@
           <td>{{transaction.amount | currency:'R$ '}}</td>
           <td>{{transaction.status}}</td>
           <td>
-            <div class="flex justify-content-center flex-wrap gap-3 mb-4">
+            <div class="flex justify-content-center flex-wrap gap-3 mb-4" style="display: flex;">
               <p-button (onClick)="pagarReceberTransacao(transaction)" *ngIf="transaction.status == 'NOT_PAID' || transaction.status == 'NOT_RECEIVED'"  icon="pi pi-money-bill" styleClass="p-button-rounded p-button-success"></p-button>
               <p-button (onClick)="abrirModalUpdateTransacao(transaction)" icon="pi pi-pencil" styleClass="p-button-rounded p-button-warning"></p-button>
               <p-button (onClick)="deletarTransacao(transaction)" icon="pi pi-trash" styleClass="p-button-rounded p-button-danger"></p-button>
