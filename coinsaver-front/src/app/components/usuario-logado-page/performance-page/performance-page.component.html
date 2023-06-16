@@ -58,9 +58,10 @@
             <img mat-card-md-image src="../../../../assets/images/balanco-mensal-imagem2.png"  alt="Logo CoinSaver">
           </mat-card-title-group>
         </mat-card-header>
-        <mat-card-content>No mês de {{dataUtils.retornaMesPortugues(performance?.monthlyBalance?.actualMonthName)}}, você teve um balanço de R$ {{performance?.monthlyBalance?.actualMonthBalance}}.</mat-card-content>
-        <mat-card-content *ngIf="gasto && !economia">Este valor representa um GASTO de {{performance?.monthlyBalance?.previousMonthPercentageDifference}} em relação ao mês anterior.</mat-card-content>
-        <mat-card-content *ngIf="economia && !gasto">Este valor representa uma ECONOMIA de {{performance?.monthlyBalance?.previousMonthPercentageDifference}} em relação ao mês anterior.</mat-card-content>
+        <mat-card-content *ngIf="performance.monthlyBalance.actualMonthBalance == 0">Você não tem transações lançadas este mês.</mat-card-content>
+        <mat-card-content *ngIf="performance.monthlyBalance.actualMonthBalance != 0">No mês de {{dataUtils.retornaMesPortugues(performance.monthlyBalance.actualMonthName)}}, você está com um balanço de R$ {{performance.monthlyBalance.actualMonthBalance}}.</mat-card-content>
+        <mat-card-content *ngIf="performance.monthlyBalance.actualMonthBalance != 0 && !isNegativo && isPositivo">Isso corresponde a {{performance.monthlyBalance.previousMonthPercentageDifference}} de diferença no balanço mensal em relação ao mês anterior,<br> sendo um balanço mensal POSITIVO. Continue assim!!!</mat-card-content>
+        <mat-card-content *ngIf="performance.monthlyBalance.actualMonthBalance != 0 && isNegativo && !isPositivo">Isso corresponde a {{performance.monthlyBalance.previousMonthPercentageDifference}} de diferença no balanço mensal em relação ao mês anterior,<br> sendo um balanço mensal NEGATIVO. Controle um pouco mais.</mat-card-content>
       </mat-card>
       <br>
     </div>
@@ -73,8 +74,9 @@
             <img mat-card-md-image src="../../../../assets/images/economia-imagem.png"  alt="Logo CoinSaver">
           </mat-card-title-group>
         </mat-card-header>
-        <mat-card-content *ngIf="gasto && !economia">Você GASTOU {{economy?.actualMonthPercentage}} da sua renda, já no mês anterior, você obteve {{economy?.previousMonthPercentage}}.</mat-card-content>
-        <mat-card-content *ngIf="economia && !gasto">Você SALVOU {{economy?.actualMonthPercentage}} da sua renda, já no mês anterior, você obteve {{economy?.previousMonthPercentage}}.</mat-card-content>
+        <mat-card-content *ngIf="performance.monthlyBalance.actualMonthBalance == 0">Você não tem transações lançadas este mês.</mat-card-content>
+        <mat-card-content *ngIf="performance.monthlyBalance.actualMonthBalance != 0 && economizou && !gastou">Você ECONOMIZOU {{this.performance.economy.actualMonthPercentage}} de suas receitas no mês atual,<br> enquanto no mês anterior você ECONOMIZOU {{this.performance.economy.previousMonthPercentage}} de suas receitas.</mat-card-content>
+        <mat-card-content *ngIf="performance.monthlyBalance.actualMonthBalance != 0 && !economizou && gastou">Você GASTOU {{this.performance.economy.actualMonthPercentage}} além de suas receitas no mês atual,<br> enquanto no mês anterior você GASTOU {{this.performance.economy.previousMonthPercentage}} de suas receitas.</mat-card-content>
       </mat-card>
       <br>
     </div>

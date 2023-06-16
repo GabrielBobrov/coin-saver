@@ -4,8 +4,6 @@ import { TransactionsService } from 'src/app/services/transactions/transactions.
 import { DataUtils } from 'src/app/shared/utils/DataUtils.class';
 import { ModalTrocarSenhaComponent } from '../modal-trocar-senha/modal-trocar-senha.component';
 import { DialogService } from 'primeng/dynamicdialog';
-import { PerformanceResponseDto } from 'src/app/dtos/transactions/response/performance.response.dto';
-import { PerformanceEconomyResponseDto } from 'src/app/dtos/transactions/response/performance-economy.response.dto';
 
 @Component({
   selector: 'app-performance-page',
@@ -26,12 +24,13 @@ export class PerformancePageComponent implements OnInit {
   dataBarPerformance: any;
   optionsBarPerformance: any;
 
-  performance?: PerformanceResponseDto;
+  performance: any;
 
-  economy?: PerformanceEconomyResponseDto;
+  isNegativo?: boolean = false;
+  isPositivo?: boolean = false;
 
-  gasto?: boolean = false;
-  economia?: boolean = false;
+  gastou?: boolean = false;
+  economizou?: boolean = false;
 
   dataDatepicker: any;
 
@@ -64,18 +63,33 @@ export class PerformancePageComponent implements OnInit {
     this.transactionsService.getPerformance(date)
       .subscribe((res) => {
         this.performance = res;
-        this.verificaGastoOuEconomia(this.performance.monthlyBalance.previousMonthPercentageDifference);
-        this.economy = this.performance.economy;
+
+        console.log(this.performance)
+
+        this.verificaBalancoMensal(this.performance.monthlyBalance.actualMonthBalance);
+
+        this.verificaGastoOuEconomia(this.performance.economy.actualMonthPercentage)
+
       });
   }
 
-  verificaGastoOuEconomia(previousMonthPercentageDifference: string) {
-    if (previousMonthPercentageDifference.includes('-')) {
-      this.economia = false;
-      return this.gasto = true;
+  verificaBalancoMensal(actualMonthBalance: number) {
+    if (actualMonthBalance < 0) {
+      this.isPositivo = false;
+      this.isNegativo = true;
     } else {
-      this.gasto = false;
-      return this.economia = true;
+      this.isNegativo = false;
+      this.isPositivo = true;
+    }
+  }
+
+  verificaGastoOuEconomia(actualMonthPercentage: string) {
+    if (actualMonthPercentage.includes('-')) {
+      this.economizou = false;
+      this.gastou = true;
+    } else {
+      this.gastou = false;
+      this.economizou = true;
     }
   }
 
