@@ -47,7 +47,7 @@
   </ng-template>
   <ng-template pTemplate="summary">
       <div class="flex align-items-center justify-content-between">
-        Total de transações no mês {{monthlyTransactionsResponseDtoList ? monthlyTransactionsResponseDtoList.length : 0 }}.
+        Total de {{monthlyTransactionsResponseDtoList ? monthlyTransactionsResponseDtoList.length : 0 }} transações no mês atual.
       </div>
       <div class="flex align-items-center justify-content-between">
         Saldo no mês: {{this.formataExibicaoMoeda(this.balanceExibicaoTabela)}}
