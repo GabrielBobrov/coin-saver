@@ -9,6 +9,9 @@ import { TransactionsService } from 'src/app/services/transactions/transactions.
 import { DivisionsService } from 'src/app/services/divisions/divisions.service';
 import { TransactionCategoryTypeEnum } from 'src/app/enums/transaction-category-type.enum';
 import { DivisionResponseDto } from 'src/app/dtos/transactions/response/division.response.dto';
+import { MatDatepicker } from '@angular/material/datepicker';
+import { Moment } from 'moment';
+import moment from 'moment';
 
 @Component({
   selector: 'app-modal-cadastro-nova-transacao',
@@ -52,13 +55,23 @@ export class ModalCadastroNovaTransacaoComponent {
   transactionCategoryType: TransactionCategoryTypeEnum | undefined;
   listDivision: DivisionResponseDto[] | undefined;
 
+  date = new FormControl(moment());
+
+  setCalendarDate(normalized: Moment, datepicker: MatDatepicker<Moment>) {
+    const ctrlValue = this.date.value!;
+    ctrlValue.day(normalized.day());
+    ctrlValue.month(normalized.month());
+    ctrlValue.year(normalized.year());
+    this.date.setValue(ctrlValue);
+    datepicker.close();
+  }
+
   createTransaction(transactionRequestDto: TransactionRequestDto) {
     if (transactionRequestDto.amount == undefined || transactionRequestDto.category == undefined || transactionRequestDto.description == undefined ||
-      transactionRequestDto.divisionId == undefined || transactionRequestDto.fixedExpense == undefined || transactionRequestDto.payDay == undefined ||
-      transactionRequestDto.status == undefined) {
+      transactionRequestDto.divisionId == undefined || transactionRequestDto.fixedExpense == undefined || transactionRequestDto.status == undefined) {
       this.messageService.add({ severity: 'error', summary: 'Error', detail: 'Erro ao tentar CRIAR transação. Todos os campos são obrigatórios.' });
     } else {
-      var payDayFormated = this.dataUtils.transformaDataInput(transactionRequestDto.payDay);
+      var payDayFormated = this.dataUtils.transformaToLocalDateFormatCalendarioInput(this.date.value);
       transactionRequestDto.payDay = payDayFormated;
 
       this.transactionRequestDto.repeat = transactionRequestDto.repeat;
