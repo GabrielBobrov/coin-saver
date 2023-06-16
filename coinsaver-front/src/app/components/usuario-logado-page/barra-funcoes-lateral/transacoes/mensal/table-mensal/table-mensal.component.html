@@ -25,24 +25,24 @@
   </ng-template>
   <ng-template pTemplate="body" let-transaction>
       <tr>
-          <td>{{transaction.transactionType == 'INSTALLMENT' ? 'Parcelada' : transaction.transactionType == 'IN_CASH' ? 'Avulsa' : 'Fixa'}}</td>
-          <td>{{transaction.description}}</td>
-          <td>{{transaction.category == 'INCOME' ? 'Recebido' : 'Gasto'}}</td>
-          <td>{{transaction.division.name}}</td>
-          <td>{{transaction.payDay | date: 'dd/MM/yyyy'}}</td>
-          <td>
-            <div style="display: flex; justify-content: end;">
-              {{this.formataExibicaoMoeda(transaction.amount)}}
-            </div>
-          </td>
-          <td>{{transaction.status == 'PAID' ? 'Paga' : transaction.status == 'NOT_PAID' ? 'Não paga' : transaction.status == 'RECEIVED' ? 'Recebida' : 'Não recebida'}}</td>
-          <td>
-            <div class="flex justify-content-center flex-wrap gap-3 mb-4" style="display: flex;">
-              <p-button (onClick)="pagarReceberTransacao(transaction)" *ngIf="transaction.status == 'NOT_PAID' || transaction.status == 'NOT_RECEIVED'"  icon="pi pi-money-bill" styleClass="p-button-rounded p-button-success"></p-button>
-              <p-button (onClick)="abrirModalUpdateTransacao(transaction)" icon="pi pi-pencil" styleClass="p-button-rounded p-button-warning"></p-button>
-              <p-button (onClick)="deletarTransacao(transaction)" icon="pi pi-trash" styleClass="p-button-rounded p-button-danger"></p-button>
+        <td [ngClass]="transaction.category == 'INCOME' ? 'background-green' : 'background-red'">{{transaction.transactionType == 'INSTALLMENT' ? 'Parcelada' : transaction.transactionType == 'IN_CASH' ? 'Avulsa' : 'Fixa'}}</td>
+        <td [ngClass]="transaction.category == 'INCOME' ? 'background-green' : 'background-red'">{{transaction.description}}</td>
+        <td [ngClass]="transaction.category == 'INCOME' ? 'background-green' : 'background-red'">{{transaction.category == 'INCOME' ? 'Recebido' : 'Gasto'}}</td>
+        <td [ngClass]="transaction.category == 'INCOME' ? 'background-green' : 'background-red'">{{transaction.division.name}}</td>
+        <td [ngClass]="transaction.category == 'INCOME' ? 'background-green' : 'background-red'">{{transaction.payDay | date: 'dd/MM/yyyy'}}</td>
+        <td [ngClass]="transaction.category == 'INCOME' ? 'background-green' : 'background-red'">
+          <div style="display: flex; justify-content: end;">
+            {{this.formataExibicaoMoeda(transaction.amount)}}
           </div>
-          </td>
+        </td>
+        <td [ngClass]="transaction.category == 'INCOME' ? 'background-green' : 'background-red'">{{transaction.status == 'PAID' ? 'Paga' : transaction.status == 'NOT_PAID' ? 'Não paga' : transaction.status == 'RECEIVED' ? 'Recebida' : 'Não recebida'}}</td>
+        <td [ngClass]="transaction.category == 'INCOME' ? 'background-green' : 'background-red'">
+          <div class="flex justify-content-center flex-wrap gap-3 mb-4" style="display: flex;">
+            <p-button (onClick)="pagarReceberTransacao(transaction)" *ngIf="transaction.status == 'NOT_PAID' || transaction.status == 'NOT_RECEIVED'"  icon="pi pi-money-bill" styleClass="p-button-rounded p-button-success"></p-button>
+            <p-button (onClick)="abrirModalUpdateTransacao(transaction)" icon="pi pi-pencil" styleClass="p-button-rounded p-button-warning"></p-button>
+            <p-button (onClick)="deletarTransacao(transaction)" icon="pi pi-trash" styleClass="p-button-rounded p-button-danger"></p-button>
+        </div>
+        </td>
       </tr>
   </ng-template>
   <ng-template pTemplate="summary">

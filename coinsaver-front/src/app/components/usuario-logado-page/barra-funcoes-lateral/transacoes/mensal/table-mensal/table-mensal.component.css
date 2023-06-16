@@ -18,3 +18,11 @@ body {
   border-radius: 10px;
   margin-bottom: 1rem;
 }
+
+.background-green {
+  background-color: rgb(216 239 216 / 40%);
+}
+
+.background-red {
+  background-color: rgb(249 236 236 / 55%);
+}
