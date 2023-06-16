@@ -34,8 +34,9 @@ npm install primeicons --save
 npm i @material/dialog
 npm install chart.js --save
 
+# PARA SUBIR APLICACAO EM AMBIENTE LOCAL OU PROD
+ng serve                              # sobe aplicacao LOCAL
+ng serve --configuration production   # sobe aplicacao PRODUCTION
 
-ng serve # sobe aplicacao LOCAL
-ng serve --configuration production # sobe aplicacao PRODUCTION
-
-ng build --configuration production # cria BUILD PRODUCTION (pasta dist)
+# PARA GERAR A DIST DO PROJETO
+ng build --configuration production   # cria BUILD PRODUCTION (pasta dist)

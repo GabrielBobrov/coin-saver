@@ -22,7 +22,7 @@ export class ModalCadastroNovaTransacaoComponent {
     private divisionsService: DivisionsService,
     public router: Router,
     private messageService: MessageService,
-    private ref: DynamicDialogRef
+    private ref: DynamicDialogRef,
   ) { }
 
   divisionType = new FormControl();
@@ -53,9 +53,6 @@ export class ModalCadastroNovaTransacaoComponent {
   listDivision: DivisionResponseDto[] | undefined;
 
   createTransaction(transactionRequestDto: TransactionRequestDto) {
-
-    console.log(transactionRequestDto)
-
     if (transactionRequestDto.amount == undefined || transactionRequestDto.category == undefined || transactionRequestDto.description == undefined ||
       transactionRequestDto.divisionId == undefined || transactionRequestDto.fixedExpense == undefined || transactionRequestDto.payDay == undefined ||
       transactionRequestDto.status == undefined) {

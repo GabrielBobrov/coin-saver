@@ -17,6 +17,18 @@ export class DataUtils {
     }
   }
 
+  transformaToLocalDateFormatCalendarioInput(data: any) {
+    var date = new Date(data);
+    var year = date.getFullYear();
+    var month = date.getMonth() + 1;
+    var day = date.getDate();
+
+    month = this.acrescentaZeroEsquerda(month);
+    day = this.acrescentaZeroEsquerda(day);
+
+    return year + '-' + month + '-' + day;
+  }
+
   acrescentaZeroEsquerda(param: any) {
     if (param < 10) {
       return '0' + param;
