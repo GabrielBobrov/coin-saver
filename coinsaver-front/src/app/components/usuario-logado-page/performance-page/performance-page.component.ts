@@ -67,8 +67,8 @@ export class PerformancePageComponent implements OnInit {
         console.log(this.performance)
 
         this.verificaBalancoMensal(this.performance.monthlyBalance.actualMonthBalance);
-
-        this.verificaGastoOuEconomia(this.performance.economy.actualMonthPercentage)
+        this.verificaGastoOuEconomiaMesAtual(this.performance.economy.actualMonthPercentage);
+        this.verificaGastoOuEconomiaMesAnterior(this.performance.economy.previousMonthPercentage);
 
       });
   }
@@ -83,8 +83,18 @@ export class PerformancePageComponent implements OnInit {
     }
   }
 
-  verificaGastoOuEconomia(actualMonthPercentage: string) {
+  verificaGastoOuEconomiaMesAtual(actualMonthPercentage: string) {
     if (actualMonthPercentage.includes('-')) {
+      this.economizou = false;
+      this.gastou = true;
+    } else {
+      this.gastou = false;
+      this.economizou = true;
+    }
+  }
+
+  verificaGastoOuEconomiaMesAnterior(previousMonthPercentage: string) {
+    if (previousMonthPercentage.includes('-')) {
       this.economizou = false;
       this.gastou = true;
     } else {
