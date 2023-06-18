@@ -36,8 +36,8 @@ public interface FixTransactionRepository extends JpaRepository<FixTransaction, 
 
     List<FixTransaction> findByCategoryAndPayDayBetween(TransactionCategoryType categoryType, LocalDate startOfMonth, LocalDate endOfMonth);
 
-    @Query("SELECT ft FROM FixTransaction ft INNER JOIN ft.transaction t WHERE ft.edited = false AND t.client = :client AND (:categoryType IS NULL OR ft.category = :categoryType)")
-    List<FixTransaction> findFixTransactionByEditedFalse(Client client, TransactionCategoryType categoryType);
+    @Query("SELECT ft FROM FixTransaction ft INNER JOIN ft.transaction t WHERE ft.edited = false AND ft.payDay <= :startDate AND t.client = :client AND (:categoryType IS NULL OR ft.category = :categoryType)")
+    List<FixTransaction> findFixTransactionByEditedFalse(Client client, TransactionCategoryType categoryType, LocalDate startDate);
 
     List<FixTransaction> findByCategoryAndPayDayBetweenAndEditedIsTrue(TransactionCategoryType categoryType, LocalDate startOfMonth, LocalDate endOfMonth);
 }

@@ -143,7 +143,7 @@ public class TransactionServiceImpl implements TransactionService {
 
         var installmentTransactions = installmentTransactionRepository.findByPayDayBetweenAndTransactions(startOfMonth, endOfMonth, categoryType, client);
         var fixTransactionsEdited = fixTransactionRepository.findFixTransactionByPayDayBetween(startOfMonth, endOfMonth, Boolean.TRUE, allTransactions, categoryType);
-        var fixTransactions = fixTransactionRepository.findFixTransactionByEditedFalse(client, categoryType);
+        var fixTransactions = fixTransactionRepository.findFixTransactionByEditedFalse(client, categoryType, startOfMonth);
 
         List<Transaction> transactionsEdited = fixTransactionsEdited.stream()
                 .map(FixTransaction::getTransaction)
@@ -245,7 +245,7 @@ public class TransactionServiceImpl implements TransactionService {
 
         var installmentTransactions = installmentTransactionRepository.findByPayDayBetweenAndTransactions(startOfMonth, endOfMonth, null, client);
         var fixTransactionsEdited = fixTransactionRepository.findFixTransactionByPayDayBetween(startOfMonth, endOfMonth, Boolean.TRUE, allTransactions, null);
-        var fixTransactions = fixTransactionRepository.findFixTransactionByEditedFalse(client, null);
+        var fixTransactions = fixTransactionRepository.findFixTransactionByEditedFalse(client, null, endOfMonth);
 
         List<Transaction> transactionsEdited = fixTransactionsEdited.stream()
                 .map(FixTransaction::getTransaction)
@@ -444,7 +444,7 @@ public class TransactionServiceImpl implements TransactionService {
 
         List<InstallmentTransaction> installmentTransactions = installmentTransactionRepository.findByPayDayBetweenAndTransactions(startOfMonth, endOfMonth, categoryType, client);
         List<FixTransaction> fixTransactionsEdited = fixTransactionRepository.findFixTransactionByPayDayBetween(startOfMonth, endOfMonth, Boolean.TRUE, allTransactions, categoryType);
-        List<FixTransaction> fixTransactions = fixTransactionRepository.findFixTransactionByEditedFalse(client, categoryType);
+        List<FixTransaction> fixTransactions = fixTransactionRepository.findFixTransactionByEditedFalse(client, categoryType, startOfMonth);
 
         List<Transaction> transactionsEdited = fixTransactionsEdited.stream()
                 .map(FixTransaction::getTransaction)

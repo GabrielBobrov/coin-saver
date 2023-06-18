@@ -12,6 +12,7 @@ import com.coinsaver.domain.entities.Transaction;
 import com.coinsaver.domain.exceptions.BusinessException;
 import com.coinsaver.domain.mapper.FixTransactionMapper;
 import com.coinsaver.infra.repositories.FixTransactionRepository;
+import com.coinsaver.infra.repositories.TransactionRepository;
 import com.coinsaver.services.transactions.domain.interfaces.FixTransactionDomainService;
 import org.springframework.stereotype.Service;
 
@@ -22,12 +23,15 @@ import java.util.Optional;
 public class FixTransactionDomainServiceImpl implements FixTransactionDomainService {
 
     private final FixTransactionRepository fixTransactionRepository;
+    private final TransactionRepository transactionRepository;
 
     private final FixTransactionMapper fixTransactionMapper;
 
     public FixTransactionDomainServiceImpl(FixTransactionRepository fixTransactionRepository,
+                                           TransactionRepository transactionRepository,
                                            FixTransactionMapper fixTransactionMapper) {
         this.fixTransactionRepository = fixTransactionRepository;
+        this.transactionRepository = transactionRepository;
         this.fixTransactionMapper = fixTransactionMapper;
     }
 
@@ -69,6 +73,7 @@ public class FixTransactionDomainServiceImpl implements FixTransactionDomainServ
                     updateTransactionRequestDto.getDescription(),
                     fixTransaction.getId());
         }
+        transactionRepository.updateTransactionPayday(updateTransactionRequestDto.getPayDay(), transaction.getId());
     }
 
     @Override
