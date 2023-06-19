@@ -6,6 +6,8 @@ import com.coinsaver.api.dtos.request.TransactionRequestDto;
 import com.coinsaver.api.dtos.request.UpdateTransactionRequestDto;
 import com.coinsaver.domain.entities.Transaction;
 
+import java.time.LocalDate;
+
 public interface FixTransactionDomainService {
     void updateFixTransaction(Transaction transaction, UpdateTransactionRequestDto updateTransactionRequestDto);
 
@@ -13,7 +15,7 @@ public interface FixTransactionDomainService {
 
     void updateAllFixTransactions(Transaction transaction, UpdateTransactionRequestDto updateTransactionRequestDto);
 
-    void payTransaction(PayTransactionRequestDto payTransactionRequestDto);
+    void payTransaction(PayTransactionRequestDto payTransactionRequestDto, LocalDate payDate);
 
-    void receiveTransaction(ReceiveTransactionRequestDto receiveTransactionRequestDto);
+    void receiveTransaction(ReceiveTransactionRequestDto receiveTransactionRequestDto, LocalDate receiveDate);
 }

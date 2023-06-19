@@ -110,7 +110,7 @@ public class FixTransactionDomainServiceImpl implements FixTransactionDomainServ
     }
 
     @Override
-    public void payTransaction(PayTransactionRequestDto payTransactionRequestDto) {
+    public void payTransaction(PayTransactionRequestDto payTransactionRequestDto, LocalDate payDate) {
 
         FixTransaction fixTransaction = fixTransactionRepository.findById(payTransactionRequestDto.getTransactionId())
                 .orElseThrow(() -> new BusinessException(ErrorMessages.getErrorMessage("TRANSACTION_NOT_FOUND")));
@@ -129,6 +129,7 @@ public class FixTransactionDomainServiceImpl implements FixTransactionDomainServ
             fixTransactionEdited.setEdited(Boolean.TRUE);
             fixTransactionEdited.setTransaction(fixTransaction.getTransaction());
             fixTransactionEdited.setDivision(fixTransaction.getDivision());
+            fixTransactionEdited.setPayDay(payDate);
 
             fixTransactionRepository.save(fixTransactionEdited);
         } else {
@@ -139,7 +140,7 @@ public class FixTransactionDomainServiceImpl implements FixTransactionDomainServ
     }
 
     @Override
-    public void receiveTransaction(ReceiveTransactionRequestDto receiveTransactionRequestDto) {
+    public void receiveTransaction(ReceiveTransactionRequestDto receiveTransactionRequestDto, LocalDate receiveDate) {
 
 
         FixTransaction fixTransaction = fixTransactionRepository.findById(receiveTransactionRequestDto.getTransactionId())
@@ -159,6 +160,7 @@ public class FixTransactionDomainServiceImpl implements FixTransactionDomainServ
             fixTransactionEdited.setTransaction(fixTransaction.getTransaction());
             fixTransactionEdited.setDivision(fixTransaction.getDivision());
             fixTransactionEdited.receiveTransaction();
+            fixTransactionEdited.setPayDay(receiveDate);
 
             fixTransactionRepository.save(fixTransactionEdited);
         } else {

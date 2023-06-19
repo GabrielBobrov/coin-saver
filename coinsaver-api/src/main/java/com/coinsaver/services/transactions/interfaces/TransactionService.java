@@ -27,11 +27,11 @@ public interface TransactionService {
 
     UpdateTransactionResponseDto updateTransaction(UpdateTransactionRequestDto transactionRequestDto);
 
-    void payTransaction(PayTransactionRequestDto payTransactionRequestDto);
+    void payTransaction(PayTransactionRequestDto payTransactionRequestDto, LocalDate payDate);
 
     void deleteByTransactionId(Long transactionId);
 
-    void receiveTransaction(ReceiveTransactionRequestDto receiveTransactionRequestDto);
+    void receiveTransaction(ReceiveTransactionRequestDto receiveTransactionRequestDto, LocalDate receiveDate);
 
     List<MonthlyChartResponseDto> getTransactionsAmountByCategory(LocalDate date);
 

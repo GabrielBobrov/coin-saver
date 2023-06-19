@@ -142,7 +142,7 @@ public class TransactionServiceImpl implements TransactionService {
                 .toList();
 
         var installmentTransactions = installmentTransactionRepository.findByPayDayBetweenAndTransactions(startOfMonth, endOfMonth, categoryType, client);
-        var fixTransactionsEdited = fixTransactionRepository.findFixTransactionByPayDayBetween(startOfMonth, endOfMonth, Boolean.TRUE, allTransactions, categoryType);
+        var fixTransactionsEdited = fixTransactionRepository.findFixTransactionByPayDayBetween(startOfMonth, endOfMonth, Boolean.TRUE, categoryType);
         var fixTransactions = fixTransactionRepository.findFixTransactionByEditedFalse(client, categoryType, startOfMonth);
 
         List<Transaction> transactionsEdited = fixTransactionsEdited.stream()
@@ -244,7 +244,7 @@ public class TransactionServiceImpl implements TransactionService {
                 .toList();
 
         var installmentTransactions = installmentTransactionRepository.findByPayDayBetweenAndTransactions(startOfMonth, endOfMonth, null, client);
-        var fixTransactionsEdited = fixTransactionRepository.findFixTransactionByPayDayBetween(startOfMonth, endOfMonth, Boolean.TRUE, allTransactions, null);
+        var fixTransactionsEdited = fixTransactionRepository.findFixTransactionByPayDayBetween(startOfMonth, endOfMonth, Boolean.TRUE, null);
         var fixTransactions = fixTransactionRepository.findFixTransactionByEditedFalse(client, null, endOfMonth);
 
         List<Transaction> transactionsEdited = fixTransactionsEdited.stream()
@@ -362,11 +362,11 @@ public class TransactionServiceImpl implements TransactionService {
 
     @Transactional
     @Override
-    public void payTransaction(PayTransactionRequestDto payTransactionRequestDto) {
+    public void payTransaction(PayTransactionRequestDto payTransactionRequestDto, LocalDate payDate) {
         switch (payTransactionRequestDto.getTransactionType()) {
             case IN_CASH -> transactionDomainService.payTransaction(payTransactionRequestDto);
             case INSTALLMENT -> installmentTransactionDomainService.payTransaction(payTransactionRequestDto);
-            case FIX -> fixTransactionDomainService.payTransaction(payTransactionRequestDto);
+            case FIX -> fixTransactionDomainService.payTransaction(payTransactionRequestDto, payDate);
         }
     }
 
@@ -382,11 +382,11 @@ public class TransactionServiceImpl implements TransactionService {
 
     @Transactional
     @Override
-    public void receiveTransaction(ReceiveTransactionRequestDto receiveTransactionRequestDto) {
+    public void receiveTransaction(ReceiveTransactionRequestDto receiveTransactionRequestDto, LocalDate receiveDate) {
         switch (receiveTransactionRequestDto.getTransactionType()) {
             case IN_CASH -> transactionDomainService.receiveTransaction(receiveTransactionRequestDto);
             case INSTALLMENT -> installmentTransactionDomainService.receiveTransaction(receiveTransactionRequestDto);
-            case FIX -> fixTransactionDomainService.receiveTransaction(receiveTransactionRequestDto);
+            case FIX -> fixTransactionDomainService.receiveTransaction(receiveTransactionRequestDto, receiveDate);
         }
     }
 
@@ -443,7 +443,7 @@ public class TransactionServiceImpl implements TransactionService {
         Map<String, BigDecimal> map = new HashMap<>();
 
         List<InstallmentTransaction> installmentTransactions = installmentTransactionRepository.findByPayDayBetweenAndTransactions(startOfMonth, endOfMonth, categoryType, client);
-        List<FixTransaction> fixTransactionsEdited = fixTransactionRepository.findFixTransactionByPayDayBetween(startOfMonth, endOfMonth, Boolean.TRUE, allTransactions, categoryType);
+        List<FixTransaction> fixTransactionsEdited = fixTransactionRepository.findFixTransactionByPayDayBetween(startOfMonth, endOfMonth, Boolean.TRUE, categoryType);
         List<FixTransaction> fixTransactions = fixTransactionRepository.findFixTransactionByEditedFalse(client, categoryType, startOfMonth);
 
         List<Transaction> transactionsEdited = fixTransactionsEdited.stream()

@@ -79,9 +79,9 @@ public class TransactionsController implements TransactionsControllerOpenApi {
 
     @PatchMapping("/pay")
     @ResponseStatus(HttpStatus.NO_CONTENT)
-    public void payTransaction(@RequestBody @Valid PayTransactionRequestDto payTransactionRequestDto) {
+    public void payTransaction(@RequestBody @Valid PayTransactionRequestDto payTransactionRequestDto, @RequestParam LocalDate payDate) {
 
-        transactionService.payTransaction(payTransactionRequestDto);
+        transactionService.payTransaction(payTransactionRequestDto, payDate);
     }
 
     @DeleteMapping("/{transactionId}")
@@ -93,9 +93,9 @@ public class TransactionsController implements TransactionsControllerOpenApi {
 
     @PatchMapping("/receive")
     @ResponseStatus(HttpStatus.NO_CONTENT)
-    public void receiveTransaction(@RequestBody @Valid ReceiveTransactionRequestDto receiveTransactionRequestDto) {
+    public void receiveTransaction(@RequestBody @Valid ReceiveTransactionRequestDto receiveTransactionRequestDto, @RequestParam LocalDate receiveDate) {
 
-        transactionService.receiveTransaction(receiveTransactionRequestDto);
+        transactionService.receiveTransaction(receiveTransactionRequestDto, receiveDate);
     }
 
     @GetMapping("/chart/category")

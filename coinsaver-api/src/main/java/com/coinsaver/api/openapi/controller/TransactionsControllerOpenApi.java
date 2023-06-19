@@ -64,12 +64,12 @@ public interface TransactionsControllerOpenApi {
     })
     void deleteByTransactionId(@PathVariable Long transactionId);
 
-    void payTransaction(@RequestBody(description = "Representação de uma requisição de pagamento") PayTransactionRequestDto payTransactionRequestDto);
+    void payTransaction(@RequestBody(description = "Representação de uma requisição de pagamento") PayTransactionRequestDto payTransactionRequestDto, @RequestParam LocalDate receiveDate);
 
     @Operation(summary = "Receber transação", responses = {
             @ApiResponse(responseCode = "204"),
     })
-    void receiveTransaction(@RequestBody @Valid ReceiveTransactionRequestDto receiveTransactionRequestDto);
+    void receiveTransaction(@RequestBody @Valid ReceiveTransactionRequestDto receiveTransactionRequestDto, LocalDate receiveDate);
 
     @Operation(summary = "Buscar valores de transações agrupadas por categoria", responses = {
             @ApiResponse(responseCode = "200"),
