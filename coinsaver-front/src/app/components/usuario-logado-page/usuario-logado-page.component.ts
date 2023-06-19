@@ -50,6 +50,8 @@ export class UsuarioLogadoPageComponent implements OnInit {
   isMostrarGraficoExpense?: boolean;
   isMostrarGraficoIncome?: boolean;
 
+  dataHoje: any;
+
   constructor(
     private transactionsService: TransactionsService,
     public router: Router,
@@ -57,6 +59,7 @@ export class UsuarioLogadoPageComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
+    this.dataHoje = this.dataUtils.formataTextoTabelaMensal(this.dataUtils.transformaToLocalDateFormat('US'));
     this.formataDataInicialTabelaMensal();
   }
 

@@ -2,15 +2,22 @@
   background: linear-gradient(to right,#fe801f1a 0%,#f0fcfb 200%);
 }
 
-.grafico-category {
+.info-inicial {
   margin-top: -735px;
   margin-left: 400px;
   position: static;
   flex-direction: column;
 }
 
+.grafico-category {
+  margin-top: 40px;
+  margin-left: 400px;
+  position: static;
+  flex-direction: column;
+}
+
 .grafico-division-expense {
-  margin-top: -474px;
+  margin-top: -475px;
   margin-left: 860px;
   position: static;
   flex-direction: column;
