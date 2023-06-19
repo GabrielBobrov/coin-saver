@@ -140,8 +140,8 @@ export class TransactionsService {
     );
   }
 
-  updateTransactionPatchPay(payTransactionRequestDto: PayTransactionRequestDto) {
-    const url = this.baseUrl + this.transactionControllerUrl + environment.api.transactionsBackendEndpoints.updateTransactionPatchPay;
+  updateTransactionPatchPay(payTransactionRequestDto: PayTransactionRequestDto, payDate: string) {
+    const url = this.baseUrl + this.transactionControllerUrl + environment.api.transactionsBackendEndpoints.updateTransactionPatchPay + `?payDate=${payDate}`;
     const body = JSON.stringify(payTransactionRequestDto);
     const headers = { 'Content-Type': 'application/json', 'Authorization': `Bearer ${(this.token)}` };
 
@@ -152,8 +152,8 @@ export class TransactionsService {
     );
   }
 
-  updateTransactionPatchReceive(receiveTransactionRequestDto: ReceiveTransactionRequestDto) {
-    const url = this.baseUrl + this.transactionControllerUrl + environment.api.transactionsBackendEndpoints.updateTransactionPatchReceive;
+  updateTransactionPatchReceive(receiveTransactionRequestDto: ReceiveTransactionRequestDto, receiveDate: string) {
+    const url = this.baseUrl + this.transactionControllerUrl + environment.api.transactionsBackendEndpoints.updateTransactionPatchReceive + `?receiveDate=${receiveDate}`;
     const body = JSON.stringify(receiveTransactionRequestDto);
     const headers = { 'Content-Type': 'application/json', 'Authorization': `Bearer ${(this.token)}` };
 

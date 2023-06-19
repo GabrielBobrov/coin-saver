@@ -99,7 +99,7 @@ export class TableMensalComponent implements OnInit {
         this.receiveTransactionRequestDto.transactionType = transaction.transactionType;
       }
 
-      this.transactionsService.updateTransactionPatchReceive(this.receiveTransactionRequestDto).subscribe(
+      this.transactionsService.updateTransactionPatchReceive(this.receiveTransactionRequestDto, this.date).subscribe(
         (res) => {
           this.messageService.add({ severity: 'success', summary: 'Success', detail: 'Transação RECEBIDA com sucesso' });
           setTimeout(() => {
@@ -123,7 +123,7 @@ export class TableMensalComponent implements OnInit {
         this.payTransactionRequestDto.transactionType = transaction.transactionType;
       }
 
-      this.transactionsService.updateTransactionPatchPay(this.payTransactionRequestDto).subscribe(
+      this.transactionsService.updateTransactionPatchPay(this.payTransactionRequestDto, this.date).subscribe(
         (res) => {
           this.messageService.add({ severity: 'success', summary: 'Success', detail: 'Transação PAGA com sucesso' });
           setTimeout(() => {
