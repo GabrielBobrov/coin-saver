@@ -55,9 +55,7 @@
             <mat-form-field class="mat-form-field" appearance="fill">
               <mat-label>Data Inicial do Pagamento</mat-label>
               <input matInput [matDatepicker]="picker" [formControl]="date">
-              <mat-hint></mat-hint>
-              <mat-datepicker-toggle matIconSuffix [for]="picker">
-                <!-- <mat-icon matDatepickerToggleIcon>keyboard_arrow_down</mat-icon> -->
+              <mat-datepicker-toggle matIconPrefix [for]="picker">
               </mat-datepicker-toggle>
               <mat-datepicker #picker (monthSelected)="setCalendarDate($event, picker)" panelClass="example-month-picker"></mat-datepicker>
             </mat-form-field>
@@ -89,9 +87,7 @@
             <mat-form-field class="mat-form-field" appearance="fill">
               <mat-label>Data Inicial do Pagamento</mat-label>
               <input matInput [matDatepicker]="picker" [formControl]="date">
-              <mat-hint></mat-hint>
-              <mat-datepicker-toggle matIconSuffix [for]="picker">
-                <!-- <mat-icon matDatepickerToggleIcon>keyboard_arrow_down</mat-icon> -->
+              <mat-datepicker-toggle matIconPrefix [for]="picker">
               </mat-datepicker-toggle>
               <mat-datepicker #picker (monthSelected)="setCalendarDate($event, picker)" panelClass="example-month-picker"></mat-datepicker>
             </mat-form-field>
