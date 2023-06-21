@@ -1,0 +1,10 @@
+.header-superior {
+  background: none;
+  display: flex;
+  flex-direction: column;
+}
+
+.header-imagem, .header-botoes {
+  display: flex;
+  justify-content: center;
+}
