@@ -22,6 +22,7 @@ import { ModalUpdateTransacaoComponent } from '../../components/usuario-logado-p
 import { DatepickerSelectionComponent } from 'src/app/shared/datepicker-selection/datepicker-selection.component';
 import { ModalTrocarSenhaComponent } from '../../components/usuario-logado-page/modal-trocar-senha/modal-trocar-senha.component';
 import { PerformancePageComponent } from '../../components/usuario-logado-page/performance-page/performance-page.component';
+import { QuemSomosPageComponent } from '../../components/initial-page/quem-somos-page/quem-somos-page.component';
 
 @NgModule({
   declarations: [
@@ -41,6 +42,7 @@ import { PerformancePageComponent } from '../../components/usuario-logado-page/p
     DatepickerSelectionComponent,
     ModalTrocarSenhaComponent,
     PerformancePageComponent,
+    QuemSomosPageComponent,
   ],
   imports: [
     InitialPageRoutingModule,

@@ -10,6 +10,35 @@
 
 <body data-bs-offset="120" data-bs-spy="scroll" data-bs-target="#sidebarMenu" tabindex="0" data-aos-easing="ease-out"
   data-aos-duration="350" data-aos-delay="0">
+  <footer class="footer pt-3">
+    <div class="container footer-links">
+      <div class="row  justify-content-evenly">
+        <div class="col-xs-12 mb-3  col-sm-12 col-md-3 col-lg-auto">
+          <a class="m-0 p-0" (click)="abrirQuemSomosPage()" style="cursor: pointer;">Quem somos</a>
+        </div>
+        <div class="col-xs-12 mb-3 mb-md-5 col-sm-12 col-md-3 col-lg-auto">
+          <a class="m-0 p-0" href="/termos-de-uso/" target="_blank">Nossa história</a>
+        </div>
+
+        <div class="col-xs-12 mb-3 mb-md-5 col-sm-12 col-md-3 col-lg-auto">
+          <a class="m-0 p-0" href="/politica-de-privacidade/" target="_blank">Ferramentas utilizadas</a>
+        </div>
+
+        <div class="col-xs-12 mb-3 mb-md-5 col-sm-12 col-md-3 col-lg-auto">
+          <a class="m-0 p-0" href="/manual" target="_blank">Referências</a>
+        </div>
+
+        <div class="col-xs-12 mb-3 mb-md-5 col-sm-12 col-md-3 col-lg-auto">
+          <a class="m-0 p-0" href="/blog" target="_blank">Etapas do projeto</a>
+        </div>
+
+        <div class="col-xs-12 mb-3 mb-md-5 col-sm-12 col-md-3 col-lg-auto">
+          <a class="m-0 p-0" href="/fale-conosco/" target="_blank">Fale conosco</a>
+        </div>
+      </div>
+    </div>
+  </footer>
+
   <header class="header" id="header">
     <!-- <nav class="navbar pt-2 pb-3 navbar-expand-lg navbar-light" id="navbar"> -->
     <!-- <div class="container nav-container aos-init aos-animate" data-aos="fade" data-aos-duration="280"> -->
@@ -186,37 +215,11 @@
           </div>
         </div>
 
-        <!-- <div class="col-sm-12 col-md-6 box-recursos">
-          <div class="d-flex flex-row wrapper">
-            <div class="wrapper-img">
-              <img alt="" class="icon-img" data-cms-original-src="/assets/imgs/icons/pessoal/sms.png"
-                src="/assets/imgs/icons/pessoal/sms.png?_cchid=49d0ac327cba4c8c1aeb438fdee42593">
-            </div>
-            <div class="wrapper-text">
-              <h3 class="h3">CABE MAIS UM RECURSO</h3>
-              <p>Importe SMS financeiros e notificações push recebidas do seu banco ou cartão.</p>
-            </div>
-          </div>
-        </div> -->
-
       </div>
     </div>
   </section>
 
   <section class="app-stores mt-1 mt-md-5 py-1 py-md-5" style="padding-top: 0rem!important;">
-    <!-- <div class="svg-wave-top">
-      <svg preserveAspectRatio="none" viewBox="0 0 1440 320" xmlns="http://www.w3.org/2000/svg">
-        <defs>
-          <linearGradient id="grad3" x1="0%" x2="200%" y1="0%" y2="0%">
-            <stop offset="0%" style="stop-color:rgb(245, 123, 9);stop-opacity:1"></stop>
-            <stop offset="200%" style="stop-color:rgb(8, 245, 225);stop-opacity:1"></stop>
-          </linearGradient>
-        </defs>
-        <path
-          d="M0,192L48,165.3C96,139,192,85,288,64C384,43,480,53,576,96C672,139,768,213,864,229.3C960,245,1056,203,1152,160C1248,117,1344,75,1392,53.3L1440,32L1440,320L1392,320C1344,320,1248,320,1152,320C1056,320,960,320,864,320C768,320,672,320,576,320C480,320,384,320,288,320C192,320,96,320,48,320L0,320Z"
-          fill="url(#grad3)" fill-opacity="1"></path>
-      </svg>
-    </div> -->
 
     <div class="content section-bg pb-5">
       <div class="container">
@@ -298,26 +301,26 @@
     <div class="container footer-links">
       <div class="row  justify-content-evenly">
         <div class="col-xs-12 mb-3  col-sm-12 col-md-3 col-lg-auto">
-          <a class="m-0 p-0" href="/quem-somos/" target="_blank">Quem somos</a>
+          <a class="m-0 p-0" (click)="abrirQuemSomosPage()" style="cursor: pointer;">Quem somos</a>
         </div>
         <div class="col-xs-12 mb-3 mb-md-5 col-sm-12 col-md-3 col-lg-auto">
-          <a class="m-0 p-0" href="/termos-de-uso/" target="_blank">Termos de uso</a>
-        </div>
-
-        <div class="col-xs-12 mb-3 mb-md-5 col-sm-12 col-md-3 col-lg-auto">
-          <a class="m-0 p-0" href="/politica-de-privacidade/" target="_blank">Politica de privacidade</a>
+          <a class="m-0 p-0" href="/termos-de-uso/" target="_blank">Nossa história</a>
         </div>
 
         <div class="col-xs-12 mb-3 mb-md-5 col-sm-12 col-md-3 col-lg-auto">
-          <a class="m-0 p-0" href="/blog" target="_blank">Blog</a>
+          <a class="m-0 p-0" href="/politica-de-privacidade/" target="_blank">Ferramentas utilizadas</a>
+        </div>
+
+        <div class="col-xs-12 mb-3 mb-md-5 col-sm-12 col-md-3 col-lg-auto">
+          <a class="m-0 p-0" href="/manual" target="_blank">Referências</a>
+        </div>
+
+        <div class="col-xs-12 mb-3 mb-md-5 col-sm-12 col-md-3 col-lg-auto">
+          <a class="m-0 p-0" href="/blog" target="_blank">Etapas do projeto</a>
         </div>
 
         <div class="col-xs-12 mb-3 mb-md-5 col-sm-12 col-md-3 col-lg-auto">
           <a class="m-0 p-0" href="/fale-conosco/" target="_blank">Fale conosco</a>
-        </div>
-
-        <div class="col-xs-12 mb-3 mb-md-5 col-sm-12 col-md-3 col-lg-auto">
-          <a class="m-0 p-0" href="/manual" target="_blank">Manual</a>
         </div>
       </div>
     </div>

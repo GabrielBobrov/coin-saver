@@ -30,4 +30,12 @@ export class InitialPageComponent {
     });
   }
 
+  abrirQuemSomosPage() {
+    this.router.navigateByUrl('quem-somos-page', {
+      state: {
+        data: {},
+      },
+    });
+  }
+
 }
