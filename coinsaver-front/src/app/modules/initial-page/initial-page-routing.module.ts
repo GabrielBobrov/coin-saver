@@ -9,6 +9,7 @@ import { MensalComponent } from 'src/app/components/usuario-logado-page/barra-fu
 import { PerformancePageComponent } from 'src/app/components/usuario-logado-page/performance-page/performance-page.component';
 import { QuemSomosPageComponent } from 'src/app/components/initial-page/quem-somos-page/quem-somos-page.component';
 import { NossaHistoriaPageComponent } from 'src/app/components/initial-page/nossa-historia-page/nossa-historia-page.component';
+import { TecnologiasUtilizadasPageComponent } from 'src/app/components/initial-page/tecnologias-utilizadas-page/tecnologias-utilizadas-page.component';
 
 const routes: Routes = [
   {
@@ -23,6 +24,10 @@ const routes: Routes = [
   {
     path: 'nossa-historia-page',
     component: NossaHistoriaPageComponent
+  },
+  {
+    path: 'tecnologias-utilizadas-page',
+    component: TecnologiasUtilizadasPageComponent
   },
   {
     path: 'login-page',

@@ -46,4 +46,12 @@ export class InitialPageComponent {
     });
   }
 
+  abrirTecnologiasUtilizadasPage() {
+    this.router.navigateByUrl('tecnologias-utilizadas-page', {
+      state: {
+        data: {},
+      },
+    });
+  }
+
 }

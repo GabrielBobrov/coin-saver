@@ -3,7 +3,7 @@ import { AngularMaterialModule } from './../outros-components/angular-material.m
 import { HttpClientModule } from '@angular/common/http';
 import { InitialPageRoutingModule } from './initial-page-routing.module';
 import { InitialPageComponent } from './../../components/initial-page/initial-page.component';
-import { NgModule, LOCALE_ID } from '@angular/core';
+import { NgModule } from '@angular/core';
 import { platformBrowserDynamic } from '@angular/platform-browser-dynamic';
 import { ModalCadastroUsuarioComponent } from '../../components/modal-cadastro-usuario/modal-cadastro-usuario.component';
 import { CadastroUsuarioPageComponent } from '../../components/modal-cadastro-usuario/cadastro-usuario-page/cadastro-usuario-page.component';
@@ -24,6 +24,7 @@ import { ModalTrocarSenhaComponent } from '../../components/usuario-logado-page/
 import { PerformancePageComponent } from '../../components/usuario-logado-page/performance-page/performance-page.component';
 import { QuemSomosPageComponent } from '../../components/initial-page/quem-somos-page/quem-somos-page.component';
 import { NossaHistoriaPageComponent } from '../../components/initial-page/nossa-historia-page/nossa-historia-page.component';
+import { TecnologiasUtilizadasPageComponent } from 'src/app/components/initial-page/tecnologias-utilizadas-page/tecnologias-utilizadas-page.component';
 
 @NgModule({
   declarations: [
@@ -45,6 +46,7 @@ import { NossaHistoriaPageComponent } from '../../components/initial-page/nossa-
     PerformancePageComponent,
     QuemSomosPageComponent,
     NossaHistoriaPageComponent,
+    TecnologiasUtilizadasPageComponent
   ],
   imports: [
     InitialPageRoutingModule,
