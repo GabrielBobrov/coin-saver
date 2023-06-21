@@ -23,6 +23,7 @@ import { DatepickerSelectionComponent } from 'src/app/shared/datepicker-selectio
 import { ModalTrocarSenhaComponent } from '../../components/usuario-logado-page/modal-trocar-senha/modal-trocar-senha.component';
 import { PerformancePageComponent } from '../../components/usuario-logado-page/performance-page/performance-page.component';
 import { QuemSomosPageComponent } from '../../components/initial-page/quem-somos-page/quem-somos-page.component';
+import { NossaHistoriaPageComponent } from '../../components/initial-page/nossa-historia-page/nossa-historia-page.component';
 
 @NgModule({
   declarations: [
@@ -43,6 +44,7 @@ import { QuemSomosPageComponent } from '../../components/initial-page/quem-somos
     ModalTrocarSenhaComponent,
     PerformancePageComponent,
     QuemSomosPageComponent,
+    NossaHistoriaPageComponent,
   ],
   imports: [
     InitialPageRoutingModule,

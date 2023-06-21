@@ -38,4 +38,12 @@ export class InitialPageComponent {
     });
   }
 
+  abrirNossaHistoriaPage() {
+    this.router.navigateByUrl('nossa-historia-page', {
+      state: {
+        data: {},
+      },
+    });
+  }
+
 }

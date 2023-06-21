@@ -8,6 +8,7 @@ import { GeralComponent } from 'src/app/components/usuario-logado-page/barra-fun
 import { MensalComponent } from 'src/app/components/usuario-logado-page/barra-funcoes-lateral/transacoes/mensal/mensal.component';
 import { PerformancePageComponent } from 'src/app/components/usuario-logado-page/performance-page/performance-page.component';
 import { QuemSomosPageComponent } from 'src/app/components/initial-page/quem-somos-page/quem-somos-page.component';
+import { NossaHistoriaPageComponent } from 'src/app/components/initial-page/nossa-historia-page/nossa-historia-page.component';
 
 const routes: Routes = [
   {
@@ -18,6 +19,10 @@ const routes: Routes = [
   {
     path: 'quem-somos-page',
     component: QuemSomosPageComponent
+  },
+  {
+    path: 'nossa-historia-page',
+    component: NossaHistoriaPageComponent
   },
   {
     path: 'login-page',
