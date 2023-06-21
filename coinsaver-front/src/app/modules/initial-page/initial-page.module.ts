@@ -25,6 +25,7 @@ import { PerformancePageComponent } from '../../components/usuario-logado-page/p
 import { QuemSomosPageComponent } from '../../components/initial-page/quem-somos-page/quem-somos-page.component';
 import { NossaHistoriaPageComponent } from '../../components/initial-page/nossa-historia-page/nossa-historia-page.component';
 import { TecnologiasUtilizadasPageComponent } from 'src/app/components/initial-page/tecnologias-utilizadas-page/tecnologias-utilizadas-page.component';
+import { ReferenciasPageComponent } from '../../components/initial-page/referencias-page/referencias-page.component';
 
 @NgModule({
   declarations: [
@@ -46,7 +47,8 @@ import { TecnologiasUtilizadasPageComponent } from 'src/app/components/initial-p
     PerformancePageComponent,
     QuemSomosPageComponent,
     NossaHistoriaPageComponent,
-    TecnologiasUtilizadasPageComponent
+    TecnologiasUtilizadasPageComponent,
+    ReferenciasPageComponent
   ],
   imports: [
     InitialPageRoutingModule,

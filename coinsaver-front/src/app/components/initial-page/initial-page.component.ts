@@ -54,4 +54,12 @@ export class InitialPageComponent {
     });
   }
 
+  abrirReferenciasPage() {
+    this.router.navigateByUrl('referencias-page', {
+      state: {
+        data: {},
+      },
+    });
+  }
+
 }

@@ -10,6 +10,7 @@ import { PerformancePageComponent } from 'src/app/components/usuario-logado-page
 import { QuemSomosPageComponent } from 'src/app/components/initial-page/quem-somos-page/quem-somos-page.component';
 import { NossaHistoriaPageComponent } from 'src/app/components/initial-page/nossa-historia-page/nossa-historia-page.component';
 import { TecnologiasUtilizadasPageComponent } from 'src/app/components/initial-page/tecnologias-utilizadas-page/tecnologias-utilizadas-page.component';
+import { ReferenciasPageComponent } from 'src/app/components/initial-page/referencias-page/referencias-page.component';
 
 const routes: Routes = [
   {
@@ -28,6 +29,10 @@ const routes: Routes = [
   {
     path: 'tecnologias-utilizadas-page',
     component: TecnologiasUtilizadasPageComponent
+  },
+  {
+    path: 'referencias-page',
+    component: ReferenciasPageComponent
   },
   {
     path: 'login-page',
