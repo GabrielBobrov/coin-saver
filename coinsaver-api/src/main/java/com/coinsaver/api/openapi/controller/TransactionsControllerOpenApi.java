@@ -72,7 +72,7 @@ public interface TransactionsControllerOpenApi {
     @Operation(summary = "Receber transação", responses = {
             @ApiResponse(responseCode = "204"),
     })
-    void receiveTransaction(@RequestBody @Valid ReceiveTransactionRequestDto receiveTransactionRequestDto, LocalDate receiveDate);
+    void receiveTransaction(@RequestBody(description = "Representação de uma requisição de recebimento") @Valid ReceiveTransactionRequestDto receiveTransactionRequestDto, LocalDate receiveDate);
 
     @Operation(summary = "Buscar valores de transações agrupadas por categoria", responses = {
             @ApiResponse(responseCode = "200"),
