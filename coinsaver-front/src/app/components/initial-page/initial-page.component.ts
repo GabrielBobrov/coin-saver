@@ -62,4 +62,12 @@ export class InitialPageComponent {
     });
   }
 
+  abrirEtapasPage() {
+    this.router.navigateByUrl('etapas-page', {
+      state: {
+        data: {},
+      },
+    });
+  }
+
 }

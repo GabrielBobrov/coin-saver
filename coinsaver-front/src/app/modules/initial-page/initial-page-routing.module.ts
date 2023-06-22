@@ -11,6 +11,7 @@ import { QuemSomosPageComponent } from 'src/app/components/initial-page/quem-som
 import { NossaHistoriaPageComponent } from 'src/app/components/initial-page/nossa-historia-page/nossa-historia-page.component';
 import { TecnologiasUtilizadasPageComponent } from 'src/app/components/initial-page/tecnologias-utilizadas-page/tecnologias-utilizadas-page.component';
 import { ReferenciasPageComponent } from 'src/app/components/initial-page/referencias-page/referencias-page.component';
+import { EtapasPageComponent } from 'src/app/components/initial-page/etapas-page/etapas-page.component';
 
 const routes: Routes = [
   {
@@ -25,6 +26,10 @@ const routes: Routes = [
   {
     path: 'nossa-historia-page',
     component: NossaHistoriaPageComponent
+  },
+  {
+    path: 'etapas-page',
+    component: EtapasPageComponent
   },
   {
     path: 'tecnologias-utilizadas-page',
