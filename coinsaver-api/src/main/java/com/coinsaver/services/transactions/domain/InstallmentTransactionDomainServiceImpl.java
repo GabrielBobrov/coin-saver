@@ -108,7 +108,7 @@ public class InstallmentTransactionDomainServiceImpl implements InstallmentTrans
         InstallmentTransaction installmentTransaction = installmentTransactionRepository.findById(receiveTransactionRequestDto.getTransactionId())
                 .orElseThrow(() -> new BusinessException(ErrorMessages.getErrorMessage("TRANSACTION_NOT_FOUND")));
 
-        if (TransactionCategoryType.INCOME.equals(installmentTransaction.getCategory())) {
+        if (TransactionCategoryType.EXPENSE.equals(installmentTransaction.getCategory())) {
             throw new BusinessException(ErrorMessages.getErrorMessage("PAY_INCOME_TRANSACTION"));
         }
 
